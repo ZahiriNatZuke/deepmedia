@@ -1,1 +1,26 @@
-<p>video-card works!</p>
+<div class="card mb-8 w-100" style="height: 225px;">
+  <img src="../../../assets/img/view.jpg" class="w-100 h-100 rounded h-img" [routerLink]="['/video/view',1]">
+  <div class="justify-content-start">
+    <p class="font-weight-bold m-0 p-0 pl-2 info-text-title" [routerLink]="['/video/view',1]">
+      Streaming | UCi Video #1</p>
+    <div class="p-data" [routerLink]="['/auth/profile',1]">
+      <p class="font-weight-light m-0 p-0 info-text-user">
+        <span class="font-weight-normal">@</span>
+        ZahiriNatZuke
+      </p>
+    </div>
+  </div>
+  <div class="text-white info-user font-weight-light">
+    <span class="font-weight-light">hace un momento</span>
+    <div>
+      <span>1000<fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>
+      <span>1000<fa-icon [icon]="faComment" class="px-2"></fa-icon></span>
+      <span>1000<fa-icon [icon]="faHeart" class="px-2"></fa-icon></span>
+    </div>
+  </div>
+  <button mat-icon-button class="text-white btn-play">
+    <fa-icon [icon]="faPlayCircle"></fa-icon>
+  </button>
+  <img class="user-img" src="../../../assets/img/user.jpg" [routerLink]="['/auth/profile',1]">
+</div>
+

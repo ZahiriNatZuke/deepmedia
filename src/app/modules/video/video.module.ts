@@ -10,6 +10,7 @@ import {VideoCreateComponent} from './video-create/video-create.component';
 import {FavoritesComponent} from './favorites/favorites.component';
 import {AppRoutingModule} from '../../app-routing.module';
 import {VideoRoutingModule} from './video-routing.module';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -20,11 +21,16 @@ import {VideoRoutingModule} from './video-routing.module';
     VideoViewComponent,
     VideoUpdateComponent,
     VideoCreateComponent,
-    FavoritesComponent,],
+    FavoritesComponent
+  ],
+  exports: [
+    VideoRoutingModule
+  ],
   imports: [
     CommonModule,
     AppRoutingModule,
-    VideoRoutingModule
+    VideoRoutingModule,
+    SharedModule
   ]
 })
 export class VideoModule {

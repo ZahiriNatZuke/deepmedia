@@ -6,8 +6,28 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/libs/css/preloading.css">
+  <style>
+    .preloader-container {
+      display: flex;
+      justify-content: center;
+      height: -webkit-fill-available;
+      transition: .3s all ease;
+      z-index: 10000;
+    }
+
+    .preloader-stage {
+      align-self: center;
+    }
+  </style>
 </head>
 <body>
-<app-root></app-root>
+<app-root>
+  <div class="preloader-container">
+    <div class="preloader-stage">
+      <div class="dot-stretching"></div>
+    </div>
+  </div>
+</app-root>
 </body>
 </html>

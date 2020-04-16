@@ -1,0 +1,190 @@
+@import "../video-card/video-card.component";
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none !important;
+  list-style: none !important;
+}
+
+//Sidebar
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: #042331;
+  transition: all 0.5s ease;
+
+  .dropdown-sidebar {
+    background: #042a38;
+
+    ul {
+
+      li:hover a {
+        padding-left: 60px;
+      }
+
+      a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 40px;
+        font-size: 16px;
+        padding-left: 50px;
+        box-sizing: border-box;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid black;
+        transition: 0.4s;
+      }
+
+      fa-icon {
+        margin-right: 16px;
+      }
+
+    }
+
+  }
+
+  header {
+    font-size: 22px;
+    color: white;
+    text-align: start;
+    padding-left: 30px;
+    line-height: 70px;
+    background: #063146;
+    user-select: none;
+  }
+
+  ul {
+
+    li:hover a {
+      padding-left: 50px;
+    }
+
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      line-height: 65px;
+      font-size: 20px;
+      color: white;
+      padding-left: 40px;
+      box-sizing: border-box;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid black;
+      transition: 0.4s;
+
+      fa-icon {
+        margin-right: 16px;
+      }
+
+    }
+  }
+}
+
+#check {
+  display: none;
+}
+
+#labelcheck {
+  margin-bottom: 0 !important;
+}
+
+label #checkbtn,
+label #checkbtncancel {
+  position: fixed;
+  cursor: pointer;
+  background: #042331;
+  border-radius: 3px;
+}
+
+#Dropdown {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+label {
+
+  #checkbtn {
+    left: 20px;
+    top: 25px;
+    font-size: 28px;
+    color: white;
+    padding: 0 8px;
+    transition: all 0.5s;
+  }
+
+  #checkbtncancel {
+    z-index: 1111;
+    left: -195px;
+    top: 20px;
+    font-size: 26px;
+    color: white;
+    padding: 0 7px;
+    transition: all 0.5s ease;
+  }
+
+}
+
+#check:checked ~ {
+  .sidebar {
+    left: 0;
+  }
+
+  label #checkbtn {
+    left: 250px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  label #checkbtncancel {
+    left: 190px;
+  }
+
+  section.p-sidebar {
+    margin-left: 250px;
+    padding-left: 5px;
+  }
+
+  .social {
+    left: -100px;
+    transition: all .4s;
+  }
+
+}
+
+.link-categories {
+  user-select: none;
+  cursor: pointer;
+}
+
+//Social Links
+
+.social {
+  position: fixed;
+  left: 0;
+  top: 250px;
+  transition: all .4s;
+  user-select: none;
+}
+
+.social-link {
+  background: #042331;
+  line-height: 40px;
+  font-size: 32px;
+  transition: all .5s;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.social-link:hover {
+  padding-left: 20px;
+  transition: all .5s;
+}
+
+.social-link img {
+  padding: 0 4px 8px 4px;
+}

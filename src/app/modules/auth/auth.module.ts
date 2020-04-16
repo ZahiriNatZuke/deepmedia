@@ -16,6 +16,9 @@ import {AuthRoutingModule} from './auth-routing.module';
     RegisterComponent,
     ProfileComponent,
   ],
+  exports: [
+    AuthRoutingModule
+  ],
   imports: [
     CommonModule,
     AppRoutingModule,

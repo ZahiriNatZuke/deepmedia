@@ -4,6 +4,8 @@ import {WelcomeComponent} from './modules/shared/welcome/welcome.component';
 import {NotFoundComponent} from './modules/shared/not-found/not-found.component';
 import {AuthComponent} from './modules/auth/auth.component';
 import {VideoComponent} from './modules/video/video.component';
+import {AUTH_ROUTES} from './modules/auth/auth-routing.module';
+import {VIDEO_ROUTES} from './modules/video/video-routing.module';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -14,11 +16,11 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
-    loadChildren: './modules/auth/auth-routing.module#AuthRoutingModule'
+    children: AUTH_ROUTES
   }, {
     path: 'video',
     component: VideoComponent,
-    loadChildren: './modules/video/video-routing.module#VideoRoutingModule'
+    children: VIDEO_ROUTES
   },
   {path: '**', component: NotFoundComponent}
 ];

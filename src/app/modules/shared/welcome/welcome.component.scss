@@ -1,0 +1,44 @@
+section {
+  background: url("src/assets/img/welcome-background.jpg") no-repeat center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: .3s all ease;
+}
+
+@font-face {
+  font-family: 'Relaway-Regular';
+  src: url("../../../../assets/fonts/Raleway-Regular.ttf");
+}
+
+section{
+  margin-top: 24px !important;
+}
+
+* {
+  font-family: Relaway-Regular, sans-serif;
+  user-select: none;
+}
+
+.center {
+  align-self: center;
+  color: #90CAF9;
+}
+
+.bg-welcome {
+  background: #042331;
+}
+
+.border-welcome {
+  border: 2px solid #90CAF9;
+}
+
+.mat-icon-button {
+  font-size: 60px;
+  width: 80px;
+  height: 80px;
+  background: #042331;
+  border: 2px solid #90CAF9;
+}

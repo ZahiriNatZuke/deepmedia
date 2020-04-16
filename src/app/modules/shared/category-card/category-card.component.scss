@@ -1,0 +1,43 @@
+* {
+  user-select: none;
+  outline: none;
+}
+
+.bg-image {
+  background: url('src/assets/img/categories/gameplay.png') center;
+  background-size: cover;
+}
+
+.set-h {
+  height: 280px
+}
+
+.bg-chip{
+  background-color: rgba(95, 95, 95, 0.5) !important;
+}
+
+.f-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(95, 95, 95, 0.5) !important;
+  width: 100%;
+  margin: 0;
+}
+
+.f-category {
+  color: white;
+  font-size: 32px;
+  transition: all .4s;
+  cursor: pointer;
+}
+
+.mat-icon-button {
+  font-size: 35px;
+  width: 55px;
+  height: 55px;
+  position: absolute;
+  right: 15px;
+  transition: all .4s;
+  color: white;
+}

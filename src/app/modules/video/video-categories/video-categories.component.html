@@ -1,1 +1,4 @@
-<p>video-categories works!</p>
+<div class="card-columns">
+  <app-category-card [id]="'card-'+ i" [category]="category" [idCategory]="i"
+                     *ngFor="let category of categories; let i = index"></app-category-card>
+</div>
