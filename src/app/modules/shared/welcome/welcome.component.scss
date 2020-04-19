@@ -1,20 +1,18 @@
 section {
-  background: url("src/assets/img/welcome-background.jpg") no-repeat center;
-  background-size: cover;
+  background: linear-gradient(to bottom, #042937, #045669, #077d9b, #0898cd);
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   transition: .3s all ease;
+  margin-top: 24px;
 }
 
 @font-face {
   font-family: 'Relaway-Regular';
   src: url("../../../../assets/fonts/Raleway-Regular.ttf");
-}
-
-section{
-  margin-top: 24px !important;
 }
 
 * {

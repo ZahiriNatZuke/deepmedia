@@ -13,6 +13,18 @@ import {RouterModule} from '@angular/router';
 import {CategoryCardComponent} from './category-card/category-card.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import {ProfileCardComponent} from './profile/profile-card/profile-card.component';
+import {ProfileFormComponent} from './profile/profile-form/profile-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {ProfileListInfoComponent} from './profile/profile-list-info/profile-list-info.component';
+import { ProfileTopVideoCardComponent } from './profile/profile-top-video-card/profile-top-video-card.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { ProfileVideoCardComponent } from './profile/profile-video-card/profile-video-card.component';
 
 
 @NgModule({
@@ -22,7 +34,12 @@ import {MatChipsModule} from '@angular/material/chips';
     ForbiddenComponent,
     SidebarComponent,
     VideoCardComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    ProfileCardComponent,
+    ProfileFormComponent,
+    ProfileListInfoComponent,
+    ProfileTopVideoCardComponent,
+    ProfileVideoCardComponent
   ],
   exports: [
     WelcomeComponent,
@@ -30,7 +47,11 @@ import {MatChipsModule} from '@angular/material/chips';
     ForbiddenComponent,
     SidebarComponent,
     VideoCardComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    ProfileFormComponent,
+    ProfileCardComponent,
+    ProfileTopVideoCardComponent,
+    ProfileVideoCardComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +60,14 @@ import {MatChipsModule} from '@angular/material/chips';
     FontAwesomeModule,
     RouterModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatGridListModule
   ]
 })
 export class SharedModule {

@@ -1,11 +1,11 @@
 <section>
-  <div class="center">
-    <div [@pulse] class="bg-welcome rounded border-welcome">
+  <div [@slideInUp] class="center mat-elevation-z10">
+    <div class="bg-welcome rounded border-welcome">
       <h1 class="p-3 display-4" style="color: #90CAF9">Bienvenidos a Streaming | UCi</h1>
     </div>
   </div>
-  <div class="center mt-5">
-    <button [@tada] [routerLink]="['/video/categories']" mat-icon-button>
+  <div [@slideInDown] class="center mt-5 mat-elevation-z10 rounded-circle">
+    <button [routerLink]="['/video/categories']" mat-icon-button>
       <fa-icon [icon]="faPlayCircle"></fa-icon>
     </button>
   </div>

@@ -1,0 +1,86 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none !important;
+  list-style: none !important;
+}
+
+.user-img {
+  height: 90px;
+  width: 90px;
+  position: absolute;
+  right: 20px;
+  bottom: -50px;
+  border: 4px solid #fff;
+  border-radius: 180px;
+  transition: all 0.4s ease;
+}
+
+.info-user {
+  display: none;
+  transition: all 0.4s;
+}
+
+.h-img {
+  opacity: 1;
+  transition: all 0.4s;
+}
+
+.h-img:hover {
+  opacity: 0.7;
+  transition: all 0.4s;
+}
+
+.btn-play {
+  display: none;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.h-img:hover ~ {
+
+  .info-user {
+    left: 15px;
+    bottom: 10px;
+    position: absolute;
+    display: initial;
+    transition: all 0.4s;
+    pointer-events: none;
+  }
+
+  .btn-play {
+    left: 37%;
+    bottom: 30%;
+    position: absolute;
+    display: initial;
+    transition: all 0.4s;
+    pointer-events: none;
+    cursor: pointer;
+  }
+
+  .user-img {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    right: 20px;
+    bottom: -35px;
+    border: 2px solid #fff;
+    border-radius: 180px;
+    transition: all 0.4s;
+  }
+
+}
+
+.mat-icon-button {
+  font-size: 80px;
+  width: 100px;
+  height: 100px;
+}
+
+.mb-8 {
+  margin-bottom: 50px;
+}
+
+img, .info-text-title {
+  cursor: pointer;
+}

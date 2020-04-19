@@ -16,17 +16,17 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
-    children: AUTH_ROUTES
+    loadChildren: './modules/auth/auth-routing.module#AuthRoutingModule'
   }, {
     path: 'video',
     component: VideoComponent,
-    children: VIDEO_ROUTES
+    loadChildren: './modules/video/video-routing.module#VideoRoutingModule'
   },
   {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

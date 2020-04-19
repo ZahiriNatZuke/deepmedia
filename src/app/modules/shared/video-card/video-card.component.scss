@@ -6,8 +6,8 @@
 }
 
 .user-img {
-  height: 110px;
-  width: 110px;
+  height: 115px;
+  width: 115px;
   position: absolute;
   right: 20px;
   bottom: -50px;
@@ -22,7 +22,8 @@
 
 .p-data {
   position: relative;
-  padding-left: 37%;
+  padding-left: 34%;
+  transition: all .4s;
 }
 
 .info-user {
@@ -89,6 +90,10 @@
 .mb-8 {
   margin-bottom: 70px;
 }
+.info-text-user{
+  font-size: 18px;
+}
+
 
 img, .info-text-title, .info-text-user {
   cursor: pointer;

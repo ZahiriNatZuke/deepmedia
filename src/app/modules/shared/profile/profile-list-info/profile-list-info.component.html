@@ -1,0 +1,14 @@
+<div class="d-flex flex-column w-100">
+  <div class="d-flex justify-content-between">
+    <mat-label class="font-weight-bold">AVG {{statsName}}</mat-label>
+    <mat-chip-list>
+      <mat-chip color="primary" class="mb-1" selected (click)="up = !up">
+        <fa-icon [icon]="up ?  faArrowUp : faArrowDown"></fa-icon>
+        <fa-icon class="mx-2" [icon]="icon"></fa-icon>
+        <span class="font-weight-bold no-select" [textContent]="up? '321' : '123'"></span>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-progress-bar matTooltip="AVG: 35.23" matTooltipPosition="before" color="primary" mode="determinate" value="25">
+  </mat-progress-bar>
+</div>

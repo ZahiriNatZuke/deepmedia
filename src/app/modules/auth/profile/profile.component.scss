@@ -1,0 +1,30 @@
+mat-accordion * {
+  user-select: none;
+}
+
+.m-grid-list {
+  margin: 0 20px;
+}
+
+.mat-icon-button {
+  font-size: 45px;
+  width: 50px;
+  height: 50px;
+}
+
+.mat-action-row {
+  padding: 8px;
+}
+
+.o-scroll {
+  overflow-y: scroll;
+
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}

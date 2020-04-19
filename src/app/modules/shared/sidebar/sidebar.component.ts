@@ -32,6 +32,8 @@ export class SidebarComponent implements OnInit {
   dropdownSidebar: any;
   mainSection: any;
   userImg: any;
+  titleCard: any;
+  infoUser: any;
 
   constructor() {
   }
@@ -40,8 +42,10 @@ export class SidebarComponent implements OnInit {
     this.dropdownSidebar = $('.dropdown-sidebar');
     this.dropdownSidebar.slideToggle(0);
     this.infoTextTitle = $('.info-text-title');
-    this.mainSection = $('section.p-sidebar');
+    this.mainSection = $('.p-sidebar');
+    this.infoUser = $('.p-data');
     this.userImg = $('.user-img');
+    this.titleCard = $('.f-title-card');
   }
 
   slideToggle() {
@@ -58,6 +62,15 @@ export class SidebarComponent implements OnInit {
       fontSize: '16px',
       transition: 'all 0.5s'
     });
+    this.titleCard.css({
+      fontSize: '24px',
+      transition: 'all 0.3s'
+    });
+    this.infoUser.css({
+      position: 'relative',
+      paddingLeft: '26%',
+      transition: 'all .4s'
+    });
   }
 
   toLeft() {
@@ -68,6 +81,15 @@ export class SidebarComponent implements OnInit {
     this.infoTextTitle.css({
       fontSize: '20px',
       transition: 'all 0.5s'
+    });
+    this.titleCard.css({
+      fontSize: '28px',
+      transition: 'all 0.3s'
+    });
+    this.infoUser.css({
+      position: 'relative',
+      paddingLeft: '34%',
+      transition: 'all .4s'
     });
   }
 }

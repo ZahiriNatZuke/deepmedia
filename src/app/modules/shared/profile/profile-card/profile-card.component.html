@@ -1,0 +1,27 @@
+<mat-card class="w-100">
+  <mat-card-title class="d-flex justify-content-between">
+    <h1 class="pl-2 f-title-card">ZahiriNatZuke</h1>
+    <div class="d-flex align-top">
+      <button mat-raised-button [color]="(form)? 'warn' : 'primary'" class="h-button mr-2" id="toggleForm"
+              textContent="{{((form)? 'cancelar' : 'editar') | uppercase}}" (click)="toggleForm()"></button>
+      <button mat-raised-button color="warn" class="h-button" id="buttonClose">
+        <fa-icon [icon]="faTimes" id="closeAllVideos" (click)="closeAllVideos()"></fa-icon>
+      </button>
+    </div>
+  </mat-card-title>
+  <mat-card-content class="mh-profile rounded">
+  </mat-card-content>
+  <mat-card-actions class="mb-0 py-0">
+    <mat-list>
+      <mat-list-item>
+        <app-profile-list-info statsName="Likes" [icon]="faThumbsUp" class="w-100"></app-profile-list-info>
+      </mat-list-item>
+      <mat-list-item>
+        <app-profile-list-info statsName="Vistas" [icon]="faEye" class="w-100"></app-profile-list-info>
+      </mat-list-item>
+      <mat-list-item>
+        <app-profile-list-info statsName="Comentarios" [icon]="faComment" class="w-100"></app-profile-list-info>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-actions>
+</mat-card>

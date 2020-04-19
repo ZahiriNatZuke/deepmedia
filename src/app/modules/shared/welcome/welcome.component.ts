@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {faPlayCircle} from '@fortawesome/free-solid-svg-icons';
-import {pulse, tada} from 'ng-animate';
+import {slideInDown, slideInUp} from 'ng-animate';
 import {transition, trigger, useAnimation} from '@angular/animations';
 
 @Component({
@@ -8,8 +8,8 @@ import {transition, trigger, useAnimation} from '@angular/animations';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
   animations: [
-    trigger('pulse', [transition('* => *', useAnimation(pulse))]),
-    trigger('tada', [transition('* => *', useAnimation(tada))])
+    trigger('slideInDown', [transition('* => *', useAnimation(slideInDown))]),
+    trigger('slideInUp', [transition('* => *', useAnimation(slideInUp))])
   ]
 })
 export class WelcomeComponent implements OnInit {

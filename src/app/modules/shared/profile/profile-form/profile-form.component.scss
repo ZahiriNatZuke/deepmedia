@@ -1,0 +1,54 @@
+.custom-file {
+  margin: 20px 0 0 0;
+}
+
+.h-button {
+  height: 35px;
+}
+
+.custom-file-label {
+  padding-top: 18px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  color: #696969;
+  height: 60px !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: all .3s;
+  overflow: hidden;
+  z-index: initial;
+}
+
+.custom-file-label:hover {
+  border: 2px solid black;
+  border-radius: 6px;
+  transition: all .3s;
+  padding-top: 17px;
+}
+
+.custom-file-label:focus, .custom-file-label:active, .custom-file-label:after {
+  border: 2px solid #3f51b5;
+  border-radius: 6px;
+  transition: all .3s;
+}
+
+.custom-file-label::after, .custom-file-label::after {
+  content: none !important;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+  border: 2px solid #3f51b5;
+  border-radius: 6px;
+  transition: all .3s;
+}
+
+.p-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.f-title-form {
+  font: 400 32px/40px Roboto, "Helvetica Neue", sans-serif;
+}

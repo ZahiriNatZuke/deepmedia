@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faThumbsUp, faComment, faHeart, faPlayCircle} from '@fortawesome/free-solid-svg-icons';
+import {faThumbsUp, faComment, faEye, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-card',
@@ -9,8 +9,9 @@ import {faThumbsUp, faComment, faHeart, faPlayCircle} from '@fortawesome/free-so
 export class VideoCardComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faComment = faComment;
-  faHeart = faHeart;
+  faEye = faEye;
   faPlayCircle = faPlayCircle;
+  faStar = faStar;
 
   constructor() {
   }
