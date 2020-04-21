@@ -5,30 +5,48 @@
   list-style: none !important;
 }
 
+.card {
+  height: 225px;
+}
+
 .user-img {
-  height: 115px;
-  width: 115px;
+  height: 100px;
+  width: 100px;
   position: absolute;
   right: 20px;
   bottom: -50px;
-  border: 5px solid #fff;
+  border: 3px solid #fff;
   border-radius: 180px;
   transition: all 0.4s ease;
 }
 
-.p-sidebar {
-  padding-left: 70px;
-}
-
 .p-data {
-  position: relative;
-  padding-left: 34%;
+  padding-top: 3px;
+  padding-left: 10px;
   transition: all .4s;
 }
 
 .info-user {
-  display: none;
+  left: 0;
+  bottom: 0;
+  position: absolute;
   transition: all 0.4s;
+  opacity: 0;
+  user-select: none;
+
+  > span, > div {
+    margin-left: 17px;
+  }
+
+  > div {
+    margin-bottom: 10px;
+  }
+
+}
+
+
+.info-user:hover {
+  opacity: 1;
 }
 
 .h-img {
@@ -37,35 +55,31 @@
 }
 
 .h-img:hover {
-  opacity: 0.7;
+  opacity: 0.8;
   transition: all 0.4s;
 }
 
 .btn-play {
-  display: none;
-  cursor: pointer;
+  left: 39%;
+  bottom: 30%;
+  position: absolute;
   transition: all 0.4s;
+  opacity: 0;
+  cursor: initial;
+  font-size: 80px;
+  width: 90px;
+  height: 90px;
+}
+
+.btn-play:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .h-img:hover ~ {
 
-  .info-user {
-    left: 15px;
-    bottom: 10px;
-    position: absolute;
-    display: initial;
-    transition: all 0.4s;
-    pointer-events: none;
-  }
-
-  .btn-play {
-    left: 37%;
-    bottom: 30%;
-    position: absolute;
-    display: initial;
-    transition: all 0.4s;
-    pointer-events: none;
-    cursor: pointer;
+  .info-user, .btn-play {
+    opacity: 1;
   }
 
   .user-img {
@@ -76,25 +90,32 @@
     bottom: -35px;
     border: 2px solid #fff;
     border-radius: 180px;
-    transition: all 0.4s;
   }
 
-}
-
-.mat-icon-button {
-  font-size: 80px;
-  width: 100px;
-  height: 100px;
 }
 
 .mb-8 {
   margin-bottom: 70px;
 }
-.info-text-user{
-  font-size: 18px;
+
+.info-text-user {
+  font-size: 16px;
+  transition: all .4s;
 }
 
+.info-text-title {
+  font-size: 18px;
+  transition: all .4s;
+  overflow-x: hidden;
+}
 
-img, .info-text-title, .info-text-user {
+.info-text-title, .info-text-user {
   cursor: pointer;
+}
+
+#icon-like {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: gold;
 }

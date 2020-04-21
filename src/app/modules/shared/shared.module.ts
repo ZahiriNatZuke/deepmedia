@@ -25,6 +25,9 @@ import {ProfileListInfoComponent} from './profile/profile-list-info/profile-list
 import { ProfileTopVideoCardComponent } from './profile/profile-top-video-card/profile-top-video-card.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ProfileVideoCardComponent } from './profile/profile-video-card/profile-video-card.component';
+import { MsgDialogComponent } from './dialogs/msg-dialog/msg-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ApplicationsComponent } from './applications/applications.component';
 
 
 @NgModule({
@@ -39,7 +42,9 @@ import { ProfileVideoCardComponent } from './profile/profile-video-card/profile-
     ProfileFormComponent,
     ProfileListInfoComponent,
     ProfileTopVideoCardComponent,
-    ProfileVideoCardComponent
+    ProfileVideoCardComponent,
+    MsgDialogComponent,
+    ApplicationsComponent
   ],
   exports: [
     WelcomeComponent,
@@ -67,7 +72,8 @@ import { ProfileVideoCardComponent } from './profile/profile-video-card/profile-
     MatListModule,
     MatProgressBarModule,
     MatTooltipModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ]
 })
 export class SharedModule {

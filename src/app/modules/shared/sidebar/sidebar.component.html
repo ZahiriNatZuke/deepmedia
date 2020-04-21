@@ -2,52 +2,78 @@
 <input type="checkbox" id="check">
 <label for="check" id="labelcheck">
   <fa-icon [icon]="faBars" id="checkbtn" (click)="toRight()"></fa-icon>
-  <fa-icon [icon]="faTimes" id="checkbtncancel" (click)="toLeft()"></fa-icon>
 </label>
 <!-- Utils - End -->
 
 <!-- Sidebar - Start -->
 <div class="sidebar">
-  <header>Streaming | UCi</header>
+  <header>
+    <div class="d-flex justify-content-between">
+      <h4 class="pt-2 pl-3 cursor-pointer" [routerLink]="['/video']"><span class="font-weight-light">Streaming</span> |
+        UCi</h4>
+      <label class="pr-2 pt-1" for="check" id="labelcheckCancel">
+        <fa-icon [icon]="faTimes" id="checkbtncancel" (click)="toLeft()"></fa-icon>
+      </label>
+    </div>
+    <div class="row w-100 pl-2 py-2">
+      <img src="../../../assets/img/sidebar-user.png" alt="idebar-user" class="img-fluid rounded-circle img-sidebar">
+      <div class="d-flex flex-column">
+        <span class="user-header pl-2 font-weight-light cursor-pointer"
+              [routerLink]="['/auth/profile',1]">ZahiriNatZuke</span>
+        <div class="pl-2 d-flex align-content-center">
+          <span class="info-header font-weight-bold">Conectado</span>
+          <fa-icon [icon]="faCircle" [classes]="['text-success','pl-1', 'pb-1']"></fa-icon>
+        </div>
+      </div>
+    </div>
+  </header>
   <ul>
-    <li><a href="#">
-      <fa-icon [icon]="faQrcode"></fa-icon>
-      Inicio</a></li>
-    <li><a class="link-categories" (click)="slideToggle()">
-      <fa-icon [icon]="faLink"></fa-icon>
-      <span>Categorias</span>
-      <fa-icon [icon]="faAngleDown" id="Dropdown"></fa-icon>
-    </a>
-      <div class="dropdown-sidebar">
+    <li>
+      <a [routerLink]="['/auth/profile',1]">
+        <fa-icon [icon]="faUserAlt"></fa-icon>
+        Perfil</a>
+    </li>
+    <li>
+      <a class="link-dropdown" (click)="slideToggleCategories()">
+        <fa-icon [icon]="faStream"></fa-icon>
+        <span>Categorías</span>
+        <fa-icon [icon]="toggleCategories ? faAngleUp : faAngleDown" id="DropdownCategories"></fa-icon>
+      </a>
+      <div id="Categories" class="dropdown-sidebar">
         <ul>
-          <li><a [routerLink]="['']"><i></i>Action</a></li>
-          <li><a [routerLink]="['']"><i></i>Action</a></li>
-          <li><a [routerLink]="['']"><i></i>Action</a></li>
-          <li><a [routerLink]="['']"><i></i>Action</a></li>
-          <li><a [routerLink]="['']"><i></i>Action</a></li>
-          <li><a [routerLink]="['']"><i></i>Action</a></li>
+          <li><a [routerLink]="['/video/list','gameplay']"><i></i>Gameplay</a></li>
+          <li><a [routerLink]="['/video/list','humor']"><i></i>Humor</a></li>
+          <li><a [routerLink]="['/video/list','musical']"><i></i>Musical</a></li>
+          <li><a [routerLink]="['/video/list','tecnología']"><i></i>Tecnología</a></li>
+          <li><a [routerLink]="['/video/list','interesante']"><i></i>Interesantes</a></li>
+          <li><a [routerLink]="['/video/list','tutoriales']"><i></i>Tutoriales</a></li>
         </ul>
       </div>
     </li>
-    <li><a [routerLink]="['']">
-      <fa-icon [icon]="faStream"></fa-icon>
-      Perfil</a></li>
-    <li><a [routerLink]="['']">
-      <fa-icon [icon]="faCalendarWeek"></fa-icon>
-      Favoritos</a></li>
-    <li><a [routerLink]="['']">
-      <fa-icon [icon]="faQuestionCircle"></fa-icon>
-      Buscar</a></li>
-    <li><a [routerLink]="['']">
-      <fa-icon [icon]="faSlidersH"></fa-icon>
-      Aplicaciones</a></li>
-    <li><a [routerLink]="['']">
-      <fa-icon [icon]="faEnvelope"></fa-icon>
-      Nuevo Video</a></li>
-    <li><a [routerLink]="['']">
-      <fa-icon [icon]="faEnvelope"></fa-icon>
-      Cerrar Sesion</a></li>
+    <li>
+      <a class="link-dropdown" (click)="slideToggleOptions()">
+        <fa-icon [icon]="faSlidersH"></fa-icon>
+        <span>Opciones</span>
+        <fa-icon [icon]="toggleOptions ? faAngleUp : faAngleDown" id="DropdownOptions"></fa-icon>
+      </a>
+      <div id="Options" class="dropdown-sidebar">
+        <ul>
+          <li><a><i></i>Buscar</a></li>
+          <li><a [routerLink]="['/video/new-video']"><i></i>Nuevo Video</a></li>
+          <li><a [routerLink]="['/video/favorites',1]"><i></i>Mis Favoritos</a></li>
+          <li><a [routerLink]="['/aplicaciones']"><i></i>Aplicaciones</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <a [routerLink]="['/auth/login']">
+        <fa-icon [icon]="faSignOutAlt"></fa-icon>
+        Cerrar Sesión</a>
+    </li>
   </ul>
+  <footer class="w-100">
+    <span class="text-white font-weight-light">&copy; {{year}} ZahiriNatZuke.</span>
+  </footer>
 </div>
 <!-- Sidebar - End -->
 

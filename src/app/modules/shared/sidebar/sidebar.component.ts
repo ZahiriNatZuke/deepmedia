@@ -2,14 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {
   faTimes,
   faBars,
-  faQrcode,
-  faLink,
   faAngleDown,
+  faAngleUp,
   faStream,
-  faCalendarWeek,
-  faQuestionCircle,
+  faSignOutAlt,
+  faUserAlt,
   faSlidersH,
-  faEnvelope,
+  faCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -20,36 +19,54 @@ import {
 export class SidebarComponent implements OnInit {
   faTimes = faTimes;
   faBars = faBars;
-  faQrcode = faQrcode;
-  faLink = faLink;
   faAngleDown = faAngleDown;
   faStream = faStream;
-  faCalendarWeek = faCalendarWeek;
-  faQuestionCircle = faQuestionCircle;
   faSlidersH = faSlidersH;
-  faEnvelope = faEnvelope;
-  infoTextTitle: any;
-  dropdownSidebar: any;
-  mainSection: any;
-  userImg: any;
-  titleCard: any;
-  infoUser: any;
+  faCircle = faCircle;
+  faAngleUp = faAngleUp;
+  faSignOutAlt = faSignOutAlt;
+  faUserAlt = faUserAlt;
+  dropdownSidebarCategories: JQuery<HTMLElement>;
+  dropdownSidebarOptions: JQuery<HTMLElement>;
+  mainSection: JQuery<HTMLElement>;
+  toggleCategories: boolean;
+  toggleOptions: boolean;
+  year: number;
 
   constructor() {
+    this.toggleCategories = false;
+    this.toggleOptions = false;
+    this.loadHTMLTags();
+    this.year = new Date().getFullYear();
   }
 
   ngOnInit(): void {
-    this.dropdownSidebar = $('.dropdown-sidebar');
-    this.dropdownSidebar.slideToggle(0);
-    this.infoTextTitle = $('.info-text-title');
-    this.mainSection = $('.p-sidebar');
-    this.infoUser = $('.p-data');
-    this.userImg = $('.user-img');
-    this.titleCard = $('.f-title-card');
+    this.dropdownSidebarCategories = $('#Categories');
+    this.dropdownSidebarOptions = $('#Options');
+    this.dropdownSidebarCategories.slideUp(0);
+    this.dropdownSidebarOptions.slideUp(0);
   }
 
-  slideToggle() {
-    this.dropdownSidebar.slideToggle(500);
+  loadHTMLTags() {
+    this.mainSection = $('.p-sidebar');
+  }
+
+  slideToggleCategories() {
+    this.toggleCategories = !this.toggleCategories;
+    this.toggleCategories ? this.dropdownSidebarCategories.slideDown(500) : this.dropdownSidebarCategories.slideUp(500);
+    if (this.toggleOptions) {
+      this.toggleOptions = !this.toggleOptions;
+      this.dropdownSidebarOptions.slideUp(400);
+    }
+  }
+
+  slideToggleOptions() {
+    this.toggleOptions = !this.toggleOptions;
+    this.toggleOptions ? this.dropdownSidebarOptions.slideDown(500) : this.dropdownSidebarOptions.slideUp(500);
+    if (this.toggleCategories) {
+      this.toggleCategories = !this.toggleCategories;
+      this.dropdownSidebarCategories.slideUp(400);
+    }
   }
 
   toRight() {
@@ -58,19 +75,6 @@ export class SidebarComponent implements OnInit {
       paddingLeft: '5px',
       transition: 'all .5s'
     });
-    this.infoTextTitle.css({
-      fontSize: '16px',
-      transition: 'all 0.5s'
-    });
-    this.titleCard.css({
-      fontSize: '24px',
-      transition: 'all 0.3s'
-    });
-    this.infoUser.css({
-      position: 'relative',
-      paddingLeft: '26%',
-      transition: 'all .4s'
-    });
   }
 
   toLeft() {
@@ -78,18 +82,6 @@ export class SidebarComponent implements OnInit {
       marginLeft: '70px',
       transition: 'all .5s'
     });
-    this.infoTextTitle.css({
-      fontSize: '20px',
-      transition: 'all 0.5s'
-    });
-    this.titleCard.css({
-      fontSize: '28px',
-      transition: 'all 0.3s'
-    });
-    this.infoUser.css({
-      position: 'relative',
-      paddingLeft: '34%',
-      transition: 'all .4s'
-    });
   }
+
 }

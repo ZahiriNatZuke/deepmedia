@@ -1,5 +1,3 @@
-@import "../video-card/video-card.component";
-
 * {
   padding: 0;
   margin: 0;
@@ -18,13 +16,46 @@
   background: #042331;
   transition: all 0.5s ease;
 
+  header {
+    color: white;
+    text-align: start;
+    background: #063146;
+    user-select: none;
+
+    #checkbtncancel {
+      font-size: 26px;
+      color: white;
+      padding: 0 7px;
+      transition: all 0.5s ease;
+    }
+
+    .img-sidebar {
+      min-width: 50px;
+      width: 60px;
+      max-width: 70px;
+    }
+
+    .user-header {
+      line-height: 25px;
+      padding-top: 8px;
+      font-size: 20px;
+    }
+
+    .info-header {
+      line-height: 18px;
+      font-size: 14px;
+    }
+
+  }
+
   .dropdown-sidebar {
     background: #042a38;
 
     ul {
 
       li:hover a {
-        padding-left: 60px;
+        padding-left: 70px;
+        color: #5c76cb;
       }
 
       a {
@@ -38,6 +69,7 @@
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-bottom: 1px solid black;
         transition: 0.4s;
+        cursor: pointer;
       }
 
       fa-icon {
@@ -46,16 +78,6 @@
 
     }
 
-  }
-
-  header {
-    font-size: 22px;
-    color: white;
-    text-align: start;
-    padding-left: 30px;
-    line-height: 70px;
-    background: #063146;
-    user-select: none;
   }
 
   ul {
@@ -68,7 +90,7 @@
       display: block;
       height: 100%;
       width: 100%;
-      line-height: 65px;
+      line-height: 50px;
       font-size: 20px;
       color: white;
       padding-left: 40px;
@@ -83,50 +105,56 @@
 
     }
   }
+
+  .link-dropdown {
+    user-select: none;
+    cursor: pointer;
+  }
+
+  footer {
+    background: #042331;
+    position: absolute;
+    bottom: 0;
+    z-index: 1030;
+    padding: 6px 0;
+    border-top: 1px solid black;
+    box-shadow: 0 -2px 7px 0 rgba(0, 0, 0, .5);
+
+    span {
+      margin-left: 40px;
+      user-select: none;
+    }
+  }
+
 }
 
 #check {
   display: none;
 }
 
-#labelcheck {
+#labelcheck, #labelcheckCancel {
   margin-bottom: 0 !important;
 }
 
-label #checkbtn,
-label #checkbtncancel {
-  position: fixed;
+#checkbtn, #checkbtncancel {
   cursor: pointer;
-  background: #042331;
-  border-radius: 3px;
 }
 
-#Dropdown {
+#DropdownCategories, #DropdownOptions {
   cursor: pointer;
   padding-left: 10px;
 }
 
-label {
-
-  #checkbtn {
-    left: 20px;
-    top: 25px;
-    font-size: 28px;
-    color: white;
-    padding: 0 8px;
-    transition: all 0.5s;
-  }
-
-  #checkbtncancel {
-    z-index: 1111;
-    left: -195px;
-    top: 20px;
-    font-size: 26px;
-    color: white;
-    padding: 0 7px;
-    transition: all 0.5s ease;
-  }
-
+#checkbtn {
+  background: #042331;
+  border-radius: 3px;
+  position: fixed;
+  left: 20px;
+  top: 25px;
+  font-size: 28px;
+  color: white;
+  padding: 0 8px;
+  transition: all 0.5s;
 }
 
 #check:checked ~ {
@@ -138,10 +166,6 @@ label {
     left: 250px;
     opacity: 0;
     pointer-events: none;
-  }
-
-  label #checkbtncancel {
-    left: 190px;
   }
 
   section.p-sidebar {
@@ -156,8 +180,7 @@ label {
 
 }
 
-.link-categories {
-  user-select: none;
+.cursor-pointer {
   cursor: pointer;
 }
 

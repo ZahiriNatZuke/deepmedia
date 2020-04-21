@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {faVideo, faAngleDoubleRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-categories',
@@ -34,13 +33,11 @@ export class VideoCategoriesComponent implements OnInit {
       videos: 100
     },
     {
-      name: 'tutorial',
+      name: 'tutoriales',
       img: 'tutorial.png',
       videos: 100
     },
   ];
-  faVideo = faVideo;
-  faAngleDoubleRight = faAngleDoubleRight;
 
   constructor() {
   }
@@ -54,33 +51,5 @@ export class VideoCategoriesComponent implements OnInit {
 
   getPath(img: string): string {
     return `../../assets/img/categories/${img}`;
-  }
-
-  addAnimation() {
-    $('.f-category').css({
-      fontSize: '40px',
-      transition: 'all .5s'
-    });
-    $('.mat-icon-button').css({
-      width: '68px',
-      height: '68px',
-      fontSize: '48px',
-      transition: 'all .5s'
-    });
-    $('.f-video').fadeIn(500);
-  }
-
-  delAnimation() {
-    $('.f-category').css({
-      fontSize: '32px',
-      transition: 'all .5s'
-    });
-    $('.mat-icon-button').css({
-      width: '55px',
-      height: '55px',
-      fontSize: '35px',
-      transition: 'all .5s'
-    });
-    $('.f-video').fadeOut(100);
   }
 }

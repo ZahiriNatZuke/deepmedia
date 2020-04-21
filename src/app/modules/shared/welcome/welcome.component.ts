@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 import {slideInDown, slideInUp} from 'ng-animate';
 import {transition, trigger, useAnimation} from '@angular/animations';
@@ -12,13 +12,20 @@ import {transition, trigger, useAnimation} from '@angular/animations';
     trigger('slideInUp', [transition('* => *', useAnimation(slideInUp))])
   ]
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
   faPlayCircle = faPlayCircle;
 
   constructor() {
+    $('app-sidebar').toggleClass('d-none');
+    $('#p-sidebar').toggleClass('p-sidebar');
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    $('app-sidebar').toggleClass('d-none');
+    $('#p-sidebar').toggleClass('p-sidebar');
   }
 
 }

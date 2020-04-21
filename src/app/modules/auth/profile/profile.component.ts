@@ -47,6 +47,10 @@ export class ProfileComponent implements OnInit {
     environment.allVideos = true;
     $('mat-accordion').fadeToggle(400);
     setTimeout(() => {
+      $('.f-title-card').css({
+        font: '400 24px/40px Roboto, "Helvetica Neue", sans-serif',
+        transition: 'all .3s'
+      });
       $('.d-flex.justify-content-center button').toggleClass('d-none');
     }, 425);
     setTimeout(() => {

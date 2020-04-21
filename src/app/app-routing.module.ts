@@ -4,14 +4,17 @@ import {WelcomeComponent} from './modules/shared/welcome/welcome.component';
 import {NotFoundComponent} from './modules/shared/not-found/not-found.component';
 import {AuthComponent} from './modules/auth/auth.component';
 import {VideoComponent} from './modules/video/video.component';
-import {AUTH_ROUTES} from './modules/auth/auth-routing.module';
-import {VIDEO_ROUTES} from './modules/video/video-routing.module';
+import {ApplicationsComponent} from './modules/shared/applications/applications.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'home',
     component: WelcomeComponent
+  },
+  {
+    path: 'aplicaciones',
+    component: ApplicationsComponent
   },
   {
     path: 'auth',
