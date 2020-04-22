@@ -1,13 +1,8 @@
 section {
-  background: linear-gradient(to bottom, #042937, #045669, #077d9b, #0898cd);
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: .3s all ease;
-  margin-top: 24px;
 }
 
 @font-face {

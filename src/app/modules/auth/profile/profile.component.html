@@ -1,8 +1,8 @@
 <mat-grid-list cols="3" [rowHeight]="getHeight()" gutterSize="10px" class="m-grid-list">
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
+  <mat-grid-tile [colspan]="1" [rowspan]="1" class="mat-elevation-z10">
     <app-profile-card class="w-100"></app-profile-card>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1">
+  <mat-grid-tile [colspan]="2" [rowspan]="1" class="mat-elevation-z10" id="right-side">
     <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
       <mat-accordion>
@@ -22,7 +22,6 @@
             </button>
           </mat-action-row>
         </mat-expansion-panel>
-
         <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -42,7 +41,6 @@
             </button>
           </mat-action-row>
         </mat-expansion-panel>
-
         <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -59,11 +57,11 @@
             </button>
           </mat-action-row>
         </mat-expansion-panel>
-
       </mat-accordion>
       <div class="d-flex justify-content-center mt-1">
         <button mat-icon-button (click)="showAllVideos()">
-          <fa-icon matTooltip="Ver Todos los Videos" matTooltipPosition="right" class="text-muted" [icon]="faAngleUp"></fa-icon>
+          <fa-icon matTooltip="Ver Todos los Videos" matTooltipPosition="right" class="text-muted"
+                   [icon]="faAngleUp"></fa-icon>
         </button>
       </div>
       <cdk-virtual-scroll-viewport id="all-videos" itemSize="1" class="h-100">

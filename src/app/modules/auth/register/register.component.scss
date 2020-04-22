@@ -1,0 +1,56 @@
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #f0f0f0;
+}
+
+section {
+  height: 100vh;
+  margin-top: -24px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.center {
+  align-self: center;
+}
+
+.custom-file {
+  margin: 20px 0 0 0;
+}
+
+.mx-10 {
+  margin: 0 200px;
+}
+
+.f-title-form {
+  font: 400 32px/40px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.link-login {
+  position: absolute;
+  right: 160px;
+  bottom: 26px;
+  cursor: pointer;
+  height: 36px;
+}
+
+.btn-register {
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+  border-radius: 16px;
+}
+

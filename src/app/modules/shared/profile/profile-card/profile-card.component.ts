@@ -39,6 +39,8 @@ export class ProfileCardComponent implements OnInit {
 
   toggleForm() {
     this.form = !this.form;
+    const rightSide = $('#right-side');
+    this.form ? rightSide.removeClass('mat-elevation-z10') : rightSide.addClass('mat-elevation-z10');
     const buttonClose = $('#buttonClose');
     this.form ? buttonClose.fadeOut(200) : (environment.allVideos ? buttonClose.fadeIn(200) : buttonClose.fadeOut(0));
     $('#right-card').fadeToggle(400);

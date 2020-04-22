@@ -1,1 +1,40 @@
-<p>login works!</p>
+<section>
+  <div class="main">
+    <div class="center">
+      <mat-card class="mat-elevation-z15">
+        <mat-card-title class="d-flex justify-content-center">
+          <h1 class="pl-3 f-title-form">Inicio de Sesión</h1>
+        </mat-card-title>
+        <form [formGroup]="angularForm" (ngSubmit)="onSubmit()">
+          <div class="d-flex">
+            <div class="col">
+              <mat-form-field class="w-100 mt-1" appearance="outline">
+                <mat-label>Usuario</mat-label>
+                <input matInput type="text" formControlName="username" required>
+                <mat-error *ngIf="checkValid('username')">{{checkRequired('username')}}</mat-error>
+                <mat-error *ngIf="checkValid('username')">{{checkMinLength('username')}}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100 mt-1" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" formControlName="password" required autocomplete>
+                <mat-error *ngIf="checkValid('password')">{{checkRequired('password')}}</mat-error>
+                <mat-error *ngIf="checkValid('password')">{{checkMinLength('password')}}</mat-error>
+              </mat-form-field>
+              <div class="mt-1 d-flex justify-content-between">
+                <mat-chip-list>
+                  <mat-chip selected color="primary"[routerLink]="['/auth/register']" class="h-36">
+                    <a> Aún no tengo cuenta. </a>
+                  </mat-chip>
+                </mat-chip-list>
+                <button [disabled]="angularForm.invalid" mat-raised-button color="primary" type="submit"
+                        textContent="{{'Iniciar' | uppercase}}" class="w-50 btn-login"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+

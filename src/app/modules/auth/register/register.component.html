@@ -1,1 +1,58 @@
-<p>register works!</p>
+<section>
+  <div class="main">
+    <div class="center">
+      <mat-card class="mx-10 mat-elevation-z15">
+        <mat-card-title class="d-flex justify-content-center">
+          <h1 class="pl-3 f-title-form">Registro de Usuario</h1>
+        </mat-card-title>
+        <form [formGroup]="angularForm" (ngSubmit)="onSubmit()">
+          <div class="d-flex">
+            <div class="col">
+              <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Nombre Completo</mat-label>
+                <input matInput type="text" formControlName="fullname" required>
+                <mat-error *ngIf="checkValid('fullname')">{{checkRequired('fullname')}}</mat-error>
+                <mat-error *ngIf="checkValid('fullname')">{{checkMinLength('fullname')}}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Usuario</mat-label>
+                <input matInput type="text" formControlName="username" required>
+                <mat-error *ngIf="checkValid('username')">{{checkRequired('username')}}</mat-error>
+                <mat-error *ngIf="checkValid('username')">{{checkMinLength('username')}}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput type="email" formControlName="email" required email>
+                <mat-error *ngIf="checkValid('email')">{{checkRequired('email')}}</mat-error>
+                <mat-error *ngIf="checkValid('email')">{{checkEmail('email')}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" formControlName="password" required autocomplete>
+                <mat-error *ngIf="checkValid('password')">{{checkRequired('password')}}</mat-error>
+                <mat-error *ngIf="checkValid('password')">{{checkMinLength('password')}}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100 mt-3" appearance="outline">
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input matInput type="password" formControlName="confirm" required autocomplete
+                       [pattern]="angularForm.get('password').value">
+                <mat-error *ngIf="checkValid('confirm')">{{checkRequired('confirm')}}</mat-error>
+                <mat-error *ngIf="checkValid('confirm')">{{checkMinLength('confirm')}}</mat-error>
+                <mat-error>Las Contraseñas no coinciden</mat-error>
+              </mat-form-field>
+              <mat-chip-list>
+                <mat-chip selected color="primary" class="link-login" [routerLink]="['/auth/login']">
+                  <a> Ya tengo cuenta. </a>
+                </mat-chip>
+              </mat-chip-list>
+              <button [disabled]="angularForm.invalid" mat-raised-button color="primary" type="submit"
+                      textContent="{{'Registrar' | uppercase}}" class="btn-register"></button>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</section>
