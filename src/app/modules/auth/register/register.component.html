@@ -30,14 +30,20 @@
             <div class="col">
               <mat-form-field class="w-100 mt-3" appearance="outline">
                 <mat-label>Contraseña</mat-label>
-                <input matInput type="password" formControlName="password" required autocomplete>
+                <input matInput [type]="hideP ? 'password' : 'text'" formControlName="password" required autocomplete>
+                <button mat-icon-button matSuffix (click)="hideP = !hideP" tabIndex="-1">
+                  <fa-icon [icon]="hideP ?  faEye : faEyeSlash"></fa-icon>
+                </button>
                 <mat-error *ngIf="checkValid('password')">{{checkRequired('password')}}</mat-error>
                 <mat-error *ngIf="checkValid('password')">{{checkMinLength('password')}}</mat-error>
               </mat-form-field>
               <mat-form-field class="w-100 mt-3" appearance="outline">
                 <mat-label>Confirmar Contraseña</mat-label>
-                <input matInput type="password" formControlName="confirm" required autocomplete
+                <input matInput [type]="hideC ? 'password' : 'text'" formControlName="confirm" required autocomplete
                        [pattern]="angularForm.get('password').value">
+                <button mat-icon-button matSuffix (click)="hideC = !hideC" tabIndex="-1">
+                  <fa-icon [icon]="hideC ?  faEye : faEyeSlash"></fa-icon>
+                </button>
                 <mat-error *ngIf="checkValid('confirm')">{{checkRequired('confirm')}}</mat-error>
                 <mat-error *ngIf="checkValid('confirm')">{{checkMinLength('confirm')}}</mat-error>
                 <mat-error>Las Contraseñas no coinciden</mat-error>

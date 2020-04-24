@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-form',
@@ -7,6 +8,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./profile-form.component.scss']
 })
 export class ProfileFormComponent implements OnInit {
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  hideP: boolean;
+  hideC: boolean;
 
   public angularForm: FormGroup = this.formBuilder.group({
     fullname: ['', [Validators.required]],
@@ -18,6 +23,8 @@ export class ProfileFormComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder) {
+    this.hideC = true;
+    this.hideP = true;
   }
 
   ngOnInit(): void {

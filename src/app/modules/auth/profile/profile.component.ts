@@ -17,6 +17,22 @@ export class ProfileComponent implements OnInit {
   ds = new MyDataSource();
   toggleForm: JQuery<HTMLElement>;
 
+  videoArray: { id: number, video: string }[] = [
+    {
+      id: 1,
+      video: 'video.mp4'
+    },
+    {
+      id: 2,
+      video: 'video1.mp4'
+    },
+    {
+      id: 3,
+      video: 'video1.mp4'
+    }
+  ];
+  rowHeight: number;
+
   setStep(index: number) {
     this.step = index;
   }
@@ -30,6 +46,7 @@ export class ProfileComponent implements OnInit {
   }
 
   constructor() {
+    this.rowHeight = window.screen.availHeight * 80 / 100;
   }
 
   ngOnInit(): void {
@@ -37,10 +54,13 @@ export class ProfileComponent implements OnInit {
     $('app-profile-form').fadeToggle(0);
     $('#all-videos').fadeToggle(0);
     $('#buttonClose').fadeToggle(0);
+    window.addEventListener('resize', () => {
+      this.getHeight();
+    });
   }
 
   getHeight() {
-    return (window.screen.availHeight * 80 / 100) + 'px';
+    this.rowHeight = window.screen.availHeight * 80 / 100;
   }
 
   showAllVideos() {

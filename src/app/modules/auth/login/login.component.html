@@ -16,14 +16,17 @@
               </mat-form-field>
               <mat-form-field class="w-100 mt-1" appearance="outline">
                 <mat-label>Contraseña</mat-label>
-                <input matInput type="password" formControlName="password" required autocomplete>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required autocomplete>
+                <button mat-icon-button matSuffix (click)="hide = !hide" tabIndex="-1">
+                  <fa-icon [icon]="hide ?  faEye : faEyeSlash"></fa-icon>
+                </button>
                 <mat-error *ngIf="checkValid('password')">{{checkRequired('password')}}</mat-error>
                 <mat-error *ngIf="checkValid('password')">{{checkMinLength('password')}}</mat-error>
               </mat-form-field>
               <div class="mt-1 d-flex justify-content-between">
                 <mat-chip-list>
                   <mat-chip selected color="primary"[routerLink]="['/auth/register']" class="h-36">
-                    <a> Aún no tengo cuenta. </a>
+                    <a class="link-register"> Aún no tengo cuenta. </a>
                   </mat-chip>
                 </mat-chip-list>
                 <button [disabled]="angularForm.invalid" mat-raised-button color="primary" type="submit"

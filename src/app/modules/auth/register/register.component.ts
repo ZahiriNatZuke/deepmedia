@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -7,6 +8,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  hideP: boolean;
+  hideC: boolean;
+
   public angularForm: FormGroup = this.formBuilder.group({
     fullname: ['', [Validators.required]],
     username: ['', [Validators.required, Validators.minLength(4)]],
@@ -16,6 +22,8 @@ export class RegisterComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder) {
+    this.hideC = true;
+    this.hideP = true;
   }
 
   ngOnInit(): void {

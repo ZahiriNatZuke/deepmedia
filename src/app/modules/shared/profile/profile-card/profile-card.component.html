@@ -4,8 +4,8 @@
     <div class="d-flex align-top">
       <button mat-raised-button [color]="(form)? 'warn' : 'primary'" class="h-button mr-2" id="toggleForm"
               textContent="{{((form)? 'cancelar' : 'editar') | uppercase}}" (click)="toggleForm()"></button>
-      <button mat-raised-button color="warn" class="h-button" id="buttonClose">
-        <fa-icon [icon]="faTimes" id="closeAllVideos" (click)="closeAllVideos()"></fa-icon>
+      <button mat-raised-button color="warn" class="h-button" id="buttonClose" (click)="closeAllVideos()">
+        <fa-icon [icon]="faTimes" id="closeAllVideos"></fa-icon>
       </button>
     </div>
   </mat-card-title>

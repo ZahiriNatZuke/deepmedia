@@ -1,0 +1,50 @@
+<div class="container-video-player">
+
+  <video id="video-player" class="video-player mat-elevation-z5" [volume]="currentVolumen / 100" (ended)="endVideo()"
+         [width]="widthVideo">
+    <source src="../../../../assets/video/{{video.video}}" type="video/mp4">
+    Your browser do not support HTML5 video.
+  </video>
+
+  <div id="poster" class="poster">
+    <img src="../../../../assets/img/img-video.png" class="img-poster">
+    <button id="btn-play" mat-icon-button class="text-white btn-play mat-elevation-z15" (click)="hidePoster()">
+      <fa-icon [icon]="faPlayCircle"></fa-icon>
+    </button>
+  </div>
+
+  <div id="control-bar" class="control-bar d-flex">
+
+    <button mat-button (click)="playPause()" class="playPause-btn">
+      <fa-icon [icon]="played ? faPause : faPlay"></fa-icon>
+    </button>
+
+    <div id="volumen-control" class="volumen-control d-flex flex-column" (mouseover)="showVolumenSlider()"
+         (mouseleave)="hideVolumenSlider()">
+      <mat-slider #volumenControl id="volumen-slider" class="volumen-slider" min="0" max="100" color="primary"
+                  tickInterval="25" vertical (mouseover)="setVolumenSlider()" [value]="currentVolumen"
+                  [disabled]="mutedVideo"
+                  (valueChange)="changeVolumen(volumenControl.value)" (mouseleave)="unsetVolumenSlider()">
+      </mat-slider>
+      <button mat-button class="volumen-btn" id="volumen-btn" (click)="toggleMutedVideo()">
+        <fa-icon
+          [icon]="mutedVideo? faVolumeMute : currentVolumen === 0 ? faVolumeOff : currentVolumen <= 50 ? faVolumeDown : faVolumeUp"></fa-icon>
+      </button>
+    </div>
+
+    <mat-slider #videoProgress color="primary" id="progress-bar-video" class="progress-bar-video" [min]="0"
+                (input)="seekingVideo(videoProgress.value)" [tickInterval]="30" [max]="videoPlayer.duration"
+                [(value)]="currentTime">
+    </mat-slider>
+
+    <mat-chip-list>
+      <mat-chip selected color="primary" class="timer"><span>{{currentTime | timer}}</span></mat-chip>
+    </mat-chip-list>
+
+    <button mat-button (click)="makeBig()" class="fullScreen-btn">
+      <img src="../../../../assets/img/fullscreen.png" alt="fullscreen">
+    </button>
+
+  </div>
+</div>
+

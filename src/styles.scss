@@ -5,3 +5,12 @@
   outline: none !important;
   list-style: none;
 }
+
+@font-face {
+  font-family: 'Relaway-Regular';
+  src: url("assets/fonts/Raleway-Regular.ttf");
+}
+
+* {
+  font-family: Relaway-Regular, sans-serif;
+}

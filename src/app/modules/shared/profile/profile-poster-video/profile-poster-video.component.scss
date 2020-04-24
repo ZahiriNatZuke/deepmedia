@@ -1,0 +1,53 @@
+
+.card {
+  height: 225px;
+}
+
+.p-data {
+  padding-top: 3px;
+  padding-left: 10px;
+  transition: all .4s;
+}
+
+.h-img {
+  opacity: 1;
+  transition: all 0.4s;
+}
+
+.h-img:hover {
+  opacity: 0.8;
+  transition: all 0.4s;
+}
+
+.btn-play {
+  left: 39%;
+  bottom: 30%;
+  position: absolute;
+  transition: all 0.4s;
+  opacity: 0;
+  cursor: initial;
+  font-size: 80px;
+  width: 90px;
+  height: 90px;
+}
+
+.btn-play:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.h-img:hover ~ {
+
+  .btn-play {
+    opacity: 1;
+  }
+
+}
+
+#icon-like {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: gold;
+}
+

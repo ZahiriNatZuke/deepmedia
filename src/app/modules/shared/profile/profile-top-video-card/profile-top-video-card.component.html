@@ -1,8 +1,8 @@
-<mat-grid-list cols="3" class="m-grid-list">
-  <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <video class="w-100 h-auto" src="../../../assets/video/video1.mp4" preload="auto" controls="controls"></video>
+<mat-grid-list cols="5" class="m-grid-list" gutterSize="10px" [rowHeight]="rowHeight">
+  <mat-grid-tile [colspan]="3" [rowspan]="1">
+    <app-profile-poster-video></app-profile-poster-video>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
+  <mat-grid-tile [colspan]="2" [rowspan]="1">
     <div class="d-flex flex-column pl-2 p-absolute">
       <div class="d-flex">
         <h3 class="mr-2">Test Video #1</h3>

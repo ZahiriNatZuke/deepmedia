@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,12 @@ export class LoginComponent implements OnInit {
     username: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  hide: boolean;
 
   constructor(private formBuilder: FormBuilder) {
+    this.hide = true;
   }
 
   ngOnInit(): void {

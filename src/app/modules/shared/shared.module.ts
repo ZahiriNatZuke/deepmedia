@@ -22,12 +22,16 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ProfileListInfoComponent} from './profile/profile-list-info/profile-list-info.component';
-import { ProfileTopVideoCardComponent } from './profile/profile-top-video-card/profile-top-video-card.component';
+import {ProfileTopVideoCardComponent} from './profile/profile-top-video-card/profile-top-video-card.component';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { ProfileVideoCardComponent } from './profile/profile-video-card/profile-video-card.component';
-import { MsgDialogComponent } from './dialogs/msg-dialog/msg-dialog.component';
+import {ProfileVideoCardComponent} from './profile/profile-video-card/profile-video-card.component';
+import {MsgDialogComponent} from './dialogs/msg-dialog/msg-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ApplicationsComponent } from './applications/applications.component';
+import {ApplicationsComponent} from './applications/applications.component';
+import {VideoPlayerComponent} from './video-player/video-player.component';
+import {MatSliderModule} from '@angular/material/slider';
+import {TimerPipe} from './pipes/timer.pipe';
+import { ProfilePosterVideoComponent } from './profile/profile-poster-video/profile-poster-video.component';
 
 
 @NgModule({
@@ -44,7 +48,10 @@ import { ApplicationsComponent } from './applications/applications.component';
     ProfileTopVideoCardComponent,
     ProfileVideoCardComponent,
     MsgDialogComponent,
-    ApplicationsComponent
+    ApplicationsComponent,
+    VideoPlayerComponent,
+    TimerPipe,
+    ProfilePosterVideoComponent
   ],
   exports: [
     WelcomeComponent,
@@ -56,7 +63,8 @@ import { ApplicationsComponent } from './applications/applications.component';
     ProfileFormComponent,
     ProfileCardComponent,
     ProfileTopVideoCardComponent,
-    ProfileVideoCardComponent
+    ProfileVideoCardComponent,
+    TimerPipe
   ],
   imports: [
     CommonModule,
@@ -73,7 +81,8 @@ import { ApplicationsComponent } from './applications/applications.component';
     MatProgressBarModule,
     MatTooltipModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSliderModule,
   ]
 })
 export class SharedModule {
