@@ -27,12 +27,15 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {ProfileVideoCardComponent} from './profile/profile-video-card/profile-video-card.component';
 import {MsgDialogComponent} from './dialogs/msg-dialog/msg-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {ApplicationsComponent} from './applications/applications.component';
 import {VideoPlayerComponent} from './video-player/video-player.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {TimerPipe} from './pipes/timer.pipe';
-import { ProfilePosterVideoComponent } from './profile/profile-poster-video/profile-poster-video.component';
-
+import {ProfilePosterVideoComponent} from './profile/profile-poster-video/profile-poster-video.component';
+import {VideoFormStepperComponent} from './video-form-stepper/video-form-stepper.component';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+import {SaveDomPipe} from './pipes/save-dom.pipe';
 
 @NgModule({
   declarations: [
@@ -48,10 +51,11 @@ import { ProfilePosterVideoComponent } from './profile/profile-poster-video/prof
     ProfileTopVideoCardComponent,
     ProfileVideoCardComponent,
     MsgDialogComponent,
-    ApplicationsComponent,
     VideoPlayerComponent,
     TimerPipe,
-    ProfilePosterVideoComponent
+    ProfilePosterVideoComponent,
+    VideoFormStepperComponent,
+    SaveDomPipe
   ],
   exports: [
     WelcomeComponent,
@@ -64,7 +68,8 @@ import { ProfilePosterVideoComponent } from './profile/profile-poster-video/prof
     ProfileCardComponent,
     ProfileTopVideoCardComponent,
     ProfileVideoCardComponent,
-    TimerPipe
+    TimerPipe,
+    VideoFormStepperComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +88,9 @@ import { ProfilePosterVideoComponent } from './profile/profile-poster-video/prof
     MatGridListModule,
     MatDialogModule,
     MatSliderModule,
+    CdkStepperModule,
+    MatStepperModule,
+    MatSelectModule
   ]
 })
 export class SharedModule {

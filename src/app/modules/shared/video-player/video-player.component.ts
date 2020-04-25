@@ -1,5 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {faPlay, faPause, faVolumeUp, faVolumeDown, faVolumeMute, faVolumeOff, faPlayCircle} from '@fortawesome/free-solid-svg-icons';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  faPlay, faPause, faVolumeUp,
+  faVolumeDown, faVolumeMute,
+  faVolumeOff, faPlayCircle
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-player',
@@ -9,7 +13,8 @@ import {faPlay, faPause, faVolumeUp, faVolumeDown, faVolumeMute, faVolumeOff, fa
 export class VideoPlayerComponent implements OnInit {
   videoPlayer: HTMLVideoElement;
   @Input() widthVideo: number;
-  @Input() video: { id: number, video: string };
+  @Input() video: { poster: string; id: number, video: string };
+  @Output() videoPlayerEmitter: EventEmitter<VideoPlayerComponent>;
   faPlay = faPlay;
   faPause = faPause;
   faVolumeUp = faVolumeUp;
@@ -31,13 +36,14 @@ export class VideoPlayerComponent implements OnInit {
   poster: boolean;
 
   constructor() {
+    this.videoPlayerEmitter = new EventEmitter();
     this.poster = true;
     this.mutedVideo = false;
     this.currentVolumen = 50;
     this.currentTime = 0.0;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadHTML();
     this.setWidth();
     this.onPlaceBtnPlay();
@@ -46,13 +52,14 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   loadHTML() {
-    this.videoPlayer = document.getElementById(`video-player`) as HTMLVideoElement;
-    this.controlBar = $(`#control-bar`);
-    this.videoPoster = $(`#poster`);
-    this.buttonPlay = document.getElementById(`btn-play`);
-    this.volumenControl = $(`#volumen-control`);
-    this.volumenSlider = $(`#volumen-slider`);
-    this.progressBar = document.getElementById(`progress-bar-video`);
+    const videoPlayerTag = document.getElementById(`video-${this.video.id}`);
+    this.videoPlayer = videoPlayerTag.getElementsByClassName('video-player')[0] as HTMLVideoElement;
+    this.controlBar = $(`#video-${this.video.id} #control-bar`);
+    this.videoPoster = $(`#video-${this.video.id} #poster`);
+    this.buttonPlay = videoPlayerTag.getElementsByClassName('btn-play')[0] as HTMLButtonElement;
+    this.volumenControl = $(`#video-${this.video.id} #volumen-control`);
+    this.volumenSlider = $(`#video-${this.video.id} #volumen-slider`);
+    this.progressBar = videoPlayerTag.getElementsByClassName('progress-bar-video')[0] as HTMLElement;
   }
 
   addEventsListen() {
@@ -60,6 +67,7 @@ export class VideoPlayerComponent implements OnInit {
       this.currentTime = this.videoPlayer.currentTime;
     });
     window.addEventListener('keydown', (event) => {
+      event.preventDefault();
       this.events(event);
     });
     window.addEventListener('wheel', (event) => {
@@ -76,6 +84,9 @@ export class VideoPlayerComponent implements OnInit {
   playPause() {
     this.videoPlayer.paused ? this.played = true : this.played = false;
     this.videoPlayer.paused ? this.videoPlayer.play() : this.videoPlayer.pause();
+    if (this.played) {
+      this.videoPlayerEmitter.emit(this);
+    }
   }
 
   seekingVideo(progress: number) {

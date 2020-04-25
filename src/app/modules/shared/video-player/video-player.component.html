@@ -2,12 +2,12 @@
 
   <video id="video-player" class="video-player mat-elevation-z5" [volume]="currentVolumen / 100" (ended)="endVideo()"
          [width]="widthVideo">
-    <source src="../../../../assets/video/{{video.video}}" type="video/mp4">
+    <source [src]="video.video | saveDom" type="video/mp4">
     Your browser do not support HTML5 video.
   </video>
 
   <div id="poster" class="poster">
-    <img src="../../../../assets/img/img-video.png" class="img-poster">
+    <img [src]="video.poster | saveDom" class="img-poster">
     <button id="btn-play" mat-icon-button class="text-white btn-play mat-elevation-z15" (click)="hidePoster()">
       <fa-icon [icon]="faPlayCircle"></fa-icon>
     </button>

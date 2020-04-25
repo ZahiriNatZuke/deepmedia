@@ -16,7 +16,7 @@
       </label>
     </div>
     <div class="row w-100 pl-2 py-2">
-      <img src="../../../assets/img/sidebar-user.png" alt="idebar-user" class="img-fluid rounded-circle img-sidebar">
+      <img src="../../../../assets/img/sidebar-user.png" alt="idebar-user" class="img-fluid rounded-circle img-sidebar">
       <div class="d-flex flex-column">
         <span class="user-header pl-2 font-weight-light cursor-pointer"
               [routerLink]="['/auth/profile',1]">ZahiriNatZuke</span>
@@ -52,7 +52,7 @@
     </li>
     <li>
       <a class="link-dropdown" (click)="slideToggleOptions()">
-        <fa-icon [icon]="faSlidersH"></fa-icon>
+        <fa-icon [icon]="faCogs"></fa-icon>
         <span>Opciones</span>
         <fa-icon [icon]="toggleOptions ? faAngleUp : faAngleDown" id="DropdownOptions"></fa-icon>
       </a>
@@ -61,7 +61,6 @@
           <li><a><i></i>Buscar</a></li>
           <li><a [routerLink]="['/video/new-video']"><i></i>Nuevo Video</a></li>
           <li><a [routerLink]="['/video/favorites',1]"><i></i>Mis Favoritos</a></li>
-          <li><a [routerLink]="['/aplicaciones']"><i></i>Aplicaciones</a></li>
         </ul>
       </div>
     </li>
@@ -80,13 +79,13 @@
 <!-- Media-Links - Start -->
 <section class="social">
   <div><a class="social-link mat-elevation-z8">
-    <img id="facebook" src="../../../assets/img/ico/facebook.ico" alt="facebook">
+    <img id="facebook" src="../../../../assets/img/ico/facebook.ico" alt="facebook">
   </a></div>
   <div><a class="social-link mat-elevation-z8">
-    <img id="linkedin" src="../../../assets/img/ico/linkedin.ico" alt="linkedin">
+    <img id="linkedin" src="../../../../assets/img/ico/linkedin.ico" alt="linkedin">
   </a></div>
   <div><a class="social-link mat-elevation-z8">
-    <img id="twitter" src="../../../assets/img/ico/twitter.ico" alt="twitter">
+    <img id="twitter" src="../../../../assets/img/ico/twitter.ico" alt="twitter">
   </a></div>
 </section>
 <!-- Media-Links - End -->

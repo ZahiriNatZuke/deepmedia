@@ -7,7 +7,7 @@ import {
   faStream,
   faSignOutAlt,
   faUserAlt,
-  faSlidersH,
+  faCogs,
   faCircle
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   faBars = faBars;
   faAngleDown = faAngleDown;
   faStream = faStream;
-  faSlidersH = faSlidersH;
+  faCogs = faCogs;
   faCircle = faCircle;
   faAngleUp = faAngleUp;
   faSignOutAlt = faSignOutAlt;

@@ -4,17 +4,13 @@ import {WelcomeComponent} from './modules/shared/welcome/welcome.component';
 import {NotFoundComponent} from './modules/shared/not-found/not-found.component';
 import {AuthComponent} from './modules/auth/auth.component';
 import {VideoComponent} from './modules/video/video.component';
-import {ApplicationsComponent} from './modules/shared/applications/applications.component';
+import {ForbiddenComponent} from './modules/shared/forbidden/forbidden.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'home',
     component: WelcomeComponent
-  },
-  {
-    path: 'aplicaciones',
-    component: ApplicationsComponent
   },
   {
     path: 'auth',
@@ -25,7 +21,17 @@ const routes: Routes = [
     component: VideoComponent,
     loadChildren: './modules/video/video-routing.module#VideoRoutingModule'
   },
-  {path: '**', component: NotFoundComponent}
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent
+  },
+  {
+    path: '**', redirectTo: 'not-found', pathMatch: 'full'
+  }
 ];
 
 @NgModule({

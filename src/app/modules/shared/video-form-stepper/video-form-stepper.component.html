@@ -1,0 +1,158 @@
+<mat-horizontal-stepper #stepper labelPosition="bottom" [linear]="true" class="rounded mat-elevation-z10">
+  <mat-step [editable]="true" [stepControl]="info">
+    <ng-template matStepLabel>Información del Video</ng-template>
+    <mat-card>
+      <form [formGroup]="info">
+        <mat-card-content class="m-content">
+          <div class="d-flex flex-column">
+            <mat-form-field class="w-100 mt-3" appearance="outline">
+              <mat-label>Título del Video</mat-label>
+              <input matInput type="text" formControlName="title" required>
+              <mat-error *ngIf="checkValid('info', 'title')">{{checkRequired('info', 'title')}}</mat-error>
+            </mat-form-field>
+            <div class="d-flex">
+              <div class="col d-flex justify-content-center">
+                <mat-form-field appearance="outline">
+                  <mat-label>Estado</mat-label>
+                  <mat-select disableRipple formControlName="status" required>
+                    <mat-option value="Público">Público</mat-option>
+                    <mat-option value="Privado">Privado</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="checkValid('info', 'status')">{{checkRequired('info', 'status')}}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col d-flex justify-content-center">
+                <mat-form-field appearance="outline">
+                  <mat-label>Categoría</mat-label>
+                  <mat-select disableRipple formControlName="category" required>
+                    <mat-option value="Gameplay">Gameplay</mat-option>
+                    <mat-option value="Humor">Humor</mat-option>
+                    <mat-option value="Musical">Musical</mat-option>
+                    <mat-option value="Interesante">Interesante</mat-option>
+                    <mat-option value="Tecnología">Tecnología</mat-option>
+                    <mat-option value="Tutorial">Tutorial</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="checkValid('info', 'category')">{{checkRequired('info', 'category')}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Descripción del Video</mat-label>
+              <textarea matInput cdkTextareaAutosize #description formControlName="description"
+                        required maxlength="255" [rows]="4">
+              </textarea>
+              <mat-hint align="end">{{description.value.length}} / 255</mat-hint>
+              <mat-error *ngIf="checkValid('info', 'description')">{{checkRequired('info', 'description')}}</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </form>
+      <mat-card-actions align="end">
+        <button mat-icon-button matStepperNext type="button" color="primary">
+          <fa-icon [icon]="faAngleRight"></fa-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+  <mat-step [editable]="true" [stepControl]="poster">
+    <ng-template matStepLabel>Poster del Video</ng-template>
+    <mat-card>
+      <form [formGroup]="poster">
+        <mat-card-content class="m-content mb-4">
+          <div class="d-flex flex-column">
+            <div class="d-flex justify-content-center m-img">
+              <img id="poster-img" [src]="videoObj.poster | saveDom" alt=""
+                   class="poster-img rounded w-100 mat-elevation-z4">
+            </div>
+            <div class="justify-content-center m-input-file">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input d-none" id="imgFile" (change)="previewPoster($event);"
+                       formControlName="image" required>
+                <label class="custom-file-label" for="imgFile" id="label-poster-img">Poster del Video</label>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </form>
+      <mat-card-actions align="end">
+        <button mat-icon-button matStepperPrevious type="button" color="warn">
+          <fa-icon [icon]="faAngleLeft"></fa-icon>
+        </button>
+        <button mat-icon-button matStepperNext type="button" color="primary">
+          <fa-icon [icon]="faAngleRight"></fa-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+  <mat-step [editable]="true" [stepControl]="video_src">
+    <ng-template matStepLabel>Video</ng-template>
+    <mat-card>
+      <form [formGroup]="video_src">
+        <mat-card-content class="m-content mb-4">
+          <div class="d-flex flex-column">
+            <div class="d-flex justify-content-center m-img">
+              <app-video-player *ngIf="showVideoPlayer" id="video-1" [widthVideo]="480"
+                                (videoPlayerEmitter)="saveVideoPlayer($event)"
+                                [video]="videoObj">
+              </app-video-player>
+            </div>
+            <div class="justify-content-center m-input-file">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input d-none" id="videoFile" (change)="previewVideo($event);"
+                       formControlName="video" required>
+                <label class="custom-file-label" for="videoFile" id="label-video">Video</label>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </form>
+      <mat-card-actions align="end">
+        <button mat-icon-button matStepperPrevious type="button" color="warn" (click)="pauseVideo()">
+          <fa-icon [icon]="faAngleLeft"></fa-icon>
+        </button>
+        <button mat-icon-button matStepperNext type="button" color="primary" (click)="pauseVideo()">
+          <fa-icon [icon]="faAngleRight"></fa-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Finalizar</ng-template>
+    <mat-card>
+      <mat-card-content class="m-content">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center mt-3">
+            <h2>Proceso de Creado del Video Finalizado <span class="text-success font-weight-bold">&#10003;</span></h2>
+          </div>
+          <div class="d-flex mt-3">
+            <div class="col d-flex justify-content-center flex-column">
+              <div class="d-flex justify-content-center">
+                <button mat-button type="button" (click)="resetForm(stepper)">
+                  <fa-icon size="3x" [icon]="faTrash" [classes]="['text-danger']"></fa-icon>
+                </button>
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+                <h4>Descartar Video</h4>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center flex-column">
+              <div class="d-flex justify-content-center">
+                <button mat-button type="button" (click)="sendData()">
+                  <fa-icon size="3x" [icon]="faSave" [classes]="['text-success']"></fa-icon>
+                </button>
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+                <h4>Guardar Video</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-icon-button matStepperPrevious type="button" color="warn">
+          <fa-icon [icon]="faAngleLeft"></fa-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+</mat-horizontal-stepper>
