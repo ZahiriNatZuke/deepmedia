@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {WelcomeComponent} from './modules/shared/welcome/welcome.component';
-import {NotFoundComponent} from './modules/shared/not-found/not-found.component';
+import {WelcomeComponent} from './modules/shared/pages/welcome/welcome.component';
+import {NotFoundComponent} from './modules/shared/pages/not-found/not-found.component';
 import {AuthComponent} from './modules/auth/auth.component';
 import {VideoComponent} from './modules/video/video.component';
-import {ForbiddenComponent} from './modules/shared/forbidden/forbidden.component';
+import {ForbiddenComponent} from './modules/shared/pages/forbidden/forbidden.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},

@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Filter</mat-label>
+    <input (keyup)="applyFilter($event)" matInput placeholder="Ex. Mia">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+      <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><b>{{column | uppercase}}</b>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="element-description">
+              {{element.description}}
+              <span class="element-description-attribution"> -- Wikipedia </span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+          class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+
+    <mat-paginator [hidePageSize]="true" [pageSize]="5" [showFirstLastButtons]="true"></mat-paginator>
+  </div>
+</mat-card>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faTimes} from '@fortawesome/free-solid-svg-icons';
-import {environment} from '../../../../../environments/environment.prod';
+import {environment} from '../../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-profile-card',

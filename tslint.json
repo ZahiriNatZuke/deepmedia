@@ -85,12 +85,13 @@
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "variable-name": [
-      false,
+      true,
       "check-format",
       "allow-pascal-case",
       "allow-leading-underscore",
       "allow-trailing-underscore",
-      "require-const-for-all-caps"
+      "require-const-for-all-caps",
+      "allow-snake-case"
     ]
   },
   "rulesDirectory": [
