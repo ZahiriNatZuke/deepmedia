@@ -1,7 +1,7 @@
 <!-- Utils - Start -->
 <input type="checkbox" id="check">
-<label for="check" id="labelcheck">
-  <fa-icon [icon]="faBars" id="checkbtn" (click)="toRight()"></fa-icon>
+<label for="check" id="labelcheck" (click)="toRight()">
+  <fa-icon [icon]="faBars" id="checkbtn"></fa-icon>
 </label>
 <!-- Utils - End -->
 
@@ -11,8 +11,8 @@
     <div class="d-flex justify-content-between">
       <h4 class="pt-2 pl-3 cursor-pointer font-weight-light" [routerLink]="['/video']">
         <span class="font-weight-bold">#</span>DeepMedia</h4>
-      <label class="pr-2 pt-1" for="check" id="labelcheckCancel">
-        <fa-icon [icon]="faTimes" id="checkbtncancel" (click)="toLeft()"></fa-icon>
+      <label class="pr-2 pt-1" for="check" id="labelcheckCancel" (click)="toLeft()">
+        <fa-icon [icon]="faTimes" id="checkbtncancel"></fa-icon>
       </label>
     </div>
     <div class="row w-100 pl-2 py-2">
