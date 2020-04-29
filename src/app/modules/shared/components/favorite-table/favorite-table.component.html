@@ -1,63 +1,100 @@
-<mat-card>
-  <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
-    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>{{column | uppercase}}</b>
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element[column] | titlecase}} </td>
-    </ng-container>
+<mat-card class="mat-elevation-z10 mt-2">
+  <mat-card-header class="d-flex justify-content-between flex-column">
+    <div class="d-flex w-100">
+      <div class="pt-4 w-75 justify-content-start d-flex">
+        <fa-icon [icon]="faStar" size="3x" [classes]="['ml-5','p-1']"
+                 class="gold-color"></fa-icon>
+        <div class="w-2 bg-dark mb-3 ml-3"></div>
+        <h1 class="pl-3">Tus Video Favoritos</h1>
+      </div>
+      <div class="w-25 d-flex justify-content-end">
+        <mat-form-field id="filterForm" appearance="outline" class="w-100 mt-1 mr-3">
+          <mat-label>Filtro de Búsqueda</mat-label>
+          <input matInput (keyup)="applyFilter($event)">
+        </mat-form-field>
+        <button mat-icon-button class="mt-filter" (click)="toggleFilterForm()">
+          <fa-icon [icon]="faFilter" [classes]="['text-muted', 'pt-1']"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'categoría' | uppercase}}</th>
+        <td mat-cell *matCellDef="let element"> {{element['categoria'] | titlecase}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-        <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <div class="d-flex mx-5">
-            <div class="w-49 px-5 py-2">
-              <app-profile-poster-video class="mat-elevation-z5"></app-profile-poster-video>
-            </div>
-            <div class="w-2 h-auto bg-secondary py-5 v-divider"></div>
-            <div class="w-49 px-5 py-3">
-              <div class="d-flex flex-column pl-2 p-absolute">
-                <div class="d-flex">
-                  <h3 class="mr-2">Test Video #1</h3>
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'titulo' | uppercase}}</th>
+        <td mat-cell *matCellDef="let element"> {{element['titulo'] | titlecase}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="propietario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'propietario' | uppercase}}</th>
+        <td mat-cell *matCellDef="let element"> {{element['propietario'] | titlecase}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'fecha' | uppercase}}</th>
+        <td mat-cell *matCellDef="let element"> {{element['fecha'] | titlecase}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="d-flex mx-5">
+              <div class="w-49 px-5 py-2">
+                <app-profile-poster-video class="mat-elevation-z5"></app-profile-poster-video>
+              </div>
+              <div class="w-2 h-auto bg-secondary py-5 v-divider"></div>
+              <div class="w-49 px-5 py-3">
+                <div class="d-flex flex-column pl-2 p-absolute">
+                  <div class="d-flex">
+                    <h3 class="mr-2">Test Video #1</h3>
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected>
+                        <fa-icon [icon]="faGamepad"></fa-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                  <h6>Viernes, 17 de Abril de 2020, 8:08 PM</h6>
                   <mat-chip-list>
-                    <mat-chip color="primary" selected>
-                      <fa-icon [icon]="faGamepad"></fa-icon>
+                    <mat-chip color="primary" class="w-auto p-1" selected>
+                      <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
+                      <span class="mr-1">10.5k</span>
+                    </mat-chip>
+                    <mat-chip color="primary" class="w-auto p-1" selected>
+                      <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
+                      <span class="mr-1">10.5k</span>
+                    </mat-chip>
+                    <mat-chip color="primary" class="w-auto p-1" selected>
+                      <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
+                      <span class="mr-1">10.5k</span>
                     </mat-chip>
                   </mat-chip-list>
+                  <p class="pt-3 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+                    asperiores deleniti deserunt
+                    doloremque dolorum error fugiat ipsum magni nam numquam odio odit optio possimus quaerat, qui
+                    quisquam, quod sed ut!</p>
                 </div>
-                <h6>Viernes, 17 de Abril de 2020, 8:08 PM</h6>
-                <mat-chip-list>
-                  <mat-chip color="primary" class="w-auto p-1" selected>
-                    <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
-                    <span class="mr-1">10.5k</span>
-                  </mat-chip>
-                  <mat-chip color="primary" class="w-auto p-1" selected>
-                    <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
-                    <span class="mr-1">10.5k</span>
-                  </mat-chip>
-                  <mat-chip color="primary" class="w-auto p-1" selected>
-                    <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
-                    <span class="mr-1">10.5k</span>
-                  </mat-chip>
-                </mat-chip-list>
-                <p class="pt-3 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                  asperiores deleniti deserunt
-                  doloremque dolorum error fugiat ipsum magni nam numquam odio odit optio possimus quaerat, qui
-                  quisquam, quod sed ut!</p>
               </div>
             </div>
           </div>
-        </div>
-      </td>
-    </ng-container>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
-        class="element-row"
-        [class.expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element">
-    </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-  </table>
-
-  <mat-paginator [hidePageSize]="true" [pageSize]="4" [showFirstLastButtons]="true"></mat-paginator>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+          class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-paginator [hidePageSize]="true" [pageSize]="5" [showFirstLastButtons]="true"></mat-paginator>
+  </mat-card-actions>
 </mat-card>
+<br><br>
