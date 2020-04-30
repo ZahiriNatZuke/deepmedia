@@ -16,7 +16,7 @@ export class ProfileFormComponent implements OnInit {
   public angularForm: FormGroup = this.formBuilder.group({
     fullname: ['', [Validators.required]],
     username: ['', [Validators.required, Validators.minLength(4)]],
-    email: [''],
+    email: ['', Validators.email],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirm: ['', [Validators.required, Validators.minLength(8), Validators.pattern]],
     image: ['']

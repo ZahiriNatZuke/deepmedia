@@ -1,1 +1,76 @@
-<p>video-view works!</p>
+<div class="d-flex">
+  <div class="d-flex w-60 justify-content-start">
+    <mat-card>
+      <mat-card-title class="d-flex justify-content-between w-100">
+        <div class="d-flex">
+          <h3>Video de Test #1</h3>
+          <button mat-icon-button (click)="toggleDateTime()"
+                  class="ml-2" matTooltip="Fecha del Video" matTooltipPosition="after">
+            <fa-icon [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['pb-2', 'text-muted']"></fa-icon>
+          </button>
+        </div>
+        <div class="icon-line mr-1">
+          <button mat-button [class.text-muted]="!showInfo" (click)="toggleInfo()"
+                  matTooltip="Descripción del Video" matTooltipPosition="left">
+            <fa-icon [icon]="faInfoCircle"></fa-icon>
+          </button>
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle id="dateTime">
+        <h6>Miércoles, 29 de Abril de 2020, 10:20 PM</h6>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <hr>
+        <app-video-player [id]="'video-'+ video.id" [video]="video"
+                          [widthVideo]="getToggleVideoSize() ? 640 : 720"></app-video-player>
+        <div id="info">
+          <hr>
+          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, reiciendis!</span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <div class="icon-line mr-1">
+          <button mat-button class="text-muted">
+            <fa-icon [icon]="faStar"></fa-icon>
+          </button>
+        </div>
+        <div class="icon-line d-flex">
+          <span class="align-self-center font-weight-bold text-muted select-none">1000</span>
+          <button mat-button color="primary">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </div>
+        <div class="icon-line d-flex">
+          <span class="align-self-center font-weight-bold text-muted select-none">1000</span>
+          <button mat-button class="text-muted">
+            <fa-icon [icon]="faThumbsUp"></fa-icon>
+          </button>
+        </div>
+        <div class="icon-line d-flex">
+          <span class="align-self-center font-weight-bold text-muted select-none">1000</span>
+          <button mat-button color="primary">
+            <fa-icon [icon]="faComment"></fa-icon>
+          </button>
+        </div>
+        <div class="icon-line mr-1">
+          <button mat-button color="primary">
+            <fa-icon [icon]="faDownload"></fa-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="d-flex w-35 ml-4 justify-content-end">
+    <mat-card class="w-95">
+      <mat-tab-group dynamicHeight color="warn" backgroundColor="primary" animationDuration="700ms">
+        <mat-tab label="Lista de Reproducción">
+          <app-play-list></app-play-list>
+        </mat-tab>
+        <mat-tab label="Comentarios">
+          <app-comments></app-comments>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>
+<br><br *ngIf="showInfo || showDateTime">

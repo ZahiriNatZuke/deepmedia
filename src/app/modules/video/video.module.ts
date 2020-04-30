@@ -11,6 +11,11 @@ import {FavoritesComponent} from './favorites/favorites.component';
 import {AppRoutingModule} from '../../app-routing.module';
 import {VideoRoutingModule} from './video-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {MatCardModule} from '@angular/material/card';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -30,7 +35,12 @@ import {SharedModule} from '../shared/shared.module';
     CommonModule,
     AppRoutingModule,
     VideoRoutingModule,
-    SharedModule
+    SharedModule,
+    MatCardModule,
+    FontAwesomeModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatTabsModule
   ]
 })
 export class VideoModule {

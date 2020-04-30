@@ -33,7 +33,8 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
       image: ['', Validators.required],
     });
     this.video_src = this._formBuilder.group({
-      video: ['', Validators.required]
+      video: ['', Validators.required],
+      duration: ['']
     });
   }
 
@@ -114,5 +115,9 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
     if (this.videoPlayer && this.videoPlayer.played) {
       this.videoPlayer.playPause();
     }
+  }
+
+  saveDurationVideo(event: number) {
+    this.video_src.get('duration').setValue(event);
   }
 }

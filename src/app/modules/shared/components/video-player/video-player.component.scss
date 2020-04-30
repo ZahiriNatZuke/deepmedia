@@ -8,6 +8,10 @@
   display: initial;
 }
 
+.video-player {
+  transition: all .4s;
+}
+
 video {
   border-radius: 4px;
 }

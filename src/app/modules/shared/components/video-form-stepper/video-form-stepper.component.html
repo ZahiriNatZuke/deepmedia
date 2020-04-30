@@ -1,4 +1,5 @@
-<mat-horizontal-stepper #stepper labelPosition="bottom" [linear]="true" class="rounded mat-elevation-z10">
+<mat-horizontal-stepper #stepper labelPosition="bottom" [linear]="false" class="rounded mat-elevation-z10"
+                        (selectionChange)="pauseVideo()">
   <mat-step [editable]="true" [stepControl]="info">
     <ng-template matStepLabel>Información del Video</ng-template>
     <mat-card>
@@ -93,6 +94,7 @@
             <div class="d-flex justify-content-center m-img">
               <app-video-player *ngIf="showVideoPlayer" id="video-1" [widthVideo]="480"
                                 (videoPlayerEmitter)="saveVideoPlayer($event)"
+                                (durationVideoPlayerEmitter)="saveDurationVideo($event)"
                                 [video]="videoObj">
               </app-video-player>
             </div>

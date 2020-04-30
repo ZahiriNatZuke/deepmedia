@@ -92,7 +92,8 @@
       "allow-trailing-underscore",
       "require-const-for-all-caps",
       "allow-snake-case"
-    ]
+    ],
+    "curly": false
   },
   "rulesDirectory": [
     "codelyzer"

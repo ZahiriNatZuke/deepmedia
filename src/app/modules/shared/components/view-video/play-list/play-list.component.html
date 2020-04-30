@@ -1,0 +1,33 @@
+<div id="playList" cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+  <div class="box" *ngFor="let movie of movies; let i = index;" cdkDrag cdkDragLockAxis="y">
+    <div class="custom-placeholder" *cdkDragPlaceholder></div>
+    <div *cdkDragPreview class="d-flex">
+      <img src="http://streaming-uci.dev.com/Streaming-Symfony/web/uploads/video_images/video_336/1583114848.jpeg"
+           [alt]="movie" class="img-fluid rounded drag-item-img">
+      <div class="position-absolute favorite-star">
+        <fa-icon [icon]="faStar"></fa-icon>
+      </div>
+      <div class="position-absolute overlay-info-drag-video">
+        <div class="d-flex container-info-drag-video justify-content-center align-content-center">
+          <span class="text-white">1000</span>
+          <fa-icon [icon]="faThumbsUp" class="px-2" [classes]="['align-self-center']"></fa-icon>
+          <div class="w-1 bg-light mr-2 mt-1"></div>
+          <span class="text-white">1000</span>
+          <fa-icon [icon]="faComment" class="px-2" [classes]="['align-self-center']"></fa-icon>
+          <div class="w-1 bg-light mr-2 mt-1"></div>
+          <span class="text-white">1000</span>
+          <fa-icon [icon]="faEye" class="px-2" [classes]="['align-self-center']"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex overflow-hidden">
+      <span class="font-weight-bold align-self-center mh-text">{{i + 1}} - {{movie}}</span>
+    </div>
+    <div class="d-flex">
+      <span class="align-self-center">{{133 | timer}}</span>
+      <button mat-button color="primary">
+        <fa-icon [icon]="faPlayCircle"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

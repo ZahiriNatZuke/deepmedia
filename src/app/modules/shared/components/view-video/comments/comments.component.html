@@ -1,1 +1,41 @@
-<p>comments works!</p>
+<div class="d-flex flex-column">
+  <div id="listComments" class="comments-container" [ngStyle]="{height: showPostForm ? '320px' : '450px'}">
+    <div class="mat-elevation-z4 comment-item" *ngFor="let commet of [0,1,2,3,4,5]">
+      <div>
+      <span class="font-weight-normal">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, praesentium!</span>
+        <span class="text-muted font-weight-bold px-1"> // </span>
+        <span class="text-muted">2020-04-29</span>
+        <span class="font-weight-normal pl-1" style="font-size: 13px">
+      <a class="text-dark" [routerLink]="['/auth/profile','1']">&nbsp;<b>#</b>ZahiriNatZuke</a>
+      </span>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="!showPostForm" mat-icon-button color="primary" class="align-self-end" matTooltip="Nuevo Comentario"
+          matTooltipPosition="left" (click)="showPostForm = !showPostForm;">
+    <fa-icon [icon]="faPlus" [classes]="['pb-1']"></fa-icon>
+  </button>
+  <form [formGroup]="postCommentForm" *ngIf="showPostForm" (ngSubmit)="onSubmit()">
+    <div class="d-flex flex-column">
+      <mat-form-field appearance="outline">
+        <mat-label>Nuevo Comentario</mat-label>
+        <textarea matInput cdkTextareaAutosize #comment formControlName="comment"
+                  required maxlength="150" [rows]="4">
+              </textarea>
+        <mat-hint align="end">{{comment.value.length}} / 150</mat-hint>
+        <mat-error *ngIf="checkValid('comment')">{{checkRequired('comment')}}</mat-error>
+      </mat-form-field>
+      <div class="d-flex justify-content-between">
+        <button mat-raised-button color="warn" type="button" class="w-25" (click)="showPostForm = !showPostForm;">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
+        <button mat-raised-button color="primary" type="submit" class="w-25">
+          <fa-icon [icon]="faEnvelopeOpenText"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+

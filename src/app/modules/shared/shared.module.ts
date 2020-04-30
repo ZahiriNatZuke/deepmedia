@@ -43,6 +43,8 @@ import { FavoriteTableComponent } from './components/favorite-table/favorite-tab
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { PlayListComponent } from './components/view-video/play-list/play-list.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     CommentsComponent,
     SearchDialogComponent,
     UserInfoDialogComponent,
-    FavoriteTableComponent
+    FavoriteTableComponent,
+    PlayListComponent
   ],
   exports: [
     WelcomeComponent,
@@ -81,7 +84,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ProfileVideoCardComponent,
     TimerPipe,
     VideoFormStepperComponent,
-    FavoriteTableComponent
+    FavoriteTableComponent,
+    VideoPlayerComponent,
+    CommentsComponent,
+    PlayListComponent
   ],
   imports: [
     CommonModule,
@@ -105,7 +111,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSelectModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DragDropModule
   ]
 })
 export class SharedModule {

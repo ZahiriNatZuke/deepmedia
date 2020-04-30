@@ -4,6 +4,7 @@ import {
   faVolumeDown, faVolumeMute,
   faVolumeOff, faPlayCircle
 } from '@fortawesome/free-solid-svg-icons';
+import contains from '@popperjs/core/lib/dom-utils/contains';
 
 @Component({
   selector: 'app-video-player',
@@ -15,6 +16,7 @@ export class VideoPlayerComponent implements OnInit {
   @Input() widthVideo: number;
   @Input() video: { poster: string; id: number, video: string };
   @Output() videoPlayerEmitter: EventEmitter<VideoPlayerComponent>;
+  @Output() durationVideoPlayerEmitter: EventEmitter<number>;
   faPlay = faPlay;
   faPause = faPause;
   faVolumeUp = faVolumeUp;
@@ -37,6 +39,7 @@ export class VideoPlayerComponent implements OnInit {
 
   constructor() {
     this.videoPlayerEmitter = new EventEmitter();
+    this.durationVideoPlayerEmitter = new EventEmitter();
     this.poster = true;
     this.mutedVideo = false;
     this.currentVolumen = 50;
@@ -66,8 +69,15 @@ export class VideoPlayerComponent implements OnInit {
     this.videoPlayer.addEventListener('timeupdate', () => {
       this.currentTime = this.videoPlayer.currentTime;
     });
-    window.addEventListener('keydown', (event) => {
+    this.videoPlayer.addEventListener('dblclick', (event) => {
       event.preventDefault();
+      this.playPause();
+    });
+    window.addEventListener('keydown', (event) => {
+      const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+      console.log(event.keyCode);
+      if (events.indexOf(event.code) !== -1 || event.keyCode === 27 || event.keyCode === 32 || event.keyCode === 13)
+        event.preventDefault();
       this.events(event);
     });
     window.addEventListener('wheel', (event) => {
@@ -245,5 +255,9 @@ export class VideoPlayerComponent implements OnInit {
       this.playPause();
       this.played = true;
     }, 850);
+  }
+
+  emitDurationVideo(event: any) {
+    this.durationVideoPlayerEmitter.emit(event.target.duration);
   }
 }

@@ -10,6 +10,7 @@ import {
   faCogs,
   faCircle
 } from '@fortawesome/free-solid-svg-icons';
+import {environment} from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-sidebar',
@@ -70,6 +71,7 @@ export class SidebarComponent implements OnInit {
   }
 
   toRight() {
+    environment.expandedSidebar = true;
     this.mainSection.css({
       marginLeft: '250px',
       paddingLeft: '5px',
@@ -78,6 +80,7 @@ export class SidebarComponent implements OnInit {
   }
 
   toLeft() {
+    environment.expandedSidebar = false;
     this.mainSection.css({
       marginLeft: '70px',
       transition: 'all .5s'

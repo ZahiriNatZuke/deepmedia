@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  allVideos: false
+  allVideos: false,
+  expandedSidebar: false
 };
