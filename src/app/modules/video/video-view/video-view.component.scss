@@ -1,13 +1,30 @@
 .w-60 {
-  width: 60% !important
+  width: 60% !important;
+  transition: all .4s;
 }
 
 .w-35 {
-  width: 35% !important
+  width: 35% !important;
+  transition: all .4s;
 }
 
 .w-95 {
   width: 95% !important;
+  transition: all .4s;
+}
+
+.w-14 {
+  width: 14% !important;
+  transition: all .4s;
+}
+
+.w-43 {
+  width: 43% !important;
+  transition: all .4s;
+}
+
+.lm-top {
+  margin-top: -15px;
 }
 
 .mat-button {
@@ -34,3 +51,16 @@
   user-select: none;
 }
 
+.container-line-stars {
+  height: 20px;
+}
+
+.line-star {
+  height: 2px;
+  z-index: 1;
+}
+
+.star {
+  z-index: 2;
+  cursor: pointer;
+}

@@ -45,6 +45,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { PlayListComponent } from './components/view-video/play-list/play-list.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { TopCarouselComponent } from './components/view-video/top-carousel/top-carousel.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     SearchDialogComponent,
     UserInfoDialogComponent,
     FavoriteTableComponent,
-    PlayListComponent
+    PlayListComponent,
+    TopCarouselComponent,
   ],
   exports: [
     WelcomeComponent,
@@ -87,7 +89,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FavoriteTableComponent,
     VideoPlayerComponent,
     CommentsComponent,
-    PlayListComponent
+    PlayListComponent,
+    ProfilePosterVideoComponent,
+    TopCarouselComponent
   ],
   imports: [
     CommonModule,

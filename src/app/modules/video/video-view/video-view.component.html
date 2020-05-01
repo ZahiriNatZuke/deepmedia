@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex lm-top">
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-title class="d-flex justify-content-between w-100">
@@ -61,7 +61,7 @@
     </mat-card>
   </div>
   <div class="d-flex w-35 ml-4 justify-content-end">
-    <mat-card class="w-95">
+    <mat-card class="w-95 pb-2">
       <mat-tab-group dynamicHeight color="warn" backgroundColor="primary" animationDuration="700ms">
         <mat-tab label="Lista de Reproducción">
           <app-play-list></app-play-list>
@@ -73,4 +73,52 @@
     </mat-card>
   </div>
 </div>
-<br><br *ngIf="showInfo || showDateTime">
+<br>
+<div *ngIf="!showVideoView"><br><br></div>
+<div class="d-flex justify-content-center w-100 container-line-stars">
+  <div class="w-43 d-flex flex-column justify-content-start px-1">
+    <div class="bg-light my-auto line-star"></div>
+    <div class="bg-light my-auto mx-2 line-star"></div>
+    <div class="bg-light my-auto line-star"></div>
+  </div>
+  <div class="w-14 justify-content-center d-flex golden-star star" (click)="toggleVideoView()"
+       [matTooltip]="showVideoView ? 'Ver Tops' : 'Ver Video'" matTooltipPosition="above">
+    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
+    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
+    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
+    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
+    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
+  </div>
+  <div class="w-43 d-flex flex-column justify-content-end px-1">
+    <div class="bg-light my-auto line-star"></div>
+    <div class="bg-light my-auto mx-2 line-star"></div>
+    <div class="bg-light my-auto line-star"></div>
+  </div>
+</div>
+<div id="viewTop">
+  <br><br>
+  <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column mr-5">
+      <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Likes</h1>
+      <app-top-carousel [heightCarousel]="carouselHeight"
+                        [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
+                        [top]="'top-likes'"></app-top-carousel>
+    </div>
+    <div class="d-flex flex-column ml-5">
+      <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Vistas</h1>
+      <app-top-carousel [heightCarousel]="carouselHeight"
+                        [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
+                        [top]="'top-views'"></app-top-carousel>
+    </div>
+  </div>
+  <br><br>
+  <div class="d-flex justify-content-center w-100 container-line-stars mb-40">
+    <div class="w-100 d-flex flex-column justify-content-start px-1">
+      <div class="bg-light my-auto line-star"></div>
+      <div class="bg-light my-auto mx-2 line-star"></div>
+      <div class="bg-light my-auto line-star"></div>
+    </div>
+  </div>
+  <br><br><br>
+</div>
+

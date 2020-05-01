@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,6 +9,7 @@ import {faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 export class ProfilePosterVideoComponent implements OnInit {
   faPlayCircle = faPlayCircle;
   faStar = faStar;
+  @Input() heightPoster: number;
 
   constructor() {
   }

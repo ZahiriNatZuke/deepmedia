@@ -1,16 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-* {
-  outline: none !important;
-  list-style: none;
-}
-
 @font-face {
   font-family: 'Relaway-Regular';
   src: url("assets/fonts/Raleway-Regular.ttf");
 }
 
 * {
+  outline: none !important;
+  list-style: none !important;
+  text-decoration: none !important;
   font-family: Relaway-Regular, sans-serif;
 }

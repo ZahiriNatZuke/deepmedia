@@ -13,16 +13,25 @@ export class ProfileTopVideoCardComponent implements OnInit {
   faEye = faEye;
   faComment = faComment;
   rowHeight: number;
+  heightPoster: number;
 
   constructor() {
-    this.rowHeight = window.screen.availHeight * 35 / 100;
+    this.getHeight();
+    this.getPosterHeight();
   }
 
   ngOnInit(): void {
     window.addEventListener('resize', () => {
-      console.log('resize');
-      this.rowHeight = window.screen.availHeight * 35 / 100;
+      this.getHeight();
     });
+  }
+
+  getHeight() {
+    this.rowHeight = window.screen.availHeight * 35 / 100;
+  }
+
+  getPosterHeight() {
+    this.heightPoster = Math.floor(window.screen.availHeight * 35 / 100);
   }
 
 }

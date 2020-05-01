@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
   }
 
   constructor() {
-    this.rowHeight = window.screen.availHeight * 80 / 100;
+    this.getHeight();
   }
 
   ngOnInit(): void {
