@@ -93,7 +93,8 @@
       "require-const-for-all-caps",
       "allow-snake-case"
     ],
-    "curly": false
+    "curly": false,
+    "new-parens": false
   },
   "rulesDirectory": [
     "codelyzer"

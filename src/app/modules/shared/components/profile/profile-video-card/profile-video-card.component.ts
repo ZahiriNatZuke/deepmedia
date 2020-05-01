@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,11 +12,16 @@ export class ProfileVideoCardComponent implements OnInit {
   faEye = faEye;
   faPlayCircle = faPlayCircle;
   faStar = faStar;
+  @Output() linkToPlay: EventEmitter<boolean>;
 
   constructor() {
+    this.linkToPlay = new EventEmitter<boolean>();
   }
 
   ngOnInit(): void {
   }
 
+  emitPlayVideo() {
+    this.linkToPlay.emit(true);
+  }
 }

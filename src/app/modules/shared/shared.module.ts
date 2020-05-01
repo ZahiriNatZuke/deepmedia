@@ -36,16 +36,16 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
 import {SaveDomPipe} from './pipes/save-dom.pipe';
-import { CommentsComponent } from './components/view-video/comments/comments.component';
-import { SearchDialogComponent } from './dialogs/search-dialog/search-dialog.component';
-import { UserInfoDialogComponent } from './dialogs/user-info-dialog/user-info-dialog.component';
-import { FavoriteTableComponent } from './components/favorite-table/favorite-table.component';
+import {CommentsComponent} from './components/view-video/comments/comments.component';
+import {SearchDialogComponent} from './dialogs/search-dialog/search-dialog.component';
+import {FavoriteTableComponent} from './components/favorite-table/favorite-table.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { PlayListComponent } from './components/view-video/play-list/play-list.component';
+import {PlayListComponent} from './components/view-video/play-list/play-list.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { TopCarouselComponent } from './components/view-video/top-carousel/top-carousel.component';
+import {TopCarouselComponent} from './components/view-video/top-carousel/top-carousel.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -68,7 +68,6 @@ import { TopCarouselComponent } from './components/view-video/top-carousel/top-c
     SaveDomPipe,
     CommentsComponent,
     SearchDialogComponent,
-    UserInfoDialogComponent,
     FavoriteTableComponent,
     PlayListComponent,
     TopCarouselComponent,
@@ -116,7 +115,8 @@ import { TopCarouselComponent } from './components/view-video/top-carousel/top-c
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    DragDropModule
+    DragDropModule,
+    ScrollingModule
   ]
 })
 export class SharedModule {

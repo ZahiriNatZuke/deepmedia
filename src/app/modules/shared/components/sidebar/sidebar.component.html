@@ -61,7 +61,7 @@
         <ul>
           <li><a [routerLink]="['/video/favorites',1]"><i></i>Mis Favoritos</a></li>
           <li><a [routerLink]="['/video/new-video']"><i></i>Nuevo Video</a></li>
-          <li><a><i></i>Buscar</a></li>
+          <li (click)="openDialog()"><a><i></i>Buscar</a></li>
         </ul>
       </div>
     </li>

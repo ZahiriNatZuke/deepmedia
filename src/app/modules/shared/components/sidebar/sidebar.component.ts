@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
   faTimes,
   faBars,
@@ -11,13 +11,16 @@ import {
   faCircle
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../environments/environment.prod';
+import {SearchDialogComponent} from '../../dialogs/search-dialog/search-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
+
   faTimes = faTimes;
   faBars = faBars;
   faAngleDown = faAngleDown;
@@ -30,11 +33,12 @@ export class SidebarComponent implements OnInit {
   dropdownSidebarCategories: JQuery<HTMLElement>;
   dropdownSidebarOptions: JQuery<HTMLElement>;
   mainSection: JQuery<HTMLElement>;
+  inputCheck: HTMLInputElement;
   toggleCategories: boolean;
   toggleOptions: boolean;
   year: number;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     this.toggleCategories = false;
     this.toggleOptions = false;
     this.loadHTMLTags();
@@ -42,6 +46,12 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.code === 'KeyF') {
+        event.preventDefault();
+        this.openDialog();
+      }
+    });
     this.dropdownSidebarCategories = $('#Categories');
     this.dropdownSidebarOptions = $('#Options');
     this.dropdownSidebarCategories.slideUp(0);
@@ -85,6 +95,30 @@ export class SidebarComponent implements OnInit {
       marginLeft: '70px',
       transition: 'all .5s'
     });
+  }
+
+  openDialog(): void {
+    if (environment.expandedSidebar) {
+      this.inputCheck.checked = false;
+      this.toLeft();
+    }
+    const dialogRef = this.dialog.open(SearchDialogComponent, {
+      width: '100%',
+      maxHeight: '550px',
+      autoFocus: true,
+      role: 'dialog',
+      position: {
+        top: '40px',
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.inputCheck = document.getElementById('check') as HTMLInputElement;
   }
 
 }

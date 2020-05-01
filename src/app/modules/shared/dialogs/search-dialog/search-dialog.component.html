@@ -1,3 +1,22 @@
-<h1 mat-dialog-title></h1>
 <div mat-dialog-content>
+  <div class="d-flex justify-content-start">
+    <form [formGroup]="searchForm" (ngSubmit)="OnSubmit()" class="d-flex w-100">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Buscar en #DeepMedia</mat-label>
+        <input matInput type="text" formControlName="search" required>
+      </mat-form-field>
+      <button mat-button [style.marginBottom.em]="1.4" [style.marginLeft.px]="10">
+        <fa-icon size="2x" [icon]="faSearch" [classes]="['text-muted','font-weight-light', 'pt-2']"></fa-icon>
+      </button>
+    </form>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="d-flex justify-content-center mt-3" *ngIf="foundData === false">
+    <h4 class="font-weight-light align-self-center pl-4">No hay Resultados para su Búsqueda</h4>
+  </div>
+</div>
+<div mat-dialog-actions class="d-flex">
+  <div class="card-columns mt-4" *ngIf="foundData === true">
+    <app-profile-video-card (linkToPlay)="onNoClick()" *ngFor="let item of [0,1,2,3,4,5]"></app-profile-video-card>
+  </div>
 </div>
