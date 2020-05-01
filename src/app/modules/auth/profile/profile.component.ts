@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
     $('mat-accordion').fadeToggle(400);
     setTimeout(() => {
       $('.f-title-card').css({
-        font: '400 24px/40px Roboto, "Helvetica Neue", sans-serif',
+        font: '300 22px/40px Roboto, "Helvetica Neue", sans-serif',
         transition: 'all .3s'
       });
       $('.d-flex.justify-content-center button').toggleClass('d-none');

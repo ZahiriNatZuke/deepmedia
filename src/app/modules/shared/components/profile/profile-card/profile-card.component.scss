@@ -1,6 +1,8 @@
 .f-title-card {
-  font: 400 28px/40px Roboto, "Helvetica Neue", sans-serif;
+  font: 300 24px/40px Roboto, "Helvetica Neue", sans-serif;
   transition: all .3s;
+  cursor: initial;
+  user-select: none;
 }
 
 mat-card-actions {
@@ -18,3 +20,27 @@ mat-card-actions {
   transition: all 0.5s ease;
 }
 
+.counter {
+  border: 2px solid #505050;
+  border-radius: 4px;
+  padding: 3px 8px;
+  color: #5769b4;
+  user-select: none;
+}
+
+.my-30 {
+  margin-top: 34px;
+  margin-bottom: 34px;
+}
+
+.color-icon {
+  color: #424282;
+}
+
+.size-storage {
+  border: 1.5px solid #505050;
+  border-radius: 16px;
+  padding: 3px 8px;
+  color: #5769b4;
+  user-select: none;
+}

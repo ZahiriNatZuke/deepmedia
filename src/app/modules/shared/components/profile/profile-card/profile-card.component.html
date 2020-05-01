@@ -1,6 +1,6 @@
 <mat-card class="w-100">
   <mat-card-title class="d-flex justify-content-between">
-    <h1 class="pl-2 f-title-card">ZahiriNatZuke</h1>
+    <h1 class="pl-2 f-title-card" (dblclick)="moreStats = !moreStats"><b>#</b>ZahiriNatZuke</h1>
     <div class="d-flex align-top">
       <button mat-raised-button [color]="(form)? 'warn' : 'primary'" class="h-button mr-2" id="toggleForm"
               textContent="{{((form)? 'cancelar' : 'editar') | uppercase}}" (click)="toggleForm()"></button>
@@ -11,8 +11,8 @@
   </mat-card-title>
   <mat-card-content class="mh-profile rounded">
   </mat-card-content>
-  <mat-card-actions class="mb-0 py-0">
-    <mat-list>
+  <mat-card-actions class="mb-0 py-0" [style.height.px]="actionsHeight">
+    <mat-list *ngIf="!moreStats">
       <mat-list-item>
         <app-profile-list-info statsName="Likes" [icon]="faThumbsUp" class="w-100"></app-profile-list-info>
       </mat-list-item>
@@ -23,5 +23,31 @@
         <app-profile-list-info statsName="Comentarios" [icon]="faComment" class="w-100"></app-profile-list-info>
       </mat-list-item>
     </mat-list>
+    <div class="d-flex justify-content-between mx-4" *ngIf="moreStats">
+      <div class="counter-stats d-flex flex-column justify-content-center">
+        <div class="align-self-center mb-2 color-icon">
+          <fa-icon size="2x" [icon]="faThumbsUp"></fa-icon>
+        </div>
+        <h3 class="counter">1302</h3>
+      </div>
+      <div class="counter-stats d-flex flex-column justify-content-center">
+        <div class="align-self-center mb-2 color-icon">
+          <fa-icon size="2x" [icon]="faEye"></fa-icon>
+        </div>
+        <h3 class="counter">1302</h3>
+      </div>
+      <div class="counter-stats d-flex flex-column justify-content-center">
+        <div class="align-self-center mb-2 color-icon">
+          <fa-icon size="2x" [icon]="faComment"></fa-icon>
+        </div>
+        <h3 class="counter">1302</h3>
+      </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center mx-4 mt-2" *ngIf="moreStats">
+      <div class="align-self-center mb-2 color-icon">
+        <span class="font-weight-bold size-storage">1.31 GB / 5 GB</span>
+      </div>
+      <mat-progress-bar color="primary" mode="determinate" [value]="24"></mat-progress-bar>
+    </div>
   </mat-card-actions>
 </mat-card>
