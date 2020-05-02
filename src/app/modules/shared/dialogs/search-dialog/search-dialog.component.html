@@ -3,7 +3,7 @@
     <form [formGroup]="searchForm" (ngSubmit)="OnSubmit()" class="d-flex w-100">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Buscar en #DeepMedia</mat-label>
-        <input matInput type="text" formControlName="search" required>
+        <input matInput type="search" aria-label="search" formControlName="search" required>
       </mat-form-field>
       <button mat-button [style.marginBottom.em]="1.4" [style.marginLeft.px]="10">
         <fa-icon size="2x" [icon]="faSearch" [classes]="['text-muted','font-weight-light', 'pt-2']"></fa-icon>
