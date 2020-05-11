@@ -5,7 +5,7 @@
         <mat-card-title class="d-flex justify-content-center">
           <h1 class="pl-3 f-title-form">Inicio de Sesión</h1>
         </mat-card-title>
-        <form [formGroup]="angularForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="d-flex">
             <div class="col">
               <mat-form-field class="w-100 mt-1" appearance="outline">
@@ -29,7 +29,7 @@
                     <a class="link-register"> Aún no tengo cuenta. </a>
                   </mat-chip>
                 </mat-chip-list>
-                <button [disabled]="angularForm.invalid" mat-raised-button color="primary" type="submit"
+                <button [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit"
                         textContent="{{'Iniciar' | uppercase}}" class="w-50 btn-login"></button>
               </div>
             </div>

@@ -3,15 +3,15 @@
     <mat-chip-list>
       <mat-chip class="bg-chip text-white">
         <fa-icon [icon]="faVideo" class="pr-2"></fa-icon>
-        {{category.videos}}
+        {{category.count_videos}}
       </mat-chip>
     </mat-chip-list>
   </mat-card-title>
   <mat-card-footer class="f-bottom d-flex align-content-center justify-content-start"
                    (mouseover)="addAnimation()" (mouseleave)="delAnimation()">
-    <span class="py-1 pl-2 m-0 font-weight-light f-category" [routerLink]="['/video/list',category.name]">
+    <span class="py-1 pl-2 m-0 font-weight-light f-category" [routerLink]="['/video/list',category.link]">
       {{category.name | titlecase}}</span>
-    <button mat-icon-button [routerLink]="['/video/list',category.name]">
+    <button mat-icon-button [routerLink]="['/video/list',category.link]">
       <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
     </button>
   </mat-card-footer>

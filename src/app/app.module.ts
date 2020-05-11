@@ -5,6 +5,8 @@ import {AppComponent} from './app.component';
 import {AuthModule} from './modules/auth/auth.module';
 import {VideoModule} from './modules/video/video.module';
 import {SharedModule} from './modules/shared/shared.module';
+import {CrudService} from "./services/crud.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -15,9 +17,10 @@ import {SharedModule} from './modules/shared/shared.module';
     AppRoutingModule,
     AuthModule,
     VideoModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CrudService],
   exports: [],
   bootstrap: [AppComponent]
 })

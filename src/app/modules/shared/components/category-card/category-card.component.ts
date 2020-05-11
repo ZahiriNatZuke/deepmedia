@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faVideo, faAngleDoubleRight} from '@fortawesome/free-solid-svg-icons';
+import {environment} from "../../../../../environments/environment.prod";
+import {Category} from "../../../../models/category";
+
+const URL_ASSETS = environment.URL_ASSETS;
 
 @Component({
   selector: 'app-category-card',
@@ -10,7 +14,7 @@ export class CategoryCardComponent implements OnInit {
   faVideo = faVideo;
   faAngleDoubleRight = faAngleDoubleRight;
 
-  @Input() category: { name: string, videos: number, img: string };
+  @Input() category: Category;
   @Input() idCategory: number;
 
   constructor() {
@@ -18,13 +22,9 @@ export class CategoryCardComponent implements OnInit {
 
   ngOnInit(): void {
     $(`#card-${this.idCategory} mat-card`).css({
-      background: `url('${this.getPath(this.category.img)}') center`,
-      'background-size': 'cover'
+      background: `url('${URL_ASSETS}img/categories/${this.category.img}') center`,
+      backgroundSize: 'cover'
     });
-  }
-
-  getPath(img: string): string {
-    return `../../../../assets/img/categories/${img}`;
   }
 
   addAnimation() {

@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
+import {Video} from "../../../../models/video";
+import {environment} from "../../../../../environments/environment.prod";
 
 @Component({
   selector: 'app-video-card',
@@ -12,6 +14,8 @@ export class VideoCardComponent implements OnInit {
   faEye = faEye;
   faPlayCircle = faPlayCircle;
   faStar = faStar;
+  @Input() video: Video;
+  URL_STORAGE = environment.URL_STORAGE;
 
   constructor() {
   }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {
   faTimes,
   faBars,
@@ -8,19 +8,23 @@ import {
   faSignOutAlt,
   faUserAlt,
   faCogs,
-  faCircle
+  faCircle,
+  faSignInAlt,
+  faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../environments/environment.prod';
 import {SearchDialogComponent} from '../../dialogs/search-dialog/search-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {HelpersService} from "../../../../services/helpers.service";
+import {Channel} from "../../../../models/channel";
+import {CrudService} from "../../../../services/crud.service";
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
-
+export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   faTimes = faTimes;
   faBars = faBars;
   faAngleDown = faAngleDown;
@@ -30,6 +34,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   faAngleUp = faAngleUp;
   faSignOutAlt = faSignOutAlt;
   faUserAlt = faUserAlt;
+  faSignInAlt = faSignInAlt;
+  faUserPlus = faUserPlus;
   dropdownSidebarCategories: JQuery<HTMLElement>;
   dropdownSidebarOptions: JQuery<HTMLElement>;
   mainSection: JQuery<HTMLElement>;
@@ -37,15 +43,28 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   toggleCategories: boolean;
   toggleOptions: boolean;
   year: number;
+  URL_ASSETS = environment.URL_ASSETS;
+  URL_STORAGE = environment.URL_STORAGE;
+  User_Channel: Channel;
+  status_login: boolean = false;
+  UnknownUserAvatar: string;
+  checkStatusLogin: any;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+              private helpersService: HelpersService,
+              private crudService: CrudService) {
     this.toggleCategories = false;
     this.toggleOptions = false;
     this.loadHTMLTags();
     this.year = new Date().getFullYear();
+    this.checkStatusLogin = setInterval(() => {
+      this.statusLogin();
+    }, 250);
   }
 
   ngOnInit(): void {
+    this.statusLogin();
+    this.UnknownUserAvatar = this.helpersService.getUnknownUserAvatar();
     window.addEventListener('keydown', (event) => {
       if (event.ctrlKey && event.code === 'KeyF') {
         event.preventDefault();
@@ -56,6 +75,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.dropdownSidebarOptions = $('#Options');
     this.dropdownSidebarCategories.slideUp(0);
     this.dropdownSidebarOptions.slideUp(0);
+  }
+
+  statusLogin() {
+    this.helpersService.getAuthUser().subscribe(resolve => {
+      this.User_Channel = resolve;
+      if (this.User_Channel) {
+        this.status_login = true;
+      }
+    });
   }
 
   loadHTMLTags() {
@@ -121,4 +149,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.inputCheck = document.getElementById('check') as HTMLInputElement;
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.checkStatusLogin);
+  }
+
+  makeLogout() {
+    this.crudService.POSTLogout().subscribe(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.status_login = false;
+    });
+  }
 }

@@ -16,21 +16,27 @@
       </label>
     </div>
     <div class="row w-100 pl-2 py-2">
-      <img src="../../../../../assets/img/sidebar-user.png" alt="idebar-user"
+      <img [src]="status_login? URL_STORAGE + User_Channel.avatar.path : UnknownUserAvatar"
+           [alt]="status_login? User_Channel.avatar.name : 'UnknownUserAvatar'"
            class="img-fluid rounded-circle img-sidebar">
       <div class="d-flex flex-column">
-        <span class="user-header pl-2 font-weight-light cursor-pointer"
-              [routerLink]="['/auth/profile',1]">ZahiriNatZuke</span>
+        <span *ngIf="status_login" class="user-header pl-2 font-weight-light cursor-pointer"
+              [routerLink]="['/auth/profile',User_Channel.id]">{{User_Channel.user.username}}</span>
+        <span *ngIf="!status_login" class="user-header pl-2 font-weight-light cursor-pointer">
+          Anonymous
+        </span>
         <div class="pl-2 d-flex align-content-center">
-          <span class="info-header font-weight-bold">Conectado</span>
-          <fa-icon [icon]="faCircle" [classes]="['text-success','pl-1', 'pb-1']"></fa-icon>
+          <span *ngIf="status_login" class="info-header font-weight-bold">Conectado</span>
+          <span *ngIf="!status_login" class="info-header font-weight-bold">Desconectado</span>
+          <fa-icon *ngIf="status_login" [icon]="faCircle" [classes]="['text-success','pl-1', 'pb-1']"></fa-icon>
+          <fa-icon *ngIf="!status_login" [icon]="faCircle" [classes]="['text-danger','pl-1', 'pb-1']"></fa-icon>
         </div>
       </div>
     </div>
   </header>
   <ul>
-    <li>
-      <a [routerLink]="['/auth/profile',1]">
+    <li *ngIf="status_login">
+      <a [routerLink]="['/auth/profile',User_Channel.id]">
         <fa-icon [icon]="faUserAlt"></fa-icon>
         Perfil</a>
     </li>
@@ -42,12 +48,12 @@
       </a>
       <div id="Categories" class="dropdown-sidebar">
         <ul>
-          <li><a [routerLink]="['/video/list','gameplay']"><i></i>Gameplay</a></li>
-          <li><a [routerLink]="['/video/list','humor']"><i></i>Humor</a></li>
-          <li><a [routerLink]="['/video/list','musical']"><i></i>Musical</a></li>
-          <li><a [routerLink]="['/video/list','tecnología']"><i></i>Tecnología</a></li>
-          <li><a [routerLink]="['/video/list','interesante']"><i></i>Interesantes</a></li>
-          <li><a [routerLink]="['/video/list','tutoriales']"><i></i>Tutoriales</a></li>
+          <li><a [routerLink]="['/video/list','gameplay']">Gameplay</a></li>
+          <li><a [routerLink]="['/video/list','joke']">Humor</a></li>
+          <li><a [routerLink]="['/video/list','musical']">Musical</a></li>
+          <li><a [routerLink]="['/video/list','tech']">Tecnología</a></li>
+          <li><a [routerLink]="['/video/list','interesting']">Interesantes</a></li>
+          <li><a [routerLink]="['/video/list','tutorial']">Tutoriales</a></li>
         </ul>
       </div>
     </li>
@@ -59,16 +65,26 @@
       </a>
       <div id="Options" class="dropdown-sidebar">
         <ul>
-          <li><a [routerLink]="['/video/favorites',1]"><i></i>Mis Favoritos</a></li>
-          <li><a [routerLink]="['/video/new-video']"><i></i>Nuevo Video</a></li>
-          <li (click)="openDialog()"><a><i></i>Buscar</a></li>
+          <li *ngIf="status_login"><a [routerLink]="['/video/favorites',1]">Mis Favoritos</a></li>
+          <li *ngIf="status_login"><a [routerLink]="['/video/new-video']">Nuevo Video</a></li>
+          <li (click)="openDialog()"><a>Buscar</a></li>
         </ul>
       </div>
     </li>
-    <li>
-      <a [routerLink]="['/auth/login']">
+    <li *ngIf="status_login" (click)="makeLogout()" [routerLink]="['/video/categories']">
+      <a>
         <fa-icon [icon]="faSignOutAlt"></fa-icon>
         Cerrar Sesión</a>
+    </li>
+    <li *ngIf="!status_login" [routerLink]="['/auth/register']">
+      <a>
+        <fa-icon [icon]="faUserPlus"></fa-icon>
+        Registrarme</a>
+    </li>
+    <li *ngIf="!status_login" [routerLink]="['/auth/login']">
+      <a>
+        <fa-icon [icon]="faSignInAlt"></fa-icon>
+        Iniciar Sesión</a>
     </li>
   </ul>
   <footer class="w-100">
@@ -80,13 +96,13 @@
 <!-- Media-Links - Start -->
 <section class="social">
   <div><a class="social-link mat-elevation-z8">
-    <img id="facebook" src="../../../../../assets/img/ico/facebook.ico" alt="facebook">
+    <img id="facebook" [src]="URL_ASSETS + 'img/ico/facebook.ico'" alt="facebook">
   </a></div>
   <div><a class="social-link mat-elevation-z8">
-    <img id="linkedin" src="../../../../../assets/img/ico/linkedin.ico" alt="linkedin">
+    <img id="linkedin" [src]="URL_ASSETS + 'img/ico/linkedin.ico'" alt="linkedin">
   </a></div>
   <div><a class="social-link mat-elevation-z8">
-    <img id="twitter" src="../../../../../assets/img/ico/twitter.ico" alt="twitter">
+    <img id="twitter" [src]="URL_ASSETS + 'img/ico/twitter.ico'" alt="twitter">
   </a></div>
 </section>
 <!-- Media-Links - End -->

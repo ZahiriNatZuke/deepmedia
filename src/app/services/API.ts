@@ -1,0 +1,108 @@
+import {environment} from "../../environments/environment.prod";
+import {HttpHeaders} from "@angular/common/http";
+
+export class API {
+  public URL_API: string;
+
+  constructor() {
+    this.URL_API = environment.URL_API;
+  }
+
+  getLoginURL(): string {
+    return this.URL_API + 'user/login';
+  }
+
+  getLogOutURL(): string {
+    return this.URL_API + 'user/logout';
+  }
+
+  getRegisterURL(): string {
+    return this.URL_API + 'user/register';
+  }
+
+  getRefreshJwtURL(): string {
+    return this.URL_API + 'user/jwt/refresh';
+  }
+
+  getUserURL(): string {
+    return this.URL_API + 'user/';
+  }
+
+  getVideoURL(): string {
+    return this.URL_API + 'video/';
+  }
+
+  getStatsVideoByIdURL(): string {
+    return this.URL_API + 'video/stats/';
+  }
+
+  getVideosByCategoryURL(): string {
+    return this.URL_API + 'video/by/';
+  }
+
+  getStoreVideoURL(): string {
+    return this.URL_API + 'video';
+  }
+
+  getStoreCommentURL(): string {
+    return this.URL_API + 'comment/';
+  }
+
+  getChannelURL(): string {
+    return this.URL_API + 'channel/';
+  }
+
+  getStatsChannelURL(): string {
+    return this.URL_API + 'channel/stats/';
+  }
+
+  getLikeURL(): string {
+    return this.URL_API + 'like/';
+  }
+
+  getFavoriteURL(): string {
+    return this.URL_API + 'favorite/';
+  }
+
+  getMyfavoritesURL(): string {
+    return this.URL_API + 'my_favorites';
+  }
+
+  getHeadersWithOutAuth(): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json'
+    });
+  }
+
+  getHeadersWithAuth(): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      'X-Authentication-JWT': sessionStorage.getItem('X-Authentication-JWT'),
+      'X-Encode-ID': sessionStorage.getItem('X-Encode-ID')
+    });
+  }
+
+  getHeadersForRefreshJWT(): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      'X-Refresh-JWT': localStorage.getItem('X-Refresh-JWT'),
+    });
+  }
+
+  getHeadersForStoreOrUpdate(contentType: string): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      'Content-Type': contentType,
+      'X-Authentication-JWT': sessionStorage.getItem('X-Authentication-JWT'),
+      'X-Encode-ID': sessionStorage.getItem('X-Encode-ID')
+    });
+  }
+
+  getHeadersForAuth(): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      // 'Content-Type': 'application/x-www-form-urlencoded'
+    });
+  }
+
+}

@@ -1,6 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {CrudService} from "../../../services/crud.service";
+import {API} from "../../../services/API";
+import {Router} from "@angular/router";
+
+const api = new API();
 
 @Component({
   selector: 'app-register',
@@ -13,15 +18,17 @@ export class RegisterComponent implements OnInit {
   hideP: boolean;
   hideC: boolean;
 
-  public angularForm: FormGroup = this.formBuilder.group({
+  public registerForm: FormGroup = this.formBuilder.group({
     fullname: ['', [Validators.required]],
     username: ['', [Validators.required, Validators.minLength(4)]],
     email: ['', Validators.email],
     password: ['', [Validators.required, Validators.minLength(8)]],
-    confirm: ['', [Validators.required, Validators.minLength(8), Validators.pattern]]
+    password_confirmation: ['', [Validators.required, Validators.minLength(8), Validators.pattern]]
   });
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private crudService: CrudService,
+              private router: Router) {
     this.hideC = true;
     this.hideP = true;
   }
@@ -30,22 +37,26 @@ export class RegisterComponent implements OnInit {
   }
 
   checkValid(input: string) {
-    return this.angularForm.get(input).invalid;
+    return this.registerForm.get(input).invalid;
   }
 
   checkEmail(input: string) {
-    return this.angularForm.get(input).hasError('email') ? 'Debe entrar un correo válido' : '';
+    return this.registerForm.get(input).hasError('email') ? 'Debe entrar un correo válido' : '';
   }
 
   checkMinLength(input: string) {
-    return this.angularForm.get(input).hasError('minlength') ? `Debe entrar al menos ${(input === 'password' || input === 'confirm') ? '8' : '4'} caracteres` : '';
+    return this.registerForm.get(input).hasError('minlength') ? `Debe entrar al menos ${(input === 'password' || input === 'password_confirmation') ? '8' : '4'} caracteres` : '';
   }
 
   checkRequired(input: string) {
-    return this.angularForm.get(input).hasError('required') ? 'Este campo no puede estar vacío' : '';
+    return this.registerForm.get(input).hasError('required') ? 'Este campo no puede estar vacío' : '';
   }
 
   onSubmit() {
-    console.log(this.angularForm.value);
+    console.log(this.registerForm.value);
+    this.crudService.POSTForLoginOrRegister(api.getRegisterURL(), this.registerForm.value)
+      .subscribe(() => {
+        this.router.navigate(['/auth/login']).then();
+      });
   }
 }
