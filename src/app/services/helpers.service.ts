@@ -5,8 +5,6 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment.prod";
 
 const api = new API();
-const CONTENT_TYPE_FORM_DATA = 'multipart/form-data';
-const CONTENT_TYPE_WWW_FORM = 'application/x-www-form-urlencoded';
 
 @Injectable({
   providedIn: 'root'

@@ -89,10 +89,9 @@ export class API {
     });
   }
 
-  getHeadersForStoreOrUpdate(contentType: string): HttpHeaders {
+  getHeadersForStoreOrUpdate(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
-      'Content-Type': contentType,
       'X-Authentication-JWT': sessionStorage.getItem('X-Authentication-JWT'),
       'X-Encode-ID': sessionStorage.getItem('X-Encode-ID')
     });
@@ -101,7 +100,6 @@ export class API {
   getHeadersForAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded'
     });
   }
 

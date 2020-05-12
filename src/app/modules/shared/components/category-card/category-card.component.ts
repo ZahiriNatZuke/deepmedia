@@ -22,8 +22,7 @@ export class CategoryCardComponent implements OnInit {
 
   ngOnInit(): void {
     $(`#card-${this.idCategory} mat-card`).css({
-      background: `url('${URL_ASSETS}img/categories/${this.category.img}') center`,
-      backgroundSize: 'cover'
+      background: `url('${URL_ASSETS}img/categories/${this.category.img}') center / cover`
     });
   }
 

@@ -5,8 +5,6 @@ import {Observable, throwError} from "rxjs";
 import {catchError, retry} from "rxjs/operators";
 
 const api = new API();
-const CONTENT_TYPE_FORM_DATA = 'multipart/form-data';
-const CONTENT_TYPE_WWW_FORM = 'application/x-www-form-urlencoded';
 
 @Injectable({
   providedIn: 'root'
@@ -57,20 +55,21 @@ export class CrudService {
 
   POSTForStore(URL: string, option: string, body: any, parameter?: string): Observable<any> {
     if (option === 'video')
-      return this.httpClient.post(URL, body, {headers: api.getHeadersForStoreOrUpdate(CONTENT_TYPE_FORM_DATA)}).pipe(
+      return this.httpClient.post(URL, body, {headers: api.getHeadersForStoreOrUpdate()}).pipe(
         retry(1),
         catchError(this.handleError)
       );
     else
-      return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersForStoreOrUpdate(CONTENT_TYPE_WWW_FORM)}).pipe(
+      return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersForStoreOrUpdate()}).pipe(
         retry(1),
         catchError(this.handleError)
       );
   }
 
-  POSTForUpdate(URL: string, option: string, body: any, parameter: string): Observable<any> {
-    body = body + '&_method=PATCH';
-    return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersForStoreOrUpdate(CONTENT_TYPE_FORM_DATA)}).pipe(
+  POSTForUpdate(URL: string, body: any, parameter: string): Observable<any> {
+    return this.httpClient.post(URL + parameter, body, {
+      headers: api.getHeadersForStoreOrUpdate()
+    }).pipe(
       retry(1),
       catchError(this.handleError)
     );

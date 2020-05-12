@@ -1,8 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
-import {CollectionViewer, DataSource} from '@angular/cdk/collections';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {environment} from '../../../../environments/environment.prod';
+import {Channel} from "../../../models/channel";
+import {Video} from "../../../models/video";
+import {ActivatedRoute} from "@angular/router";
+import {CrudService} from "../../../services/crud.service";
+import {API} from "../../../services/API";
+
+const api = new API();
 
 @Component({
   selector: 'app-profile',
@@ -14,9 +19,10 @@ export class ProfileComponent implements OnInit {
   step = 0;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
-  ds = new MyDataSource();
   toggleForm: JQuery<HTMLElement>;
-
+  Profile: JQuery<HTMLElement>;
+  progressBar: JQuery<HTMLElement>;
+  Channel: Channel;
   videoArray: { id: number, video: string }[] = [
     {
       id: 1,
@@ -32,6 +38,7 @@ export class ProfileComponent implements OnInit {
     }
   ];
   rowHeight: number;
+  Videos: Video[];
 
   setStep(index: number) {
     this.step = index;
@@ -45,15 +52,17 @@ export class ProfileComponent implements OnInit {
     this.step--;
   }
 
-  constructor() {
+  constructor(private activatedRoute: ActivatedRoute, private crudService: CrudService) {
     this.getHeight();
   }
 
   ngOnInit(): void {
+    this.Profile = $('mat-grid-list:first');
+    this.Profile.hide(0);
+    this.progressBar = $('mat-progress-bar');
     this.toggleForm = $('#toggleForm');
     $('app-profile-form').fadeToggle(0);
     $('#all-videos').fadeToggle(0);
-    $('#buttonClose').fadeToggle(0);
     window.addEventListener('resize', () => {
       this.getHeight();
     });
@@ -75,48 +84,26 @@ export class ProfileComponent implements OnInit {
     }, 425);
     setTimeout(() => {
       $('#all-videos').fadeToggle(500);
-      $('#buttonClose').fadeToggle(500);
+      $('#buttonClose').toggleClass('d-none');
     }, 550);
   }
-}
 
-export class MyDataSource extends DataSource<string | undefined> {
-  private _length = 20;
-  private _pageSize = 4;
-  private _cachedData = Array.from<string>({length: this._length});
-  private _fetchedPages = new Set<number>();
-  private _dataStream = new BehaviorSubject<(string | undefined)[]>(this._cachedData);
-  private _subscription = new Subscription();
-
-  connect(collectionViewer: CollectionViewer): Observable<(string | undefined)[]> {
-    this._subscription.add(collectionViewer.viewChange.subscribe(range => {
-      const startPage = this._getPageForIndex(range.start);
-      const endPage = this._getPageForIndex(range.end - 1);
-      for (let i = startPage; i <= endPage; i++) {
-        this._fetchPage(i);
-      }
-    }));
-    return this._dataStream;
+  getChannel(event: Channel): void {
+    this.Channel = event;
+    this.Videos = this.Channel.videos;
+    this.progressBar.toggle(400);
+    this.Profile.fadeToggle(650);
   }
 
-  disconnect(): void {
-    this._subscription.unsubscribe();
-  }
-
-  private _getPageForIndex(index: number): number {
-    return Math.floor(index / this._pageSize);
-  }
-
-  private _fetchPage(page: number) {
-    if (this._fetchedPages.has(page)) {
-      return;
+  updateChannel(event: boolean) {
+    if (event) {
+      this.activatedRoute.params.subscribe(params => {
+        const id = params.id;
+        this.crudService.GETWithOutAuth(api.getChannelURL(), id)
+          .subscribe(response => {
+            this.Channel = response.channel;
+          });
+      });
     }
-    this._fetchedPages.add(page);
-    setTimeout(() => {
-      this._cachedData.splice(page * this._pageSize, this._pageSize,
-        ...Array.from({length: this._pageSize})
-          .map((_, i) => `Item #${page * this._pageSize + i}`));
-      this._dataStream.next(this._cachedData);
-    }, Math.random() * 1000 + 200);
   }
 }

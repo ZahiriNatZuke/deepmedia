@@ -19,6 +19,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import {MatChipsModule} from '@angular/material/chips';
     ReactiveFormsModule,
     MatInputModule,
     MatChipsModule,
+    MatProgressBarModule,
   ]
 })
 export class AuthModule {

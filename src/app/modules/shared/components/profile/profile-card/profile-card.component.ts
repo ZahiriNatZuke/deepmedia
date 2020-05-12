@@ -1,13 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
+import {Channel} from "../../../../../models/channel";
+import {ActivatedRoute} from "@angular/router";
+import {CrudService} from "../../../../../services/crud.service";
+import {API} from "../../../../../services/API";
+import {Stats} from "../../../../../models/stats";
+
+const api = new API();
+const URL_STORAGE = environment.URL_STORAGE;
 
 @Component({
   selector: 'app-profile-card',
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.scss']
 })
-export class ProfileCardComponent implements OnInit {
+export class ProfileCardComponent implements OnInit, AfterViewInit {
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
@@ -15,40 +23,59 @@ export class ProfileCardComponent implements OnInit {
   form: boolean;
   moreStats: boolean;
   actionsHeight: number;
+  Channel: Channel;
+  @Output() ChannelEmitter: EventEmitter<Channel> = new EventEmitter<Channel>();
+  response_status: boolean;
+  statsChannel: Stats;
 
-  constructor() {
+  constructor(private activatedRoute: ActivatedRoute, private crudService: CrudService) {
+    this.response_status = false;
+    this.activatedRoute.params.subscribe(params => {
+      const id = params.id;
+      this.crudService.GETWithOutAuth(api.getChannelURL(), id)
+        .subscribe(response => {
+          this.Channel = response.channel;
+          this.statsChannel = response.stats;
+          this.ChannelEmitter.emit(response.channel);
+          this.response_status = true;
+        });
+    });
     this.moreStats = false;
     this.getActionsHeight();
   }
 
   ngOnInit(): void {
-    console.log(Math.floor(window.screen.availHeight * 20.5 / 100));
-    $(`.mh-profile`).css({
-      background: `url('${this.getPath('profile-img.jpeg')}') center`,
-      backgroundSize: 'cover'
-    });
-
-    $('.mh-profile').css({
-      minHeight: this.getHeightImg() + 'px',
-      maxHeight: (this.getHeightImg() + 25) + 'px',
-    });
+    this.displayAvatar();
     window.addEventListener('resize', () => this.getActionsHeight());
+  }
+
+  displayAvatar() {
+    if (this.statsChannel) {
+      $(`.mh-profile`).css({
+        background: `url("${URL_STORAGE}${this.Channel.avatar.path}") center / cover`
+      });
+    } else {
+      setTimeout(() => this.displayAvatar(), 200);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    //
   }
 
   getHeightImg() {
     return (window.screen.availHeight * 45 / 100);
   }
 
-  getPath(img: string): string {
-    return `../../../../../assets/img/${img}`;
-  }
-
   toggleForm() {
     this.form = !this.form;
     const rightSide = $('#right-side');
-    this.form ? rightSide.removeClass('mat-elevation-z10') : rightSide.addClass('mat-elevation-z10');
+    this.form ?
+      rightSide.removeClass('mat-elevation-z10') : rightSide.addClass('mat-elevation-z10');
     const buttonClose = $('#buttonClose');
-    this.form ? buttonClose.fadeOut(200) : (environment.allVideos ? buttonClose.fadeIn(200) : buttonClose.fadeOut(0));
+    this.form ?
+      buttonClose.fadeOut(200) : (environment.allVideos ?
+      buttonClose.fadeIn(200) : buttonClose.fadeOut(0));
     $('#right-card').fadeToggle(400);
     setTimeout(() => {
       $('app-profile-form').fadeToggle(600);
@@ -57,7 +84,7 @@ export class ProfileCardComponent implements OnInit {
 
   closeAllVideos() {
     environment.allVideos = false;
-    $('#buttonClose').fadeToggle(400);
+    $('#buttonClose').toggleClass('d-none');
     $('#all-videos').fadeToggle(450);
     setTimeout(() => {
       $('mat-accordion').fadeToggle(700);

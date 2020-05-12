@@ -1,6 +1,7 @@
 import {Resource} from "./resource";
 import {User} from "./user";
 import {Pivot} from "./pivot";
+import {Video} from "./video";
 
 export class Channel {
   id: number;
@@ -12,4 +13,5 @@ export class Channel {
   my_favorites_count: number;
   user: User;
   pivot?: Pivot;
+  videos?: Video[];
 }

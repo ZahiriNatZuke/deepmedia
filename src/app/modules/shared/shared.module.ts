@@ -46,6 +46,7 @@ import {PlayListComponent} from './components/view-video/play-list/play-list.com
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {TopCarouselComponent} from './components/view-video/top-carousel/top-carousel.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -92,32 +93,33 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     ProfilePosterVideoComponent,
     TopCarouselComponent
   ],
-  imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    FontAwesomeModule,
-    RouterModule,
-    MatCardModule,
-    MatChipsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-    MatGridListModule,
-    MatDialogModule,
-    MatSliderModule,
-    CdkStepperModule,
-    MatStepperModule,
-    MatSelectModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    DragDropModule,
-    ScrollingModule
-  ]
+    imports: [
+        CommonModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        FontAwesomeModule,
+        RouterModule,
+        MatCardModule,
+        MatChipsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatListModule,
+        MatProgressBarModule,
+        MatTooltipModule,
+        MatGridListModule,
+        MatDialogModule,
+        MatSliderModule,
+        CdkStepperModule,
+        MatStepperModule,
+        MatSelectModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        DragDropModule,
+        ScrollingModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class SharedModule {
 }
