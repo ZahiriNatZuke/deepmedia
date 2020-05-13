@@ -1,30 +1,22 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
-  faTimes,
-  faBars,
-  faAngleDown,
-  faAngleUp,
-  faStream,
-  faSignOutAlt,
-  faUserAlt,
-  faCogs,
-  faCircle,
-  faSignInAlt,
-  faUserPlus
+  faTimes, faBars, faAngleDown, faAngleUp, faStream, faSignOutAlt,
+  faUserAlt, faCogs, faCircle, faSignInAlt, faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../environments/environment.prod';
 import {SearchDialogComponent} from '../../dialogs/search-dialog/search-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {HelpersService} from "../../../../services/helpers.service";
+import {HelpersService} from '../../../../services/helpers.service';
 import {Channel} from "../../../../models/channel";
-import {CrudService} from "../../../../services/crud.service";
+import {AuthenticationService} from "../../../../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SidebarComponent implements OnInit, AfterViewInit {
   faTimes = faTimes;
   faBars = faBars;
   faAngleDown = faAngleDown;
@@ -46,24 +38,20 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   URL_ASSETS = environment.URL_ASSETS;
   URL_STORAGE = environment.URL_STORAGE;
   User_Channel: Channel;
-  status_login: boolean = false;
   UnknownUserAvatar: string;
-  checkStatusLogin: any;
 
   constructor(public dialog: MatDialog,
+              private router: Router,
               private helpersService: HelpersService,
-              private crudService: CrudService) {
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.toggleCategories = false;
     this.toggleOptions = false;
     this.loadHTMLTags();
     this.year = new Date().getFullYear();
-    this.checkStatusLogin = setInterval(() => {
-      this.statusLogin();
-    }, 250);
   }
 
   ngOnInit(): void {
-    this.statusLogin();
     this.UnknownUserAvatar = this.helpersService.getUnknownUserAvatar();
     window.addEventListener('keydown', (event) => {
       if (event.ctrlKey && event.code === 'KeyF') {
@@ -75,15 +63,6 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dropdownSidebarOptions = $('#Options');
     this.dropdownSidebarCategories.slideUp(0);
     this.dropdownSidebarOptions.slideUp(0);
-  }
-
-  statusLogin() {
-    this.helpersService.getAuthUser().subscribe(resolve => {
-      this.User_Channel = resolve;
-      if (this.User_Channel) {
-        this.status_login = true;
-      }
-    });
   }
 
   loadHTMLTags() {
@@ -149,15 +128,10 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.inputCheck = document.getElementById('check') as HTMLInputElement;
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.checkStatusLogin);
-  }
-
   makeLogout() {
-    this.crudService.POSTLogout().subscribe(() => {
-      localStorage.clear();
-      sessionStorage.clear();
-      this.status_login = false;
-    });
+    this.authenticationService.POSTForLogout();
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']).then()
+    }, 350);
   }
 }

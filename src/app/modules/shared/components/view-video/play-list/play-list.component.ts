@@ -40,14 +40,15 @@ export class PlayListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('resize', () => {
-      this.ngAfterViewInit();
-    });
+    window.addEventListener('resize', () => this.ngAfterViewInit());
   }
 
   ngAfterViewInit(): void {
     this.playList = $('#playList');
-    this.playList.css('maxHeight', `${Math.floor(window.screen.availHeight * 64 / 100)}px`);
+  }
+
+  getMaxHeight() {
+    return Math.floor(window.screen.availHeight * 64 / 100);
   }
 
 }

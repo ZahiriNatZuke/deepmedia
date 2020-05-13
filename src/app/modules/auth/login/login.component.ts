@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import {CrudService} from "../../../services/crud.service";
-import {API} from "../../../services/API";
 import {Router} from "@angular/router";
-
-const api = new API();
+import {AuthenticationService} from "../../../services/authentication.service";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +19,11 @@ export class LoginComponent implements OnInit {
   faEyeSlash = faEyeSlash;
   hide: boolean;
 
-  constructor(private formBuilder: FormBuilder, private crudService: CrudService, private router: Router) {
+  constructor(private formBuilder: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private router: Router) {
+    if (this.authenticationService.currentUserValue)
+      this.router.navigate(['/video/categories']).then();
     this.hide = true;
   }
 
@@ -41,14 +43,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.crudService.POSTForLoginOrRegister(api.getLoginURL(), this.loginForm.value)
-      .subscribe((response) => {
-        sessionStorage.setItem('User-Auth', JSON.stringify(response['auth:user'].user));
-        sessionStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
-        sessionStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
-        localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
-        this.router.navigate(['/video/categories']).then();
-      });
+    this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
+      this.router.navigate(['/video/categories']).then();
+    });
   }
 
 }

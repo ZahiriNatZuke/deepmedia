@@ -77,8 +77,8 @@ export class API {
   getHeadersWithAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
-      'X-Authentication-JWT': sessionStorage.getItem('X-Authentication-JWT'),
-      'X-Encode-ID': sessionStorage.getItem('X-Encode-ID')
+      'X-Authentication-JWT': localStorage.getItem('X-Authentication-JWT'),
+      'X-Encode-ID': localStorage.getItem('X-Encode-ID')
     });
   }
 
@@ -92,8 +92,8 @@ export class API {
   getHeadersForStoreOrUpdate(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
-      'X-Authentication-JWT': sessionStorage.getItem('X-Authentication-JWT'),
-      'X-Encode-ID': sessionStorage.getItem('X-Encode-ID')
+      'X-Authentication-JWT': localStorage.getItem('X-Authentication-JWT'),
+      'X-Encode-ID': localStorage.getItem('X-Encode-ID')
     });
   }
 

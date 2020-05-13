@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
 import {Channel} from "../../../models/channel";
 import {Video} from "../../../models/video";
-import {ActivatedRoute} from "@angular/router";
-import {CrudService} from "../../../services/crud.service";
 import {API} from "../../../services/API";
+import {HelpersService} from "../../../services/helpers.service";
+import {ActivatedRoute} from "@angular/router";
 
 const api = new API();
 
@@ -15,7 +15,7 @@ const api = new API();
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
   step = 0;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
@@ -52,7 +52,12 @@ export class ProfileComponent implements OnInit {
     this.step--;
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private crudService: CrudService) {
+  constructor(private activatedRoute: ActivatedRoute, private helpersService: HelpersService) {
+    this.activatedRoute.params.subscribe(params => {
+      const id = params.id;
+      this.helpersService.GETChannelById(id);
+      this.helpersService.GETStatsOfChannelById(id);
+    });
     this.getHeight();
   }
 
@@ -63,9 +68,7 @@ export class ProfileComponent implements OnInit {
     this.toggleForm = $('#toggleForm');
     $('app-profile-form').fadeToggle(0);
     $('#all-videos').fadeToggle(0);
-    window.addEventListener('resize', () => {
-      this.getHeight();
-    });
+    window.addEventListener('resize', () => this.getHeight());
   }
 
   getHeight() {
@@ -88,22 +91,18 @@ export class ProfileComponent implements OnInit {
     }, 550);
   }
 
-  getChannel(event: Channel): void {
-    this.Channel = event;
-    this.Videos = this.Channel.videos;
-    this.progressBar.toggle(400);
-    this.Profile.fadeToggle(650);
+  getChannel() {
+    if (this.helpersService.currentChannelValue) {
+      this.helpersService.currentChannel.subscribe(channel => this.Channel = channel);
+      this.Videos = this.Channel.videos;
+      this.progressBar.toggle(400);
+      this.Profile.fadeToggle(650);
+    } else {
+      setTimeout(() => this.getChannel(), 200);
+    }
   }
 
-  updateChannel(event: boolean) {
-    if (event) {
-      this.activatedRoute.params.subscribe(params => {
-        const id = params.id;
-        this.crudService.GETWithOutAuth(api.getChannelURL(), id)
-          .subscribe(response => {
-            this.Channel = response.channel;
-          });
-      });
-    }
+  ngAfterViewInit(): void {
+    this.getChannel();
   }
 }

@@ -1,4 +1,5 @@
-<div id="playList" cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+<div id="playList" cdkDropList class="list customized-scroll" (cdkDropListDropped)="drop($event)"
+      [style.maxHeight.px]="getMaxHeight()">
   <div class="box" *ngFor="let movie of movies; let i = index;" cdkDrag cdkDragLockAxis="y">
     <div class="custom-placeholder" *cdkDragPlaceholder></div>
     <div *cdkDragPreview class="d-flex">

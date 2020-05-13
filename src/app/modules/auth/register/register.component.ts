@@ -2,10 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import {CrudService} from "../../../services/crud.service";
-import {API} from "../../../services/API";
 import {Router} from "@angular/router";
-
-const api = new API();
 
 @Component({
   selector: 'app-register',
@@ -53,8 +50,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm.value);
-    this.crudService.POSTForLoginOrRegister(api.getRegisterURL(), this.registerForm.value)
+    this.crudService.POSTForRegister(this.registerForm.value)
       .subscribe(() => {
         this.router.navigate(['/auth/login']).then();
       });

@@ -1,13 +1,11 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
 import {Channel} from "../../../../../models/channel";
 import {ActivatedRoute} from "@angular/router";
-import {CrudService} from "../../../../../services/crud.service";
-import {API} from "../../../../../services/API";
 import {Stats} from "../../../../../models/stats";
+import {HelpersService} from "../../../../../services/helpers.service";
 
-const api = new API();
 const URL_STORAGE = environment.URL_STORAGE;
 
 @Component({
@@ -24,43 +22,36 @@ export class ProfileCardComponent implements OnInit, AfterViewInit {
   moreStats: boolean;
   actionsHeight: number;
   Channel: Channel;
-  @Output() ChannelEmitter: EventEmitter<Channel> = new EventEmitter<Channel>();
-  response_status: boolean;
   statsChannel: Stats;
 
-  constructor(private activatedRoute: ActivatedRoute, private crudService: CrudService) {
-    this.response_status = false;
-    this.activatedRoute.params.subscribe(params => {
-      const id = params.id;
-      this.crudService.GETWithOutAuth(api.getChannelURL(), id)
-        .subscribe(response => {
-          this.Channel = response.channel;
-          this.statsChannel = response.stats;
-          this.ChannelEmitter.emit(response.channel);
-          this.response_status = true;
-        });
-    });
+  constructor(private activatedRoute: ActivatedRoute,
+              private helpersService: HelpersService) {
     this.moreStats = false;
     this.getActionsHeight();
   }
 
   ngOnInit(): void {
-    this.displayAvatar();
+    this.getChannel();
+    this.getStats();
     window.addEventListener('resize', () => this.getActionsHeight());
   }
 
-  displayAvatar() {
-    if (this.statsChannel) {
-      $(`.mh-profile`).css({
-        background: `url("${URL_STORAGE}${this.Channel.avatar.path}") center / cover`
-      });
+  getChannel() {
+    if (this.helpersService.currentChannelValue) {
+      this.helpersService.currentChannel.subscribe(channel => this.Channel = channel);
     } else {
-      setTimeout(() => this.displayAvatar(), 200);
+      setTimeout(() => this.getChannel(), 200);
     }
   }
 
-  ngAfterViewInit(): void {
-    //
+  getStats() {
+    if (this.helpersService.currentStatsChannelValue) {
+      this.helpersService.currentStatsChannel.subscribe(stats => {
+        this.statsChannel = stats;
+      });
+    } else {
+      setTimeout(() => this.getStats(), 200);
+    }
   }
 
   getHeightImg() {
@@ -100,5 +91,15 @@ export class ProfileCardComponent implements OnInit, AfterViewInit {
 
   getActionsHeight() {
     this.actionsHeight = Math.floor(window.screen.availHeight * 21 / 100);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.Channel) {
+      $(`.mh-profile`).css({
+        background: `url("${URL_STORAGE}${this.Channel.avatar.path}") center / cover`
+      });
+    } else {
+      setTimeout(() => this.ngAfterViewInit(), 200);
+    }
   }
 }

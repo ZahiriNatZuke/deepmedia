@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {API} from "./API";
 import {HttpClient} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
-import {catchError, retry} from "rxjs/operators";
+import {catchError, first, retry} from "rxjs/operators";
 
 const api = new API();
 
@@ -33,21 +33,16 @@ export class CrudService {
     );
   }
 
-  GETWithAuth(URL: string, option: string): Observable<any> {
-    if (option === 'refresh')
-      return this.httpClient.get(URL, {headers: api.getHeadersForRefreshJWT()}).pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
-    else
-      return this.httpClient.get(URL, {headers: api.getHeadersWithAuth()}).pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
+  GETForMyFavorites(): Observable<any> {
+    return this.httpClient.get(api.getMyfavoritesURL(), {headers: api.getHeadersWithAuth()}).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
-  POSTForLoginOrRegister(URL: string, body: any): Observable<any> {
-    return this.httpClient.post(URL, body, {headers: api.getHeadersForAuth()}).pipe(
+  POSTForRegister(body: any): Observable<any> {
+    return this.httpClient.post(api.getRegisterURL(), body, {headers: api.getHeadersForAuth()}).pipe(
+      first(),
       retry(1),
       catchError(this.handleError)
     );
@@ -67,23 +62,14 @@ export class CrudService {
   }
 
   POSTForUpdate(URL: string, body: any, parameter: string): Observable<any> {
-    return this.httpClient.post(URL + parameter, body, {
-      headers: api.getHeadersForStoreOrUpdate()
-    }).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
+    return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersForStoreOrUpdate()})
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
   }
 
   POSTForLikeOrFavorite(URL: string, parameter: string): Observable<any> {
     return this.httpClient.post(URL + parameter, {}, {headers: api.getHeadersWithAuth()}).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-  }
-
-  POSTLogout(): Observable<any> {
-    return this.httpClient.post(api.getLogOutURL(), {}, {headers: api.getHeadersWithAuth()}).pipe(
       retry(1),
       catchError(this.handleError)
     );

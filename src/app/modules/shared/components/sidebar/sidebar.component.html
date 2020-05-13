@@ -16,26 +16,26 @@
       </label>
     </div>
     <div class="row w-100 pl-2 py-2">
-      <img [src]="status_login? URL_STORAGE + User_Channel.avatar.path : UnknownUserAvatar"
-           [alt]="status_login? User_Channel.avatar.name : 'UnknownUserAvatar'"
+      <img [src]="User_Channel? URL_STORAGE + User_Channel.avatar.path : UnknownUserAvatar"
+           [alt]="User_Channel? User_Channel.avatar.name : 'UnknownUserAvatar'"
            class="img-fluid rounded-circle img-sidebar">
       <div class="d-flex flex-column">
-        <span *ngIf="status_login" class="user-header pl-2 font-weight-light cursor-pointer"
+        <span *ngIf="User_Channel" class="user-header pl-2 font-weight-light cursor-pointer"
               [routerLink]="['/auth/profile',User_Channel.id]">{{User_Channel.user.username}}</span>
-        <span *ngIf="!status_login" class="user-header pl-2 font-weight-light cursor-pointer">
+        <span *ngIf="!User_Channel" class="user-header pl-2 font-weight-light cursor-pointer">
           Anonymous
         </span>
         <div class="pl-2 d-flex align-content-center">
-          <span *ngIf="status_login" class="info-header font-weight-bold">Conectado</span>
-          <span *ngIf="!status_login" class="info-header font-weight-bold">Desconectado</span>
-          <fa-icon *ngIf="status_login" [icon]="faCircle" [classes]="['text-success','pl-1', 'pb-1']"></fa-icon>
-          <fa-icon *ngIf="!status_login" [icon]="faCircle" [classes]="['text-danger','pl-1', 'pb-1']"></fa-icon>
+          <span *ngIf="User_Channel" class="info-header font-weight-bold">Conectado</span>
+          <span *ngIf="!User_Channel" class="info-header font-weight-bold">Desconectado</span>
+          <fa-icon *ngIf="User_Channel" [icon]="faCircle" [classes]="['text-success','pl-1', 'pb-1']"></fa-icon>
+          <fa-icon *ngIf="!User_Channel" [icon]="faCircle" [classes]="['text-danger','pl-1', 'pb-1']"></fa-icon>
         </div>
       </div>
     </div>
   </header>
   <ul>
-    <li *ngIf="status_login">
+    <li *ngIf="User_Channel">
       <a [routerLink]="['/auth/profile',User_Channel.id]">
         <fa-icon [icon]="faUserAlt"></fa-icon>
         Perfil</a>
@@ -65,23 +65,23 @@
       </a>
       <div id="Options" class="dropdown-sidebar">
         <ul>
-          <li *ngIf="status_login"><a [routerLink]="['/video/favorites',1]">Mis Favoritos</a></li>
-          <li *ngIf="status_login"><a [routerLink]="['/video/new-video']">Nuevo Video</a></li>
+          <li *ngIf="User_Channel"><a [routerLink]="['/video/favorites',1]">Mis Favoritos</a></li>
+          <li *ngIf="User_Channel"><a [routerLink]="['/video/new-video']">Nuevo Video</a></li>
           <li (click)="openDialog()"><a>Buscar</a></li>
         </ul>
       </div>
     </li>
-    <li *ngIf="status_login" (click)="makeLogout()" [routerLink]="['/video/categories']">
+    <li *ngIf="User_Channel" (click)="makeLogout()">
       <a>
         <fa-icon [icon]="faSignOutAlt"></fa-icon>
         Cerrar Sesión</a>
     </li>
-    <li *ngIf="!status_login" [routerLink]="['/auth/register']">
+    <li *ngIf="!User_Channel" [routerLink]="['/auth/register']">
       <a>
         <fa-icon [icon]="faUserPlus"></fa-icon>
         Registrarme</a>
     </li>
-    <li *ngIf="!status_login" [routerLink]="['/auth/login']">
+    <li *ngIf="!User_Channel" [routerLink]="['/auth/login']">
       <a>
         <fa-icon [icon]="faSignInAlt"></fa-icon>
         Iniciar Sesión</a>

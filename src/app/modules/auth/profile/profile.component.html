@@ -3,10 +3,10 @@
 </div>
 <mat-grid-list [id]="'Profile'" cols="3" [rowHeight]="rowHeight" gutterSize="10px" class="m-grid-list">
   <mat-grid-tile [colspan]="1" [rowspan]="1" class="mat-elevation-z10">
-    <app-profile-card class="w-100" (ChannelEmitter)="getChannel($event)"></app-profile-card>
+    <app-profile-card class="w-100"></app-profile-card>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="1" class="mat-elevation-z10" id="right-side">
-    <app-profile-form (profileUpdated)="updateChannel($event)"></app-profile-form>
+    <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
       <mat-accordion>
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
