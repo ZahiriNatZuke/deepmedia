@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
 import {Channel} from "../../../../../models/channel";
@@ -6,14 +6,12 @@ import {ActivatedRoute} from "@angular/router";
 import {Stats} from "../../../../../models/stats";
 import {HelpersService} from "../../../../../services/helpers.service";
 
-const URL_STORAGE = environment.URL_STORAGE;
-
 @Component({
   selector: 'app-profile-card',
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.scss']
 })
-export class ProfileCardComponent implements OnInit, AfterViewInit {
+export class ProfileCardComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
@@ -23,6 +21,7 @@ export class ProfileCardComponent implements OnInit, AfterViewInit {
   actionsHeight: number;
   Channel: Channel;
   statsChannel: Stats;
+  URL_STORAGE = environment.URL_STORAGE;
 
   constructor(private activatedRoute: ActivatedRoute,
               private helpersService: HelpersService) {
@@ -55,7 +54,7 @@ export class ProfileCardComponent implements OnInit, AfterViewInit {
   }
 
   getHeightImg() {
-    return (window.screen.availHeight * 45 / 100);
+    return (window.screen.availHeight * 44 / 100);
   }
 
   toggleForm() {
@@ -91,15 +90,5 @@ export class ProfileCardComponent implements OnInit, AfterViewInit {
 
   getActionsHeight() {
     this.actionsHeight = Math.floor(window.screen.availHeight * 21 / 100);
-  }
-
-  ngAfterViewInit(): void {
-    if (this.Channel) {
-      $(`.mh-profile`).css({
-        background: `url("${URL_STORAGE}${this.Channel.avatar.path}") center / cover`
-      });
-    } else {
-      setTimeout(() => this.ngAfterViewInit(), 200);
-    }
   }
 }

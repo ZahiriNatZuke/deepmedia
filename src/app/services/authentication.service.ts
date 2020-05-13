@@ -18,6 +18,7 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient, private crudService: CrudService) {
     this.currentUserSubject = new BehaviorSubject<Channel>(JSON.parse(localStorage.getItem('X-Auth-User')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.GETForRefreshJWT();
   }
 
   public get currentUserValue(): Channel {
@@ -25,7 +26,7 @@ export class AuthenticationService {
   }
 
   POSTForLogin(body: { username: string, password: string }) {
-    return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersForAuth()}).pipe(
+    return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()}).pipe(
       map(response => {
         const user = response['auth:user'].user;
         localStorage.setItem('X-Auth-User', JSON.stringify(user));
@@ -48,7 +49,7 @@ export class AuthenticationService {
   }
 
   POSTForLogout() {
-    return this.httpClient.post<any>(api.getLogOutURL(), {}, {headers: api.getHeadersWithAuth()})
+    return this.httpClient.post<any>(api.getLogOutURL(), {}, {headers: api.getHeadersForLogout()})
       .subscribe(() => {
         localStorage.clear();
         this.currentUserSubject.next(null);

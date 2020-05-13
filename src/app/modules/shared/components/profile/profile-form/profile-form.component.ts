@@ -98,9 +98,8 @@ export class ProfileFormComponent implements OnInit {
     const file = event.target.files[0];
     this.formData.append('avatar', file, file.name);
     $('.custom-file-label').html(file.name);
-    $(`.mh-profile`).css({
-      background: `url('${window.URL.createObjectURL(file)}') center / cover`,
-      transition: 'all .4s'
-    });
+    const avatar = document.getElementById('profile-avatar') as HTMLImageElement;
+    avatar.src = window.URL.createObjectURL(file);
+    avatar.alt = file.name;
   }
 }

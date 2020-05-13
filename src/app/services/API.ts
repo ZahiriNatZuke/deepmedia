@@ -82,24 +82,19 @@ export class API {
     });
   }
 
-  getHeadersForRefreshJWT(): HttpHeaders {
-    return new HttpHeaders({
-      Accept: 'application/json',
-      'X-Refresh-JWT': localStorage.getItem('X-Refresh-JWT'),
-    });
-  }
-
-  getHeadersForStoreOrUpdate(): HttpHeaders {
+  getHeadersForLogout(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
       'X-Authentication-JWT': localStorage.getItem('X-Authentication-JWT'),
-      'X-Encode-ID': localStorage.getItem('X-Encode-ID')
+      'X-Encode-ID': localStorage.getItem('X-Encode-ID'),
+      'X-Refresh-JWT': localStorage.getItem('X-Refresh-JWT')
     });
   }
 
-  getHeadersForAuth(): HttpHeaders {
+  getHeadersForRefreshJWT(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
+      'X-Refresh-JWT': localStorage.getItem('X-Refresh-JWT')
     });
   }
 

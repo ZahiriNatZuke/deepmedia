@@ -2,10 +2,10 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <mat-grid-list [id]="'Profile'" cols="3" [rowHeight]="rowHeight" gutterSize="10px" class="m-grid-list">
-  <mat-grid-tile [colspan]="1" [rowspan]="1" class="mat-elevation-z10">
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
     <app-profile-card class="w-100"></app-profile-card>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1" class="mat-elevation-z10" id="right-side">
+  <mat-grid-tile [colspan]="2" [rowspan]="1" id="right-side">
     <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
       <mat-accordion>
