@@ -54,7 +54,7 @@ export class ProfileCardComponent implements OnInit {
   }
 
   getHeightImg() {
-    return (window.screen.availHeight * 44 / 100);
+    return (window.screen.availHeight * 42/ 100);
   }
 
   toggleForm() {

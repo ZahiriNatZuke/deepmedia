@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {first} from "rxjs/operators";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -18,16 +19,18 @@ export class LoginComponent implements OnInit {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   hide: boolean;
+  returnURL: string;
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
-              private router: Router) {
-    if (this.authenticationService.currentUserValue)
-      this.router.navigate(['/video/categories']).then();
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private snackBar: MatSnackBar) {
     this.hide = true;
   }
 
   ngOnInit(): void {
+    this.returnURL = this.activatedRoute.snapshot.queryParamMap.get('returnUrl') || '/video/categories';
   }
 
   checkValid(input: string) {
@@ -44,7 +47,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
-      this.router.navigate(['/video/categories']).then();
+      this.snackBar.open('Sesión Info', 'Sesión Iniciada con Éxito', {
+        duration: 2500,
+        verticalPosition: "bottom",
+        horizontalPosition: "end",
+        panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
+      });
+      this.router.navigate([this.returnURL]).then();
     });
   }
 

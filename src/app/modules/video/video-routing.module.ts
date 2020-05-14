@@ -6,15 +6,16 @@ import {VideoCreateComponent} from './video-create/video-create.component';
 import {VideoUpdateComponent} from './video-update/video-update.component';
 import {FavoritesComponent} from './favorites/favorites.component';
 import {VideoListComponent} from './video-list/video-list.component';
+import {AuthGuard} from "../../guards/auth.guard";
 
 export const VIDEO_ROUTES: Routes = [
   {path: '', redirectTo: 'categories', pathMatch: 'full'},
   {path: 'categories', component: VideoCategoriesComponent},
   {path: 'list/:category', component: VideoListComponent},
   {path: 'view/:id', component: VideoViewComponent},
-  {path: 'new-video', component: VideoCreateComponent},
-  {path: 'update-video/:id', component: VideoUpdateComponent},
-  {path: 'favorites/:user', component: FavoritesComponent}
+  {path: 'new-video', component: VideoCreateComponent, canActivate: [AuthGuard]},
+  {path: 'update-video/:id', component: VideoUpdateComponent, canActivate: [AuthGuard]},
+  {path: 'favorites/:user', component: FavoritesComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

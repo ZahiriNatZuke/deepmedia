@@ -130,8 +130,5 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   makeLogout() {
     this.authenticationService.POSTForLogout();
-    setTimeout(() => {
-      this.router.navigate(['/auth/login']).then()
-    }, 350);
   }
 }

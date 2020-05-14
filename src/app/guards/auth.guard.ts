@@ -7,13 +7,14 @@ import {
 } from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from "../services/authentication.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private authenticationService: AuthenticationService, private snackBar: MatSnackBar) {
   }
 
   canActivate(next: ActivatedRouteSnapshot,
@@ -22,7 +23,13 @@ export class AuthGuard implements CanActivate {
     if (user) {
       return true;
     }
-    this.router.navigate(['/auth/login'], {queryParams: {returnURL: state.url}}).then();
+    this.snackBar.open('Sesión Info', 'Por Favor Autentíquese', {
+      duration: 2500,
+      verticalPosition: "bottom",
+      horizontalPosition: "end",
+      panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
+    });
+    this.router.navigate(['/auth/login'], {queryParams: {returnUrl: state.url}}).then();
     return false;
   }
 

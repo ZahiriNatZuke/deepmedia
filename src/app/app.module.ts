@@ -7,6 +7,7 @@ import {VideoModule} from './modules/video/video.module';
 import {SharedModule} from './modules/shared/shared.module';
 import {CrudService} from "./services/crud.service";
 import {HttpClientModule} from "@angular/common/http";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -18,9 +19,12 @@ import {HttpClientModule} from "@angular/common/http";
     AuthModule,
     VideoModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
-  providers: [CrudService],
+  providers: [
+    CrudService
+  ],
   exports: [],
   bootstrap: [AppComponent]
 })
