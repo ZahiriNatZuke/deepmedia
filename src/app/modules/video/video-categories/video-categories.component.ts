@@ -9,11 +9,16 @@ import {HelpersService} from "../../../services/helpers.service";
 })
 export class VideoCategoriesComponent implements OnInit {
   arrayCategories: Category[];
+  progressBar: JQuery<HTMLElement>;
+  cardColumn: JQuery<HTMLElement>;
 
   constructor(private helpersService: HelpersService) {
   }
 
   ngOnInit(): void {
+    this.progressBar = $('mat-progress-bar');
+    this.cardColumn = $('.card-columns');
+    this.cardColumn.hide(0);
     this.helpersService.GETCountVideoByCategories()
       .subscribe(response => {
         let array = new Array(6);
@@ -21,8 +26,15 @@ export class VideoCategoriesComponent implements OnInit {
           array[i] = response.categories[categories[i]];
         }
         this.arrayCategories = array;
+        this.stopLoading();
       });
   }
+
+  stopLoading() {
+    this.progressBar.toggle(400);
+    this.cardColumn.fadeIn(650);
+  }
+
 }
 
 enum categories {'Gameplay', 'Joke', 'Musical', 'Interesting', 'Tech', 'Tutorial'}

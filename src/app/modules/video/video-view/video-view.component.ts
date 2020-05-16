@@ -56,7 +56,7 @@ export class VideoViewComponent implements OnInit {
             video: this.URL_STORAGE + this.Video.video.path,
             poster: this.URL_STORAGE + this.Video.poster.path
           };
-          this.progressBar.fadeOut(400);
+          this.progressBar.toggle(400);
         });
     });
   }

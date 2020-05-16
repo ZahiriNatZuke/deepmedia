@@ -1,9 +1,11 @@
-<div id="video-card" class="card mb-8 w-100">
+<div id="video-card" class="card mb-8 w-100" xmlns="http://www.w3.org/1999/xhtml">
   <img [src]="URL_STORAGE + Video.poster.path" class="w-100 h-100 rounded h-img"
        [alt]="URL_STORAGE + Video.poster.name">
   <div class="justify-content-start">
-    <p class="font-weight-bold m-0 p-0 pl-2 info-text-title w-75" [routerLink]="['/video/view',Video.id]">
-      {{Video.title}}</p>
+    <p class="font-weight-bold m-0 p-0 pl-2 info-text-title w-90" [routerLink]="['/video/view',Video.id]">
+      <marquee behavior="scroll" width="95%" direction="left" scrolldelay="20">
+        {{Video.title}}</marquee>
+    </p>
   </div>
   <div class="text-white info-user font-weight-light">
     <span class="font-weight-light">{{Video.created_at}}</span>

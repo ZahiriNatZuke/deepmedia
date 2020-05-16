@@ -21,15 +21,15 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   poster: FormGroup;
   video_src: FormGroup;
   videoObj: VideoPlayer = {id: 1, video: '', poster: ''};
-  showVideoPlayer: boolean;
+  videoPlayer: VideoPlayerComponent;
+  formData = new FormData();
+  videoFile: File;
+  posterFile: File;
   faSave = faSave;
   faTrash = faTrash;
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
-  videoPlayer: VideoPlayerComponent;
-  formData = new FormData();
-  posterFile: File;
-  videoFile: File;
+  showVideoPlayer: boolean;
   progressUpload: number = 0;
 
   constructor(private _formBuilder: FormBuilder, private crudService: CrudService, private router: Router) {

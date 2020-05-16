@@ -39,7 +39,7 @@ export class CrudService {
         headers: api.getHeadersWithAuth(),
         reportProgress: true,
         observe: "events"
-      }).pipe(first(), retry(1));
+      }).pipe(retry(1));
     else
       return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersWithAuth()})
         .pipe(first(), retry(1));

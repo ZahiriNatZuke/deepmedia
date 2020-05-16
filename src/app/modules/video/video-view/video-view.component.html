@@ -1,4 +1,4 @@
-<div [id]="'progressBar'" class="d-flex justify-content-center">
+<div [id]="'progressBar'" class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/xhtml">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div *ngIf="Video" class="d-flex lm-top">
@@ -6,9 +6,13 @@
     <mat-card>
       <mat-card-title class="d-flex justify-content-between w-100">
         <div class="d-flex">
-          <h3>{{Video.title}}</h3>
+          <h3>
+            <marquee behavior="scroll" width="100%" direction="left" scrolldelay="20">
+              {{Video.title}}
+            </marquee>
+          </h3>
           <button mat-icon-button (click)="showDateTime = !showDateTime"
-                  class="ml-2" matTooltip="Fecha del Video" matTooltipPosition="after">
+                  class="ml-2 mt-1" matTooltip="Fecha del Video" matTooltipPosition="after">
             <fa-icon [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['pb-2', 'text-muted']"></fa-icon>
           </button>
         </div>
