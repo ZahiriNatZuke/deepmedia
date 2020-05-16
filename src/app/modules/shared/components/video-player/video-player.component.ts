@@ -1,20 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {
   faPlay, faPause, faVolumeUp,
   faVolumeDown, faVolumeMute,
   faVolumeOff, faPlayCircle
 } from '@fortawesome/free-solid-svg-icons';
-import contains from '@popperjs/core/lib/dom-utils/contains';
+import {environment} from "../../../../../environments/environment.prod";
+import {VideoPlayer} from "../../../../models/video-player";
 
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss']
 })
-export class VideoPlayerComponent implements OnInit {
+export class VideoPlayerComponent implements OnInit, OnDestroy {
   videoPlayer: HTMLVideoElement;
   @Input() widthVideo: number;
-  @Input() video: { poster: string; id: number, video: string };
+  @Input() video: VideoPlayer;
   @Output() videoPlayerEmitter: EventEmitter<VideoPlayerComponent>;
   @Output() durationVideoPlayerEmitter: EventEmitter<number>;
   faPlay = faPlay;
@@ -29,13 +30,14 @@ export class VideoPlayerComponent implements OnInit {
   controlBar: JQuery<HTMLElement>;
   videoPoster: JQuery<HTMLElement>;
   buttonPlay: HTMLElement;
-  progressBar: HTMLElement;
   played: boolean;
   overSlider: boolean;
   mutedVideo: boolean;
   currentVolumen: number;
   currentTime: number;
   poster: boolean;
+  URL_ASSETS = environment.URL_ASSETS;
+  placeBtnPlay: any;
 
   constructor() {
     this.videoPlayerEmitter = new EventEmitter();
@@ -44,11 +46,11 @@ export class VideoPlayerComponent implements OnInit {
     this.mutedVideo = false;
     this.currentVolumen = 50;
     this.currentTime = 0.0;
+    this.placeBtnPlay = setInterval(() => this.onPlaceBtnPlay(), 500);
   }
 
   ngOnInit() {
     this.loadHTML();
-    this.setWidth();
     this.onPlaceBtnPlay();
     this.volumenSlider.fadeOut(0);
     this.addEventsListen();
@@ -62,7 +64,6 @@ export class VideoPlayerComponent implements OnInit {
     this.buttonPlay = videoPlayerTag.getElementsByClassName('btn-play')[0] as HTMLButtonElement;
     this.volumenControl = $(`#video-${this.video.id} #volumen-control`);
     this.volumenSlider = $(`#video-${this.video.id} #volumen-slider`);
-    this.progressBar = videoPlayerTag.getElementsByClassName('progress-bar-video')[0] as HTMLElement;
   }
 
   addEventsListen() {
@@ -75,7 +76,6 @@ export class VideoPlayerComponent implements OnInit {
     });
     window.addEventListener('keydown', (event) => {
       const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      console.log(event.keyCode);
       if (events.indexOf(event.code) !== -1 || event.keyCode === 27 || event.keyCode === 32 || event.keyCode === 13)
         event.preventDefault();
       this.events(event);
@@ -206,7 +206,7 @@ export class VideoPlayerComponent implements OnInit {
     }
   }
 
-  setWidth() {
+  setWidthProgressBar() {
     let percent;
     switch (this.widthVideo) {
       case 360:
@@ -237,7 +237,11 @@ export class VideoPlayerComponent implements OnInit {
         percent = 65;
         break;
     }
-    this.progressBar.style.width = `${this.widthVideo * percent / 100}px`;
+    return (this.widthVideo * percent / 100) + 15;
+  }
+
+  setHeightPoster() {
+    return this.widthVideo * 56.25 / 100;
   }
 
   onPlaceBtnPlay() {
@@ -259,5 +263,9 @@ export class VideoPlayerComponent implements OnInit {
 
   emitDurationVideo(event: any) {
     this.durationVideoPlayerEmitter.emit(event.target.duration);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.placeBtnPlay);
   }
 }

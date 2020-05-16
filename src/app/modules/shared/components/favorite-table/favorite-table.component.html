@@ -22,61 +22,58 @@
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
       <ng-container matColumnDef="categoria">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'categoría' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['categoria'] | titlecase}} </td>
+        <td mat-cell *matCellDef="let element"> {{element['category'] | titlecase}} </td>
       </ng-container>
 
       <ng-container matColumnDef="titulo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'titulo' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['titulo'] | titlecase}} </td>
+        <td mat-cell *matCellDef="let element"> {{element['title'] | titlecase}} </td>
       </ng-container>
 
       <ng-container matColumnDef="propietario">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'propietario' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['propietario'] | titlecase}} </td>
+        <td mat-cell *matCellDef="let element"> {{element['channel']['user']['username']}}</td>
       </ng-container>
 
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'fecha' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['fecha'] | titlecase}} </td>
+        <td mat-cell *matCellDef="let element"> {{element['created_at'] | titlecase}} </td>
       </ng-container>
 
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
           <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="d-flex mx-5">
-              <div class="w-49 pr-5 py-2">
+              <div class="w-49 pr-5 py-2 mt-2">
                 <app-profile-poster-video class="mat-elevation-z5"></app-profile-poster-video>
               </div>
               <div class="w-2 h-auto bg-secondary py-5 v-divider"></div>
               <div class="w-49 px-5 py-3">
                 <div class="d-flex flex-column pl-2 p-absolute">
                   <div class="d-flex">
-                    <h3 class="mr-2">Test Video #1</h3>
+                    <h3 class="mr-2">{{element.title}}</h3>
                     <mat-chip-list>
                       <mat-chip color="primary" selected>
                         <fa-icon [icon]="faGamepad"></fa-icon>
                       </mat-chip>
                     </mat-chip-list>
                   </div>
-                  <h6>Viernes, 17 de Abril de 2020, 8:08 PM</h6>
+                  <h6>{{element.created_at}}</h6>
                   <mat-chip-list>
                     <mat-chip color="primary" class="w-auto p-1" selected>
                       <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
-                      <span class="mr-1">10.5k</span>
+                      <span class="mr-1">{{element.likes_count}}</span>
                     </mat-chip>
                     <mat-chip color="primary" class="w-auto p-1" selected>
                       <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
-                      <span class="mr-1">10.5k</span>
+                      <span class="mr-1">{{element.views_count}}</span>
                     </mat-chip>
                     <mat-chip color="primary" class="w-auto p-1" selected>
                       <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
-                      <span class="mr-1">10.5k</span>
+                      <span class="mr-1">{{element.comments_count}}</span>
                     </mat-chip>
                   </mat-chip-list>
-                  <p class="pt-3 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                    asperiores deleniti deserunt
-                    doloremque dolorum error fugiat ipsum magni nam numquam odio odit optio possimus quaerat, qui
-                    quisquam, quod sed ut!</p>
+                  <p class="pt-3 text-justify">{{element.description}}</p>
                 </div>
               </div>
             </div>
@@ -97,4 +94,4 @@
     <mat-paginator [hidePageSize]="true" [pageSize]="5" [showFirstLastButtons]="true"></mat-paginator>
   </mat-card-actions>
 </mat-card>
-<br><br>
+<br>

@@ -1,54 +1,58 @@
-<div class="d-flex lm-top">
+<div [id]="'progressBar'" class="d-flex justify-content-center">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<div *ngIf="Video" class="d-flex lm-top">
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-title class="d-flex justify-content-between w-100">
         <div class="d-flex">
-          <h3>Video de Test #1</h3>
-          <button mat-icon-button (click)="toggleDateTime()"
+          <h3>{{Video.title}}</h3>
+          <button mat-icon-button (click)="showDateTime = !showDateTime"
                   class="ml-2" matTooltip="Fecha del Video" matTooltipPosition="after">
             <fa-icon [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['pb-2', 'text-muted']"></fa-icon>
           </button>
         </div>
         <div class="icon-line mr-1">
-          <button mat-button [class.text-muted]="!showInfo" (click)="toggleInfo()"
+          <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo"
                   matTooltip="Descripción del Video" matTooltipPosition="left">
             <fa-icon [icon]="faInfoCircle"></fa-icon>
           </button>
         </div>
       </mat-card-title>
-      <mat-card-subtitle id="dateTime">
-        <h6>Por <a class="text-dark font-weight-bold" [routerLink]="['/auth/profile',1]">#ZahiriNatZuke</a>, Miércoles,
-          29 de Abril de 2020, 10:20 PM</h6>
+      <mat-card-subtitle *ngIf="showDateTime">
+        <h6>Por <a class="text-dark font-weight-bold"
+                   [routerLink]="['/auth/profile',Video.channel_id]">#{{Video.channel.user.username}}</a>, {{Video.created_at}}
+        </h6>
       </mat-card-subtitle>
       <mat-card-content>
         <hr>
-        <app-video-player [id]="'video-'+ video.id" [video]="video"
+        <app-video-player *ngIf="videoPlayer" [id]="'video-'+ videoPlayer.id" [video]="videoPlayer"
                           [widthVideo]="getToggleVideoSize() ? 640 : 720"></app-video-player>
-        <div id="info">
-          <hr>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, reiciendis!</span>
+        <div *ngIf="showInfo">
+          <hr [style.marginTop.px]="8" [style.marginBottom.px]="10">
+          <span>{{Video.description}}</span>
         </div>
       </mat-card-content>
-      <mat-card-actions align="end">
+      <mat-card-actions align="end" [style.padding.px]="0">
         <div class="icon-line mr-1">
           <button mat-button class="text-muted">
             <fa-icon [icon]="faStar"></fa-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">1000</span>
+          <span class="align-self-center font-weight-bold text-muted select-none">{{Video.views_count}}</span>
           <button mat-button color="primary">
             <fa-icon [icon]="faEye"></fa-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">1000</span>
+          <span class="align-self-center font-weight-bold text-muted select-none">{{Video.likes_count}}</span>
           <button mat-button class="text-muted">
             <fa-icon [icon]="faThumbsUp"></fa-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">1000</span>
+          <span class="align-self-center font-weight-bold text-muted select-none">{{Video.comments_count}}</span>
           <button mat-button color="primary">
             <fa-icon [icon]="faComment"></fa-icon>
           </button>
@@ -76,7 +80,7 @@
 </div>
 <br>
 <div *ngIf="!showVideoView"><br><br></div>
-<div class="d-flex justify-content-center w-100 container-line-stars">
+<div *ngIf="Video" class="d-flex justify-content-center w-100 container-line-stars">
   <div class="w-43 d-flex flex-column justify-content-start px-1">
     <div class="bg-light my-auto line-star"></div>
     <div class="bg-light my-auto mx-2 line-star"></div>

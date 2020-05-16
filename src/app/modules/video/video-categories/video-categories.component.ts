@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from "../../../models/category";
+import {HelpersService} from "../../../services/helpers.service";
 
 @Component({
   selector: 'app-video-categories',
@@ -7,48 +8,21 @@ import {Category} from "../../../models/category";
   styleUrls: ['./video-categories.component.scss']
 })
 export class VideoCategoriesComponent implements OnInit {
-  categories: Category[] = [
-    {
-      name: 'gameplay',
-      link: 'gameplay',
-      img: 'gameplay.png',
-      count_videos: 100
-    },
-    {
-      name: 'humor',
-      link: 'joke',
-      img: 'joke.jpg',
-      count_videos: 100
-    },
-    {
-      name: 'musical',
-      link: 'musical',
-      img: 'musical.jpg',
-      count_videos: 100
-    },
-    {
-      name: 'tecnología',
-      link: 'tech',
-      img: 'tech.jpg',
-      count_videos: 100
-    },
-    {
-      name: 'interesantes',
-      link: 'interesting',
-      img: 'interesting.jpg',
-      count_videos: 100
-    },
-    {
-      name: 'tutoriales',
-      link: 'tutorial',
-      img: 'tutorial.png',
-      count_videos: 100
-    },
-  ];
+  arrayCategories: Category[];
 
-  constructor() {
+  constructor(private helpersService: HelpersService) {
   }
 
   ngOnInit(): void {
+    this.helpersService.GETCountVideoByCategories()
+      .subscribe(response => {
+        let array = new Array(6);
+        for (let i = 0; i < array.length; i++) {
+          array[i] = response.categories[categories[i]];
+        }
+        this.arrayCategories = array;
+      });
   }
 }
+
+enum categories {'Gameplay', 'Joke', 'Musical', 'Interesting', 'Tech', 'Tutorial'}

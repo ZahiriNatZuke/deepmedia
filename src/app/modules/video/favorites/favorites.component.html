@@ -1,1 +1,4 @@
-<app-favorite-table></app-favorite-table>
+<div [id]="'progressBar'" class="d-flex justify-content-center">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<app-favorite-table [id]="'favoriteTable'" (loadEnd)="stopLoading()"></app-favorite-table>

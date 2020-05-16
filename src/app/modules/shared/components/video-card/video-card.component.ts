@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 import {Video} from "../../../../models/video";
 import {environment} from "../../../../../environments/environment.prod";
+import {AuthenticationService} from "../../../../services/authentication.service";
+import {Channel} from "../../../../models/channel";
 
 @Component({
   selector: 'app-video-card',
@@ -16,11 +18,18 @@ export class VideoCardComponent implements OnInit {
   faStar = faStar;
   @Input() video: Video;
   URL_STORAGE = environment.URL_STORAGE;
+  User_Channel: Channel;
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
   }
 
   ngOnInit(): void {
+
+  }
+
+  isFavorite(): boolean {
+    return this.video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0
   }
 
 }

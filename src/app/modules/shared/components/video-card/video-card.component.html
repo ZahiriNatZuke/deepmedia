@@ -12,12 +12,15 @@
   <div class="text-white info-user font-weight-light">
     <span class="font-weight-light">{{video.updated_at}}</span>
     <div>
-      <span>{{video.likes_count}}<fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>
-      <span>{{video.comments_count}}<fa-icon [icon]="faComment" class="px-2"></fa-icon></span>
-      <span>{{video.views_count}}<fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
+      <span>{{video.likes_count}}
+        <fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>
+      <span>{{video.comments_count}}
+        <fa-icon [icon]="faComment" class="px-2"></fa-icon></span>
+      <span>{{video.views_count}}
+        <fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
     </div>
   </div>
-  <fa-icon [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
+  <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
   <button mat-icon-button class="text-white btn-play">
     <fa-icon [routerLink]="['/video/view',video.id]" [icon]="faPlayCircle"></fa-icon>
   </button>

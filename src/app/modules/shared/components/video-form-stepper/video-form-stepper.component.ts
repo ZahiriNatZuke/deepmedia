@@ -3,6 +3,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faSave, faTrash, faAngleRight, faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {MatHorizontalStepper} from '@angular/material/stepper';
 import {VideoPlayerComponent} from '../video-player/video-player.component';
+import {CrudService} from "../../../../services/crud.service";
+import {API} from "../../../../services/API";
+import {Router} from "@angular/router";
+import {HttpEventType} from "@angular/common/http";
+import {VideoPlayer} from "../../../../models/video-player";
+
+const api = new API();
 
 @Component({
   selector: 'app-video-form-stepper',
@@ -13,24 +20,28 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   info: FormGroup;
   poster: FormGroup;
   video_src: FormGroup;
-  videoObj = {id: 1, video: '', poster: ''};
+  videoObj: VideoPlayer = {id: 1, video: '', poster: ''};
   showVideoPlayer: boolean;
   faSave = faSave;
   faTrash = faTrash;
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
   videoPlayer: VideoPlayerComponent;
+  formData = new FormData();
+  posterFile: File;
+  videoFile: File;
+  progressUpload: number = 0;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private crudService: CrudService, private router: Router) {
     this.showVideoPlayer = false;
     this.info = this._formBuilder.group({
       title: ['', [Validators.required]],
       description: ['', Validators.required],
-      status: ['', Validators.required],
+      state: ['', Validators.required],
       category: ['', Validators.required],
     });
     this.poster = this._formBuilder.group({
-      image: ['', Validators.required],
+      poster: ['', Validators.required],
     });
     this.video_src = this._formBuilder.group({
       video: ['', Validators.required],
@@ -80,6 +91,7 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
 
   previewPoster(event: any) {
     const file = event.target.files[0];
+    this.posterFile = file;
     const poster_img = document.getElementById('poster-img') as HTMLImageElement;
     document.getElementById('label-poster-img').innerText = event.target.files[0].name;
     this.videoObj.poster = window.URL.createObjectURL(file);
@@ -88,6 +100,7 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
 
   previewVideo(event: any) {
     const file = event.target.files[0];
+    this.videoFile = file;
     document.getElementById('label-video').innerText = event.target.files[0].name;
     this.videoObj.video = window.URL.createObjectURL(file);
     setTimeout(() => {
@@ -96,13 +109,31 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   }
 
   sendData() {
-    console.log(this.info.value, this.poster.value, this.video_src.value);
+    const info = this.info.value;
+    const video = this.video_src.value;
+    this.formData.append('title', info.title);
+    this.formData.append('description', info.description);
+    this.formData.append('state', info.state);
+    this.formData.append('category', info.category);
+    this.formData.append('poster', this.posterFile, this.posterFile.name);
+    this.formData.append('video', this.videoFile, this.videoFile.name);
+    this.formData.append('duration', video.duration);
+    this.crudService.POSTForStore(api.getStoreVideoURL(), 'video', this.formData)
+      .subscribe((events) => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.progressUpload = Math.round(events.loaded / events.total * 100);
+        }
+        if (events.type === HttpEventType.Response)
+          setTimeout(() => this.router.navigate(['/video/view', events.body.video.id]).then(), 750);
+      });
   }
 
   resetForm(stepper: MatHorizontalStepper) {
     stepper.reset();
     this.videoObj = {id: 1, poster: '', video: ''};
     const poster_img = document.getElementById('poster-img') as HTMLImageElement;
+    document.getElementById('label-poster-img').innerText = 'Poster del Video';
+    document.getElementById('label-video').innerText = 'Video';
     poster_img.style.display = 'none';
     this.showVideoPlayer = false;
   }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {API} from "./API";
 import {BehaviorSubject, Observable} from "rxjs";
-import {first, map} from "rxjs/operators";
+import {first, map, retry} from "rxjs/operators";
 import {Channel} from "../models/channel";
 import {CrudService} from "./crud.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -28,8 +28,8 @@ export class AuthenticationService {
   }
 
   POSTForLogin(body: { username: string, password: string }) {
-    return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()}).pipe(
-      map(response => {
+    return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()})
+      .pipe(first(), retry(1), map(response => {
         const user = response['auth:user'].user;
         localStorage.setItem('X-Auth-User', JSON.stringify(user));
         localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
@@ -37,13 +37,12 @@ export class AuthenticationService {
         localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
         this.currentUserSubject.next(user);
         return user;
-      })
-    );
+      }));
   }
 
   GETForUser() {
-    return this.crudService.GETWithOutAuth(api.getUserURL(), this.currentUserValue.user.id.toString()).pipe(first())
-      .subscribe(response => {
+    return this.crudService.GETWithOutAuth(api.getUserURL(), this.currentUserValue.user.id.toString())
+      .pipe(first(), retry(1)).subscribe(response => {
         const user = response.channel;
         localStorage.setItem('X-Auth-User', JSON.stringify(user));
         this.currentUserSubject.next(user);
@@ -52,7 +51,7 @@ export class AuthenticationService {
 
   POSTForLogout() {
     return this.httpClient.post<any>(api.getLogOutURL(), {}, {headers: api.getHeadersForLogout()})
-      .subscribe(() => {
+      .pipe(first(), retry(1)).subscribe(() => {
         localStorage.clear();
         this.currentUserSubject.next(null);
         this.router.navigate(['/auth/login']).then();
@@ -67,7 +66,7 @@ export class AuthenticationService {
 
   GETForRefreshJWT() {
     return this.httpClient.get<any>(api.getRefreshJwtURL(), {headers: api.getHeadersForRefreshJWT()})
-      .subscribe(response => {
+      .pipe(first(), retry(1)).subscribe(response => {
         const user = response['auth:user'].user;
         localStorage.setItem('X-Auth-User', JSON.stringify(user));
         localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);

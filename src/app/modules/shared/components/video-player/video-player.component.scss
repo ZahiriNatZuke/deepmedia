@@ -38,21 +38,14 @@ video:hover ~ {
   opacity: 1;
 }
 
-.progress-bar-video {
-  position: absolute;
-  left: 100px;
-  bottom: -5px;
-  transition: all .4s;
-}
-
 .playPause-btn {
-  position: absolute;
+  position: relative;
   left: 3px;
 }
 
 .volumen-btn {
-  position: absolute;
-  left: 50px;
+  position: relative;
+  left: 3px;
 }
 
 .volumen-slider {
@@ -60,14 +53,30 @@ video:hover ~ {
   border-radius: 20px 20px 0 0;
   position: absolute;
   bottom: 40px;
-  left: 48px;
+  left: 44px;
   min-height: 100px;
   padding-bottom: 5px;
 }
 
+.progress-bar-video {
+  position: relative;
+  left: 5px;
+  bottom: 5px;
+  transition: all .4s;
+}
+
+.timer {
+  opacity: .87;
+  position: relative;
+  bottom: -2px;
+  padding: 4px 8px;
+  left: 8px;
+  width: 70px;
+}
+
 .fullScreen-btn {
-  position: absolute;
-  right: 0;
+  position: relative;
+  left: 5px;
   padding: 0 8px;
 }
 
@@ -75,17 +84,9 @@ video:hover ~ {
   min-width: unset;
 }
 
-.timer {
-  opacity: .87;
-  position: absolute;
-  bottom: 0;
-  padding: 4px 8px;
-  right: 40px;
-}
-
 .poster {
   position: absolute;
-  bottom: 4px;
+  bottom: 3px;
   padding: 0;
   width: 100%;
   z-index: 3;
@@ -94,6 +95,7 @@ video:hover ~ {
 .img-poster {
   width: 100%;
   border-radius: 4px;
+  transition: all .4s;
 }
 
 .img-poster:hover ~ {

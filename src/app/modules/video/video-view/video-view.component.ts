@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  faThumbsUp,
-  faComment,
-  faEye,
-  faPlayCircle,
-  faStar,
-  faDownload,
-  faInfoCircle,
-  faAngleDown,
-  faAngleUp,
+  faThumbsUp, faComment, faEye, faPlayCircle, faAngleUp,
+  faStar, faDownload, faInfoCircle, faAngleDown,
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
+import {VideoPlayer} from "../../../models/video-player";
+import {CrudService} from "../../../services/crud.service";
+import {API} from "../../../services/API";
+import {ActivatedRoute} from "@angular/router";
+import {Video} from "../../../models/video";
+
+const api = new API();
 
 @Component({
   selector: 'app-video-view',
@@ -18,7 +18,8 @@ import {environment} from '../../../../environments/environment.prod';
   styleUrls: ['./video-view.component.scss']
 })
 export class VideoViewComponent implements OnInit {
-  video: { id: number, poster: string, video: string };
+  Video: Video;
+  videoPlayer: VideoPlayer = null;
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
@@ -28,34 +29,40 @@ export class VideoViewComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
-  info: JQuery<HTMLElement>;
-  dateTime: JQuery<HTMLElement>;
   viewTop: JQuery<HTMLElement>;
+  progressBar: JQuery<HTMLElement>;
   showInfo: boolean;
   showDateTime: boolean;
   carouselHeight: number;
   carouselWidth: number;
   carouselWidthToggle: number;
   showVideoView: boolean;
+  URL_STORAGE = environment.URL_STORAGE;
 
-  constructor() {
+  constructor(private crudService: CrudService, private activatedRoute: ActivatedRoute) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
     this.getWidth();
     this.getWidthToggle();
     this.getHeight();
-    this.video = {
-      id: 1,
-      video: 'http://streaming-uci.dev.com/Streaming-Symfony/web/uploads/video_file/video_389/1583974464.mp4',
-      poster: 'http://streaming-uci.dev.com/Streaming-Symfony/web/uploads/video_images/video_389/1583974433.png'
-    };
+    this.activatedRoute.params.subscribe(params => {
+      const id = params.id;
+      this.crudService.GETWithOutAuth(api.getVideoURL(), id)
+        .subscribe(response => {
+          this.Video = response.video;
+          this.videoPlayer = {
+            id: this.Video.id,
+            video: this.URL_STORAGE + this.Video.video.path,
+            poster: this.URL_STORAGE + this.Video.poster.path
+          };
+          this.progressBar.fadeOut(400);
+        });
+    });
   }
 
   ngOnInit(): void {
     this.loadHTML();
-    this.info.toggle(0);
-    this.dateTime.toggle(0);
     this.viewTop.toggle(0);
     window.addEventListener('resize', () => {
       this.getHeight();
@@ -65,9 +72,8 @@ export class VideoViewComponent implements OnInit {
   }
 
   loadHTML() {
-    this.info = $('#info');
-    this.dateTime = $('#dateTime');
     this.viewTop = $('#viewTop');
+    this.progressBar = $('mat-progress-bar');
   }
 
   getHeight() {
@@ -80,16 +86,6 @@ export class VideoViewComponent implements OnInit {
 
   getWidthToggle() {
     this.carouselWidthToggle = Math.floor(window.screen.availWidth * 35.2 / 100);
-  }
-
-  toggleInfo() {
-    this.showInfo = !this.showInfo;
-    this.info.toggle(650);
-  }
-
-  toggleDateTime() {
-    this.showDateTime = !this.showDateTime;
-    this.dateTime.toggle(650);
   }
 
   getToggleVideoSize(): boolean {
@@ -109,4 +105,5 @@ export class VideoViewComponent implements OnInit {
       }
     }, 500);
   }
+
 }

@@ -88,7 +88,6 @@ export class ProfileFormComponent implements OnInit {
 
     this.crudService.POSTForUpdate(api.getUserURL(), this.formData, this.Channel.user.id.toString())
       .subscribe((response) => {
-        console.log('onSubmit');
         this.authenticationService.GETForUser();
         this.helpersService.UpdateChannel(response.user);
       });

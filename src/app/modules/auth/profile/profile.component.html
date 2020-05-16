@@ -67,8 +67,8 @@
                    [icon]="faAngleUp"></fa-icon>
         </button>
       </div>
-      <cdk-virtual-scroll-viewport id="all-videos" itemSize="1" class="h-100">
-        <div class="card-columns m-0 w-100 customized-scroll">
+      <cdk-virtual-scroll-viewport orientation="vertical" id="all-videos" itemSize="1" class="h-100 customized-scroll">
+        <div class="card-columns m-0 w-100">
           <app-profile-video-card [Video]="item" *cdkVirtualFor="let item of Videos"></app-profile-video-card>
         </div>
       </cdk-virtual-scroll-viewport>

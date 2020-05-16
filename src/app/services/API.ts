@@ -68,6 +68,10 @@ export class API {
     return this.URL_API + 'my_favorites';
   }
 
+  getCountVideoByCategoriesURL(): string {
+    return this.URL_API + 'count_video_by_categories';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {faGamepad, faThumbsUp, faEye, faComment, faStar, faFilter} from '@fortawesome/free-solid-svg-icons';
+import {Video} from "../../../../models/video";
+import {CrudService} from "../../../../services/crud.service";
 
 @Component({
   selector: 'app-favorite-table',
@@ -18,26 +20,30 @@ import {faGamepad, faThumbsUp, faEye, faComment, faStar, faFilter} from '@fortaw
   ]
 })
 export class FavoriteTableComponent implements OnInit {
-
+  Videos: Video[];
+  @Output() loadEnd: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  dataSource: MatTableDataSource<Video>;
+  filterForm: JQuery<HTMLElement>;
+  columnsToDisplay = ['categoria', 'titulo', 'propietario', 'fecha'];
+  expandedElement: Video | null;
   faStar = faStar;
   faGamepad = faGamepad;
   faThumbsUp = faThumbsUp;
   faEye = faEye;
   faComment = faComment;
   faFilter = faFilter;
-
-  columnsToDisplay = ['categoria', 'titulo', 'propietario', 'fecha'];
-  expandedElement: PeriodicElement | null;
-
-  dataSource: MatTableDataSource<PeriodicElement>;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
   show: boolean;
-  filterForm: JQuery<HTMLElement>;
 
-  constructor() {
+  constructor(private crudService: CrudService) {
+    this.crudService.GETForMyFavorites()
+      .subscribe(response => {
+        this.Videos = response.videos;
+        this.dataSource = new MatTableDataSource<Video>(this.Videos);
+        this.loadEnd.emit(true);
+      });
     this.show = false;
-    this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   }
 
   ngOnInit() {
@@ -56,71 +62,3 @@ export class FavoriteTableComponent implements OnInit {
     this.filterForm.toggle(750);
   }
 }
-
-export interface PeriodicElement {
-  categoria: string;
-  propietario: string;
-  fecha: string;
-  titulo: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  }, {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  }, {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  },
-  {
-    propietario: 'ZahiriNatZuke',
-    categoria: 'Hydrogen',
-    fecha: 'hace un momento',
-    titulo: 'Hydrogen is a chemical element',
-  }
-];

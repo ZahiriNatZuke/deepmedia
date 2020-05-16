@@ -16,7 +16,7 @@
         <fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
     </div>
   </div>
-  <fa-icon [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
+  <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
   <button mat-icon-button class="text-white btn-play" (click)="emitPlayVideo()">
     <fa-icon [routerLink]="['/video/view',Video.id]" [icon]="faPlayCircle"></fa-icon>
   </button>
