@@ -6,7 +6,8 @@
     <mat-card>
       <mat-card-title class="d-flex justify-content-between w-100">
         <div class="d-flex">
-          <h3>
+          <h3 *ngIf="Video.title.length <= 40">{{Video.title}}</h3>
+          <h3 *ngIf="Video.title.length > 30">
             <marquee behavior="scroll" width="100%" direction="left" scrolldelay="20">
               {{Video.title}}
             </marquee>

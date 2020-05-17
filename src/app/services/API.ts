@@ -44,7 +44,7 @@ export class API {
     return this.URL_API + 'video';
   }
 
-  getStoreCommentURL(): string {
+  getCommentURL(): string {
     return this.URL_API + 'comment/';
   }
 

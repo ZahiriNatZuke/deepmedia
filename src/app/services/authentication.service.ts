@@ -20,7 +20,6 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient, private crudService: CrudService, private snackBar: MatSnackBar, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<Channel>(JSON.parse(localStorage.getItem('X-Auth-User')));
     this.currentUser = this.currentUserSubject.asObservable();
-    this.GETForRefreshJWT();
   }
 
   public get currentUserValue(): Channel {
@@ -64,9 +63,9 @@ export class AuthenticationService {
       });
   }
 
-  GETForRefreshJWT() {
-    return this.httpClient.get<any>(api.getRefreshJwtURL(), {headers: api.getHeadersForRefreshJWT()})
-      .pipe(first(), retry(1)).subscribe(response => {
+  POSTForRefreshJWT() {
+    return this.httpClient.post<any>(api.getRefreshJwtURL(), {}, {headers: api.getHeadersForRefreshJWT()})
+      .pipe(retry(2), first()).subscribe(response => {
         const user = response['auth:user'].user;
         localStorage.setItem('X-Auth-User', JSON.stringify(user));
         localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);

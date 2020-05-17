@@ -1,18 +1,19 @@
 <div class="d-flex flex-column">
-  <div id="listComments" class="comments-container customized-scroll" [ngStyle]="{height: showPostForm ? '300px' : '445px'}">
-    <div class="mat-elevation-z4 comment-item" *ngFor="let commet of [0,1,2,3,4,5]">
+  <div id="listComments" class="comments-container customized-scroll"
+       [ngStyle]="{height: showPostForm ? '300px' : '445px'}">
+    <div class="mat-elevation-z4 comment-item" *ngFor="let comment of Comments">
       <div>
-      <span class="font-weight-normal">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, praesentium!</span>
+        <span class="font-weight-normal">{{comment.body}}</span>
         <span class="text-muted font-weight-bold px-1"> // </span>
-        <span class="text-muted">2020-04-29</span>
+        <span class="text-muted">{{comment.created_at}}</span>
         <span class="font-weight-normal pl-1" style="font-size: 13px">
-      <a class="text-dark" [routerLink]="['/auth/profile','1']">&nbsp;<b>#</b>ZahiriNatZuke</a>
+      <a class="text-dark" [routerLink]="['/auth/profile',comment.user_id]">&nbsp;<b>#</b>{{comment.user.username}}</a>
       </span>
       </div>
     </div>
   </div>
-  <button *ngIf="!showPostForm" mat-icon-button color="primary" class="align-self-end" matTooltip="Nuevo Comentario"
+  <button *ngIf="!showPostForm && User_Channel" mat-icon-button color="primary" class="align-self-end"
+          matTooltip="Nuevo Comentario"
           matTooltipPosition="left" (click)="showPostForm = !showPostForm;">
     <fa-icon [icon]="faPlus" [classes]="['pb-1']"></fa-icon>
   </button>
@@ -20,14 +21,15 @@
     <div class="d-flex flex-column">
       <mat-form-field appearance="outline">
         <mat-label>Nuevo Comentario</mat-label>
-        <textarea matInput cdkTextareaAutosize #comment formControlName="comment"
+        <textarea matInput cdkTextareaAutosize #comment formControlName="body"
                   required maxlength="150" [rows]="4">
               </textarea>
         <mat-hint align="end">{{comment.value.length}} / 150</mat-hint>
-        <mat-error *ngIf="checkValid('comment')">{{checkRequired('comment')}}</mat-error>
+        <mat-error *ngIf="checkValid('body')">{{checkRequired('body')}}</mat-error>
       </mat-form-field>
-      <div class="d-flex justify-content-between">
-        <button mat-raised-button color="warn" type="button" class="w-25" (click)="showPostForm = !showPostForm;">
+      <div class="d-flex justify-content-around">
+        <button mat-raised-button color="warn" type="button" class="w-25"
+                (click)="showPostForm = !showPostForm; postCommentForm.reset();">
           <fa-icon [icon]="faTimes"></fa-icon>
         </button>
         <button mat-raised-button color="primary" type="submit" class="w-25">

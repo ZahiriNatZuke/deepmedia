@@ -1,6 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEnvelopeOpenText, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {Comment} from '../../../../../models/comment';
+import {CrudService} from "../../../../../services/crud.service";
+import {API} from "../../../../../services/API";
+import {ActivatedRoute} from "@angular/router";
+import {AuthenticationService} from "../../../../../services/authentication.service";
+import {Channel} from "../../../../../models/channel";
+
+const api = new API();
 
 @Component({
   selector: 'app-comments',
@@ -8,21 +16,34 @@ import {faEnvelopeOpenText, faPlus, faTimes} from '@fortawesome/free-solid-svg-i
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
+  Comments: Comment[];
+  idVideo: string;
   postCommentForm: FormGroup;
   faEnvelopeOpenText = faEnvelopeOpenText;
   faPlus = faPlus;
   faTimes = faTimes;
   showPostForm: boolean;
-  containerStyle: any;
+  User_Channel: Channel;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private crudService: CrudService,
+              private activatedRoute: ActivatedRoute,
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.showPostForm = false;
     this.postCommentForm = this._formBuilder.group({
-      comment: ['', Validators.required],
+      body: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.idVideo = params.id;
+      this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo)
+        .subscribe(response => {
+          this.Comments = response.comments;
+        });
+    });
   }
 
   checkValid(input: string) {
@@ -34,7 +55,16 @@ export class CommentsComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.postCommentForm.valid)
+    if (this.postCommentForm.valid) {
       console.log(this.postCommentForm.value);
+      this.crudService.POSTForStore(api.getCommentURL(), 'comment',
+        this.postCommentForm.value, this.idVideo).subscribe(() => {
+        this.postCommentForm.patchValue({body: 'Enviado :)'});
+        this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo)
+          .subscribe(response => {
+            this.Comments = response.comments;
+          });
+      });
+    }
   }
 }

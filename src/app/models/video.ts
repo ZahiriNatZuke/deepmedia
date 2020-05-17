@@ -1,5 +1,6 @@
 import {Resource} from "./resource";
 import {Channel} from "./channel";
+import {Comment} from "./comment";
 
 export class Video {
   id: number;
@@ -15,6 +16,7 @@ export class Video {
   updated_at: string;
   comments_count: number;
   likes_count: number;
+  comments?: Comment[];
   favorite_for_who: Channel[];
   channel: Channel;
 }

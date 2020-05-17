@@ -76,7 +76,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     });
     window.addEventListener('keydown', (event) => {
       const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if (events.indexOf(event.code) !== -1 || event.keyCode === 27 || event.keyCode === 32 || event.keyCode === 13)
+      if (events.indexOf(event.code) !== -1 || event.keyCode === 13)
         event.preventDefault();
       this.events(event);
     });
@@ -136,19 +136,21 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   events(event: KeyboardEvent) {
-    if (event.code === 'Space') {
+    if (event.code === 'Space' && event.target === document.body) {
       this.poster ? this.hidePoster() : this.playPause();
     }
     if (this.played) {
       switch (event.code) {
         case 'Enter':
-          this.makeBig();
+          if (event.target === document.body)
+            this.makeBig();
           break;
         case 'Scape':
           document.exitFullscreen().then();
           break;
         case 'KeyM':
-          this.toggleMutedVideo();
+          if (event.target === document.body)
+            this.toggleMutedVideo();
           break;
         case 'ArrowUp':
           this.volumenUp();

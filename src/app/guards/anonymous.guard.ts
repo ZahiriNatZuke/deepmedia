@@ -15,10 +15,8 @@ export class AnonymousGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = this.authenticationService.currentUserValue;
-    if (!user) {
-      return true;
-    }
-    return false;
+    return !user;
+
   }
 
 }
