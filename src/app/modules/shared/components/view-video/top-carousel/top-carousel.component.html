@@ -7,13 +7,12 @@
     <li data-slide-to="4"></li>
   </ol>
   <div class="carousel-inner rounded mat-elevation-z4">
-    <div *ngFor="let item of [0,1,2,3,4];let i = index;" class="carousel-item rounded" [class.active]="i === 0">
-      <img src="http://zahirigram.dev.com/storage/uploads/user-2/pjdga992MmuD6jHR1TRcLSpUeB0wQzVDpwEXq9EO.jpeg"
-           [style.height.px]="heightCarousel" class="d-block w-100" alt="">
+    <div *ngFor="let item of VideosTop;let i = index;" class="carousel-item rounded" [class.active]="i === 0">
+      <img [src]="URL_STORAGE + item.poster.path"
+           [style.height.px]="heightCarousel" class="d-block w-100" [alt]="item.poster.name">
       <div class="carousel-caption d-none d-md-block">
-        <p [routerLink]="['/video/view',1]" class="title-video">
-          <b>#{{i + 1}}:</b> Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-          amet.</p>
+        <p [routerLink]="['/video/view',item.id]" class="title-video">
+          <b>#{{i + 1}}:</b> {{item.title}}</p>
       </div>
     </div>
   </div>

@@ -72,6 +72,10 @@ export class API {
     return this.URL_API + 'count_video_by_categories';
   }
 
+  getTopVideoURL(): string {
+    return this.URL_API + 'top_video';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

@@ -29,7 +29,10 @@ export class VideoCardComponent implements OnInit {
   }
 
   isFavorite(): boolean {
-    return this.video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0
+    if (this.User_Channel)
+      return this.video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+    else
+      return false;
   }
 
 }

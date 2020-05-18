@@ -22,11 +22,9 @@ import {CrudService} from "../../../../services/crud.service";
 export class FavoriteTableComponent implements OnInit {
   Videos: Video[];
   @Output() loadEnd: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   dataSource: MatTableDataSource<Video>;
   filterForm: JQuery<HTMLElement>;
-  columnsToDisplay = ['categoria', 'titulo', 'propietario', 'fecha'];
+  columnsToDisplay = ['category', 'title', 'username', 'created_at'];
   expandedElement: Video | null;
   faStar = faStar;
   faGamepad = faGamepad;
@@ -49,8 +47,6 @@ export class FavoriteTableComponent implements OnInit {
   ngOnInit() {
     this.filterForm = $('#filterForm');
     this.filterForm.toggle(0);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {

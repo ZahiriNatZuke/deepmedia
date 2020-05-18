@@ -34,6 +34,9 @@ export class ProfileVideoCardComponent implements OnInit {
   }
 
   isFavorite(): boolean {
-    return this.Video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0
+    if (this.User_Channel)
+      return this.Video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+    else
+      return false;
   }
 }

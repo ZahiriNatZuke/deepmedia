@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEnvelopeOpenText, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {Comment} from '../../../../../models/comment';
@@ -16,14 +16,15 @@ const api = new API();
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
+  User_Channel: Channel;
   Comments: Comment[];
   idVideo: string;
   postCommentForm: FormGroup;
+  @Output() postSent: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   faEnvelopeOpenText = faEnvelopeOpenText;
   faPlus = faPlus;
   faTimes = faTimes;
   showPostForm: boolean;
-  User_Channel: Channel;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
@@ -56,13 +57,13 @@ export class CommentsComponent implements OnInit {
 
   onSubmit() {
     if (this.postCommentForm.valid) {
-      console.log(this.postCommentForm.value);
       this.crudService.POSTForStore(api.getCommentURL(), 'comment',
         this.postCommentForm.value, this.idVideo).subscribe(() => {
         this.postCommentForm.patchValue({body: 'Enviado :)'});
         this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo)
           .subscribe(response => {
             this.Comments = response.comments;
+            this.postSent.emit(true);
           });
       });
     }

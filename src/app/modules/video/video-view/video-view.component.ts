@@ -9,6 +9,8 @@ import {CrudService} from "../../../services/crud.service";
 import {API} from "../../../services/API";
 import {ActivatedRoute} from "@angular/router";
 import {Video} from "../../../models/video";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {Channel} from "../../../models/channel";
 
 const api = new API();
 
@@ -18,8 +20,15 @@ const api = new API();
   styleUrls: ['./video-view.component.scss']
 })
 export class VideoViewComponent implements OnInit {
+  User_Channel: Channel;
   Video: Video;
   videoPlayer: VideoPlayer = null;
+  progressBar: JQuery<HTMLElement>;
+  viewTop: JQuery<HTMLElement>;
+  byViews: Video[];
+  byLikes: Video[];
+  idVideo: string;
+  URL_STORAGE = environment.URL_STORAGE;
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
@@ -29,25 +38,26 @@ export class VideoViewComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
-  viewTop: JQuery<HTMLElement>;
-  progressBar: JQuery<HTMLElement>;
   showInfo: boolean;
   showDateTime: boolean;
   carouselHeight: number;
   carouselWidth: number;
   carouselWidthToggle: number;
   showVideoView: boolean;
-  URL_STORAGE = environment.URL_STORAGE;
 
-  constructor(private crudService: CrudService, private activatedRoute: ActivatedRoute) {
+  constructor(private crudService: CrudService,
+              private activatedRoute: ActivatedRoute,
+              private authenticationService: AuthenticationService) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
     this.getWidth();
     this.getWidthToggle();
     this.getHeight();
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
+      this.idVideo = id;
       this.crudService.GETWithOutAuth(api.getVideoURL(), id)
         .subscribe(response => {
           this.Video = response.video;
@@ -59,6 +69,10 @@ export class VideoViewComponent implements OnInit {
           this.progressBar.toggle(400);
         });
     });
+    this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
+      this.byLikes = response.byLikes;
+      this.byViews = response.byViews;
+    })
   }
 
   ngOnInit(): void {
@@ -104,6 +118,43 @@ export class VideoViewComponent implements OnInit {
         });
       }
     }, 500);
+  }
+
+  isFavorite(): boolean {
+    if (this.User_Channel)
+      return this.Video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+    else
+      return false;
+  }
+
+  isLiked(): boolean {
+    if (this.User_Channel)
+      return this.Video.likes.map(user => user.id).indexOf(this.User_Channel.id) >= 0;
+    else
+      return false;
+  }
+
+  toggleFavorite() {
+    this.crudService.POSTForLikeOrFavorite(api.getFavoriteURL(), this.idVideo)
+      .subscribe(response => {
+        this.Video.favorite_for_who = response.favoriteForWho;
+      });
+  }
+
+  toggleLike() {
+    this.crudService.POSTForLikeOrFavorite(api.getLikeURL(), this.idVideo)
+      .subscribe(response => {
+        this.Video.likes = response.likes;
+        this.getStats();
+      });
+  }
+
+  getStats() {
+    this.crudService.GETWithOutAuth(api.getStatsVideoByIdURL(), this.idVideo).subscribe(response => {
+      this.Video.comments_count = response.stats.comments;
+      this.Video.likes_count = response.stats.likes;
+      this.Video.views_count = response.stats.views;
+    });
   }
 
 }

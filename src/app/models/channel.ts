@@ -1,6 +1,6 @@
 import {Resource} from "./resource";
 import {User} from "./user";
-import {Pivot} from "./pivot";
+import {PivotChannelVideo} from "./pivot-channel-video";
 import {Video} from "./video";
 
 export class Channel {
@@ -12,6 +12,6 @@ export class Channel {
   videos_count: number;
   my_favorites_count: number;
   user: User;
-  pivot?: Pivot;
+  pivot?: PivotChannelVideo;
   videos?: Video[];
 }

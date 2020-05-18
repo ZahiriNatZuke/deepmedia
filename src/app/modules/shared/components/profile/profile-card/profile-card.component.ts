@@ -5,6 +5,7 @@ import {Channel} from "../../../../../models/channel";
 import {ActivatedRoute} from "@angular/router";
 import {Stats} from "../../../../../models/stats";
 import {HelpersService} from "../../../../../services/helpers.service";
+import {AuthenticationService} from "../../../../../services/authentication.service";
 
 @Component({
   selector: 'app-profile-card',
@@ -22,9 +23,12 @@ export class ProfileCardComponent implements OnInit {
   Channel: Channel;
   statsChannel: Stats;
   URL_STORAGE = environment.URL_STORAGE;
+  User_Channel: Channel;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private helpersService: HelpersService) {
+              private helpersService: HelpersService,
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.moreStats = false;
     this.getActionsHeight();
   }
@@ -54,7 +58,7 @@ export class ProfileCardComponent implements OnInit {
   }
 
   getHeightImg() {
-    return (window.screen.availHeight * 42/ 100);
+    return (window.screen.availHeight * 42 / 100);
   }
 
   toggleForm() {

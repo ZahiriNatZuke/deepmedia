@@ -5,21 +5,22 @@
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-title class="d-flex justify-content-between w-100">
-        <div class="d-flex">
-          <h3 *ngIf="Video.title.length <= 40">{{Video.title}}</h3>
-          <h3 *ngIf="Video.title.length > 30">
+        <div class="d-flex" [class.w-89]="!getToggleVideoSize()" [class.w-87]="getToggleVideoSize()">
+          <h3 *ngIf="Video.title.length <= 45">{{Video.title}}</h3>
+          <h3 *ngIf="Video.title.length > 45">
             <marquee behavior="scroll" width="100%" direction="left" scrolldelay="20">
               {{Video.title}}
             </marquee>
           </h3>
-          <button mat-icon-button (click)="showDateTime = !showDateTime"
-                  class="ml-2 mt-1" matTooltip="Fecha del Video" matTooltipPosition="after">
-            <fa-icon [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['pb-2', 'text-muted']"></fa-icon>
-          </button>
         </div>
-        <div class="icon-line mr-1">
+        <div class="icon-line">
+          <button mat-button (click)="showDateTime = !showDateTime" matTooltip="Fecha del Video"
+                  matTooltipPosition="above">
+            <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown"
+                     [classes]="['text-muted']"></fa-icon>
+          </button>
           <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo"
-                  matTooltip="Descripción del Video" matTooltipPosition="left">
+                  matTooltip="Descripción del Video" matTooltipPosition="above">
             <fa-icon [icon]="faInfoCircle"></fa-icon>
           </button>
         </div>
@@ -39,8 +40,9 @@
         </div>
       </mat-card-content>
       <mat-card-actions align="end" [style.padding.px]="0">
-        <div class="icon-line mr-1">
-          <button mat-button class="text-muted">
+        <div *ngIf="User_Channel" class="icon-line mr-1">
+          <button mat-button [class.golden-star]="isFavorite()" [class.text-muted]="!isFavorite()"
+                  (click)="toggleFavorite()">
             <fa-icon [icon]="faStar"></fa-icon>
           </button>
         </div>
@@ -52,7 +54,8 @@
         </div>
         <div class="icon-line d-flex">
           <span class="align-self-center font-weight-bold text-muted select-none">{{Video.likes_count}}</span>
-          <button mat-button class="text-muted">
+          <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
+                  (click)="toggleLike()">
             <fa-icon [icon]="faThumbsUp"></fa-icon>
           </button>
         </div>
@@ -77,7 +80,7 @@
           <app-play-list></app-play-list>
         </mat-tab>
         <mat-tab label="Comentarios">
-          <app-comments></app-comments>
+          <app-comments (postSent)="getStats()"></app-comments>
         </mat-tab>
       </mat-tab-group>
     </mat-card>
@@ -110,13 +113,13 @@
   <div class="d-flex justify-content-center">
     <div class="d-flex flex-column mr-5">
       <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Likes</h1>
-      <app-top-carousel [heightCarousel]="carouselHeight"
+      <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byLikes"
                         [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
                         [top]="'top-likes'"></app-top-carousel>
     </div>
     <div class="d-flex flex-column ml-5">
       <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Vistas</h1>
-      <app-top-carousel [heightCarousel]="carouselHeight"
+      <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byViews"
                         [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
                         [top]="'top-views'"></app-top-carousel>
     </div>
@@ -131,4 +134,3 @@
   </div>
   <br><br><br>
 </div>
-

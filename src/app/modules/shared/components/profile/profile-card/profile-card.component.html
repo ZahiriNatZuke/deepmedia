@@ -1,12 +1,17 @@
 <mat-card *ngIf="Channel" class="w-100" xmlns="http://www.w3.org/1999/xhtml">
-  <mat-card-title class="d-flex justify-content-around">
-    <marquee behavior="scroll" width="100%" direction="left" scrolldelay="20"
+  <mat-card-title class="d-flex justify-content-between">
+    <h3 *ngIf="Channel.user.username.length <= 15" class="pl-2 f-title-card w-auto" (dblclick)="moreStats = !moreStats">
+      <b>#</b>{{Channel.user.username}}
+    </h3>
+    <marquee *ngIf="Channel.user.username.length > 15" behavior="scroll" width="100%" direction="left" scrolldelay="20"
              class="pl-2 f-title-card w-auto" (dblclick)="moreStats = !moreStats">
       <b>#</b>{{Channel.user.username}}
     </marquee>
     <div class="d-flex align-top">
       <button mat-raised-button [color]="(form)? 'warn' : 'primary'" class="h-button mr-2" id="toggleForm"
-              textContent="{{((form)? 'cancelar' : 'editar') | uppercase}}" (click)="toggleForm()"></button>
+              textContent="{{((form)? 'cancelar' : 'editar') | uppercase}}" (click)="toggleForm()"
+              *ngIf="User_Channel && User_Channel.id === Channel.id">
+      </button>
       <button mat-raised-button color="warn" class="h-button d-none" id="buttonClose" (click)="closeAllVideos()">
         <fa-icon [icon]="faTimes" id="closeAllVideos"></fa-icon>
       </button>
