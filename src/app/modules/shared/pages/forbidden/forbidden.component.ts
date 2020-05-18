@@ -8,16 +8,16 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 export class ForbiddenComponent implements OnInit, OnDestroy {
 
   constructor() {
+    //   $('app-sidebar').toggleClass('d-none');
+    //   $('#p-sidebar').toggleClass('p-sidebar');
   }
 
   ngOnInit(): void {
-    $('#p-sidebar').css('paddingLeft', '0');
-    $('#app-sidebar').fadeOut(0);
   }
 
-  ngOnDestroy() {
-    $('#app-sidebar').fadeIn(0);
-    $('#p-sidebar').css('paddingLeft', '70px');
+  ngOnDestroy(): void {
+    // $('app-sidebar').toggleClass('d-none');
+    // $('#p-sidebar').toggleClass('p-sidebar');
   }
 
 }

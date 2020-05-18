@@ -76,6 +76,10 @@ export class API {
     return this.URL_API + 'top_video';
   }
 
+  getTopVideoByChannelURL(): string {
+    return this.URL_API + 'top_video/channel/';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

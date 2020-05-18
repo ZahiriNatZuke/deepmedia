@@ -1,13 +1,17 @@
 <div class="card mb-8 w-100 flex-grow-1" xmlns="http://www.w3.org/1999/xhtml">
-  <img [src]="URL_STORAGE + video.poster.path" class="w-100 h-100 rounded h-img" [alt]="video.poster.name">
+  <img [src]="URL_STORAGE + video.poster.path | saveDom" class="w-100 h-100 rounded h-img" [alt]="video.poster.name">
   <div class="justify-content-start text-white">
     <div class="d-flex p-data">
       <p class="font-weight-light m-0 p-0 info-text-user" [routerLink]="['/auth/profile',video.channel_id]">
         <span class="font-weight-bold">#</span>{{video.channel.user.username}}
       </p>
     </div>
-    <p class="font-weight-bold m-0 p-0 pl-2 info-text-title w-75" [routerLink]="['/video/view',video.id]">
+    <p *ngIf="video.title.length > 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-75"
+       [routerLink]="['/video/view',video.id]">
       <marquee behavior="scroll" width="90%" direction="left" scrolldelay="20">{{video.title}}</marquee>
+    </p>
+    <p *ngIf="video.title.length <= 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-75"
+       [routerLink]="['/video/view',video.id]">{{video.title}}
     </p>
   </div>
   <div class="text-white info-user font-weight-light">
@@ -25,7 +29,7 @@
   <button mat-icon-button class="text-white btn-play">
     <fa-icon [routerLink]="['/video/view',video.id]" [icon]="faPlayCircle"></fa-icon>
   </button>
-  <img class="user-img" [src]="URL_STORAGE + video.channel.avatar.path"
+  <img class="user-img" [src]="URL_STORAGE + video.channel.avatar.path | saveDom"
        [routerLink]="['/auth/profile',video.channel_id]" [alt]="video.channel.avatar.name">
 </div>
 

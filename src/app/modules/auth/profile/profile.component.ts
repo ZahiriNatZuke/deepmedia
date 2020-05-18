@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
 import {Channel} from "../../../models/channel";
@@ -6,16 +6,16 @@ import {Video} from "../../../models/video";
 import {API} from "../../../services/API";
 import {HelpersService} from "../../../services/helpers.service";
 import {ActivatedRoute} from "@angular/router";
+import {CrudService} from "../../../services/crud.service";
 
 const api = new API();
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, AfterViewInit {
+export class ProfileComponent implements OnInit {
   step = 0;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
@@ -23,22 +23,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   Profile: JQuery<HTMLElement>;
   progressBar: JQuery<HTMLElement>;
   Channel: Channel;
-  videoArray: { id: number, video: string }[] = [
-    {
-      id: 1,
-      video: 'video.mp4'
-    },
-    {
-      id: 2,
-      video: 'video1.mp4'
-    },
-    {
-      id: 3,
-      video: 'video1.mp4'
-    }
-  ];
   rowHeight: number;
   Videos: Video[];
+  byViews: Video;
+  byLikes: Video;
+  byComments: Video;
 
   setStep(index: number) {
     this.step = index;
@@ -52,9 +41,17 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.step--;
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private helpersService: HelpersService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private helpersService: HelpersService,
+              private crudService: CrudService) {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
+      this.crudService.GETWithOutAuth(api.getTopVideoByChannelURL(), id)
+        .subscribe(response => {
+          this.byViews = response.byViews;
+          this.byLikes = response.byLikes;
+          this.byComments = response.byComments;
+        });
       this.helpersService.GETChannelById(id);
       this.helpersService.GETStatsOfChannelById(id);
     });
@@ -69,6 +66,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     $('app-profile-form').fadeToggle(0);
     $('#all-videos').fadeToggle(0);
     window.addEventListener('resize', () => this.getHeight());
+    this.getChannel();
   }
 
   getHeight() {
@@ -95,14 +93,19 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     if (this.helpersService.currentChannelValue) {
       this.helpersService.currentChannel.subscribe(channel => this.Channel = channel);
       this.Videos = this.Channel.videos;
-      this.progressBar.toggle(400);
-      this.Profile.fadeToggle(650);
+      this.showProfile();
     } else {
       setTimeout(() => this.getChannel(), 200);
     }
   }
 
-  ngAfterViewInit(): void {
-    this.getChannel();
+  showProfile() {
+    if (this.Channel && this.byViews && this.byLikes && this.byComments) {
+      this.progressBar.toggle(400);
+      this.Profile.fadeToggle(650);
+    } else {
+      setTimeout(() => this.showProfile(), 200);
+    }
   }
+
 }

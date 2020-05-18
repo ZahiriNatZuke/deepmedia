@@ -11,13 +11,18 @@ import {ActivatedRoute} from "@angular/router";
 import {Video} from "../../../models/video";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Channel} from "../../../models/channel";
+import {bounceInDown} from 'ng-animate';
+import {transition, trigger, useAnimation} from '@angular/animations';
 
 const api = new API();
 
 @Component({
   selector: 'app-video-view',
   templateUrl: './video-view.component.html',
-  styleUrls: ['./video-view.component.scss']
+  styleUrls: ['./video-view.component.scss'],
+  animations: [
+    trigger('bounceInDown', [transition('* => *', useAnimation(bounceInDown))])
+  ]
 })
 export class VideoViewComponent implements OnInit {
   User_Channel: Channel;

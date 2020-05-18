@@ -3,6 +3,7 @@ import {faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from "../../../../../services/authentication.service";
 import {Channel} from "../../../../../models/channel";
 import {Video} from "../../../../../models/video";
+import {environment} from "../../../../../../environments/environment.prod";
 
 @Component({
   selector: 'app-profile-poster-video',
@@ -12,9 +13,10 @@ import {Video} from "../../../../../models/video";
 export class ProfilePosterVideoComponent implements OnInit {
   faPlayCircle = faPlayCircle;
   faStar = faStar;
-  video: Video;
+  @Input() video: Video;
   @Input() heightPoster: number;
   User_Channel: Channel;
+  URL_STORAGE: string = environment.URL_STORAGE;
 
   constructor(private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
@@ -23,8 +25,11 @@ export class ProfilePosterVideoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // isFavorite(): boolean {
-  //   return this.video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0
-  // }
+  isFavorite(): boolean {
+    if (this.User_Channel)
+      return this.video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+    else
+      return false;
+  }
 
 }

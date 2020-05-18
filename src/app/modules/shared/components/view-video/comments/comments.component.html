@@ -6,7 +6,7 @@
         <span class="font-weight-normal">{{comment.body}}</span>
         <span class="text-muted font-weight-bold px-1"> // </span>
         <span class="text-muted">{{comment.created_at}}</span>
-        <span class="font-weight-normal pl-1" style="font-size: 13px">
+        <span class="font-weight-normal pl-1" [style.fontSize.px]="13">
       <a class="text-dark" [routerLink]="['/auth/profile',comment.user_id]">&nbsp;<b>#</b>{{comment.user.username}}</a>
       </span>
       </div>

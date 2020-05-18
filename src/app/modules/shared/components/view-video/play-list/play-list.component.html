@@ -1,10 +1,11 @@
 <div id="playList" cdkDropList class="list customized-scroll" (cdkDropListDropped)="drop($event)"
-      [style.maxHeight.px]="getMaxHeight()">
+     [style.maxHeight.px]="getMaxHeight()">
   <div class="box" *ngFor="let movie of movies; let i = index;" cdkDrag cdkDragLockAxis="y">
     <div class="custom-placeholder" *cdkDragPlaceholder></div>
     <div *cdkDragPreview class="d-flex">
-      <img src="http://streaming-uci.dev.com/Streaming-Symfony/web/uploads/video_images/video_336/1583114848.jpeg"
-           [alt]="movie" class="img-fluid rounded drag-item-img">
+      <img
+        [src]="'http://storage.deepmedia.dev.com/wXgHlUZxP82XAx5MWiEUhLP6DWdoZg956HH8gvbJ.png' |  saveDom"
+        [alt]="movie" class="img-fluid rounded drag-item-img">
       <div class="position-absolute favorite-star">
         <fa-icon [icon]="faStar"></fa-icon>
       </div>

@@ -4,6 +4,11 @@
 <div *ngIf="Video" class="d-flex lm-top">
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
+      <mat-card-content>
+        <app-video-player [@bounceInDown] *ngIf="videoPlayer" [id]="'video-'+ videoPlayer.id" [video]="videoPlayer"
+                          [widthVideo]="getToggleVideoSize() ? 640 : 720"></app-video-player>
+        <hr>
+      </mat-card-content>
       <mat-card-title class="d-flex justify-content-between w-100">
         <div class="d-flex" [class.w-89]="!getToggleVideoSize()" [class.w-87]="getToggleVideoSize()">
           <h3 *ngIf="Video.title.length <= 45">{{Video.title}}</h3>
@@ -25,20 +30,16 @@
           </button>
         </div>
       </mat-card-title>
-      <mat-card-subtitle *ngIf="showDateTime">
-        <h6>Por <a class="text-dark font-weight-bold"
-                   [routerLink]="['/auth/profile',Video.channel_id]">#{{Video.channel.user.username}}</a>, {{Video.created_at}}
-        </h6>
-      </mat-card-subtitle>
-      <mat-card-content>
-        <hr>
-        <app-video-player *ngIf="videoPlayer" [id]="'video-'+ videoPlayer.id" [video]="videoPlayer"
-                          [widthVideo]="getToggleVideoSize() ? 640 : 720"></app-video-player>
+      <mat-card-subtitle>
         <div *ngIf="showInfo">
-          <hr [style.marginTop.px]="8" [style.marginBottom.px]="10">
           <span>{{Video.description}}</span>
         </div>
-      </mat-card-content>
+        <h6 *ngIf="showDateTime">
+          Por <a class="text-dark font-weight-bold"
+                 [routerLink]="['/auth/profile',Video.channel_id]">
+          #{{Video.channel.user.username}}</a>, {{Video.created_at}}
+        </h6>
+      </mat-card-subtitle>
       <mat-card-actions align="end" [style.padding.px]="0">
         <div *ngIf="User_Channel" class="icon-line mr-1">
           <button mat-button [class.golden-star]="isFavorite()" [class.text-muted]="!isFavorite()"

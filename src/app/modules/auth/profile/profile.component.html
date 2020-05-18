@@ -8,17 +8,17 @@
   <mat-grid-tile [colspan]="2" [rowspan]="1" id="right-side">
     <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
-      <mat-accordion>
+      <mat-accordion *ngIf="byComments && byLikes && byViews">
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <b>Más Likes</b>
             </mat-panel-title>
             <mat-panel-description>
-              Video Top Likes #1
+              {{byLikes.title}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <app-profile-top-video-card [video]="videoArray[0]"></app-profile-top-video-card>
+          <app-profile-top-video-card [video]="byLikes"></app-profile-top-video-card>
           <mat-action-row>
             <button mat-icon-button color="primary" (click)="nextStep()">
               <fa-icon [icon]="faAngleDown"></fa-icon>
@@ -31,10 +31,10 @@
               <b>Más Vistas</b>
             </mat-panel-title>
             <mat-panel-description>
-              Video Top Views #1
+              {{byViews.title}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <app-profile-top-video-card [video]="videoArray[1]"></app-profile-top-video-card>
+          <app-profile-top-video-card [video]="byViews"></app-profile-top-video-card>
           <mat-action-row>
             <button mat-icon-button color="warn" (click)="prevStep()">
               <fa-icon [icon]="faAngleUp"></fa-icon>
@@ -50,10 +50,10 @@
               <b>Más Comentarios</b>
             </mat-panel-title>
             <mat-panel-description>
-              Video Top Comments #1
+              {{byComments.title}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <app-profile-top-video-card [video]="videoArray[2]"></app-profile-top-video-card>
+          <app-profile-top-video-card [video]="byComments"></app-profile-top-video-card>
           <mat-action-row>
             <button mat-icon-button color="warn" (click)="prevStep()">
               <fa-icon [icon]="faAngleUp"></fa-icon>

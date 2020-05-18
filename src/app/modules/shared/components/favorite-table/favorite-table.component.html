@@ -45,7 +45,7 @@
           <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="d-flex mx-5">
               <div class="w-49 pr-5 py-2 mt-2">
-                <app-profile-poster-video class="mat-elevation-z5"></app-profile-poster-video>
+                <app-profile-poster-video [video]="element" class="mat-elevation-z5"></app-profile-poster-video>
               </div>
               <div class="w-2 h-auto bg-secondary py-5 v-divider"></div>
               <div class="w-49 px-5 py-3">

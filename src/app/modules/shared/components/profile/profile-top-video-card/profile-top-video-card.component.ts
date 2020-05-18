@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faGamepad, faThumbsUp, faEye, faComment} from '@fortawesome/free-solid-svg-icons';
+import {Video} from "../../../../../models/video";
 
 @Component({
   selector: 'app-profile-top-video-card',
@@ -7,7 +8,7 @@ import {faGamepad, faThumbsUp, faEye, faComment} from '@fortawesome/free-solid-s
   styleUrls: ['./profile-top-video-card.component.scss']
 })
 export class ProfileTopVideoCardComponent implements OnInit {
-  @Input() video: { id: number, video: string };
+  @Input() video: Video;
   faGamepad = faGamepad;
   faThumbsUp = faThumbsUp;
   faEye = faEye;

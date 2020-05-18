@@ -1,9 +1,12 @@
-<div id="forbidden">
-  <div class="forbidden">
-    <div class="forbidden-403">
-      <h1>403</h1>
-      <h2>Acceso Denegado</h2>
+<div  [style.marginLeft.px]="-250" [style.marginTop.px]="-24">
+  <div id="forbidden">
+    <div class="forbidden">
+      <div class="forbidden-403">
+        <h1>403</h1>
+        <h2>Acceso Denegado</h2>
+      </div>
+      <a [routerLink]="['/video/categories']">Regresar</a>
     </div>
-    <a [routerLink]="['/video/categories']">Regresar</a>
   </div>
 </div>
+

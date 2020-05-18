@@ -16,7 +16,7 @@
       </label>
     </div>
     <div class="row w-100 pl-2 py-2">
-      <img [src]="User_Channel? URL_STORAGE + User_Channel.avatar.path : UnknownUserAvatar"
+      <img [src]="User_Channel? (URL_STORAGE + User_Channel.avatar.path | saveDom) : (UnknownUserAvatar | saveDom)"
            [alt]="User_Channel? User_Channel.avatar.name : 'UnknownUserAvatar'"
            class="img-fluid rounded-circle img-sidebar">
       <div class="d-flex flex-column">
@@ -96,13 +96,13 @@
 <!-- Media-Links - Start -->
 <section class="social">
   <div><a class="social-link mat-elevation-z8">
-    <img id="facebook" [src]="URL_ASSETS + 'img/ico/facebook.ico'" alt="facebook">
+    <img id="facebook" [src]="URL_ASSETS + 'img/ico/facebook.ico' | saveDom" alt="facebook">
   </a></div>
   <div><a class="social-link mat-elevation-z8">
-    <img id="linkedin" [src]="URL_ASSETS + 'img/ico/linkedin.ico'" alt="linkedin">
+    <img id="linkedin" [src]="URL_ASSETS + 'img/ico/linkedin.ico' | saveDom" alt="linkedin">
   </a></div>
   <div><a class="social-link mat-elevation-z8">
-    <img id="twitter" [src]="URL_ASSETS + 'img/ico/twitter.ico'" alt="twitter">
+    <img id="twitter" [src]="URL_ASSETS + 'img/ico/twitter.ico' | saveDom" alt="twitter">
   </a></div>
 </section>
 <!-- Media-Links - End -->

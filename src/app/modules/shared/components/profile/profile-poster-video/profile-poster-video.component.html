@@ -1,8 +1,8 @@
 <div id="video-card" class="card" [style.height.px]="heightPoster">
-  <img src="http://streaming-uci.dev.com/Streaming-Symfony/web/uploads/video_images/video_336/1583114848.jpeg"
+  <img [src]="URL_STORAGE+video.poster.path | saveDom" [alt]="video.poster.name"
        class="w-100 h-100 rounded h-img">
-  <fa-icon [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
+  <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
   <button mat-icon-button class="text-white btn-play">
-    <fa-icon [routerLink]="['/video/view',1]" [icon]="faPlayCircle"></fa-icon>
+    <fa-icon [routerLink]="['/video/view',video.id]" [icon]="faPlayCircle"></fa-icon>
   </button>
 </div>

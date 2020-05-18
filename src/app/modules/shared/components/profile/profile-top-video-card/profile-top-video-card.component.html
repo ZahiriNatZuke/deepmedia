@@ -1,30 +1,30 @@
 <mat-grid-list cols="5" class="m-grid-list" gutterSize="10px" [rowHeight]="rowHeight">
   <mat-grid-tile [colspan]="3" [rowspan]="1">
-    <app-profile-poster-video [heightPoster]="heightPoster"></app-profile-poster-video>
+    <app-profile-poster-video [video]="video" [heightPoster]="heightPoster"></app-profile-poster-video>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [rowspan]="1">
     <div class="d-flex flex-column pl-2 p-absolute">
       <div class="d-flex">
-        <h3 class="mr-2">Test Video #1</h3>
+        <h3 class="mr-2">{{video.title}}</h3>
         <mat-chip-list>
           <mat-chip color="primary" selected>
             <fa-icon [icon]="faGamepad"></fa-icon>
           </mat-chip>
         </mat-chip-list>
       </div>
-      <h6>Viernes, 17 de Abril de 2020, 8:08 PM</h6>
+      <h6>{{video.created_at}}</h6>
       <mat-chip-list>
         <mat-chip color="primary" class="w-auto p-1" selected>
           <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
-          <span class="mr-1">10.5k</span>
+          <span class="mr-1">{{video.likes_count}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
           <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
-          <span class="mr-1">10.5k</span>
+          <span class="mr-1">{{video.views_count}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
           <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
-          <span class="mr-1">10.5k</span>
+          <span class="mr-1">{{video.comments_count}}</span>
         </mat-chip>
       </mat-chip-list>
     </div>
