@@ -3,9 +3,13 @@ import {HttpHeaders} from "@angular/common/http";
 
 export class API {
   public URL_API: string;
+  public URL_STORAGE: string;
+  public URL_ASSETS: string;
 
   constructor() {
     this.URL_API = environment.URL_API;
+    this.URL_STORAGE = environment.URL_STORAGE;
+    this.URL_ASSETS = environment.URL_ASSETS;
   }
 
   getLoginURL(): string {

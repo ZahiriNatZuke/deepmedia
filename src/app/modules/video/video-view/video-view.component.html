@@ -1,12 +1,14 @@
-<div [id]="'progressBar'" class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/xhtml">
+<div *ngIf="!Video" [id]="'progressBar'" class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/xhtml">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div *ngIf="Video" class="d-flex lm-top">
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-content>
-        <app-video-player [@bounceInDown] *ngIf="videoPlayer" [id]="'video-'+ videoPlayer.id" [video]="videoPlayer"
-                          [widthVideo]="getToggleVideoSize() ? 640 : 720"></app-video-player>
+        <app-video-player [@bounceInDown] *ngIf="videoService.GetCurrentVideoPlayerValue"
+                          [id]="'video-'+ Video.id" [idCurrentVideo]="Video.id"
+                          [widthVideo]="getToggleVideoSize() ? 640 : 720">
+        </app-video-player>
         <hr>
       </mat-card-content>
       <mat-card-title class="d-flex justify-content-between w-100">

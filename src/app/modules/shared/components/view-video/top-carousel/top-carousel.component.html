@@ -11,7 +11,7 @@
       <img [src]="URL_STORAGE + item.poster.path | saveDom"
            [style.height.px]="heightCarousel" class="d-block w-100" [alt]="item.poster.name">
       <div class="carousel-caption d-none d-md-block">
-        <p [routerLink]="['/video/view',item.id]" class="title-video">
+        <p [routerLink]="['/video/view',item.id]" class="title-video" (click)="updateCurrentVideo(item)">
           <b>#{{i + 1}}:</b> {{item.title}}</p>
       </div>
     </div>

@@ -13,6 +13,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {Channel} from "../../../models/channel";
 import {bounceInDown} from 'ng-animate';
 import {transition, trigger, useAnimation} from '@angular/animations';
+import {VideoService} from "../../../services/video.service";
 
 const api = new API();
 
@@ -52,7 +53,8 @@ export class VideoViewComponent implements OnInit {
 
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              public videoService: VideoService) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
@@ -61,18 +63,10 @@ export class VideoViewComponent implements OnInit {
     this.getHeight();
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.activatedRoute.params.subscribe(params => {
-      const id = params.id;
-      this.idVideo = id;
-      this.crudService.GETWithOutAuth(api.getVideoURL(), id)
-        .subscribe(response => {
-          this.Video = response.video;
-          this.videoPlayer = {
-            id: this.Video.id,
-            video: this.URL_STORAGE + this.Video.video.path,
-            poster: this.URL_STORAGE + this.Video.poster.path
-          };
-          this.progressBar.toggle(400);
-        });
+      this.idVideo = params.id;
+      this.videoService.currentVideo.subscribe(video => this.Video = video);
+      this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
+      this.videoService.fetchVideo(this.idVideo);
     });
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
@@ -159,6 +153,7 @@ export class VideoViewComponent implements OnInit {
       this.Video.comments_count = response.stats.comments;
       this.Video.likes_count = response.stats.likes;
       this.Video.views_count = response.stats.views;
+      this.videoService.UpdateCurrentVideoValue(this.Video);
     });
   }
 

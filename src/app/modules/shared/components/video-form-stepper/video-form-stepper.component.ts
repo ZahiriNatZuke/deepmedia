@@ -8,6 +8,9 @@ import {API} from "../../../../services/API";
 import {Router} from "@angular/router";
 import {HttpEventType} from "@angular/common/http";
 import {VideoPlayer} from "../../../../models/video-player";
+import {VideoService} from "../../../../services/video.service";
+import {now} from "moment";
+import {timestamp} from "rxjs/operators";
 
 const api = new API();
 
@@ -31,8 +34,12 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   faAngleLeft = faAngleLeft;
   showVideoPlayer: boolean;
   progressUpload: number = 0;
+  randomNumber: number = 1;
 
-  constructor(private _formBuilder: FormBuilder, private crudService: CrudService, private router: Router) {
+  constructor(private _formBuilder: FormBuilder,
+              private crudService: CrudService,
+              private router: Router,
+              private videoService: VideoService) {
     this.showVideoPlayer = false;
     this.info = this._formBuilder.group({
       title: ['', [Validators.required]],
@@ -95,6 +102,8 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
     const poster_img = document.getElementById('poster-img') as HTMLImageElement;
     document.getElementById('label-poster-img').innerText = event.target.files[0].name;
     this.videoObj.poster = window.URL.createObjectURL(file);
+    this.videoObj.id = this.randomNumber++;
+    this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
     poster_img.style.display = 'initial';
   }
 
@@ -103,6 +112,8 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
     this.videoFile = file;
     document.getElementById('label-video').innerText = event.target.files[0].name;
     this.videoObj.video = window.URL.createObjectURL(file);
+    this.videoObj.id = this.randomNumber++;
+    this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
     setTimeout(() => {
       this.showVideoPlayer = true;
     }, 300);

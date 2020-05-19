@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {
   faPlay, faPause, faVolumeUp,
   faVolumeDown, faVolumeMute,
@@ -6,16 +6,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from "../../../../../environments/environment.prod";
 import {VideoPlayer} from "../../../../models/video-player";
+import {VideoService} from "../../../../services/video.service";
 
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss']
 })
-export class VideoPlayerComponent implements OnInit, OnDestroy {
+export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   videoPlayer: HTMLVideoElement;
   @Input() widthVideo: number;
-  @Input() video: VideoPlayer;
+  @Input() idCurrentVideo: number;
+  video: VideoPlayer;
   @Output() videoPlayerEmitter: EventEmitter<VideoPlayerComponent>;
   @Output() durationVideoPlayerEmitter: EventEmitter<number>;
   faPlay = faPlay;
@@ -39,7 +41,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   URL_ASSETS = environment.URL_ASSETS;
   placeBtnPlay: any;
 
-  constructor() {
+  constructor(private videoService: VideoService) {
+    this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.video = videoPlayer);
     this.videoPlayerEmitter = new EventEmitter();
     this.durationVideoPlayerEmitter = new EventEmitter();
     this.poster = true;
@@ -269,5 +272,13 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.placeBtnPlay);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.idCurrentVideo && !changes.idCurrentVideo.isFirstChange()) {
+      this.videoPlayer.load();
+      this.poster = false;
+      this.videoPoster.fadeIn(300);
+    }
   }
 }

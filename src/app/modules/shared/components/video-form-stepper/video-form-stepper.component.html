@@ -92,10 +92,9 @@
         <mat-card-content class="m-content mb-4">
           <div class="d-flex flex-column">
             <div class="d-flex justify-content-center m-img">
-              <app-video-player *ngIf="showVideoPlayer" id="video-1" [widthVideo]="480"
-                                (videoPlayerEmitter)="saveVideoPlayer($event)"
-                                (durationVideoPlayerEmitter)="saveDurationVideo($event)"
-                                [video]="videoObj">
+              <app-video-player *ngIf="showVideoPlayer" [id]="'video-' + videoObj.id" [widthVideo]="480"
+                                (videoPlayerEmitter)="saveVideoPlayer($event)" [idCurrentVideo]="videoObj.id"
+                                (durationVideoPlayerEmitter)="saveDurationVideo($event)">
               </app-video-player>
             </div>
             <div class="justify-content-center m-input-file">
