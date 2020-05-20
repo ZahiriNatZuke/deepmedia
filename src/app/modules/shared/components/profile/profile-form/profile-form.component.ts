@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import {Channel} from "../../../../../models/channel";
-import {ActivatedRoute} from "@angular/router";
-import {CrudService} from "../../../../../services/crud.service";
-import {API} from "../../../../../services/API";
-import {HelpersService} from "../../../../../services/helpers.service";
-import {AuthenticationService} from "../../../../../services/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Channel } from '../../../../../models/channel';
+import { ActivatedRoute } from '@angular/router';
+import { CrudService } from '../../../../../services/crud.service';
+import { API } from '../../../../../services/API';
+import { HelpersService } from '../../../../../services/helpers.service';
+import { AuthenticationService } from '../../../../../services/authentication.service';
 
 const api = new API();
 
@@ -33,10 +33,10 @@ export class ProfileFormComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
-              private activatedRoute: ActivatedRoute,
-              private crudService: CrudService,
-              private helpersService: HelpersService,
-              private authenticationService: AuthenticationService) {
+    private activatedRoute: ActivatedRoute,
+    private crudService: CrudService,
+    private helpersService: HelpersService,
+    private authenticationService: AuthenticationService) {
     this.hideC = true;
     this.hideP = true;
   }
@@ -86,7 +86,7 @@ export class ProfileFormComponent implements OnInit {
       this.formData.append('password_confirmation', values.password_confirmation);
     }
 
-    this.crudService.POSTForUpdate(api.getUserURL(), this.formData, this.Channel.user.id.toString())
+    this.crudService.POSTForUpdate(api.getUserURL(), 'user', this.formData, this.Channel.user.id.toString())
       .subscribe((response) => {
         this.authenticationService.GETForUser();
         this.helpersService.UpdateChannel(response.user);

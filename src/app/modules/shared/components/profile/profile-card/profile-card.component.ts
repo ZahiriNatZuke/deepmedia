@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
-import {Channel} from "../../../../../models/channel";
-import {ActivatedRoute} from "@angular/router";
-import {Stats} from "../../../../../models/stats";
-import {HelpersService} from "../../../../../services/helpers.service";
-import {AuthenticationService} from "../../../../../services/authentication.service";
+import {Channel} from '../../../../../models/channel';
+import {ActivatedRoute} from '@angular/router';
+import {Stats} from '../../../../../models/stats';
+import {HelpersService} from '../../../../../services/helpers.service';
+import {AuthenticationService} from '../../../../../services/authentication.service';
 
 @Component({
   selector: 'app-profile-card',

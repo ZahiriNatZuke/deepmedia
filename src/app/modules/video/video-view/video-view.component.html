@@ -5,9 +5,8 @@
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-content>
-        <app-video-player [@bounceInDown] *ngIf="videoService.GetCurrentVideoPlayerValue"
-                          [id]="'video-'+ Video.id" [idCurrentVideo]="Video.id"
-                          [widthVideo]="getToggleVideoSize() ? 640 : 720">
+        <app-video-player [@bounceInDown] *ngIf="videoService.GetCurrentVideoPlayerValue" [id]="'video-'+ Video.id"
+                          [idCurrentVideo]="Video.id" [widthVideo]="getToggleVideoSize() ? 640 : 720">
         </app-video-player>
         <hr>
       </mat-card-content>
@@ -20,11 +19,15 @@
             </marquee>
           </h3>
         </div>
-        <div class="icon-line">
+        <div class="icon-line w-16 d-flex justify-content-end">
+          <button *ngIf="User_Channel && User_Channel.id === Video.channel_id" mat-button class="text-muted"
+                  matTooltip="Editar Video"
+                  matTooltipPosition="above" [routerLink]="['/video/update-video',Video.id]">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </button>
           <button mat-button (click)="showDateTime = !showDateTime" matTooltip="Fecha del Video"
                   matTooltipPosition="above">
-            <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown"
-                     [classes]="['text-muted']"></fa-icon>
+            <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['text-muted']"></fa-icon>
           </button>
           <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo"
                   matTooltip="Descripción del Video" matTooltipPosition="above">
@@ -37,8 +40,7 @@
           <span>{{Video.description}}</span>
         </div>
         <h6 *ngIf="showDateTime">
-          Por <a class="text-dark font-weight-bold"
-                 [routerLink]="['/auth/profile',Video.channel_id]">
+          Por <a class="text-dark font-weight-bold" [routerLink]="['/auth/profile',Video.channel_id]">
           #{{Video.channel.user.username}}</a>, {{Video.created_at}}
         </h6>
       </mat-card-subtitle>
@@ -118,13 +120,15 @@
       <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Likes</h1>
       <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byLikes"
                         [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
-                        [top]="'top-likes'"></app-top-carousel>
+                        [top]="'top-likes'">
+      </app-top-carousel>
     </div>
     <div class="d-flex flex-column ml-5">
       <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Vistas</h1>
       <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byViews"
                         [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
-                        [top]="'top-views'"></app-top-carousel>
+                        [top]="'top-views'">
+      </app-top-carousel>
     </div>
   </div>
   <br><br>

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faGamepad, faThumbsUp, faEye, faComment} from '@fortawesome/free-solid-svg-icons';
-import {Video} from "../../../../../models/video";
+import {Video} from '../../../../../models/video';
 
 @Component({
   selector: 'app-profile-top-video-card',

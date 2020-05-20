@@ -1,7 +1,7 @@
-import {Resource} from "./resource";
-import {Channel} from "./channel";
-import {Comment} from "./comment";
-import {User} from "./user";
+import {Resource} from './resource';
+import {Channel} from './channel';
+import {Comment} from './comment';
+import {User} from './user';
 
 export class Video {
   id: number;
@@ -12,6 +12,7 @@ export class Video {
   category: string;
   poster: Resource;
   video: Resource;
+  duration: number;
   views_count: number;
   created_at: string;
   updated_at: string;

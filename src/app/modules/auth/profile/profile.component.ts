@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
-import {Channel} from "../../../models/channel";
-import {Video} from "../../../models/video";
-import {API} from "../../../services/API";
-import {HelpersService} from "../../../services/helpers.service";
-import {ActivatedRoute} from "@angular/router";
-import {CrudService} from "../../../services/crud.service";
+import {Channel} from '../../../models/channel';
+import {Video} from '../../../models/video';
+import {API} from '../../../services/API';
+import {HelpersService} from '../../../services/helpers.service';
+import {ActivatedRoute} from '@angular/router';
+import {CrudService} from '../../../services/crud.service';
 
 const api = new API();
 

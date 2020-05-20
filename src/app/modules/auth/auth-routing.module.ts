@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
-import {AnonymousGuard} from "../../guards/anonymous.guard";
+import {AnonymousGuard} from '../../guards/anonymous.guard';
 
 export const AUTH_ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},

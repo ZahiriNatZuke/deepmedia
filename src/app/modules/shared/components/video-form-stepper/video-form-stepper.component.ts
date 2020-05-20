@@ -1,16 +1,14 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faSave, faTrash, faAngleRight, faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {MatHorizontalStepper} from '@angular/material/stepper';
 import {VideoPlayerComponent} from '../video-player/video-player.component';
-import {CrudService} from "../../../../services/crud.service";
-import {API} from "../../../../services/API";
-import {Router} from "@angular/router";
-import {HttpEventType} from "@angular/common/http";
-import {VideoPlayer} from "../../../../models/video-player";
-import {VideoService} from "../../../../services/video.service";
-import {now} from "moment";
-import {timestamp} from "rxjs/operators";
+import {CrudService} from '../../../../services/crud.service';
+import {API} from '../../../../services/API';
+import {Router} from '@angular/router';
+import {HttpEventType} from '@angular/common/http';
+import {VideoPlayer} from '../../../../models/video-player';
+import {VideoService} from '../../../../services/video.service';
 
 const api = new API();
 
@@ -19,7 +17,7 @@ const api = new API();
   templateUrl: './video-form-stepper.component.html',
   styleUrls: ['./video-form-stepper.component.scss']
 })
-export class VideoFormStepperComponent implements OnInit, AfterViewInit {
+export class VideoFormStepperComponent implements OnInit {
   info: FormGroup;
   poster: FormGroup;
   video_src: FormGroup;
@@ -33,6 +31,7 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
   showVideoPlayer: boolean;
+  showPoster: boolean;
   progressUpload: number = 0;
   randomNumber: number = 1;
 
@@ -41,6 +40,7 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
               private router: Router,
               private videoService: VideoService) {
     this.showVideoPlayer = false;
+    this.showPoster = false;
     this.info = this._formBuilder.group({
       title: ['', [Validators.required]],
       description: ['', Validators.required],
@@ -60,14 +60,8 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(): void {
-    $('#poster-img').css({
-      height: `${Math.floor(window.screen.availHeight * 36.5 / 100)}px`,
-      display: 'none'
-    });
-    $('#b-video').css({
-      height: `${Math.floor(window.screen.availHeight * 36.5 / 100)}px`,
-    });
+  getHeight(): number {
+    return Math.floor(window.screen.availHeight * 36.5 / 100);
   }
 
   checkValid(group: string, input: string) {
@@ -99,12 +93,13 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   previewPoster(event: any) {
     const file = event.target.files[0];
     this.posterFile = file;
-    const poster_img = document.getElementById('poster-img') as HTMLImageElement;
     document.getElementById('label-poster-img').innerText = event.target.files[0].name;
     this.videoObj.poster = window.URL.createObjectURL(file);
     this.videoObj.id = this.randomNumber++;
     this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-    poster_img.style.display = 'initial';
+    setTimeout(() => {
+      this.showPoster = true;
+    }, 300);
   }
 
   previewVideo(event: any) {
@@ -142,11 +137,10 @@ export class VideoFormStepperComponent implements OnInit, AfterViewInit {
   resetForm(stepper: MatHorizontalStepper) {
     stepper.reset();
     this.videoObj = {id: 1, poster: '', video: ''};
-    const poster_img = document.getElementById('poster-img') as HTMLImageElement;
     document.getElementById('label-poster-img').innerText = 'Poster del Video';
     document.getElementById('label-video').innerText = 'Video';
-    poster_img.style.display = 'none';
     this.showVideoPlayer = false;
+    this.showPoster = false;
   }
 
   saveVideoPlayer(event: VideoPlayerComponent) {

@@ -1,5 +1,8 @@
-<mat-horizontal-stepper #stepper labelPosition="bottom" [linear]="true" class="rounded mat-elevation-z10"
-                        (selectionChange)="pauseVideo()">
+<div *ngIf="!Video" [id]="'progressBar'" class="d-flex justify-content-center">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<mat-horizontal-stepper (selectionChange)="pauseVideo()" *ngIf="Video" [linear]="false"
+                        class="rounded mat-elevation-z10" labelPosition="bottom">
   <mat-step [editable]="true" [stepControl]="info">
     <ng-template matStepLabel>Información del Video</ng-template>
     <mat-card>
@@ -124,21 +127,11 @@
       <mat-card-content class="m-content">
         <div class="d-flex flex-column">
           <div class="d-flex justify-content-center mt-3">
-            <h2>Proceso de Creado del Video Finalizado
+            <h2>Proceso de Actualizado del Video Finalizado
               <span *ngIf="progressUpload === 100" class="text-success font-weight-bold">&#10003;</span>
             </h2>
           </div>
           <div class="d-flex mt-3">
-            <div class="col d-flex justify-content-center flex-column">
-              <div class="d-flex justify-content-center">
-                <button mat-button type="button" (click)="resetForm(stepper)" [style.marginTop.px]="30">
-                  <fa-icon size="3x" [icon]="faTrash" [classes]="['text-danger', 'pt-1']"></fa-icon>
-                </button>
-              </div>
-              <div class="d-flex justify-content-center mt-4">
-                <h4>Descartar Video</h4>
-              </div>
-            </div>
             <div class="col d-flex justify-content-center flex-column">
               <div class="d-flex justify-content-center">
                 <mat-progress-spinner [value]="progressUpload" mode="determinate"
@@ -149,9 +142,9 @@
                 </button>
               </div>
               <div class="d-flex justify-content-center mt-4">
-                <h4 *ngIf="progressUpload === 0">Guardar Video</h4>
+                <h4 *ngIf="progressUpload === 0">Actualizar Video</h4>
                 <h4 *ngIf="progressUpload !== 0 && progressUpload !== 100">{{progressUpload}} %</h4>
-                <h4 *ngIf="progressUpload === 100">Video Guardado</h4>
+                <h4 *ngIf="progressUpload === 100">Video Actualizado</h4>
               </div>
             </div>
           </div>
@@ -165,3 +158,4 @@
     </mat-card>
   </mat-step>
 </mat-horizontal-stepper>
+

@@ -46,7 +46,8 @@ import {PlayListComponent} from './components/view-video/play-list/play-list.com
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {TopCarouselComponent} from './components/view-video/top-carousel/top-carousel.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {VideoFormStepperUpdateComponent} from './components/video-form-stepper-update/video-form-stepper-update.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     FavoriteTableComponent,
     PlayListComponent,
     TopCarouselComponent,
+    VideoFormStepperUpdateComponent
   ],
   exports: [
     WelcomeComponent,
@@ -91,35 +93,37 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     CommentsComponent,
     PlayListComponent,
     ProfilePosterVideoComponent,
-    TopCarouselComponent
+    TopCarouselComponent,
+    VideoFormStepperUpdateComponent,
+    SaveDomPipe
   ],
-    imports: [
-        CommonModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        FontAwesomeModule,
-        RouterModule,
-        MatCardModule,
-        MatChipsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatListModule,
-        MatProgressBarModule,
-        MatTooltipModule,
-        MatGridListModule,
-        MatDialogModule,
-        MatSliderModule,
-        CdkStepperModule,
-        MatStepperModule,
-        MatSelectModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        DragDropModule,
-        ScrollingModule,
-        MatProgressSpinnerModule
-    ]
+  imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    FontAwesomeModule,
+    RouterModule,
+    MatCardModule,
+    MatChipsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatSliderModule,
+    CdkStepperModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    DragDropModule,
+    ScrollingModule,
+    MatProgressSpinnerModule
+  ]
 })
 export class SharedModule {
 }

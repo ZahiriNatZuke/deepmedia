@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   faPlay, faPause, faVolumeUp,
   faVolumeDown, faVolumeMute,
   faVolumeOff, faPlayCircle
 } from '@fortawesome/free-solid-svg-icons';
-import {environment} from "../../../../../environments/environment.prod";
-import {VideoPlayer} from "../../../../models/video-player";
-import {VideoService} from "../../../../services/video.service";
+import { environment } from '../../../../../environments/environment.prod';
+import { VideoPlayer } from '../../../../models/video-player';
+import { VideoService } from '../../../../services/video.service';
 
 @Component({
   selector: 'app-video-player',
@@ -79,7 +79,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     });
     window.addEventListener('keydown', (event) => {
       const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if (events.indexOf(event.code) !== -1 || event.keyCode === 13)
+      if (events.indexOf(event.code) !== -1 || event.code === 'Scape')
         event.preventDefault();
       this.events(event);
     });

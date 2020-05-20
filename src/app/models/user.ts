@@ -1,4 +1,4 @@
-import {PivotUserVideo} from "./pivot-user-video";
+import {PivotUserVideo} from './pivot-user-video';
 
 export class User {
   id: number;

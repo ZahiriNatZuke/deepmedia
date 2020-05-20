@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthenticationService} from "../../../services/authentication.service";
-import {first} from "rxjs/operators";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from '../../../services/authentication.service';
+import {first} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
       this.snackBar.open('Sesión Info', 'Sesión Iniciada con Éxito', {
         duration: 2500,
-        verticalPosition: "bottom",
-        horizontalPosition: "end",
+        verticalPosition: 'bottom',
+        horizontalPosition: 'end',
         panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
       });
       this.router.navigate([this.returnURL]).then();

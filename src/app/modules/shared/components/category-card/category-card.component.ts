@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faVideo, faAngleDoubleRight} from '@fortawesome/free-solid-svg-icons';
-import {environment} from "../../../../../environments/environment.prod";
-import {Category} from "../../../../models/category";
+import {environment} from '../../../../../environments/environment.prod';
+import {Category} from '../../../../models/category';
 
 const URL_ASSETS = environment.URL_ASSETS;
 

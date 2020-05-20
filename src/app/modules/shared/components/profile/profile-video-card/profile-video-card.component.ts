@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faThumbsUp, faComment, faEye, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
-import {Video} from "../../../../../models/video";
-import {environment} from "../../../../../../environments/environment.prod";
-import {AuthenticationService} from "../../../../../services/authentication.service";
-import {Channel} from "../../../../../models/channel";
+import {Video} from '../../../../../models/video';
+import {environment} from '../../../../../../environments/environment.prod';
+import {AuthenticationService} from '../../../../../services/authentication.service';
+import {Channel} from '../../../../../models/channel';
 
 @Component({
   selector: 'app-profile-video-card',

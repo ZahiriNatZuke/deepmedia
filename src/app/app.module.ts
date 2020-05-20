@@ -5,9 +5,12 @@ import {AppComponent} from './app.component';
 import {AuthModule} from './modules/auth/auth.module';
 import {VideoModule} from './modules/video/video.module';
 import {SharedModule} from './modules/shared/shared.module';
-import {CrudService} from "./services/crud.service";
-import {HttpClientModule} from "@angular/common/http";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {CrudService} from './services/crud.service';
+import {HttpClientModule} from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {HelpersService} from './services/helpers.service';
+import {VideoService} from './services/video.service';
+import {AuthenticationService} from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatSnackBarModule
   ],
   providers: [
-    CrudService
+    AuthenticationService,
+    CrudService,
+    HelpersService,
+    VideoService
   ],
   exports: [],
   bootstrap: [AppComponent]

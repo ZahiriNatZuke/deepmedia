@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {environment} from "../../environments/environment.prod";
-import {Channel} from "../models/channel";
-import {CrudService} from "./crud.service";
-import {API} from "./API";
-import {Stats} from "../models/stats";
-import {first, retry} from "rxjs/operators";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
+import {Channel} from '../models/channel';
+import {CrudService} from './crud.service';
+import {API} from './API';
+import {Stats} from '../models/stats';
+import {first, retry} from 'rxjs/operators';
 
 const api = new API();
 

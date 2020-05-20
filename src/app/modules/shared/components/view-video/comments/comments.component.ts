@@ -2,11 +2,11 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEnvelopeOpenText, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {Comment} from '../../../../../models/comment';
-import {CrudService} from "../../../../../services/crud.service";
-import {API} from "../../../../../services/API";
-import {ActivatedRoute} from "@angular/router";
-import {AuthenticationService} from "../../../../../services/authentication.service";
-import {Channel} from "../../../../../models/channel";
+import {CrudService} from '../../../../../services/crud.service';
+import {API} from '../../../../../services/API';
+import {ActivatedRoute} from '@angular/router';
+import {AuthenticationService} from '../../../../../services/authentication.service';
+import {Channel} from '../../../../../models/channel';
 
 const api = new API();
 

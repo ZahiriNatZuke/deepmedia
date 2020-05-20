@@ -1,0 +1,82 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+  user-select: none !important;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+.m-content {
+  margin: 0 175px;
+}
+
+.m-img {
+  margin: 0 165px;
+}
+
+.m-input-file {
+  margin: 0 60px;
+}
+
+.poster-img {
+  max-width: 100%;
+}
+
+.b-video {
+  max-width: 100%;
+}
+
+.mat-icon-button {
+  font-size: 45px;
+  width: 50px;
+  height: 50px;
+}
+
+/* <!--Custom File Input--!> */
+.custom-file {
+  margin: 20px 0 0 0;
+}
+
+.custom-file-label {
+  padding-top: 13px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  color: #696969;
+  height: 45px !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: all .3s;
+  overflow: hidden;
+  z-index: initial;
+}
+
+.custom-file-label:hover {
+  border: 2px solid black;
+  border-radius: 6px;
+  transition: all .3s;
+  padding-top: 12px;
+}
+
+.custom-file-label:focus, .custom-file-label:active, .custom-file-label:after {
+  border: 2px solid #3f51b5;
+  border-radius: 6px;
+  transition: all .3s;
+}
+
+.custom-file-label::after, .custom-file-label::after {
+  content: none !important;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+  border: 2px solid #3f51b5;
+  border-radius: 6px;
+  transition: all .3s;
+}
+
+.is-invalid {
+  border: 2px solid #f44336;
+  border-radius: 6px;
+  transition: all .3s;
+}

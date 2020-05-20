@@ -7,9 +7,9 @@ import {environment} from '../../../../../environments/environment.prod';
 import {SearchDialogComponent} from '../../dialogs/search-dialog/search-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {HelpersService} from '../../../../services/helpers.service';
-import {Channel} from "../../../../models/channel";
-import {AuthenticationService} from "../../../../services/authentication.service";
-import {Router} from "@angular/router";
+import {Channel} from '../../../../models/channel';
+import {AuthenticationService} from '../../../../services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',

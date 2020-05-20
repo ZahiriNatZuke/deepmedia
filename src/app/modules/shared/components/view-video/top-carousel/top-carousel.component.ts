@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
-import {Video} from "../../../../../models/video";
-import {environment} from "../../../../../../environments/environment.prod";
-import {VideoService} from "../../../../../services/video.service";
+import {Video} from '../../../../../models/video';
+import {environment} from '../../../../../../environments/environment.prod';
+import {VideoService} from '../../../../../services/video.service';
 
 @Component({
     selector: 'app-top-carousel',

@@ -4,8 +4,8 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {faGamepad, faThumbsUp, faEye, faComment, faStar, faFilter} from '@fortawesome/free-solid-svg-icons';
-import {Video} from "../../../../models/video";
-import {CrudService} from "../../../../services/crud.service";
+import {Video} from '../../../../models/video';
+import {CrudService} from '../../../../services/crud.service';
 
 @Component({
   selector: 'app-favorite-table',

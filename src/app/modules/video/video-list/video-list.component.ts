@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CrudService} from "../../../services/crud.service";
-import {API} from "../../../services/API";
-import {ActivatedRoute} from "@angular/router";
-import {Video} from "../../../models/video";
+import {CrudService} from '../../../services/crud.service';
+import {API} from '../../../services/API';
+import {ActivatedRoute} from '@angular/router';
+import {Video} from '../../../models/video';
 
 const api = new API();
 
@@ -30,7 +30,7 @@ export class VideoListComponent implements OnInit {
           this.videos = response.videos;
           this.stopLoading();
         });
-    })
+    });
   }
 
   stopLoading() {

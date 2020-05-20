@@ -1,7 +1,7 @@
-import {Resource} from "./resource";
-import {User} from "./user";
-import {PivotChannelVideo} from "./pivot-channel-video";
-import {Video} from "./video";
+import {Resource} from './resource';
+import {User} from './user';
+import {PivotChannelVideo} from './pivot-channel-video';
+import {Video} from './video';
 
 export class Channel {
   id: number;

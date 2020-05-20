@@ -6,7 +6,7 @@ import {VideoCreateComponent} from './video-create/video-create.component';
 import {VideoUpdateComponent} from './video-update/video-update.component';
 import {FavoritesComponent} from './favorites/favorites.component';
 import {VideoListComponent} from './video-list/video-list.component';
-import {AuthGuard} from "../../guards/auth.guard";
+import {AuthGuard} from '../../guards/auth.guard';
 
 export const VIDEO_ROUTES: Routes = [
   {path: '', redirectTo: 'categories', pathMatch: 'full'},

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {VideoPlayer} from "../models/video-player";
-import {Video} from "../models/video";
-import {CrudService} from "./crud.service";
-import {API} from "./API";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {VideoPlayer} from '../models/video-player';
+import {Video} from '../models/video';
+import {CrudService} from './crud.service';
+import {API} from './API';
 
 const api = new API();
 

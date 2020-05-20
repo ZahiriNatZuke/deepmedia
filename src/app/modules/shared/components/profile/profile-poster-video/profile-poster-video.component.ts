@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
-import {AuthenticationService} from "../../../../../services/authentication.service";
-import {Channel} from "../../../../../models/channel";
-import {Video} from "../../../../../models/video";
-import {environment} from "../../../../../../environments/environment.prod";
+import {AuthenticationService} from '../../../../../services/authentication.service';
+import {Channel} from '../../../../../models/channel';
+import {Video} from '../../../../../models/video';
+import {environment} from '../../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-profile-poster-video',

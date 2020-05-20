@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {API} from "./API";
-import {BehaviorSubject, Observable} from "rxjs";
-import {first, map, retry} from "rxjs/operators";
-import {Channel} from "../models/channel";
-import {CrudService} from "./crud.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
+import {HttpClient} from '@angular/common/http';
+import {API} from './API';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {first, map, retry} from 'rxjs/operators';
+import {Channel} from '../models/channel';
+import {CrudService} from './crud.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 const api = new API();
 
@@ -56,8 +56,8 @@ export class AuthenticationService {
         this.router.navigate(['/auth/login']).then();
         this.snackBar.open('Sesión Info', 'Sesión Cerrada con Éxito', {
           duration: 2500,
-          verticalPosition: "bottom",
-          horizontalPosition: "end",
+          verticalPosition: 'bottom',
+          horizontalPosition: 'end',
           panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
         });
       });

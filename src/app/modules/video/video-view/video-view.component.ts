@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   faThumbsUp, faComment, faEye, faPlayCircle, faAngleUp,
-  faStar, faDownload, faInfoCircle, faAngleDown,
+  faStar, faDownload, faInfoCircle, faAngleDown, faEdit
 } from '@fortawesome/free-solid-svg-icons';
-import {environment} from '../../../../environments/environment.prod';
-import {VideoPlayer} from "../../../models/video-player";
-import {CrudService} from "../../../services/crud.service";
-import {API} from "../../../services/API";
-import {ActivatedRoute} from "@angular/router";
-import {Video} from "../../../models/video";
-import {AuthenticationService} from "../../../services/authentication.service";
-import {Channel} from "../../../models/channel";
-import {bounceInDown} from 'ng-animate';
-import {transition, trigger, useAnimation} from '@angular/animations';
-import {VideoService} from "../../../services/video.service";
+import { environment } from '../../../../environments/environment.prod';
+import { VideoPlayer } from '../../../models/video-player';
+import { CrudService } from '../../../services/crud.service';
+import { API } from '../../../services/API';
+import { ActivatedRoute } from '@angular/router';
+import { Video } from '../../../models/video';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { Channel } from '../../../models/channel';
+import { bounceInDown } from 'ng-animate';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { VideoService } from '../../../services/video.service';
 
 const api = new API();
 
@@ -44,6 +44,7 @@ export class VideoViewComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
+  faEdit = faEdit;
   showInfo: boolean;
   showDateTime: boolean;
   carouselHeight: number;
@@ -71,7 +72,7 @@ export class VideoViewComponent implements OnInit {
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
       this.byViews = response.byViews;
-    })
+    });
   }
 
   ngOnInit(): void {

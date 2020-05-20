@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Category} from "../../../models/category";
-import {HelpersService} from "../../../services/helpers.service";
+import {Category} from '../../../models/category';
+import {HelpersService} from '../../../services/helpers.service';
 
 @Component({
   selector: 'app-video-categories',
@@ -21,7 +21,7 @@ export class VideoCategoriesComponent implements OnInit {
     this.cardColumn.hide(0);
     this.helpersService.GETCountVideoByCategories()
       .subscribe(response => {
-        let array = new Array(6);
+        const array = new Array(6);
         for (let i = 0; i < array.length; i++) {
           array[i] = response.categories[categories[i]];
         }

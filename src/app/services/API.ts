@@ -1,5 +1,5 @@
-import {environment} from "../../environments/environment.prod";
-import {HttpHeaders} from "@angular/common/http";
+import {environment} from '../../environments/environment.prod';
+import {HttpHeaders} from '@angular/common/http';
 
 export class API {
   public URL_API: string;
