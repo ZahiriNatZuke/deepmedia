@@ -127,10 +127,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         top: '40px',
       }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
-    });
   }
 
   ngAfterViewInit(): void {

@@ -1,4 +1,5 @@
 import {PivotUserVideo} from './pivot-user-video';
+import {Channel} from './channel';
 
 export class User {
   id: number;
@@ -8,4 +9,5 @@ export class User {
   created_at: string;
   updated_at: string;
   pivot?: PivotUserVideo;
+  channel?: Channel;
 }

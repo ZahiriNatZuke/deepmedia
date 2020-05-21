@@ -1,8 +1,8 @@
 <div class="d-flex flex-column">
-  <div id="listComments" class="comments-container customized-scroll"
+  <div id="listComments" class="comments-container customized-scroll d-flex flex-column"
        [ngStyle]="{height: showPostForm ? '300px' : '445px'}">
     <div class="mat-elevation-z4 comment-item" *ngFor="let comment of Comments">
-      <p class="mb-0">
+      <p class="mb-0 px-3">
         <span class="font-weight-normal">{{comment.body}}</span>
         <span class="text-muted font-weight-bold">&nbsp;//&nbsp;</span>
         <span class="font-weight-normal link-profile" [routerLink]="['/auth/profile',comment.user_id]">
@@ -12,22 +12,21 @@
     </div>
   </div>
   <button *ngIf="!showPostForm && User_Channel" mat-icon-button color="primary" class="align-self-end"
-          matTooltip="Nuevo Comentario"
-          matTooltipPosition="left" (click)="showPostForm = !showPostForm;">
+          matTooltip="Nuevo Comentario" matTooltipPosition="left" (click)="showPostForm = !showPostForm;">
     <fa-icon [icon]="faPlus" [classes]="['pb-1']"></fa-icon>
   </button>
   <form [formGroup]="postCommentForm" *ngIf="showPostForm" (ngSubmit)="onSubmit()">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column" [style.maxHeight.px]="190">
       <mat-form-field appearance="outline">
         <mat-label>Nuevo Comentario</mat-label>
-        <textarea matInput cdkTextareaAutosize #comment formControlName="body"
-                  required maxlength="150" [rows]="4">
+        <textarea matInput cdkTextareaAutosize #comment formControlName="body" required maxlength="150"
+                  [rows]="4" [style.resize]="'none'">
               </textarea>
         <mat-hint align="end">{{comment.value.length}} / 150</mat-hint>
         <mat-error *ngIf="checkValid('body')">{{checkRequired('body')}}</mat-error>
       </mat-form-field>
       <div class="d-flex justify-content-around">
-        <button mat-raised-button color="warn" type="button" class="w-25"
+        <button mat-raised-button color="warn" type="reset" class="w-25"
                 (click)="showPostForm = !showPostForm; postCommentForm.reset();">
           <fa-icon [icon]="faTimes"></fa-icon>
         </button>

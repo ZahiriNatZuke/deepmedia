@@ -5,18 +5,38 @@
         <mat-label>Buscar en #DeepMedia</mat-label>
         <input matInput type="search" aria-label="search" formControlName="search" required>
       </mat-form-field>
-      <button mat-button [style.marginBottom.em]="1.4" [style.marginLeft.px]="10">
+      <button type="submit" mat-button [style.marginBottom.em]="1.4" [style.marginLeft.px]="10">
         <fa-icon size="2x" [icon]="faSearch" [classes]="['text-muted','font-weight-light', 'pt-2']"></fa-icon>
       </button>
     </form>
   </div>
   <mat-divider></mat-divider>
-  <div class="d-flex justify-content-center mt-3" *ngIf="foundData === false">
+  <div class="d-flex justify-content-center mt-3"
+       *ngIf="foundDataUsers === false && foundDataVideo === false">
     <h4 class="font-weight-light align-self-center pl-4">No hay Resultados para su Búsqueda</h4>
   </div>
 </div>
-<div mat-dialog-actions class="d-flex">
-  <div class="card-columns mt-4" *ngIf="foundData === true">
-    <app-profile-video-card (linkToPlay)="onNoClick()" *ngFor="let item of [0,1,2,3,4,5]"></app-profile-video-card>
+<div mat-dialog-actions class="d-flex customized-scroll" [style.maxHeight.px]="435">
+  <div class="d-flex justify-content-around mt-1 flex-column w-100" *ngIf="foundDataUsers === true">
+    <h3 class="font-weight-bold align-self-center">Usuarios que Coinciden con su Búsqueda</h3>
+    <div class="d-flex justify-content-around w-100">
+      <div *ngFor="let user of users" class="d-flex mt-1 px-4 user-container">
+        <img [src]="URL_STORAGE + user.channel.avatar.path" class="img-fluid rounded-circle avatar-user"
+             [alt]="user.username">
+        <div class="d-flex pl-2">
+          <span class="font-weight-bold">#</span>
+          <span class="username pl-1 font-weight-light cursor-pointer pt-3" mat-dialog-close
+                [routerLink]="['/auth/profile',user.id]">{{user.username}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-around mt-1 flex-column w-100" *ngIf="foundDataVideo === true">
+    <h3 class="font-weight-bold align-self-center">Videos que Coinciden con su Búsqueda</h3>
+    <div class="card-columns mt-2">
+      <app-profile-video-card (linkToPlay)="onNoClick()" *ngFor="let video of videos"
+                              [Video]="video">
+      </app-profile-video-card>
+    </div>
   </div>
 </div>

@@ -3,3 +3,24 @@
   margin: 4px 0 0;
   height: 60px;
 }
+
+.avatar-user {
+  min-width: 50px;
+  width: 60px;
+  max-width: 70px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.username {
+  line-height: 25px;
+  padding-top: 8px;
+  font-size: 20px;
+}
+
+.user-container {
+  line-height: 55px;
+  align-items: center;
+}

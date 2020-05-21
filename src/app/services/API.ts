@@ -88,6 +88,10 @@ export class API {
     return this.URL_API + 'playList/';
   }
 
+  getSearchURL(): string {
+    return this.URL_API + 'search/';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

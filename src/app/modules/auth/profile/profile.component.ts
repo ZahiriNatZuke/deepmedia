@@ -100,7 +100,7 @@ export class ProfileComponent implements OnInit {
   }
 
   showProfile() {
-    if (this.Channel && this.byViews && this.byLikes && this.byComments) {
+    if (this.Channel) {
       this.progressBar.toggle(400);
       this.Profile.fadeToggle(650);
     } else {
