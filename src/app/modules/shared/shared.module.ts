@@ -48,6 +48,8 @@ import {TopCarouselComponent} from './components/view-video/top-carousel/top-car
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {VideoFormStepperUpdateComponent} from './components/video-form-stepper-update/video-form-stepper-update.component';
+import {AgoDatePipe} from './pipes/ago-date.pipe';
+import {FullDatePipe} from './pipes/full-date.pipe';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import {VideoFormStepperUpdateComponent} from './components/video-form-stepper-u
     FavoriteTableComponent,
     PlayListComponent,
     TopCarouselComponent,
-    VideoFormStepperUpdateComponent
+    VideoFormStepperUpdateComponent,
+    AgoDatePipe,
+    FullDatePipe
   ],
   exports: [
     WelcomeComponent,
@@ -95,7 +99,8 @@ import {VideoFormStepperUpdateComponent} from './components/video-form-stepper-u
     ProfilePosterVideoComponent,
     TopCarouselComponent,
     VideoFormStepperUpdateComponent,
-    SaveDomPipe
+    SaveDomPipe,
+    FullDatePipe
   ],
   imports: [
     CommonModule,

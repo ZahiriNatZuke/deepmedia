@@ -15,7 +15,7 @@
     </p>
   </div>
   <div class="text-white info-user font-weight-light">
-    <span class="font-weight-light">{{video.updated_at}}</span>
+    <span class="font-weight-light">{{video.created_at | agoDate}}</span>
     <div>
       <span>{{video.likes_count}}
         <fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>

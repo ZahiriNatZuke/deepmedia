@@ -37,7 +37,7 @@
 
       <ng-container matColumnDef="created_at">
         <th mat-header-cell *matHeaderCellDef>{{'fecha de Publicación' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['created_at'] | titlecase}} </td>
+        <td mat-cell *matCellDef="let element"> {{element['created_at'] | agoDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="expandedDetail">
@@ -58,7 +58,7 @@
                       </mat-chip>
                     </mat-chip-list>
                   </div>
-                  <h6>{{element.created_at}}</h6>
+                  <h6>{{element.created_at | fullDate}}</h6>
                   <mat-chip-list>
                     <mat-chip color="primary" class="w-auto p-1" selected>
                       <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>

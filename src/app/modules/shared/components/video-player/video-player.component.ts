@@ -157,7 +157,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
             this.makeBig();
           break;
         case 'Scape':
-          document.exitFullscreen().then();
+          this.videoPlayer.webkitExitFullscreen();
           break;
         case 'KeyM':
           if (event.target === document.body)

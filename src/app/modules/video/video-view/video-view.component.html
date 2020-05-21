@@ -42,7 +42,7 @@
         </div>
         <h6 *ngIf="showDateTime">
           Por <a class="text-dark font-weight-bold" [routerLink]="['/auth/profile',Video.channel_id]">
-          #{{Video.channel.user.username}}</a>, {{Video.created_at}}
+          #{{Video.channel.user.username}}</a>, {{Video.created_at | fullDate}}
         </h6>
       </mat-card-subtitle>
       <mat-card-actions align="end" [style.padding.px]="0">
@@ -72,7 +72,7 @@
           </button>
         </div>
         <div class="icon-line mr-1">
-          <a mat-button color="primary" [href]="videoPlayer.video | saveDom" [download]="Video.title">
+          <a mat-button color="primary" [href]="videoPlayer.video | saveDom" [download]="Video.title" target="_blank">
             <fa-icon [icon]="faDownload"></fa-icon>
           </a>
         </div>

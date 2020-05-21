@@ -32,3 +32,13 @@
 .mat-raised-button {
   font-size: 20px;
 }
+
+.link-profile {
+  user-select: none;
+  cursor: pointer;
+}
+
+.link-profile:hover {
+  font-weight: bold !important;
+  color: #828282;
+}
