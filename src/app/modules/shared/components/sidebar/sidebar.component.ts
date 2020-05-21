@@ -1,7 +1,16 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
-  faTimes, faBars, faAngleDown, faAngleUp, faStream, faSignOutAlt,
-  faUserAlt, faCogs, faCircle, faSignInAlt, faUserPlus
+  faAngleDown,
+  faAngleUp,
+  faBars,
+  faCircle,
+  faCogs,
+  faSignInAlt,
+  faSignOutAlt,
+  faStream,
+  faTimes,
+  faUserAlt,
+  faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../environments/environment.prod';
 import {SearchDialogComponent} from '../../dialogs/search-dialog/search-dialog.component';

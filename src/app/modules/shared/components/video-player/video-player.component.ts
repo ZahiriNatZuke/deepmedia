@@ -1,12 +1,16 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {
-  faPlay, faPause, faVolumeUp,
-  faVolumeDown, faVolumeMute,
-  faVolumeOff, faPlayCircle
+  faPause,
+  faPlay,
+  faPlayCircle,
+  faVolumeDown,
+  faVolumeMute,
+  faVolumeOff,
+  faVolumeUp
 } from '@fortawesome/free-solid-svg-icons';
-import { environment } from '../../../../../environments/environment.prod';
-import { VideoPlayer } from '../../../../models/video-player';
-import { VideoService } from '../../../../services/video.service';
+import {environment} from '../../../../../environments/environment.prod';
+import {VideoPlayer} from '../../../../models/video-player';
+import {VideoService} from '../../../../services/video.service';
 
 @Component({
   selector: 'app-video-player',
@@ -134,8 +138,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   endVideo() {
-    this.played = false;
-    this.currentTime = 0;
+    if (this.videoService.GetCurrentPlayListValue === null) {
+      this.played = false;
+      this.currentTime = 0;
+    } else {
+      this.videoService.toBottomList(this.videoService.GetCurrentVideoValue);
+    }
   }
 
   events(event: KeyboardEvent) {

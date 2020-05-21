@@ -84,6 +84,10 @@ export class API {
     return this.URL_API + 'top_video/channel/';
   }
 
+  getPlayListURL(): string {
+    return this.URL_API + 'playList/';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
 import {VideoService} from '../../../../../services/video.service';

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEnvelopeOpenText, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {Comment} from '../../../../../models/comment';
@@ -15,10 +15,11 @@ const api = new API();
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnChanges {
   User_Channel: Channel;
   Comments: Comment[];
-  idVideo: string;
+  @Input() idVideo: number;
+  @Input() Focus: boolean;
   postCommentForm: FormGroup;
   @Output() postSent: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   faEnvelopeOpenText = faEnvelopeOpenText;
@@ -38,13 +39,14 @@ export class CommentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.idVideo = params.id;
-      this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo)
-        .subscribe(response => {
-          this.Comments = response.comments;
-        });
-    });
+    this.getComments();
+  }
+
+  getComments() {
+    this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo.toString())
+      .subscribe(response => {
+        this.Comments = response.comments;
+      });
   }
 
   checkValid(input: string) {
@@ -58,14 +60,23 @@ export class CommentsComponent implements OnInit {
   onSubmit() {
     if (this.postCommentForm.valid) {
       this.crudService.POSTForStore(api.getCommentURL(), 'comment',
-        this.postCommentForm.value, this.idVideo).subscribe(() => {
+        this.postCommentForm.value, this.idVideo.toString()).subscribe(() => {
         this.postCommentForm.patchValue({body: 'Enviado :)'});
-        this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo)
+        this.crudService.GETWithOutAuth(api.getCommentURL(), this.idVideo.toString())
           .subscribe(response => {
             this.Comments = response.comments;
             this.postSent.emit(true);
           });
       });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.idVideo && !changes.idVideo.isFirstChange())
+      this.getComments();
+    if (changes.Focus && !changes.Focus.currentValue) {
+      this.showPostForm = false;
+      this.postCommentForm.reset();
     }
   }
 }

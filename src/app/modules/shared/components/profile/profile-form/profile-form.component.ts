@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Channel } from '../../../../../models/channel';
-import { ActivatedRoute } from '@angular/router';
-import { CrudService } from '../../../../../services/crud.service';
-import { API } from '../../../../../services/API';
-import { HelpersService } from '../../../../../services/helpers.service';
-import { AuthenticationService } from '../../../../../services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {Channel} from '../../../../../models/channel';
+import {ActivatedRoute} from '@angular/router';
+import {CrudService} from '../../../../../services/crud.service';
+import {API} from '../../../../../services/API';
+import {HelpersService} from '../../../../../services/helpers.service';
+import {AuthenticationService} from '../../../../../services/authentication.service';
 
 const api = new API();
 

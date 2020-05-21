@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {VideoPlayerComponent} from '../video-player/video-player.component';
 import {HttpEventType} from '@angular/common/http';
-import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from 'src/app/services/crud.service';
 import {VideoService} from 'src/app/services/video.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {VideoPlayer} from 'src/app/models/video-player';
-import {faSave, faAngleRight, faAngleLeft} from '@fortawesome/free-solid-svg-icons';
+import {faAngleLeft, faAngleRight, faSave} from '@fortawesome/free-solid-svg-icons';
 import {API} from 'src/app/services/API';
 import {Video} from 'src/app/models/video';
 import {MatSnackBar} from '@angular/material/snack-bar';

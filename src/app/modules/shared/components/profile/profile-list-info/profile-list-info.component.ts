@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faArrowUp, faArrowDown} from '@fortawesome/free-solid-svg-icons';
+import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-list-info',

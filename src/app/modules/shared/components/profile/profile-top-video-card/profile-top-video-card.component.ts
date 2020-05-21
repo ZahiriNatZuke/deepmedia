@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faGamepad, faThumbsUp, faEye, faComment} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faGamepad, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../../models/video';
 
 @Component({

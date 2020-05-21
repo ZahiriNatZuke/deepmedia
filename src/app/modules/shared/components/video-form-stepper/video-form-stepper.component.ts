@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {faSave, faTrash, faAngleRight, faAngleLeft} from '@fortawesome/free-solid-svg-icons';
+import {faAngleLeft, faAngleRight, faSave, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {MatHorizontalStepper} from '@angular/material/stepper';
 import {VideoPlayerComponent} from '../video-player/video-player.component';
 import {CrudService} from '../../../../services/crud.service';

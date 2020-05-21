@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { API } from './API';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { first, retry } from 'rxjs/operators';
-import {Form} from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {API} from './API';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {first, retry} from 'rxjs/operators';
 
 const api = new API();
 

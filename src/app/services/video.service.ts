@@ -4,6 +4,7 @@ import {VideoPlayer} from '../models/video-player';
 import {Video} from '../models/video';
 import {CrudService} from './crud.service';
 import {API} from './API';
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 
 const api = new API();
 
@@ -15,12 +16,16 @@ export class VideoService {
   public currentVideoPlayer: Observable<VideoPlayer>;
   private currentVideoSubject: BehaviorSubject<Video>;
   public currentVideo: Observable<Video>;
+  private currentPlayListSubject: BehaviorSubject<Video[]>;
+  public currentPlayList: Observable<Video[]>;
 
   constructor(private crudService: CrudService) {
     this.currentVideoPlayerSubject = new BehaviorSubject<VideoPlayer>(null);
     this.currentVideoPlayer = this.currentVideoPlayerSubject.asObservable();
     this.currentVideoSubject = new BehaviorSubject<Video>(null);
     this.currentVideo = this.currentVideoSubject.asObservable();
+    this.currentPlayListSubject = new BehaviorSubject<Video[]>(null);
+    this.currentPlayList = this.currentPlayListSubject.asObservable();
   }
 
   public get GetCurrentVideoPlayerValue(): VideoPlayer {
@@ -39,6 +44,14 @@ export class VideoService {
     this.currentVideoSubject.next(video);
   }
 
+  public get GetCurrentPlayListValue(): Video[] {
+    return this.currentPlayListSubject.value;
+  }
+
+  public UpdateCurrentPlayListValue(playList: Video[]) {
+    this.currentPlayListSubject.next(playList);
+  }
+
   fetchVideo(id: string) {
     this.crudService.GETWithOutAuth(api.getVideoURL(), id).subscribe(response => {
       const video: Video = response.video;
@@ -52,4 +65,15 @@ export class VideoService {
     });
   }
 
+  toBottomList(endVideo: Video) {
+    const playList = this.GetCurrentPlayListValue;
+    moveItemInArray(playList, playList.indexOf(endVideo), playList.length - 1);
+    this.UpdateCurrentVideoPlayerValue({
+      id: playList[0].id,
+      poster: api.URL_STORAGE + playList[0].poster.path,
+      video: api.URL_STORAGE + playList[0].video.path
+    });
+    this.UpdateCurrentVideoValue(playList[0]);
+    this.UpdateCurrentPlayListValue(playList);
+  }
 }

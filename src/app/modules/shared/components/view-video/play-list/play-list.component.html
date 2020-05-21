@@ -1,35 +1,45 @@
-<div id="playList" cdkDropList class="list customized-scroll" (cdkDropListDropped)="drop($event)"
+<div *ngIf="loading" class="d-flex justify-content-center mt-3">
+  <div class="preloader-stage">
+    <div class="dot-flashing"></div>
+  </div>
+</div>
+<div *ngIf="!loading" id="playList" cdkDropList class="list customized-scroll" (cdkDropListDropped)="drop($event)"
      [style.maxHeight.px]="getMaxHeight()">
-  <div class="box" *ngFor="let movie of movies; let i = index;" cdkDrag cdkDragLockAxis="y">
-    <div class="custom-placeholder" *cdkDragPlaceholder></div>
-    <div *cdkDragPreview class="d-flex">
-      <img
-        [src]="'http://storage.deepmedia.dev.com/wXgHlUZxP82XAx5MWiEUhLP6DWdoZg956HH8gvbJ.png' |  saveDom"
-        [alt]="movie" class="img-fluid rounded drag-item-img">
-      <div class="position-absolute favorite-star">
-        <fa-icon [icon]="faStar"></fa-icon>
-      </div>
-      <div class="position-absolute overlay-info-drag-video">
-        <div class="d-flex container-info-drag-video justify-content-center align-content-center">
-          <span class="text-white">1000</span>
-          <fa-icon [icon]="faThumbsUp" class="px-2" [classes]="['align-self-center']"></fa-icon>
-          <div class="w-1 bg-light mr-2 mt-1"></div>
-          <span class="text-white">1000</span>
-          <fa-icon [icon]="faComment" class="px-2" [classes]="['align-self-center']"></fa-icon>
-          <div class="w-1 bg-light mr-2 mt-1"></div>
-          <span class="text-white">1000</span>
-          <fa-icon [icon]="faEye" class="px-2" [classes]="['align-self-center']"></fa-icon>
+  <div *ngIf="playList.length === 0" class="d-flex justify-content-center align-content-center">
+    <span class="font-weight-bold align-self-center mh-text pt-2">No hay Videos Disponibles</span>
+  </div>
+  <div *ngIf="playList.length > 0">
+    <div class="box" *ngFor="let video of playList; let i = index;" cdkDrag cdkDragLockAxis="y">
+      <div class="custom-placeholder" *cdkDragPlaceholder></div>
+      <div *cdkDragPreview class="d-flex">
+        <img
+          [src]="URL_STORAGE + video.poster.path |  saveDom"
+          [alt]="video.title" class="img-fluid rounded drag-item-img">
+        <div *ngIf="isFavorite(video)" class="position-absolute favorite-star">
+          <fa-icon [icon]="faStar"></fa-icon>
+        </div>
+        <div class="position-absolute overlay-info-drag-video">
+          <div class="d-flex container-info-drag-video justify-content-center align-content-center">
+            <span class="text-white">{{video.likes_count}}</span>
+            <fa-icon [icon]="faThumbsUp" class="px-2" [classes]="['align-self-center']"></fa-icon>
+            <div class="w-1 bg-light mr-2 mt-1"></div>
+            <span class="text-white">{{video.comments_count}}</span>
+            <fa-icon [icon]="faComment" class="px-2" [classes]="['align-self-center']"></fa-icon>
+            <div class="w-1 bg-light mr-2 mt-1"></div>
+            <span class="text-white">{{video.views_count}}</span>
+            <fa-icon [icon]="faEye" class="px-2" [classes]="['align-self-center']"></fa-icon>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="d-flex overflow-hidden">
-      <span class="font-weight-bold align-self-center mh-text">{{i + 1}} - {{movie}}</span>
-    </div>
-    <div class="d-flex">
-      <span class="align-self-center">{{133 | timer}}</span>
-      <button mat-button color="primary">
-        <fa-icon [icon]="faPlayCircle"></fa-icon>
-      </button>
+      <div class="d-flex overflow-hidden">
+        <span class="font-weight-bold align-self-center mh-text">{{i + 1}} - {{video.title}}</span>
+      </div>
+      <div class="d-flex">
+        <span class="align-self-center">{{video.duration | timer}}</span>
+        <button mat-button color="primary" (click)="playVideo(video)">
+          <fa-icon [icon]="faPlayCircle"></fa-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

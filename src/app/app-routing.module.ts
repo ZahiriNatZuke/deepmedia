@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {WelcomeComponent} from './modules/shared/pages/welcome/welcome.component';
 import {NotFoundComponent} from './modules/shared/pages/not-found/not-found.component';
 import {AuthComponent} from './modules/auth/auth.component';

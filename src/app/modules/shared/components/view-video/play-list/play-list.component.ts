@@ -1,54 +1,78 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {faPlayCircle, faThumbsUp, faComment, faEye, faStar} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {Video} from '../../../../../models/video';
+import {environment} from '../../../../../../environments/environment.prod';
+import {AuthenticationService} from '../../../../../services/authentication.service';
+import {Channel} from '../../../../../models/channel';
+import {VideoService} from '../../../../../services/video.service';
+import {ActivatedRoute} from '@angular/router';
+import {CrudService} from '../../../../../services/crud.service';
+import {API} from '../../../../../services/API';
+
+const api = new API();
 
 @Component({
   selector: 'app-play-list',
   templateUrl: './play-list.component.html',
   styleUrls: ['./play-list.component.scss']
 })
-export class PlayListComponent implements OnInit, AfterViewInit {
+export class PlayListComponent implements OnInit {
 
+  User_Channel: Channel;
+  playList: Video[] = [];
+  URL_STORAGE: string = environment.URL_STORAGE;
   faPlayCircle = faPlayCircle;
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
   faStar = faStar;
+  loading: boolean;
 
-  playList: JQuery<HTMLElement>;
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VII - The Force Awakens',
-    'Episode VII - The Force Awakens',
-    'Episode VII - The Force Awakens',
-    'Episode VII - The Force Awakens',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi'
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<Video[]>) {
+    moveItemInArray(this.playList, event.previousIndex, event.currentIndex);
+    this.videoService.UpdateCurrentPlayListValue(this.playList);
   }
 
-  constructor() {
+  playVideo(video: Video) {
+    this.videoService.toBottomList(this.videoService.GetCurrentVideoValue);
+    this.videoService.UpdateCurrentVideoPlayerValue({
+      id: video.id,
+      poster: api.URL_STORAGE + video.poster.path,
+      video: api.URL_STORAGE + video.video.path
+    });
+    this.videoService.UpdateCurrentVideoValue(video);
+  }
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private authenticationService: AuthenticationService,
+              private videoService: VideoService,
+              private crudService: CrudService) {
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
+    this.loading = true;
+    this.activatedRoute.params.subscribe(params => {
+      const id = params.id;
+      this.crudService.GETWithOutAuth(api.getPlayListURL(), id).subscribe(response => {
+        const PlayList: Video[] = response.playlist;
+        PlayList.push(this.videoService.GetCurrentVideoValue);
+        this.videoService.UpdateCurrentPlayListValue(PlayList);
+        this.videoService.currentPlayList.subscribe(playList => this.playList = playList);
+        this.loading = false;
+      });
+    });
   }
 
   ngOnInit(): void {
-    window.addEventListener('resize', () => this.ngAfterViewInit());
-  }
-
-  ngAfterViewInit(): void {
-    this.playList = $('#playList');
   }
 
   getMaxHeight() {
     return Math.floor(window.screen.availHeight * 64 / 100);
   }
 
+  isFavorite(video: Video): boolean {
+    if (this.User_Channel)
+      return video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+    else
+      return false;
+  }
 }

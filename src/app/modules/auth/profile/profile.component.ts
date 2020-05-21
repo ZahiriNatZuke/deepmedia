@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
 import {Channel} from '../../../models/channel';
 import {Video} from '../../../models/video';

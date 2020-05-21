@@ -1,9 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {faGamepad, faThumbsUp, faEye, faComment, faStar, faFilter} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faFilter, faGamepad, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../models/video';
 import {CrudService} from '../../../../services/crud.service';
 

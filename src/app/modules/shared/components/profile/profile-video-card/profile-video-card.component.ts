@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faThumbsUp, faComment, faEye, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
 import {AuthenticationService} from '../../../../../services/authentication.service';

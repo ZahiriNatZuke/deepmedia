@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {VideoCategoriesComponent} from './video-categories/video-categories.component';
 import {VideoViewComponent} from './video-view/video-view.component';
 import {VideoCreateComponent} from './video-create/video-create.component';

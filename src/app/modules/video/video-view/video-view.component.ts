@@ -1,19 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
-  faThumbsUp, faComment, faEye, faPlayCircle, faAngleUp,
-  faStar, faDownload, faInfoCircle, faAngleDown, faEdit
+  faAngleDown,
+  faAngleUp,
+  faComment,
+  faDownload,
+  faEdit,
+  faEye,
+  faInfoCircle,
+  faPlayCircle,
+  faStar,
+  faThumbsUp
 } from '@fortawesome/free-solid-svg-icons';
-import { environment } from '../../../../environments/environment.prod';
-import { VideoPlayer } from '../../../models/video-player';
-import { CrudService } from '../../../services/crud.service';
-import { API } from '../../../services/API';
-import { ActivatedRoute } from '@angular/router';
-import { Video } from '../../../models/video';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { Channel } from '../../../models/channel';
-import { bounceInDown } from 'ng-animate';
-import { transition, trigger, useAnimation } from '@angular/animations';
-import { VideoService } from '../../../services/video.service';
+import {environment} from '../../../../environments/environment.prod';
+import {VideoPlayer} from '../../../models/video-player';
+import {CrudService} from '../../../services/crud.service';
+import {API} from '../../../services/API';
+import {ActivatedRoute} from '@angular/router';
+import {Video} from '../../../models/video';
+import {AuthenticationService} from '../../../services/authentication.service';
+import {Channel} from '../../../models/channel';
+import {bounceInDown} from 'ng-animate';
+import {transition, trigger, useAnimation} from '@angular/animations';
+import {VideoService} from '../../../services/video.service';
 
 const api = new API();
 
@@ -33,7 +41,6 @@ export class VideoViewComponent implements OnInit {
   viewTop: JQuery<HTMLElement>;
   byViews: Video[];
   byLikes: Video[];
-  idVideo: string;
   URL_STORAGE = environment.URL_STORAGE;
   faThumbsUp = faThumbsUp;
   faComment = faComment;
@@ -51,6 +58,7 @@ export class VideoViewComponent implements OnInit {
   carouselWidth: number;
   carouselWidthToggle: number;
   showVideoView: boolean;
+  tabGroupFocus: boolean;
 
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
@@ -59,15 +67,15 @@ export class VideoViewComponent implements OnInit {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
+    this.tabGroupFocus = false;
     this.getWidth();
     this.getWidthToggle();
     this.getHeight();
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.activatedRoute.params.subscribe(params => {
-      this.idVideo = params.id;
       this.videoService.currentVideo.subscribe(video => this.Video = video);
       this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
-      this.videoService.fetchVideo(this.idVideo);
+      this.videoService.fetchVideo(params.id);
     });
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
@@ -135,14 +143,14 @@ export class VideoViewComponent implements OnInit {
   }
 
   toggleFavorite() {
-    this.crudService.POSTForLikeOrFavorite(api.getFavoriteURL(), this.idVideo)
+    this.crudService.POSTForLikeOrFavorite(api.getFavoriteURL(), this.Video.id.toString())
       .subscribe(response => {
         this.Video.favorite_for_who = response.favoriteForWho;
       });
   }
 
   toggleLike() {
-    this.crudService.POSTForLikeOrFavorite(api.getLikeURL(), this.idVideo)
+    this.crudService.POSTForLikeOrFavorite(api.getLikeURL(), this.Video.id.toString())
       .subscribe(response => {
         this.Video.likes = response.likes;
         this.getStats();
@@ -150,7 +158,7 @@ export class VideoViewComponent implements OnInit {
   }
 
   getStats() {
-    this.crudService.GETWithOutAuth(api.getStatsVideoByIdURL(), this.idVideo).subscribe(response => {
+    this.crudService.GETWithOutAuth(api.getStatsVideoByIdURL(), this.Video.id.toString()).subscribe(response => {
       this.Video.comments_count = response.stats.comments;
       this.Video.likes_count = response.stats.likes;
       this.Video.views_count = response.stats.views;
