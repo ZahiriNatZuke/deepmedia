@@ -158,6 +158,7 @@
   color: white;
   padding: 0 8px;
   transition: all 0.5s;
+  animation: buttonAnimated 2s ease-in-out infinite;
 }
 
 #check:checked ~ {
@@ -185,6 +186,18 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+@keyframes buttonAnimated {
+  from {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 //Social Links
