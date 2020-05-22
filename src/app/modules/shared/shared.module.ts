@@ -50,6 +50,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {VideoFormStepperUpdateComponent} from './components/video-form-stepper-update/video-form-stepper-update.component';
 import {AgoDatePipe} from './pipes/ago-date.pipe';
 import {FullDatePipe} from './pipes/full-date.pipe';
+import { CategoryChipComponent } from './components/category-chip/category-chip.component';
+import { CategoryTranslatePipe } from './pipes/category-translate.pipe';
+import { StatsFilterPipe } from './pipes/stats-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -77,31 +80,35 @@ import {FullDatePipe} from './pipes/full-date.pipe';
     TopCarouselComponent,
     VideoFormStepperUpdateComponent,
     AgoDatePipe,
-    FullDatePipe
+    FullDatePipe,
+    CategoryChipComponent,
+    CategoryTranslatePipe,
+    StatsFilterPipe
   ],
-  exports: [
-    WelcomeComponent,
-    NotFoundComponent,
-    ForbiddenComponent,
-    SidebarComponent,
-    VideoCardComponent,
-    CategoryCardComponent,
-    ProfileFormComponent,
-    ProfileCardComponent,
-    ProfileTopVideoCardComponent,
-    ProfileVideoCardComponent,
-    TimerPipe,
-    VideoFormStepperComponent,
-    FavoriteTableComponent,
-    VideoPlayerComponent,
-    CommentsComponent,
-    PlayListComponent,
-    ProfilePosterVideoComponent,
-    TopCarouselComponent,
-    VideoFormStepperUpdateComponent,
-    SaveDomPipe,
-    FullDatePipe
-  ],
+    exports: [
+        WelcomeComponent,
+        NotFoundComponent,
+        ForbiddenComponent,
+        SidebarComponent,
+        VideoCardComponent,
+        CategoryCardComponent,
+        ProfileFormComponent,
+        ProfileCardComponent,
+        ProfileTopVideoCardComponent,
+        ProfileVideoCardComponent,
+        TimerPipe,
+        VideoFormStepperComponent,
+        FavoriteTableComponent,
+        VideoPlayerComponent,
+        CommentsComponent,
+        PlayListComponent,
+        ProfilePosterVideoComponent,
+        TopCarouselComponent,
+        VideoFormStepperUpdateComponent,
+        SaveDomPipe,
+        FullDatePipe,
+        StatsFilterPipe
+    ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,

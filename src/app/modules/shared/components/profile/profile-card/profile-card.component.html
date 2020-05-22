@@ -19,7 +19,8 @@
   </mat-card-title>
   <mat-card-content class="mh-profile rounded d-flex justify-content-center" [style.minHeight.px]="getHeightImg()"
                     [style.maxHeight.px]="getHeightImg() + 20">
-    <img id="profile-avatar" class="rounded w-100" [src]="URL_STORAGE + Channel.avatar.path | saveDom" [alt]="Channel.avatar.name"
+    <img id="profile-avatar" class="rounded w-100" [src]="URL_STORAGE + Channel.avatar.path | saveDom"
+         [alt]="Channel.avatar.name"
          [style.minHeight.px]="getHeightImg()" [style.maxHeight.px]="getHeightImg() + 20">
   </mat-card-content>
   <mat-card-actions class="mb-0 py-0" [style.height.px]="actionsHeight">
@@ -39,19 +40,22 @@
         <div class="align-self-center mb-2 color-icon">
           <fa-icon size="2x" [icon]="faThumbsUp"></fa-icon>
         </div>
-        <h3 class="counter">{{statsChannel.likes}}</h3>
+        <h3 class="counter">{{statsChannel.likes | statsFilter | number:'.0-2'}}
+          {{statsChannel.likes > 1000 ? ' k' : ''}}</h3>
       </div>
       <div class="counter-stats d-flex flex-column justify-content-center">
         <div class="align-self-center mb-2 color-icon">
           <fa-icon size="2x" [icon]="faEye"></fa-icon>
         </div>
-        <h3 class="counter">{{statsChannel.views}}</h3>
+        <h3 class="counter">{{statsChannel.views | statsFilter | number:'.0-2'}}
+          {{statsChannel.views > 1000 ? ' k' : ''}}</h3>
       </div>
       <div class="counter-stats d-flex flex-column justify-content-center">
         <div class="align-self-center mb-2 color-icon">
           <fa-icon size="2x" [icon]="faComment"></fa-icon>
         </div>
-        <h3 class="counter">{{statsChannel.comments}}</h3>
+        <h3 class="counter">{{statsChannel.comments | statsFilter | number:'.0-2'}}
+          {{statsChannel.comments > 1000 ? ' k' : ''}}</h3>
       </div>
     </div>
     <div class="d-flex flex-column justify-content-center mx-4 mt-2" *ngIf="moreStats">

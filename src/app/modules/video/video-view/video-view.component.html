@@ -53,20 +53,29 @@
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">{{Video.views_count}}</span>
+          <span
+            class="align-self-center font-weight-bold text-muted select-none">
+            {{Video.views_count | statsFilter | number:'.0-2'}}
+            {{Video.views_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
             <fa-icon [icon]="faEye"></fa-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">{{Video.likes_count}}</span>
+          <span
+            class="align-self-center font-weight-bold text-muted select-none">
+            {{Video.likes_count | statsFilter | number:'.0-2'}}
+            {{Video.likes_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
                   (click)="toggleLike()">
             <fa-icon [icon]="faThumbsUp"></fa-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">{{Video.comments_count}}</span>
+          <span
+            class="align-self-center font-weight-bold text-muted select-none">
+            {{Video.comments_count | statsFilter | number:'.0-2'}}
+            {{Video.comments_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
             <fa-icon [icon]="faComment"></fa-icon>
           </button>

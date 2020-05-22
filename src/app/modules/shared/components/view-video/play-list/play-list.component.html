@@ -39,6 +39,7 @@
         <button mat-button color="primary" (click)="playVideo(video)">
           <fa-icon [icon]="faPlayCircle"></fa-icon>
         </button>
+        <app-category-chip [Category]="video.category" [SizeIcon]="12" [Padding]="[0,8,0,8]"></app-category-chip>
       </div>
     </div>
   </div>

@@ -10,11 +10,14 @@
   <div class="text-white info-user font-weight-light">
     <span class="font-weight-light">{{Video.created_at | agoDate}}</span>
     <div>
-      <span>{{Video.likes_count}}
+      <span>{{Video.likes_count | statsFilter | number:'.0-2'}}
+        {{Video.likes_count > 1000 ? ' k' : ''}}
         <fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>
-      <span>{{Video.comments_count}}
+      <span>{{Video.comments_count | statsFilter | number:'.0-2'}}
+        {{Video.comments_count > 1000 ? ' k' : ''}}
         <fa-icon [icon]="faComment" class="px-2"></fa-icon></span>
-      <span>{{Video.views_count}}
+      <span>{{Video.views_count | statsFilter | number:'.0-2'}}
+        {{Video.views_count > 1000 ? ' k' : ''}}
         <fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
     </div>
   </div>

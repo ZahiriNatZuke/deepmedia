@@ -8,7 +8,7 @@
   <mat-grid-tile [colspan]="2" [rowspan]="1" id="right-side">
     <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
-      <div class="d-flex w-100 justify-content-center">
+      <div *ngIf="Videos && Videos.length === 0" class="d-flex w-100 justify-content-center">
         <h3 class="font-weight-bold align-self-center">No Tiene Videos Disponibles</h3>
       </div>
       <mat-accordion *ngIf="byComments && byLikes && byViews">

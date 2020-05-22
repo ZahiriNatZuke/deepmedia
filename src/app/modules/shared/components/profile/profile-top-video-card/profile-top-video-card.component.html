@@ -6,25 +6,24 @@
     <div class="d-flex flex-column pl-2 p-absolute">
       <div class="d-flex">
         <h3 class="mr-2">{{video.title}}</h3>
-        <mat-chip-list>
-          <mat-chip color="primary" selected>
-            <fa-icon [icon]="faGamepad"></fa-icon>
-          </mat-chip>
-        </mat-chip-list>
+        <app-category-chip [Category]="video.category" [SizeIcon]="18" [Padding]="[6,8,6,8]"></app-category-chip>
       </div>
       <h6>{{video.created_at | fullDate}}</h6>
       <mat-chip-list>
         <mat-chip color="primary" class="w-auto p-1" selected>
           <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
-          <span class="mr-1">{{video.likes_count}}</span>
+          <span class="mr-1">{{video.likes_count | statsFilter | number:'.0-2'}}
+            {{video.likes_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
           <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
-          <span class="mr-1">{{video.views_count}}</span>
+          <span class="mr-1">{{video.views_count | statsFilter | number:'.0-2'}}
+            {{video.views_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
           <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
-          <span class="mr-1">{{video.comments_count}}</span>
+          <span class="mr-1">{{video.comments_count | statsFilter | number:'.0-2'}}
+            {{video.comments_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
       </mat-chip-list>
     </div>

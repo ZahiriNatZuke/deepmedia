@@ -5,10 +5,8 @@
 
 .comment-item {
   display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 16px 16px 0 16px;
-  padding: 16px;
+  padding: 12px;
   border-radius: 8px;
 }
 
@@ -40,5 +38,5 @@
 
 .link-profile:hover {
   font-weight: bold !important;
-  color: #828282;
+  color: #373737;
 }

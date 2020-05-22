@@ -3,7 +3,8 @@
     <mat-chip-list>
       <mat-chip class="bg-chip text-white">
         <fa-icon [icon]="faVideo" class="pr-2"></fa-icon>
-        {{category.count_videos}}
+        {{category.count_videos | statsFilter | number:'.0-2'}}
+        {{category.count_videos > 1000 ? ' k' : ''}}
       </mat-chip>
     </mat-chip-list>
   </mat-card-title>
