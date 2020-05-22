@@ -5,10 +5,15 @@
       <mat-chip color="primary" class="mb-1" selected (click)="up = !up">
         <fa-icon [icon]="up ?  faArrowUp : faArrowDown"></fa-icon>
         <fa-icon class="mx-2" [icon]="icon"></fa-icon>
-        <span class="font-weight-bold no-select" [textContent]="up? '321' : '123'"></span>
+        <span class="font-weight-bold no-select"
+              [textContent]="up?
+              ((statsDetail.max | statsFilter | number:'.0-2') + (statsDetail.max > 1000 ? ' k' : '')) :
+              ((statsDetail.min | statsFilter | number:'.0-2') + (statsDetail.min > 1000 ? ' k' : ''))">
+        </span>
       </mat-chip>
     </mat-chip-list>
   </div>
-  <mat-progress-bar matTooltip="AVG: 35.23" matTooltipPosition="before" color="primary" mode="determinate" [value]="25">
+  <mat-progress-bar matTooltip="AVG: {{statsDetail.avg | number:'.0-2'}}" matTooltipPosition="before" color="primary"
+                    mode="determinate" [value]="percent(statsDetail.max)">
   </mat-progress-bar>
 </div>

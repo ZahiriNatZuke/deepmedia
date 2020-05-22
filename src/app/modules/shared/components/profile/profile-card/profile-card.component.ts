@@ -49,9 +49,7 @@ export class ProfileCardComponent implements OnInit {
 
   getStats() {
     if (this.helpersService.currentStatsChannelValue) {
-      this.helpersService.currentStatsChannel.subscribe(stats => {
-        this.statsChannel = stats;
-      });
+      this.helpersService.currentStatsChannel.subscribe(stats => this.statsChannel = stats);
     } else {
       setTimeout(() => this.getStats(), 200);
     }

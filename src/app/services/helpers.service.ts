@@ -6,6 +6,7 @@ import {CrudService} from './crud.service';
 import {API} from './API';
 import {Stats} from '../models/stats';
 import {first, retry} from 'rxjs/operators';
+import * as fileSize from 'filesize';
 
 const api = new API();
 
@@ -47,8 +48,12 @@ export class HelpersService {
   GETStatsOfChannelById(id: string) {
     this.crudService.GETWithOutAuth(api.getStatsChannelURL(), id)
       .pipe(first(), retry(1)).subscribe(response => {
-      const stats = response.stats;
-      this.currentStatsChannelSubject.next(response.stats);
+      const stats: Stats = {
+        stats: response.stats,
+        advanced_stats: response.advanced_stats,
+        storage_size: fileSize(response.storage_size, {round: 2, output: 'array'})
+      };
+      this.currentStatsChannelSubject.next(stats);
       return stats;
     });
   }
