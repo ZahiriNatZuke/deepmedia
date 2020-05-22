@@ -71,7 +71,7 @@ export class PlayListComponent implements OnInit {
 
   isFavorite(video: Video): boolean {
     if (this.User_Channel)
-      return video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+      return video.favorite_for_who.map(channel => channel.id).includes(this.User_Channel.id);
     else
       return false;
   }

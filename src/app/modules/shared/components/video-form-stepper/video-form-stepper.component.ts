@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {HttpEventType} from '@angular/common/http';
 import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
+import {NotificationService} from '../../../../services/notification.service';
 
 const api = new API();
 
@@ -38,7 +39,8 @@ export class VideoFormStepperComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
-              private videoService: VideoService) {
+              private videoService: VideoService,
+              private notificationService: NotificationService) {
     this.showVideoPlayer = false;
     this.showPoster = false;
     this.info = this._formBuilder.group({
@@ -91,27 +93,43 @@ export class VideoFormStepperComponent implements OnInit {
   }
 
   previewPoster(event: any) {
-    const file = event.target.files[0];
-    this.posterFile = file;
-    document.getElementById('label-poster-img').innerText = event.target.files[0].name;
-    this.videoObj.poster = window.URL.createObjectURL(file);
-    this.videoObj.id = this.randomNumber++;
-    this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-    setTimeout(() => {
-      this.showPoster = true;
-    }, 300);
+    const file: File = event.target.files[0];
+    const checkSize: boolean = this.videoService.checkSize('poster', file.size);
+    const checkMimeType: boolean = this.videoService.checkMimeType('poster', file.type);
+    if (checkSize && checkMimeType) {
+      this.posterFile = file;
+      document.getElementById('label-poster-img').innerText = event.target.files[0].name;
+      this.videoObj.poster = window.URL.createObjectURL(file);
+      this.videoObj.id = this.randomNumber++;
+      this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
+      setTimeout(() => {
+        this.showPoster = true;
+      }, 300);
+    } else {
+      const msg: string = `${!checkSize ? 'La imagen excede el límite de 10MB.\n' : ''}
+                           ${!checkMimeType ? 'El formato de la imagen no es admisible.' : ''}`;
+      this.notificationService.showNotification('Video Info', msg, 'warning');
+    }
   }
 
   previewVideo(event: any) {
-    const file = event.target.files[0];
-    this.videoFile = file;
-    document.getElementById('label-video').innerText = event.target.files[0].name;
-    this.videoObj.video = window.URL.createObjectURL(file);
-    this.videoObj.id = this.randomNumber++;
-    this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-    setTimeout(() => {
-      this.showVideoPlayer = true;
-    }, 300);
+    const file: File = event.target.files[0];
+    const checkSize: boolean = this.videoService.checkSize('video', file.size);
+    const checkMimeType: boolean = this.videoService.checkMimeType('video', file.type);
+    if (checkSize && checkMimeType) {
+      this.videoFile = file;
+      document.getElementById('label-video').innerText = event.target.files[0].name;
+      this.videoObj.video = window.URL.createObjectURL(file);
+      this.videoObj.id = this.randomNumber++;
+      this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
+      setTimeout(() => {
+        this.showVideoPlayer = true;
+      }, 300);
+    } else {
+      const msg: string = `${!checkSize ? 'El video excede el límite de 300MB.\n' : ''}
+                           ${!checkMimeType ? 'El formato del video no es admisible.' : ''}`;
+      this.notificationService.showNotification('Video Info', msg, 'warning');
+    }
   }
 
   sendData() {

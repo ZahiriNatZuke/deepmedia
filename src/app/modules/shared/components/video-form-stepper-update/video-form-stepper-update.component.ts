@@ -9,7 +9,7 @@ import {VideoPlayer} from 'src/app/models/video-player';
 import {faAngleLeft, faAngleRight, faSave} from '@fortawesome/free-solid-svg-icons';
 import {API} from 'src/app/services/API';
 import {Video} from 'src/app/models/video';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {NotificationService} from '../../../../services/notification.service';
 
 const api = new API();
 
@@ -41,7 +41,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
               private router: Router,
               private videoService: VideoService,
               private activatedRoute: ActivatedRoute,
-              private snackBar: MatSnackBar) {
+              private notificationService: NotificationService) {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       this.crudService.GETWithOutAuth(api.getVideoURL(), id).subscribe(response => {
@@ -109,26 +109,42 @@ export class VideoFormStepperUpdateComponent implements OnInit {
 
   previewPoster(event: any) {
     const file = event.target.files[0];
-    this.posterFile = file;
-    document.getElementById('label-poster-img').innerText = event.target.files[0].name;
-    this.videoObj.poster = window.URL.createObjectURL(file);
-    this.videoObj.id = this.randomNumber++;
-    this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-    setTimeout(() => {
-      this.showPoster = true;
-    }, 300);
+    const checkSize: boolean = this.videoService.checkSize('poster', file.size);
+    const checkMimeType: boolean = this.videoService.checkMimeType('poster', file.type);
+    if (checkSize && checkMimeType) {
+      this.posterFile = file;
+      document.getElementById('label-poster-img').innerText = event.target.files[0].name;
+      this.videoObj.poster = window.URL.createObjectURL(file);
+      this.videoObj.id = this.randomNumber++;
+      this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
+      setTimeout(() => {
+        this.showPoster = true;
+      }, 300);
+    } else {
+      const msg: string = `${!checkSize ? 'La nueva imagen excede el límite de 10MB.\n' : ''}
+                           ${!checkMimeType ? 'El formato de la nueva imagen no es admisible.' : ''}`;
+      this.notificationService.showNotification('Video Info', msg, 'warning');
+    }
   }
 
   previewVideo(event: any) {
     const file = event.target.files[0];
-    this.videoFile = file;
-    document.getElementById('label-video').innerText = event.target.files[0].name;
-    this.videoObj.video = window.URL.createObjectURL(file);
-    this.videoObj.id = this.randomNumber++;
-    this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-    setTimeout(() => {
-      this.showVideoPlayer = true;
-    }, 300);
+    const checkSize: boolean = this.videoService.checkSize('video', file.size);
+    const checkMimeType: boolean = this.videoService.checkMimeType('video', file.type);
+    if (checkSize && checkMimeType) {
+      this.videoFile = file;
+      document.getElementById('label-video').innerText = event.target.files[0].name;
+      this.videoObj.video = window.URL.createObjectURL(file);
+      this.videoObj.id = this.randomNumber++;
+      this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
+      setTimeout(() => {
+        this.showVideoPlayer = true;
+      }, 300);
+    } else {
+      const msg: string = `${!checkSize ? 'El nuevo video excede el límite de 300MB.\n' : ''}
+                           ${!checkMimeType ? 'El formato del nuevo video no es admisible.' : ''}`;
+      this.notificationService.showNotification('Video Info', msg, 'warning');
+    }
   }
 
   sendData() {
@@ -157,12 +173,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
             setTimeout(() => this.router.navigate(['/video/view', events.body.video.id]).then(), 750);
         });
     else
-      this.snackBar.open('Video Info', 'Por Favor Modifique Algún Campo', {
-        duration: 2000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'end',
-        panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
-      });
+      this.notificationService.showNotification('Video Info', 'Por Favor Modifique Algún Campo', 'warning');
   }
 
   saveVideoPlayer(event: VideoPlayerComponent) {

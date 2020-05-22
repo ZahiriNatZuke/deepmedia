@@ -27,7 +27,7 @@ export class ProfilePosterVideoComponent implements OnInit {
 
   isFavorite(): boolean {
     if (this.User_Channel)
-      return this.video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+      return this.video.favorite_for_who.map(channel => channel.id).includes(this.User_Channel.id);
     else
       return false;
   }

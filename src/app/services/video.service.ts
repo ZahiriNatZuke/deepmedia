@@ -5,6 +5,7 @@ import {Video} from '../models/video';
 import {CrudService} from './crud.service';
 import {API} from './API';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
+import * as fileSize from 'filesize';
 
 const api = new API();
 
@@ -76,4 +77,22 @@ export class VideoService {
     this.UpdateCurrentVideoValue(playList[0]);
     this.UpdateCurrentPlayListValue(playList);
   }
+
+  checkSize(type: string, size: number): boolean {
+    const outputSize = fileSize(size, {round: 2, output: 'array'});
+    if (type === 'video')
+      return (outputSize[1] === 'MB' && +outputSize[0] <= 300) ? true : outputSize[1] === 'KB';
+    else if (type === 'poster')
+      return (outputSize[1] === 'MB' && +outputSize[0] <= 10) ? true : outputSize[1] === 'KB';
+  }
+
+  checkMimeType(type: string, mime: string): boolean {
+    let validMimeType = [];
+    if (type === 'video')
+      validMimeType = ['video/mp4', 'video/x-matroska', 'video/avi'];
+    else if (type === 'poster')
+      validMimeType = ['image/jpeg', 'image/png', 'image/gif'];
+    return validMimeType.includes(mime);
+  }
+
 }

@@ -130,14 +130,14 @@ export class VideoViewComponent implements OnInit {
 
   isFavorite(): boolean {
     if (this.User_Channel)
-      return this.Video.favorite_for_who.map(channel => channel.id).indexOf(this.User_Channel.id) >= 0;
+      return this.Video.favorite_for_who.map(channel => channel.id).includes(this.User_Channel.id);
     else
       return false;
   }
 
   isLiked(): boolean {
     if (this.User_Channel)
-      return this.Video.likes.map(user => user.id).indexOf(this.User_Channel.id) >= 0;
+      return this.Video.likes.map(user => user.id).includes(this.User_Channel.id);
     else
       return false;
   }
