@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import {CrudService} from '../../../services/crud.service';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private crudService: CrudService,
-              private router: Router) {
+              private router: Router,
+              private notificationService: NotificationService) {
     this.hideC = true;
     this.hideP = true;
   }
@@ -52,6 +54,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.crudService.POSTForRegister(this.registerForm.value)
       .subscribe(() => {
+        this.notificationService.showNotification('Info', 'Su Cuenta ha sido Creada');
         this.router.navigate(['/auth/login']).then();
       });
   }

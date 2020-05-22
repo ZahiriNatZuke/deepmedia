@@ -4,7 +4,7 @@ import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {first} from 'rxjs/operators';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private snackBar: MatSnackBar) {
+              private notificationService: NotificationService) {
     this.hide = true;
   }
 
@@ -47,12 +47,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
-      this.snackBar.open('Sesión Info', 'Sesión Iniciada con Éxito', {
-        duration: 2500,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'end',
-        panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
-      });
+      this.notificationService.showNotification('Sesión Info', 'Sesión Iniciada con Éxito');
       this.router.navigate([this.returnURL]).then();
     });
   }

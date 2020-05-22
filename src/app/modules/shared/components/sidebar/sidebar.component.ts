@@ -118,7 +118,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       this.inputCheck.checked = false;
       this.toLeft();
     }
-    const dialogRef = this.dialog.open(SearchDialogComponent, {
+    this.dialog.open(SearchDialogComponent, {
       width: '100%',
       maxHeight: '550px',
       autoFocus: true,

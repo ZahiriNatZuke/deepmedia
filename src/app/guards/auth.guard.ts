@@ -2,14 +2,16 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from '../services/authentication.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {NotificationService} from '../services/notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private authenticationService: AuthenticationService, private snackBar: MatSnackBar) {
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService,
+              private notificationService: NotificationService) {
   }
 
   canActivate(next: ActivatedRouteSnapshot,
@@ -18,12 +20,7 @@ export class AuthGuard implements CanActivate {
     if (user) {
       return true;
     }
-    this.snackBar.open('Sesión Info', 'Por Favor Autentíquese', {
-      duration: 2500,
-      verticalPosition: 'bottom',
-      horizontalPosition: 'end',
-      panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
-    });
+    this.notificationService.showNotification('Sesión Info', 'Por Favor Autentíquese');
     this.router.navigate(['/auth/login'], {queryParams: {returnUrl: state.url}}).then();
     return false;
   }

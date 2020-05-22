@@ -5,8 +5,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map, retry} from 'rxjs/operators';
 import {Channel} from '../models/channel';
 import {CrudService} from './crud.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {NotificationService} from './notification.service';
 
 const api = new API();
 
@@ -17,7 +17,10 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<Channel>;
   public currentUser: Observable<Channel>;
 
-  constructor(private httpClient: HttpClient, private crudService: CrudService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private httpClient: HttpClient,
+              private crudService: CrudService,
+              private notificationService: NotificationService,
+              private router: Router) {
     this.currentUserSubject = new BehaviorSubject<Channel>(JSON.parse(localStorage.getItem('X-Auth-User')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -54,12 +57,7 @@ export class AuthenticationService {
         localStorage.clear();
         this.currentUserSubject.next(null);
         this.router.navigate(['/auth/login']).then();
-        this.snackBar.open('Sesión Info', 'Sesión Cerrada con Éxito', {
-          duration: 2500,
-          verticalPosition: 'bottom',
-          horizontalPosition: 'end',
-          panelClass: ['bg-light', 'text-dark', 'font-weight-bold']
-        });
+        this.notificationService.showNotification('Sesión Info', 'Sesión Cerrada con Éxito');
       });
   }
 
