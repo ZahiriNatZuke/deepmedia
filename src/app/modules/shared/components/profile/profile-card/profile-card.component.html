@@ -9,7 +9,7 @@
     </marquee>
     <div class="d-flex align-top">
       <button mat-raised-button [color]="(form)? 'warn' : 'primary'" class="h-button mr-2" id="toggleForm"
-              textContent="{{((form)? 'cancelar' : 'editar') | uppercase}}" (click)="toggleForm()"
+              [textContent]="(form? 'cancelar' : 'editar') | uppercase" (click)="toggleForm()"
               *ngIf="User_Channel && User_Channel.id === Channel.id">
       </button>
       <button mat-raised-button color="warn" class="h-button d-none" id="buttonClose" (click)="closeAllVideos()">
@@ -24,7 +24,7 @@
          [style.minHeight.px]="getHeightImg()" [style.maxHeight.px]="getHeightImg() + 20">
   </mat-card-content>
   <mat-card-actions class="mb-0 py-0" [style.height.px]="actionsHeight">
-    <mat-list *ngIf="!moreStats">
+    <mat-list *ngIf="!moreStats && statsChannel">
       <mat-list-item>
         <app-profile-list-info statsName="Likes" [icon]="faThumbsUp" class="w-100"
                                [statsDetail]="statsChannel.advanced_stats.likes"></app-profile-list-info>
@@ -38,7 +38,7 @@
                                [statsDetail]="statsChannel.advanced_stats.comments"></app-profile-list-info>
       </mat-list-item>
     </mat-list>
-    <div class="d-flex justify-content-between mx-4" *ngIf="moreStats">
+    <div class="d-flex justify-content-between mx-4" *ngIf="moreStats && statsChannel">
       <div class="counter-stats d-flex flex-column justify-content-center">
         <div class="align-self-center mb-2 color-icon">
           <fa-icon size="2x" [icon]="faThumbsUp"></fa-icon>
@@ -66,8 +66,10 @@
         <span
           class="font-weight-bold size-storage">{{statsChannel.storage_size[0] + ' ' + statsChannel.storage_size[1]}} / 5 GB</span>
       </div>
-      <mat-progress-bar color="primary" mode="determinate"
-                        [value]="statsChannel.storage_size[0] * 100 / 5"></mat-progress-bar>
+      <mat-progress-bar color="primary" mode="determinate" [value]="statsChannel.storage_size[0] * 100 / 5"
+                        matTooltip="{{statsChannel.storage_size[0] * 100 / 5 | number:'.0-2'}} %"
+                        matTooltipPosition="before">
+      </mat-progress-bar>
     </div>
   </mat-card-actions>
 </mat-card>

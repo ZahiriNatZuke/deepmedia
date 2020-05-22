@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     if (user) {
       return true;
     }
-    this.notificationService.showNotification('Sesión Info', 'Por Favor Autentíquese');
+    this.notificationService.showNotification('Sesión Info', 'Por Favor Autentíquese', 'warning');
     this.router.navigate(['/auth/login'], {queryParams: {returnUrl: state.url}}).then();
     return false;
   }

@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.crudService.POSTForRegister(this.registerForm.value)
       .subscribe(() => {
-        this.notificationService.showNotification('Info', 'Su Cuenta ha sido Creada');
+        this.notificationService.showNotification('Info', 'Su Cuenta ha sido Creada', 'success');
         this.router.navigate(['/auth/login']).then();
       });
   }

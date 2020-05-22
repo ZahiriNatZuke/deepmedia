@@ -1,4 +1,10 @@
-<h1 mat-dialog-title>Hola</h1>
-<div mat-dialog-content>
-  Hola
+<div class="w-100 d-flex">
+  <div class="d-flex justify-content-center">
+    <span class="align-self-center rounded text-black-50 p-2 font-weight-bold" [class]="'bg-' + data.status">
+          {{data.from}}
+    </span>
+  </div>
+  <div class="text-white px-2 py-1 d-flex justify-content-center rounded">
+    <span class="align-self-center">{{data.message}}</span>
+  </div>
 </div>

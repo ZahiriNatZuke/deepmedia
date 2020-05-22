@@ -57,7 +57,7 @@ export class AuthenticationService {
         localStorage.clear();
         this.currentUserSubject.next(null);
         this.router.navigate(['/auth/login']).then();
-        this.notificationService.showNotification('Sesión Info', 'Sesión Cerrada con Éxito');
+        this.notificationService.showNotification('Sesión Info', 'Sesión Cerrada con Éxito', 'success');
       });
   }
 

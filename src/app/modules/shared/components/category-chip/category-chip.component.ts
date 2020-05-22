@@ -32,7 +32,6 @@ export class CategoryChipComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.Category);
     switch (this.Category) {
       case 'Gameplay':
         this.currentChip = this.faGamepad;

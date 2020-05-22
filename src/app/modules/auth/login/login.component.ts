@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
-      this.notificationService.showNotification('Sesión Info', 'Sesión Iniciada con Éxito');
+      this.notificationService.showNotification('Sesión Info', 'Sesión Iniciada con Éxito', 'success');
       this.router.navigate([this.returnURL]).then();
     });
   }

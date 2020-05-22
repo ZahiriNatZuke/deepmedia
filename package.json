@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --aot --optimization --prod --progress --stats-json",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -30,14 +30,11 @@
     "filesize": "^6.0.1",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
-    "ngx-permissions": "^7.0.3",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "ng-animate": "^0.3.4",
     "rxjs": "~6.5.4",
-    "sweetalert2": "^9.7.2",
     "tslib": "^1.10.0",
-    "video.js": "^7.6.6",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
