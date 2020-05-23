@@ -4,3 +4,12 @@
 <div class="card-columns m-0 pt-1 mr-1">
   <app-video-card [video]="video" *ngFor="let video of videos"></app-video-card>
 </div>
+<div *ngIf="videos && next_page_url" class="d-flex justify-content-center w-100 mt-1 bottom-container">
+  <button *ngIf="!loading" mat-icon-button class="more-videos align-self-center" (click)="fetchMoreVideos()">
+    <fa-icon matTooltip="Mas Videos" matTooltipPosition="right" class="text-white"
+             [icon]="faAngleDown" size="1x"></fa-icon>
+  </button>
+  <div *ngIf="loading" class="position-relative spinner-loader">
+    <div class="dot-spin"></div>
+  </div>
+</div>

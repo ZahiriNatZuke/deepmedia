@@ -1,0 +1,29 @@
+.mat-icon-button {
+  font-size: 45px;
+  width: 50px;
+  height: 50px;
+}
+
+.spinner-loader {
+  bottom: -20px;
+}
+
+.bottom-container {
+  height: 60px;
+}
+
+.more-videos {
+  animation: buttonAnimated 2s ease-in-out infinite;
+}
+
+@keyframes buttonAnimated {
+  from {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
