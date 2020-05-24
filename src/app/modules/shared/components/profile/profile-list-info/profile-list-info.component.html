@@ -7,8 +7,8 @@
         <fa-icon class="mx-2" [icon]="icon"></fa-icon>
         <span class="font-weight-bold no-select"
               [textContent]="up?
-              ((statsDetail.max | statsFilter | number:'.0-2') + (statsDetail.max > 1000 ? ' k' : '')) :
-              ((statsDetail.min | statsFilter | number:'.0-2') + (statsDetail.min > 1000 ? ' k' : ''))">
+              ((statsDetail.max || 0 | statsFilter | number:'.0-2') + (statsDetail.max > 1000 ? ' k' : '')) :
+              ((statsDetail.min || 0 | statsFilter | number:'.0-2') + (statsDetail.min > 1000 ? ' k' : ''))">
         </span>
       </mat-chip>
     </mat-chip-list>

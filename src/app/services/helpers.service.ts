@@ -51,7 +51,10 @@ export class HelpersService {
       const stats: Stats = {
         stats: response.stats,
         advanced_stats: response.advanced_stats,
-        storage_size: fileSize(response.storage_size, {round: 2, output: 'array'})
+        storage_size: [response.storage_size / 1024 / 1024 / 1024, fileSize(response.storage_size, {
+          round: 2,
+          output: 'array'
+        })]
       };
       this.currentStatsChannelSubject.next(stats);
       return stats;

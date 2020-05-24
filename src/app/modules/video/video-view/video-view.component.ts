@@ -74,10 +74,6 @@ export class VideoViewComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.videoService.currentVideo.subscribe(video => this.Video = video);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
-    if (!this.videoService.GetCurrentVideoValue)
-      this.activatedRoute.params.subscribe(params => {
-        this.videoService.fetchVideo(params.id);
-      });
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
       this.byViews = response.byViews;
@@ -85,6 +81,12 @@ export class VideoViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      if (!this.videoService.GetCurrentVideoValue)
+        this.activatedRoute.params.subscribe(params => {
+          this.videoService.fetchVideo(params.id);
+        });
+    }, 650);
     this.loadHTML();
     this.viewTop.toggle(0);
     window.addEventListener('resize', () => {
@@ -118,15 +120,14 @@ export class VideoViewComponent implements OnInit {
   toggleVideoView() {
     this.showVideoView = !this.showVideoView;
     this.viewTop.toggle(500);
-    setTimeout(() => {
-      if (!this.showVideoView) {
+    if (!this.showVideoView)
+      setTimeout(() => {
         window.scroll({
           behavior: 'smooth',
           top: 1000,
           left: 0,
         });
-      }
-    }, 500);
+      }, 500);
   }
 
   isFavorite(): boolean {

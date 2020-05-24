@@ -2,10 +2,12 @@
   <img [src]="URL_STORAGE + Video.poster.path | saveDom" class="w-100 h-100 rounded h-img"
        [alt]="Video.poster.name">
   <div class="justify-content-start">
-    <p class="font-weight-bold m-0 p-0 pl-2 info-text-title w-90" [routerLink]="['/video/view',Video.id]">
+    <p *ngIf="Video.title.length > 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-90" (click)="goToVideo()">
       <marquee behavior="scroll" width="95%" direction="left" scrolldelay="20">
         {{Video.title}}</marquee>
     </p>
+    <p *ngIf="Video.title.length <= 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-90"
+       (click)="goToVideo()">{{Video.title}}</p>
   </div>
   <div class="text-white info-user font-weight-light">
     <span class="font-weight-light">{{Video.created_at | agoDate}}</span>

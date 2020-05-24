@@ -54,6 +54,8 @@ export class VideoService {
   }
 
   fetchVideo(id: string) {
+    this.currentVideoSubject.next(null);
+    this.currentVideoPlayerSubject.next(null);
     this.crudService.GETWithOutAuth(api.getVideoURL(), id).subscribe(response => {
       const video: Video = response.video;
       this.currentVideoSubject.next(video);

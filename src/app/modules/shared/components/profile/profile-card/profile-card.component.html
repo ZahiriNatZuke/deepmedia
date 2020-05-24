@@ -60,12 +60,12 @@
     </div>
     <div class="d-flex flex-column justify-content-center mx-4 mt-2" *ngIf="moreStats">
       <div class="align-self-center mb-2 color-icon">
-        <span
-          class="font-weight-bold size-storage">{{statsChannel.storage_size[0] + ' ' + statsChannel.storage_size[1]}} / 5 GB</span>
+        <span class="font-weight-bold size-storage">
+          {{statsChannel.storage_size[1][0] + ' ' + statsChannel.storage_size[1][1]}} / 5 GB</span>
       </div>
-      <mat-progress-bar color="primary" mode="determinate" [value]="statsChannel.storage_size[0] * 100 / 5"
-                        matTooltip="{{statsChannel.storage_size[0] * 100 / 5 | number:'.0-2'}} %"
-                        matTooltipPosition="before">
+      <mat-progress-bar color="primary" mode="determinate" matTooltipPosition="before"
+                        matTooltip="{{statsChannel.storage_size[0] / 5 | percent:'.0-2'}}"
+                        [value]="statsChannel.storage_size[0] * 100 / 5">
       </mat-progress-bar>
     </div>
   </mat-card-actions>

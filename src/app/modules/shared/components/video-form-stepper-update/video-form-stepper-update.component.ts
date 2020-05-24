@@ -151,15 +151,15 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     this.formData.append('_method', 'PATCH');
     if (!this.info.pristine) {
       const info = this.info.value;
-      this.formData.append('title', info.title);
-      this.formData.append('description', info.description);
-      this.formData.append('state', info.state);
-      this.formData.append('category', info.category);
+      if (!this.info.get('title').pristine) this.formData.append('title', info.title);
+      if (!this.info.get('description').pristine) this.formData.append('description', info.description);
+      if (!this.info.get('state').pristine) this.formData.append('state', info.state);
+      if (!this.info.get('category').pristine) this.formData.append('category', info.category);
     }
-    if (!this.poster.pristine) {
+    if (!this.poster.pristine && this.posterFile) {
       this.formData.append('poster', this.posterFile, this.posterFile.name);
     }
-    if (!this.video_src.pristine) {
+    if (!this.video_src.pristine && this.videoFile) {
       this.formData.append('duration', this.video_src.get('duration').value);
       this.formData.append('video', this.videoFile, this.videoFile.name);
     }
@@ -171,13 +171,9 @@ export class VideoFormStepperUpdateComponent implements OnInit {
           }
           if (events.type === HttpEventType.Response) {
             const video: Video = events.body.video;
-            this.videoService.UpdateCurrentVideoValue(video);
-            this.videoService.UpdateCurrentVideoPlayerValue({
-              id: video.id,
-              poster: api.URL_STORAGE + video.poster.path,
-              video: api.URL_STORAGE + video.video.path
-            });
-            setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 750);
+            this.videoService.UpdateCurrentVideoValue(null);
+            this.videoService.UpdateCurrentVideoPlayerValue(null);
+            setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 350);
           }
         });
     else
