@@ -3,6 +3,6 @@
        class="w-100 h-100 rounded h-img">
   <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
   <button mat-icon-button class="text-white btn-play">
-    <fa-icon [routerLink]="['/video/view',video.id]" [icon]="faPlayCircle"></fa-icon>
+    <fa-icon (click)="goToVideo()" [icon]="faPlayCircle"></fa-icon>
   </button>
 </div>

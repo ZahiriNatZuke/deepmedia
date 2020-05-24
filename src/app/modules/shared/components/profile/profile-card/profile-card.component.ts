@@ -13,6 +13,11 @@ import {AuthenticationService} from '../../../../../services/authentication.serv
   styleUrls: ['./profile-card.component.scss']
 })
 export class ProfileCardComponent implements OnInit {
+  User_Channel: Channel;
+  Channel: Channel;
+  Avatar: HTMLElement;
+  statsChannel: Stats;
+  URL_STORAGE = environment.URL_STORAGE;
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
@@ -20,10 +25,6 @@ export class ProfileCardComponent implements OnInit {
   form: boolean;
   moreStats: boolean;
   actionsHeight: number;
-  Channel: Channel;
-  statsChannel: Stats;
-  URL_STORAGE = environment.URL_STORAGE;
-  User_Channel: Channel;
 
   constructor(private activatedRoute: ActivatedRoute,
               private helpersService: HelpersService,
@@ -36,6 +37,7 @@ export class ProfileCardComponent implements OnInit {
   ngOnInit(): void {
     this.getChannel();
     this.getStats();
+    this.AfterViewInit();
     window.addEventListener('resize', () => this.getActionsHeight());
   }
 
@@ -56,12 +58,13 @@ export class ProfileCardComponent implements OnInit {
   }
 
   getHeightImg() {
-    return (window.screen.availHeight * 42 / 100);
+    return (window.screen.availHeight * 45 / 100);
   }
 
   toggleForm() {
     this.form = !this.form;
     const rightSide = $('#right-side');
+    if (!this.form) this.AfterViewInit();
     this.form ?
       rightSide.removeClass('mat-elevation-z10') : rightSide.addClass('mat-elevation-z10');
     const buttonClose = $('#buttonClose');
@@ -83,7 +86,7 @@ export class ProfileCardComponent implements OnInit {
       setTimeout(() => {
         $('.f-title-card').css({
           font: '300 24px/40px Roboto, "Helvetica Neue", sans-serif',
-          transition: 'all .3s'
+          transition: 'all .4s ease'
         });
         $('.d-flex.justify-content-center button').toggleClass('d-none');
       }, 200);
@@ -92,5 +95,16 @@ export class ProfileCardComponent implements OnInit {
 
   getActionsHeight() {
     this.actionsHeight = Math.floor(window.screen.availHeight * 21 / 100);
+  }
+
+  AfterViewInit(): void {
+    const profileAvatar = document.getElementById('profile-avatar') as HTMLElement;
+    if (profileAvatar && this.Channel) {
+      this.Avatar = profileAvatar;
+      profileAvatar.style.background = `url('${this.URL_STORAGE + this.Channel.avatar.path}') center / cover`;
+      profileAvatar.style.transition = 'all .4s ease';
+    } else {
+      setTimeout(() => this.AfterViewInit(), 200);
+    }
   }
 }

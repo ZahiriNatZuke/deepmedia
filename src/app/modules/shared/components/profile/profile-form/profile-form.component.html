@@ -2,56 +2,47 @@
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" [id]="'profileForm'">
     <mat-card-title class="d-flex justify-content-between">
       <h1 class="pl-3 f-title-form">Información del Usuario</h1>
-      <button [disabled]="profileForm.invalid" mat-raised-button
-              color="primary" class="h-button" type="submit">{{'Guardar' | uppercase}}</button>
+      <button mat-raised-button [disabled]="profileForm.pristine" color="primary" class="h-button"
+              type="submit">{{'Guardar' | uppercase}}</button>
     </mat-card-title>
-    <div class="d-flex">
-      <div class="col">
-        <mat-form-field class="w-100 mt-3" appearance="outline">
-          <mat-label>Nombre Completo</mat-label>
-          <input matInput type="text" formControlName="fullname" required>
-          <mat-error *ngIf="checkValid('fullname')">{{checkRequired('fullname')}}</mat-error>
-          <mat-error *ngIf="checkValid('fullname')">{{checkMinLength('fullname')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field class="w-100 mt-3" appearance="outline">
-          <mat-label>Usuario</mat-label>
-          <input matInput type="text" formControlName="username" required>
-          <mat-error *ngIf="checkValid('username')">{{checkRequired('username')}}</mat-error>
-          <mat-error *ngIf="checkValid('username')">{{checkMinLength('username')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field class="w-100 mt-3" appearance="outline">
-          <mat-label>Correo Electrónico</mat-label>
-          <input matInput type="email" formControlName="email" required email>
-          <mat-error *ngIf="checkValid('email')">{{checkRequired('email')}}</mat-error>
-          <mat-error *ngIf="checkValid('email')">{{checkEmail('email')}}</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col">
-        <mat-form-field class="w-100 mt-3" appearance="outline">
-          <mat-label>Contraseña</mat-label>
-          <input matInput [type]="hideP ? 'password' : 'text'" formControlName="password" autocomplete>
-          <button type="button" mat-icon-button matSuffix (click)="hideP = !hideP" tabIndex="-1">
-            <fa-icon [icon]="hideP ?  faEye : faEyeSlash"></fa-icon>
-          </button>
-          <mat-error *ngIf="checkValid('password')">{{checkMinLength('password')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field class="w-100 mt-3" appearance="outline">
-          <mat-label>Confirmar Contraseña</mat-label>
-          <input matInput [type]="hideC ? 'password' : 'text'" formControlName="password_confirmation"
-                 autocomplete [pattern]="profileForm.get('password').value">
-          <button type="button" mat-icon-button matSuffix (click)="hideC = !hideC" tabIndex="-1">
-            <fa-icon [icon]="hideC ?  faEye : faEyeSlash"></fa-icon>
-          </button>
-          <mat-error
-            *ngIf="checkValid('password_confirmation')">{{checkMinLength('password_confirmation')}}</mat-error>
-          <mat-error>Las Contraseñas no coinciden</mat-error>
-        </mat-form-field>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input d-none" id="imgFile" (change)="onChange($event)"
-                 formControlName="avatar">
-          <label class="custom-file-label" for="imgFile">Actualizar Imagen del Perfil</label>
+    <mat-card-content>
+      <div class="d-flex">
+        <div class="col">
+          <mat-form-field class="w-100 mt-3" appearance="outline">
+            <mat-label>Nombre Completo</mat-label>
+            <input matInput type="text" formControlName="fullname">
+            <mat-error *ngIf="checkValid('fullname')">{{checkRequired('fullname')}}</mat-error>
+            <mat-error *ngIf="checkValid('fullname')">{{checkMinLength('fullname')}}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100 mt-3" appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput type="text" formControlName="username">
+            <mat-error *ngIf="checkValid('username')">{{checkRequired('username')}}</mat-error>
+            <mat-error *ngIf="checkValid('username')">{{checkMinLength('username')}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="w-100 mt-3" appearance="outline">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput type="email" formControlName="email" email autocomplete="username">
+            <mat-error *ngIf="checkValid('email')">{{checkRequired('email')}}</mat-error>
+            <mat-error *ngIf="checkValid('email')">{{checkEmail('email')}}</mat-error>
+          </mat-form-field>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input d-none" id="imgFile" (change)="onChange($event)"
+                   formControlName="avatar">
+            <label class="custom-file-label" for="imgFile">Actualizar Imagen del Perfil</label>
+          </div>
         </div>
       </div>
-    </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="d-flex mx-5">
+        <button mat-raised-button color="primary" class="h-button"
+                type="button">
+          <fa-icon [icon]="faLock" [classes]="['mr-2']"></fa-icon>
+          {{'Cambiar Contraseña' | uppercase}}</button>
+      </div>
+    </mat-card-actions>
   </form>
 </mat-card>

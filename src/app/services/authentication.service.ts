@@ -29,6 +29,10 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
+  public UpdateCurrentUserValue(channel: Channel) {
+    this.currentUserSubject.next(channel);
+  }
+
   POSTForLogin(body: { username: string, password: string }) {
     return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()})
       .pipe(first(), retry(1), map(response => {
@@ -40,15 +44,6 @@ export class AuthenticationService {
         this.currentUserSubject.next(user);
         return user;
       }));
-  }
-
-  GETForUser() {
-    return this.crudService.GETWithOutAuth(api.getUserURL(), this.currentUserValue.user.id.toString())
-      .pipe(first(), retry(1)).subscribe(response => {
-        const user = response.channel;
-        localStorage.setItem('X-Auth-User', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-      });
   }
 
   POSTForLogout() {

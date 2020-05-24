@@ -10,6 +10,7 @@ import {HttpEventType} from '@angular/common/http';
 import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
 import {NotificationService} from '../../../../services/notification.service';
+import {Video} from '../../../../models/video';
 
 const api = new API();
 
@@ -35,6 +36,7 @@ export class VideoFormStepperComponent implements OnInit {
   showPoster: boolean;
   progressUpload: number = 0;
   randomNumber: number = 1;
+  canReset: boolean;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
@@ -43,6 +45,7 @@ export class VideoFormStepperComponent implements OnInit {
               private notificationService: NotificationService) {
     this.showVideoPlayer = false;
     this.showPoster = false;
+    this.canReset = true;
     this.info = this._formBuilder.group({
       title: ['', [Validators.required]],
       description: ['', Validators.required],
@@ -133,6 +136,7 @@ export class VideoFormStepperComponent implements OnInit {
   }
 
   sendData() {
+    this.canReset = false;
     const info = this.info.value;
     const video = this.video_src.value;
     this.formData.append('title', info.title);
@@ -147,8 +151,16 @@ export class VideoFormStepperComponent implements OnInit {
         if (events.type === HttpEventType.UploadProgress) {
           this.progressUpload = Math.round(events.loaded / events.total * 100);
         }
-        if (events.type === HttpEventType.Response)
-          setTimeout(() => this.router.navigate(['/video/view', events.body.video.id]).then(), 750);
+        if (events.type === HttpEventType.Response) {
+          const newVideo: Video = events.body.video;
+          this.videoService.UpdateCurrentVideoValue(newVideo);
+          this.videoService.UpdateCurrentVideoPlayerValue({
+            id: newVideo.id,
+            poster: api.URL_STORAGE + newVideo.poster.path,
+            video: api.URL_STORAGE + newVideo.video.path
+          });
+          setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 350);
+        }
       });
   }
 

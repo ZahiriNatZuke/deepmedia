@@ -148,9 +148,9 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   }
 
   sendData() {
+    this.formData.append('_method', 'PATCH');
     if (!this.info.pristine) {
       const info = this.info.value;
-      this.formData.append('_method', 'PATCH');
       this.formData.append('title', info.title);
       this.formData.append('description', info.description);
       this.formData.append('state', info.state);
@@ -169,8 +169,16 @@ export class VideoFormStepperUpdateComponent implements OnInit {
           if (events.type === HttpEventType.UploadProgress) {
             this.progressUpload = Math.round(events.loaded / events.total * 100);
           }
-          if (events.type === HttpEventType.Response)
-            setTimeout(() => this.router.navigate(['/video/view', events.body.video.id]).then(), 750);
+          if (events.type === HttpEventType.Response) {
+            const video: Video = events.body.video;
+            this.videoService.UpdateCurrentVideoValue(video);
+            this.videoService.UpdateCurrentVideoPlayerValue({
+              id: video.id,
+              poster: api.URL_STORAGE + video.poster.path,
+              video: api.URL_STORAGE + video.video.path
+            });
+            setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 750);
+          }
         });
     else
       this.notificationService.showNotification('Video Info', 'Por Favor Modifique Algún Campo', 'warning');

@@ -4,6 +4,8 @@ import {AuthenticationService} from '../../../../../services/authentication.serv
 import {Channel} from '../../../../../models/channel';
 import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
+import {VideoService} from '../../../../../services/video.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile-poster-video',
@@ -18,7 +20,9 @@ export class ProfilePosterVideoComponent implements OnInit {
   User_Channel: Channel;
   URL_STORAGE: string = environment.URL_STORAGE;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private videoService: VideoService,
+              private router: Router) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
   }
 
@@ -32,4 +36,9 @@ export class ProfilePosterVideoComponent implements OnInit {
       return false;
   }
 
+  goToVideo() {
+    this.videoService.UpdateCurrentVideoValue(null);
+    this.videoService.UpdateCurrentVideoPlayerValue(null);
+    this.router.navigate(['/video/view', this.video.id]).then();
+  }
 }

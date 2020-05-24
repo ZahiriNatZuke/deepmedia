@@ -72,11 +72,12 @@ export class VideoViewComponent implements OnInit {
     this.getWidthToggle();
     this.getHeight();
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
-    this.activatedRoute.params.subscribe(params => {
-      this.videoService.currentVideo.subscribe(video => this.Video = video);
-      this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
-      this.videoService.fetchVideo(params.id);
-    });
+    this.videoService.currentVideo.subscribe(video => this.Video = video);
+    this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
+    if (!this.videoService.GetCurrentVideoValue)
+      this.activatedRoute.params.subscribe(params => {
+        this.videoService.fetchVideo(params.id);
+      });
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
       this.byViews = response.byViews;

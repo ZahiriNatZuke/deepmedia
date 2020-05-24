@@ -82,7 +82,7 @@ export class VideoService {
     const outputSize = fileSize(size, {round: 2, output: 'array'});
     if (type === 'video')
       return (outputSize[1] === 'MB' && +outputSize[0] <= 300) ? true : outputSize[1] === 'KB';
-    else if (type === 'poster')
+    else if (type === 'poster' || type === 'avatar')
       return (outputSize[1] === 'MB' && +outputSize[0] <= 10) ? true : outputSize[1] === 'KB';
   }
 
@@ -90,7 +90,7 @@ export class VideoService {
     let validMimeType = [];
     if (type === 'video')
       validMimeType = ['video/mp4', 'video/x-matroska', 'video/avi'];
-    else if (type === 'poster')
+    else if (type === 'poster' || type === 'avatar')
       validMimeType = ['image/jpeg', 'image/png', 'image/gif'];
     return validMimeType.includes(mime);
   }

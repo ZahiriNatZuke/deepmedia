@@ -4,6 +4,8 @@ import {Video} from '../../../../models/video';
 import {environment} from '../../../../../environments/environment.prod';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Channel} from '../../../../models/channel';
+import {VideoService} from '../../../../services/video.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-video-card',
@@ -20,7 +22,9 @@ export class VideoCardComponent implements OnInit {
   URL_STORAGE = environment.URL_STORAGE;
   User_Channel: Channel;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private videoService: VideoService,
+              private router: Router) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
   }
 
@@ -35,4 +39,9 @@ export class VideoCardComponent implements OnInit {
       return false;
   }
 
+  goToVideo() {
+    this.videoService.UpdateCurrentVideoValue(null);
+    this.videoService.UpdateCurrentVideoPlayerValue(null);
+    this.router.navigate(['/video/view', this.video.id]).then();
+  }
 }
