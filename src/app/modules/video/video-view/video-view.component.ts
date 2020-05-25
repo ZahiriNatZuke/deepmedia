@@ -168,4 +168,8 @@ export class VideoViewComponent implements OnInit {
     });
   }
 
+  makeView() {
+    this.crudService.POSTForMakeView(api.getMakeViewURL(), this.Video.id.toString()).subscribe();
+    this.Video.views_count++;
+  }
 }

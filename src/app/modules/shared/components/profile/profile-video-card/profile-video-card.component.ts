@@ -45,7 +45,12 @@ export class ProfileVideoCardComponent implements OnInit {
   }
 
   goToVideo() {
-    this.videoService.fetchVideo(this.Video.id.toString());
+    this.videoService.UpdateCurrentVideoValue(this.Video);
+    this.videoService.UpdateCurrentVideoPlayerValue({
+      id: this.Video.id,
+      poster: this.URL_STORAGE + this.Video.poster.path,
+      video: this.URL_STORAGE + this.Video.video.path
+    });
     this.router.navigate(['/video/view', this.Video.id]).then();
   }
 

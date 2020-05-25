@@ -7,7 +7,8 @@
     <mat-card>
       <mat-card-content>
         <app-video-player [@bounceInDown] *ngIf="videoService.GetCurrentVideoPlayerValue" [id]="'video-'+ Video.id"
-                          [idCurrentVideo]="Video.id" [widthVideo]="getToggleVideoSize() ? 640 : 720">
+                          [idCurrentVideo]="Video.id" [widthVideo]="getToggleVideoSize() ? 640 : 720"
+                          (playVideoEmitter)="makeView()">
         </app-video-player>
         <hr>
       </mat-card-content>

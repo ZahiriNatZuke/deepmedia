@@ -92,6 +92,10 @@ export class API {
     return this.URL_API + 'search/';
   }
 
+  getMakeViewURL(): string {
+    return this.URL_API + 'video/view/';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

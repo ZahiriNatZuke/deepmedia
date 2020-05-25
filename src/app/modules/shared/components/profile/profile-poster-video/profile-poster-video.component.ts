@@ -37,7 +37,12 @@ export class ProfilePosterVideoComponent implements OnInit {
   }
 
   goToVideo() {
-    this.videoService.fetchVideo(this.video.id.toString());
+    this.videoService.UpdateCurrentVideoValue(this.video);
+    this.videoService.UpdateCurrentVideoPlayerValue({
+      id: this.video.id,
+      poster: this.URL_STORAGE + this.video.poster.path,
+      video: this.URL_STORAGE + this.video.video.path
+    });
     this.router.navigate(['/video/view', this.video.id]).then();
   }
 }

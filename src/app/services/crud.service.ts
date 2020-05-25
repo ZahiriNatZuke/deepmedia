@@ -62,6 +62,11 @@ export class CrudService {
       .pipe(first(), retry(1));
   }
 
+  POSTForMakeView(URL: string, parameter: string): Observable<any> {
+    return this.httpClient.post(URL + parameter, {}, {headers: api.getHeadersWithOutAuth()})
+      .pipe(first(), retry(1));
+  }
+
   DELETEVideoOrUser(URL: string, parameter: string): Observable<any> {
     return this.httpClient.delete(URL + parameter, {headers: api.getHeadersWithAuth()})
       .pipe(first(), retry(1));

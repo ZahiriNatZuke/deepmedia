@@ -159,7 +159,7 @@ export class VideoFormStepperComponent implements OnInit {
             poster: api.URL_STORAGE + newVideo.poster.path,
             video: api.URL_STORAGE + newVideo.video.path
           });
-          setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 350);
+          setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 500);
         }
       });
   }

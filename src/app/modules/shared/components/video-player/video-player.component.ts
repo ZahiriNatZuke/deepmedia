@@ -19,11 +19,12 @@ import {VideoService} from '../../../../services/video.service';
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   videoPlayer: HTMLVideoElement;
+  video: VideoPlayer;
   @Input() widthVideo: number;
   @Input() idCurrentVideo: number;
-  video: VideoPlayer;
   @Output() videoPlayerEmitter: EventEmitter<VideoPlayerComponent>;
   @Output() durationVideoPlayerEmitter: EventEmitter<number>;
+  @Output() playVideoEmitter: EventEmitter<boolean>;
   faPlay = faPlay;
   faPause = faPause;
   faVolumeUp = faVolumeUp;
@@ -49,6 +50,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.video = videoPlayer);
     this.videoPlayerEmitter = new EventEmitter();
     this.durationVideoPlayerEmitter = new EventEmitter();
+    this.playVideoEmitter = new EventEmitter(true);
     this.poster = true;
     this.mutedVideo = false;
     this.currentVolumen = 50;
@@ -271,6 +273,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     setTimeout(() => {
       this.playPause();
       this.played = true;
+      this.playVideoEmitter.emit(true);
     }, 850);
   }
 
