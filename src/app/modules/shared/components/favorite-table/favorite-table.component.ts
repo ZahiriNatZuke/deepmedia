@@ -54,5 +54,6 @@ export class FavoriteTableComponent implements OnInit {
 
   toggleFilterForm() {
     this.filterForm.toggle(750);
+    this.dataSource.filter = '';
   }
 }

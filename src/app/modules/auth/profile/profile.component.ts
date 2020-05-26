@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
 import {Channel} from '../../../models/channel';
@@ -15,7 +15,7 @@ const api = new API();
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   step = 0;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
@@ -108,6 +108,11 @@ export class ProfileComponent implements OnInit {
     } else {
       setTimeout(() => this.showProfile(), 200);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.helpersService.UpdateChannel(null);
+    this.helpersService.UpdateStatsChannel(null);
   }
 
 }

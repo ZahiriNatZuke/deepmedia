@@ -70,6 +70,10 @@ export class HelpersService {
     this.currentChannelSubject.next(channel);
   }
 
+  UpdateStatsChannel(stats: Stats) {
+    this.currentStatsChannelSubject.next(stats);
+  }
+
   getUnknownUserAvatar() {
     return this.URL_STORAGE + '/MjWkc4qXcxodYil5bkGWLqwMHatCZ6N9Vu6j058U.png';
   }

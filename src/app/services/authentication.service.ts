@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {API} from './API';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map, retry} from 'rxjs/operators';
@@ -66,6 +66,17 @@ export class AuthenticationService {
         localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
         this.currentUserSubject.next(user);
         return user;
+      });
+  }
+
+  POSTForNewPassword(params: any) {
+    return this.httpClient.post<any>(api.getNewPasswordURl(), params, {headers: api.getHeadersWithAuth()})
+      .pipe(retry(1), first()).subscribe(() => {
+        localStorage.clear();
+        this.currentUserSubject.next(null);
+        this.notificationService.showNotification('Sesión Info',
+          'Contraseña Actualizada.\n Inicie Sesión para actualizar los Cambios', 'success');
+        this.router.navigate(['/auth/login']).then();
       });
   }
 

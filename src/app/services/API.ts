@@ -96,6 +96,10 @@ export class API {
     return this.URL_API + 'video/view/';
   }
 
+  getNewPasswordURl(): string {
+    return this.URL_API + 'user/new_password';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

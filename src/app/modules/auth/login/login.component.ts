@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faEyeSlash, faKey} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {first} from 'rxjs/operators';
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   });
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+  faKey = faKey;
   hide: boolean;
   returnURL: string;
 

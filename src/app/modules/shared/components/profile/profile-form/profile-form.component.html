@@ -39,7 +39,7 @@
     <mat-card-actions>
       <div class="d-flex mx-5">
         <button mat-raised-button color="primary" class="h-button"
-                type="button">
+                type="button" [routerLink]="['/auth/new-password']">
           <fa-icon [icon]="faLock" [classes]="['mr-2']"></fa-icon>
           {{'Cambiar Contraseña' | uppercase}}</button>
       </div>

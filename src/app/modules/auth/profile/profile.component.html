@@ -8,7 +8,8 @@
   <mat-grid-tile [colspan]="2" [rowspan]="1" id="right-side">
     <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
-      <div *ngIf="Videos && Videos.length === 0 && !byComments && !byLikes && !byViews" class="d-flex w-100 justify-content-center">
+      <div *ngIf="Videos && Videos.length === 0 && !byComments && !byLikes && !byViews"
+           class="d-flex w-100 justify-content-center">
         <h3 class="font-weight-bold align-self-center">No Tiene Videos Disponibles</h3>
       </div>
       <mat-accordion *ngIf="byComments && byLikes && byViews">
@@ -65,7 +66,7 @@
         </mat-expansion-panel>
       </mat-accordion>
       <div class="d-flex justify-content-center mt-1">
-        <button *ngIf="Videos && Videos.length > 0" mat-icon-button (click)="showAllVideos()">
+        <button *ngIf="Channel.videos && Channel.videos.length > 0" mat-icon-button (click)="showAllVideos()">
           <fa-icon matTooltip="Ver Todos los Videos" matTooltipPosition="right" class="text-muted"
                    [icon]="faAngleUp"></fa-icon>
         </button>

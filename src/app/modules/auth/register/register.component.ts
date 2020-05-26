@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faEyeSlash, faUserPlus} from '@fortawesome/free-solid-svg-icons';
 import {CrudService} from '../../../services/crud.service';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../services/notification.service';
@@ -13,6 +13,7 @@ import {NotificationService} from '../../../services/notification.service';
 export class RegisterComponent implements OnInit {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+  faUserPlus = faUserPlus;
   hideP: boolean;
   hideC: boolean;
 

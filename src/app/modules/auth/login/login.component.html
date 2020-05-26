@@ -3,7 +3,9 @@
     <div class="center">
       <mat-card class="mat-elevation-z15">
         <mat-card-title class="d-flex justify-content-center">
-          <h1 class="pl-3 f-title-form">Inicio de Sesión</h1>
+          <h1 class="pl-3 f-title-form">
+            <fa-icon [icon]="faKey" [classes]="['p-1', 'mt-1']"></fa-icon>&nbsp;|&nbsp;Inicio de Sesión
+          </h1>
         </mat-card-title>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="d-flex">

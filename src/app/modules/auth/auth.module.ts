@@ -20,6 +20,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { SecretListComponent } from './secret-list/secret-list.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    SecretListComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent,
   ],
   exports: [
     AuthRoutingModule

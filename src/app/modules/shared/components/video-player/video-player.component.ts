@@ -63,6 +63,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.onPlaceBtnPlay();
     this.volumenSlider.fadeOut(0);
     this.addEventsListen();
+    console.log(this.videoPlayer);
   }
 
   loadHTML() {
