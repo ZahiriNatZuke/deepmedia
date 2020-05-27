@@ -57,33 +57,6 @@ export class VideoFormStepperUpdateComponent implements OnInit {
       video: [''],
       duration: ['']
     });
-    // this.activatedRoute.params.subscribe(params => {
-    //   const id = params.id;
-    //   this.crudService.GETWithOutAuth(api.getVideoURL(), id).subscribe(response => {
-    //     const videoFetch: Video = response.video;
-    //     this.info = this._formBuilder.group({
-    //       title: [videoFetch.title, [Validators.required]],
-    //       description: [videoFetch.description, Validators.required],
-    //       state: [videoFetch.state, Validators.required],
-    //       category: [videoFetch.category, Validators.required],
-    //     });
-    //     this.videoService.UpdateCurrentVideoValue(videoFetch);
-    //     this.videoService.UpdateCurrentVideoPlayerValue({
-    //       id: videoFetch.id,
-    //       poster: api.URL_STORAGE + videoFetch.poster.path,
-    //       video: api.URL_STORAGE + videoFetch.video.path
-    //     });
-    //     this.videoService.currentVideo.subscribe(video => this.Video = video);
-    //     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoObj = videoPlayer);
-    //   });
-    //   this.poster = this._formBuilder.group({
-    //     poster: [''],
-    //   });
-    //   this.video_src = this._formBuilder.group({
-    //     video: [''],
-    //     duration: ['']
-    //   });
-    // });
     this.showVideoPlayer = false;
     this.showPoster = false;
   }
@@ -176,6 +149,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     }
     if (!this.video_src.pristine && this.videoFile) {
       this.formData.append('duration', this.video_src.get('duration').value);
+      this.formData.append('type', this.videoFile.type);
       this.formData.append('video', this.videoFile, this.videoFile.name);
     }
     if (!this.info.pristine || !this.poster.pristine || !this.video_src.pristine)
@@ -190,7 +164,8 @@ export class VideoFormStepperUpdateComponent implements OnInit {
             this.videoService.UpdateCurrentVideoPlayerValue({
               id: video.id,
               poster: api.URL_STORAGE + video.poster.path,
-              video: api.URL_STORAGE + video.video.path
+              video: api.URL_STORAGE + video.video.path,
+              type: video.type
             });
             setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 350);
           }

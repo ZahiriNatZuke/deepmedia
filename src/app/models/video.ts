@@ -13,6 +13,7 @@ export class Video {
   poster: Resource;
   video: Resource;
   duration: number;
+  type: string;
   views_count: number;
   created_at: string;
   updated_at: string;

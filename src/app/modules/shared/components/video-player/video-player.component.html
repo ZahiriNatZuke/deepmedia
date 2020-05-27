@@ -1,14 +1,14 @@
 <div class="container-video-player">
 
   <video id="video-player" class="video-player mat-elevation-z5" [volume]="currentVolumen / 100"
-         [height]="setHeightPoster()"
-         (ended)="endVideo()" [width]="widthVideo" (durationchange)="emitDurationVideo($event)">
-    <source [src]="video.video | saveDom" type="video/mp4">
+         [height]="setHeightPoster()" (ended)="endVideo()" [width]="widthVideo"
+         (durationchange)="emitDurationVideo($event)">
+    <source [src]="video.video | saveDom" [type]="video.type">
     Your browser do not support HTML5 video.
   </video>
 
   <div id="poster" class="poster">
-    <img [src]="video.poster | saveDom" class="img-poster" [style.height.px]="setHeightPoster()">
+    <img [src]="video.poster | saveDom" class="img-poster" [style.height.px]="setHeightPoster()" [alt]="video.poster">
     <button id="btn-play" mat-icon-button class="text-white btn-play mat-elevation-z15" (click)="hidePoster()">
       <fa-icon [icon]="faPlayCircle"></fa-icon>
     </button>

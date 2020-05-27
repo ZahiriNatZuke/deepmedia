@@ -62,7 +62,8 @@ export class VideoService {
       const videoPlayer: VideoPlayer = {
         id: video.id,
         poster: api.URL_STORAGE + video.poster.path,
-        video: api.URL_STORAGE + video.video.path
+        video: api.URL_STORAGE + video.video.path,
+        type: video.type
       };
       this.currentVideoPlayerSubject.next(videoPlayer);
     });
@@ -74,7 +75,8 @@ export class VideoService {
     this.UpdateCurrentVideoPlayerValue({
       id: playList[0].id,
       poster: api.URL_STORAGE + playList[0].poster.path,
-      video: api.URL_STORAGE + playList[0].video.path
+      video: api.URL_STORAGE + playList[0].video.path,
+      type: playList[0].type
     });
     this.UpdateCurrentVideoValue(playList[0]);
     this.UpdateCurrentPlayListValue(playList);

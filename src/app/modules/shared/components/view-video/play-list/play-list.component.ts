@@ -39,7 +39,8 @@ export class PlayListComponent implements OnInit {
     this.videoService.UpdateCurrentVideoPlayerValue({
       id: video.id,
       poster: api.URL_STORAGE + video.poster.path,
-      video: api.URL_STORAGE + video.video.path
+      video: api.URL_STORAGE + video.video.path,
+      type: video.type
     });
     this.videoService.UpdateCurrentVideoValue(video);
   }

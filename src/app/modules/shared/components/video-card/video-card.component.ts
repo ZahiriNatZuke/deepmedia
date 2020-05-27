@@ -44,7 +44,8 @@ export class VideoCardComponent implements OnInit {
     this.videoService.UpdateCurrentVideoPlayerValue({
       id: this.video.id,
       poster: this.URL_STORAGE + this.video.poster.path,
-      video: this.URL_STORAGE + this.video.video.path
+      video: this.URL_STORAGE + this.video.video.path,
+      type: this.video.type
     });
     this.router.navigate(['/video/view', this.video.id]).then();
   }

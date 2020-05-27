@@ -31,7 +31,8 @@ export class TopCarouselComponent implements OnInit, AfterViewInit {
         this.videoService.UpdateCurrentVideoPlayerValue({
             id: video.id,
             poster: this.URL_STORAGE + video.poster.path,
-            video: this.URL_STORAGE + video.video.path
+            video: this.URL_STORAGE + video.video.path,
+            type: video.type
         });
     }
 }

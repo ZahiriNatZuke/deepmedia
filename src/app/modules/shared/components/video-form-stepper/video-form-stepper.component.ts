@@ -23,7 +23,7 @@ export class VideoFormStepperComponent implements OnInit {
   info: FormGroup;
   poster: FormGroup;
   video_src: FormGroup;
-  videoObj: VideoPlayer = {id: 1, video: '', poster: ''};
+  videoObj: VideoPlayer = {id: 1, video: '', poster: '', type: ''};
   videoPlayer: VideoPlayerComponent;
   formData = new FormData();
   videoFile: File;
@@ -146,6 +146,7 @@ export class VideoFormStepperComponent implements OnInit {
     this.formData.append('poster', this.posterFile, this.posterFile.name);
     this.formData.append('video', this.videoFile, this.videoFile.name);
     this.formData.append('duration', video.duration);
+    this.formData.append('type', this.videoFile.type);
     this.crudService.POSTForStore(api.getStoreVideoURL(), 'video', this.formData)
       .subscribe((events) => {
         if (events.type === HttpEventType.UploadProgress) {
@@ -157,7 +158,8 @@ export class VideoFormStepperComponent implements OnInit {
           this.videoService.UpdateCurrentVideoPlayerValue({
             id: newVideo.id,
             poster: api.URL_STORAGE + newVideo.poster.path,
-            video: api.URL_STORAGE + newVideo.video.path
+            video: api.URL_STORAGE + newVideo.video.path,
+            type: newVideo.type
           });
           setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 500);
         }
@@ -166,7 +168,7 @@ export class VideoFormStepperComponent implements OnInit {
 
   resetForm(stepper: MatHorizontalStepper) {
     stepper.reset();
-    this.videoObj = {id: 1, poster: '', video: ''};
+    this.videoObj = {id: 1, poster: '', video: '', type: ''};
     document.getElementById('label-poster-img').innerText = 'Poster del Video';
     document.getElementById('label-video').innerText = 'Video';
     this.showVideoPlayer = false;
