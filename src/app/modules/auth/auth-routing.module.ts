@@ -8,6 +8,7 @@ import {ResetPasswordComponent} from './reset-password/reset-password.component'
 import {NewPasswordComponent} from './new-password/new-password.component';
 import {SecretListComponent} from './secret-list/secret-list.component';
 import {AuthGuard} from '../../guards/auth.guard';
+import {UnauthorizedGuard} from '../../guards/unauthorized.guard';
 
 export const AUTH_ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -16,7 +17,7 @@ export const AUTH_ROUTES: Routes = [
   {path: 'profile/:id', component: ProfileComponent},
   {path: 'new-password', component: NewPasswordComponent, canActivate: [AuthGuard]},
   {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]},
-  {path: 'secret-list', component: SecretListComponent}
+  {path: 'secret-list', component: SecretListComponent, canActivate: [UnauthorizedGuard]}
 ];
 
 @NgModule({

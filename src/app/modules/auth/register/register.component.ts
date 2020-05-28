@@ -4,6 +4,7 @@ import {faEye, faEyeSlash, faUserPlus} from '@fortawesome/free-solid-svg-icons';
 import {CrudService} from '../../../services/crud.service';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../services/notification.service';
+import {AuthenticationService} from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -28,9 +29,11 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private authenticationService: AuthenticationService) {
     this.hideC = true;
     this.hideP = true;
+    this.authenticationService.GETForTempJWT();
   }
 
   ngOnInit(): void {
@@ -53,10 +56,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.crudService.POSTForRegister(this.registerForm.value)
-      .subscribe(() => {
-        this.notificationService.showNotification('Info', 'Su Cuenta ha sido Creada', 'success');
-        this.router.navigate(['/auth/login']).then();
-      });
+    this.authenticationService.POSTForCheckNewUser(this.registerForm.value).subscribe(() => {
+      sessionStorage.setItem('X-NEW-USER', JSON.stringify(this.registerForm.value));
+      this.router.navigate(['/auth/secret-list'], {
+        skipLocationChange: true
+      }).then();
+    });
   }
 }

@@ -16,13 +16,14 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { SecretListComponent } from './secret-list/secret-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -54,7 +55,9 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     ReactiveFormsModule,
     MatInputModule,
     MatChipsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCheckboxModule,
+    FormsModule
   ]
 })
 export class AuthModule {

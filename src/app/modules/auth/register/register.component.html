@@ -53,13 +53,16 @@
                   *ngIf="checkValid('password_confirmation')">{{checkMinLength('password_confirmation')}}</mat-error>
                 <mat-error>Las Contraseñas no coinciden</mat-error>
               </mat-form-field>
-              <mat-chip-list tabIndex="-1">
-                <mat-chip selected color="primary" class="link-login" [routerLink]="['/auth/login']">
-                  <a> Ya tengo cuenta. </a>
-                </mat-chip>
-              </mat-chip-list>
-              <button [disabled]="registerForm.invalid" mat-raised-button color="primary" type="submit"
-                      class="btn-register">{{'Registrar' | uppercase}}</button>
+              <div class="d-flex justify-content-around mt-5">
+                <mat-chip-list tabIndex="-1">
+                  <mat-chip selected color="primary" class="link-login" [routerLink]="['/auth/login']">
+                    <a> Ya tengo cuenta. </a>
+                  </mat-chip>
+                </mat-chip-list>
+                <button [disabled]="registerForm.invalid" mat-raised-button color="primary" type="submit"
+                        class="btn-next">{{'Siguiente' | uppercase}}
+                </button>
+              </div>
             </div>
           </div>
         </form>

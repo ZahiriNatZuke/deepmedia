@@ -24,7 +24,7 @@ export class CrudService {
   }
 
   GETForMyFavorites(): Observable<any> {
-    return this.httpClient.get(api.getMyfavoritesURL(), {headers: api.getHeadersWithAuth()})
+    return this.httpClient.get(api.getMajoritiesURL(), {headers: api.getHeadersWithAuth()})
       .pipe(first(), retry(1));
   }
 

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {API} from './API';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map, retry} from 'rxjs/operators';
@@ -78,6 +78,36 @@ export class AuthenticationService {
           'Contraseña Actualizada.\n Inicie Sesión para actualizar los Cambios', 'success');
         this.router.navigate(['/auth/login']).then();
       });
+  }
+
+  POSTForCheckNewUser(params: any) {
+    return this.httpClient.post<any>(api.getCheckNewUserURL(), params, {headers: api.getHeadersWithOutAuth()})
+      .pipe(retry(1), first());
+  }
+
+  GETForTempJWT() {
+    return this.httpClient.get<any>(api.getTempJWTURl(), {headers: api.getHeadersWithOutAuth()})
+      .pipe(retry(1), first()).subscribe(response => {
+        sessionStorage.setItem('X-TEMP-JWT', response['X-TEMP-JWT']);
+      });
+  }
+
+  GETForSecretList() {
+    return this.httpClient.get<any>(api.getSecretListURl(), {headers: api.getHeadersWithTempJWT()})
+      .pipe(retry(1), first());
+  }
+
+  POSTForStoreUserAndSecretList(list: []) {
+    const user = JSON.parse(sessionStorage.getItem('X-NEW-USER'));
+    this.crudService.POSTForRegister(user).subscribe(response => {
+      const id = response.user_id;
+      this.httpClient.post<any>(api.getStoreSecretListURl() + id, {secret_list: list}, {headers: api.getHeadersWithTempJWT()})
+        .pipe(retry(1), first()).subscribe(() => {
+        this.notificationService.showNotification('Info', 'Su Cuenta ha sido Creada', 'success');
+        sessionStorage.clear();
+        this.router.navigate(['/auth/login']).then();
+      });
+    });
   }
 
 }

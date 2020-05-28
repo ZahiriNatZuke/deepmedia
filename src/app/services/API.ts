@@ -68,7 +68,7 @@ export class API {
     return this.URL_API + 'favorite/';
   }
 
-  getMyfavoritesURL(): string {
+  getMajoritiesURL(): string {
     return this.URL_API + 'my_favorites';
   }
 
@@ -100,6 +100,22 @@ export class API {
     return this.URL_API + 'user/new_password';
   }
 
+  getCheckNewUserURL(): string {
+    return this.URL_API + 'user/check';
+  }
+
+  getTempJWTURl(): string {
+    return this.URL_API + 'jwt/temp_auth';
+  }
+
+  getSecretListURl(): string {
+    return this.URL_API + 'user/secret_list';
+  }
+
+  getStoreSecretListURl(): string {
+    return this.URL_API + 'record/store/secret_list/';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'
@@ -127,6 +143,13 @@ export class API {
     return new HttpHeaders({
       Accept: 'application/json',
       'X-Refresh-JWT': localStorage.getItem('X-Refresh-JWT')
+    });
+  }
+
+  getHeadersWithTempJWT(): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      'X-TEMP-JWT': sessionStorage.getItem('X-TEMP-JWT')
     });
   }
 
