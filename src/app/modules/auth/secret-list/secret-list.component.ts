@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../services/authentication.service';
-import {faList} from '@fortawesome/free-solid-svg-icons';
+import {faCopy, faList} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-secret-list',
@@ -11,6 +11,7 @@ export class SecretListComponent implements OnInit, OnDestroy {
 
   secret_list: [];
   faList = faList;
+  faCopy = faCopy;
   checked: boolean;
   show: boolean;
 
