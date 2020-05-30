@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   faKey = faKey;
   hide: boolean;
   returnURL: string;
+  errorLogin: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private notificationService: NotificationService) {
     this.hide = true;
+    this.errorLogin = false;
   }
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
       this.notificationService.showNotification('Sesión Info', 'Sesión Iniciada con Éxito', 'success');
       this.router.navigate([this.returnURL]).then();
-    });
+    }, () => this.errorLogin = true);
   }
 
 }

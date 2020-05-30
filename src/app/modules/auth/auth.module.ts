@@ -24,6 +24,7 @@ import { SecretListComponent } from './secret-list/secret-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -39,26 +40,27 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   exports: [
     AuthRoutingModule
   ],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    AuthRoutingModule,
-    SharedModule,
-    MatGridListModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatButtonModule,
-    FontAwesomeModule,
-    ScrollingModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatChipsModule,
-    MatProgressBarModule,
-    MatCheckboxModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        AuthRoutingModule,
+        SharedModule,
+        MatGridListModule,
+        MatCardModule,
+        MatExpansionModule,
+        MatButtonModule,
+        FontAwesomeModule,
+        ScrollingModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatChipsModule,
+        MatProgressBarModule,
+        MatCheckboxModule,
+        FormsModule,
+        ClipboardModule
+    ]
 })
 export class AuthModule {
 }

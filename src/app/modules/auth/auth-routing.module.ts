@@ -16,7 +16,7 @@ export const AUTH_ROUTES: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard]},
   {path: 'profile/:id', component: ProfileComponent},
   {path: 'new-password', component: NewPasswordComponent, canActivate: [AuthGuard]},
-  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]},
+  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AnonymousGuard]},
   {path: 'secret-list', component: SecretListComponent, canActivate: [UnauthorizedGuard]}
 ];
 

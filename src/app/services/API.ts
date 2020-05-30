@@ -116,6 +116,14 @@ export class API {
     return this.URL_API + 'record/store/secret_list/';
   }
 
+  getRandomNumbersURL(): string {
+    return this.URL_API + 'random_numbers';
+  }
+
+  getResetPasswordURL(): string {
+    return this.URL_API + 'user/reset_password';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

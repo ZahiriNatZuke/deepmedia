@@ -110,4 +110,13 @@ export class AuthenticationService {
     });
   }
 
+  GETForRandomNumbers(): Observable<any> {
+    return this.crudService.GETWithOutAuth(api.getRandomNumbersURL()).pipe(retry(1), first());
+  }
+
+  POSTForResetPassword(params: any): Observable<any> {
+    return this.httpClient.post<any>(api.getResetPasswordURL(), params, {headers: api.getHeadersWithOutAuth()})
+      .pipe(retry(1), first());
+  }
+
 }

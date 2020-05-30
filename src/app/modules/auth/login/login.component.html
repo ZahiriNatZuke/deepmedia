@@ -39,6 +39,9 @@
           </div>
         </form>
       </mat-card>
+      <div *ngIf="errorLogin" class="bg-white rounded mt-2 mat-elevation-z10 p-2 d-flex justify-content-center">
+        <a class="text-dark" [routerLink]="['/auth/reset-password']">¿Has olvidado tu contraseña?</a>
+      </div>
     </div>
   </div>
 </section>
