@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faComment, faEye, faThumbsUp, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faFileDownload, faThumbsUp, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
 import {Channel} from '../../../../../models/channel';
 import {ActivatedRoute} from '@angular/router';
@@ -19,7 +19,7 @@ export class ProfileCardComponent implements OnInit {
   statsChannel: Stats;
   URL_STORAGE = environment.URL_STORAGE;
   faThumbsUp = faThumbsUp;
-  faComment = faComment;
+  faFileDownload = faFileDownload;
   faEye = faEye;
   faTimes = faTimes;
   form: boolean;
@@ -66,11 +66,11 @@ export class ProfileCardComponent implements OnInit {
     const rightSide = $('#right-side');
     if (!this.form) this.AfterViewInit();
     this.form ?
-      rightSide.removeClass('mat-elevation-z10') : rightSide.addClass('mat-elevation-z10');
+        rightSide.removeClass('mat-elevation-z10') : rightSide.addClass('mat-elevation-z10');
     const buttonClose = $('#buttonClose');
     this.form ?
-      buttonClose.fadeOut(200) : (environment.allVideos ?
-      buttonClose.fadeIn(200) : buttonClose.fadeOut(0));
+        buttonClose.fadeOut(200) : (environment.allVideos ?
+        buttonClose.fadeIn(200) : buttonClose.fadeOut(0));
     $('#right-card').fadeToggle(400);
     setTimeout(() => {
       $('app-profile-form').fadeToggle(600);

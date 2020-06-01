@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   Videos: Video[];
   byViews: Video;
   byLikes: Video;
-  byComments: Video;
+  byDownload: Video;
 
   setStep(index: number) {
     this.step = index;
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .subscribe(response => {
           this.byViews = response.byViews;
           this.byLikes = response.byLikes;
-          this.byComments = response.byComments;
+          this.byDownload = response.byDownload;
         });
       this.helpersService.GETChannelById(id);
       this.helpersService.GETStatsOfChannelById(id);

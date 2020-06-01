@@ -1,15 +1,10 @@
 <div *ngIf="started" class="d-flex">
   <div class="percent-counter">
-    <span *ngIf="!saving" class="align-self-center">{{percent || 0}} %</span>
+    <span *ngIf="!saving" class="align-self-center">{{percent || 0}}&nbsp;%</span>
     <fa-icon *ngIf="saving" [classes]="['align-self-center']" [icon]="faFileDownload" size="2x"></fa-icon>
   </div>
-  <div class="d-flex flex-column flex-grow-1 ml-2">
-    <h1 *ngIf="data.title.length <= 35" class="title-video">{{data.title}}</h1>
-    <h1 class="title-video" *ngIf="data.title.length > 35">
-      <marquee behavior="scroll" width="100%" direction="left" scrolldelay="15">
-        {{data.title}}
-      </marquee>
-    </h1>
+  <div class="d-flex flex-column flex-grow-1 ml-2 p-2">
+    <h1 class="title-video">{{data.title}}</h1>
     <div class="w-100">
       <div class="d-flex pl-1 text-lightblue">
         <span>{{currentLoad || 0 | size}}</span>

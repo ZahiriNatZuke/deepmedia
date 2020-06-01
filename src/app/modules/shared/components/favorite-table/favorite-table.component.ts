@@ -1,7 +1,15 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {faComment, faEye, faFilter, faGamepad, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {
+  faComment,
+  faEye,
+  faFileDownload,
+  faFilter,
+  faGamepad,
+  faStar,
+  faThumbsUp
+} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../models/video';
 import {CrudService} from '../../../../services/crud.service';
 
@@ -30,15 +38,16 @@ export class FavoriteTableComponent implements OnInit {
   faEye = faEye;
   faComment = faComment;
   faFilter = faFilter;
+  faFileDownload = faFileDownload;
   show: boolean;
 
   constructor(private crudService: CrudService) {
     this.crudService.GETForMyFavorites()
-      .subscribe(response => {
-        this.Videos = response.videos;
-        this.dataSource = new MatTableDataSource<Video>(this.Videos);
-        this.loadEnd.emit(true);
-      });
+        .subscribe(response => {
+          this.Videos = response.videos;
+          this.dataSource = new MatTableDataSource<Video>(this.Videos);
+          this.loadEnd.emit(true);
+        });
     this.show = false;
   }
 

@@ -2,15 +2,19 @@
   border: solid 1px lightblue;
   color: lightblue;
   border-radius: 100%;
-  padding: 10px 12px;
+  padding: 14px 12px;
   display: flex;
   justify-content: center;
   align-content: center;
+  width: 64px;
+  font-size: 20px;
 }
 
 .title-video {
   font: 200 16px/20px Roboto, "Helvetica Neue", sans-serif;
   color: lightblue;
+  height: 20px;
+  overflow: hidden;
 }
 
 fa-icon {

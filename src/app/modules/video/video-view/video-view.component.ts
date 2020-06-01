@@ -60,7 +60,7 @@ export class VideoViewComponent implements OnInit {
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
-              public videoService: VideoService,
+              private videoService: VideoService,
               private snackBar: MatSnackBar) {
     this.showDateTime = false;
     this.showInfo = false;
@@ -171,11 +171,12 @@ export class VideoViewComponent implements OnInit {
   }
 
   downloadVideo() {
+    this.Video.downloads_count++;
     this.snackDownload = this.snackBar.openFromComponent(DownloadDialogComponent, {
       duration: -1,
       horizontalPosition: 'left',
       verticalPosition: 'bottom',
-      data: {title: this.Video.title, id: this.Video.id.toString(), snack: this}
+      data: {title: this.Video.title, id: this.Video.id.toString(), from: this}
     });
   }
 }

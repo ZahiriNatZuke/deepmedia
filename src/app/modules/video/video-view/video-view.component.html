@@ -6,7 +6,7 @@
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-content>
-        <app-video-player *ngIf="videoService.GetCurrentVideoPlayerValue" [id]="'video-'+ Video.id"
+        <app-video-player *ngIf="videoPlayer && videoPlayer.video" [id]="'video-'+ Video.id"
                           [idCurrentVideo]="Video.id" [widthVideo]="getToggleVideoSize() ? 640 : 720"
                           (playVideoEmitter)="makeView()">
         </app-video-player>
@@ -55,7 +55,7 @@
         </div>
         <div class="icon-line d-flex">
           <span
-            class="align-self-center font-weight-bold text-muted select-none">
+                  class="align-self-center font-weight-bold text-muted select-none">
             {{Video.views_count | statsFilter | number:'.0-2'}}
             {{Video.views_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
@@ -64,7 +64,7 @@
         </div>
         <div class="icon-line d-flex">
           <span
-            class="align-self-center font-weight-bold text-muted select-none">
+                  class="align-self-center font-weight-bold text-muted select-none">
             {{Video.likes_count | statsFilter | number:'.0-2'}}
             {{Video.likes_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
@@ -73,15 +73,17 @@
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span
-            class="align-self-center font-weight-bold text-muted select-none">
+          <span class="align-self-center font-weight-bold text-muted select-none">
             {{Video.comments_count | statsFilter | number:'.0-2'}}
             {{Video.comments_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
             <fa-icon [icon]="faComment"></fa-icon>
           </button>
         </div>
-        <div class="icon-line mr-1">
+        <div class="icon-line d-flex mr-1">
+          <span class="align-self-center font-weight-bold text-muted select-none">
+            {{Video.downloads_count | statsFilter | number:'.0-2'}}
+            {{Video.downloads_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" (click)="downloadVideo()">
             <fa-icon [icon]="faDownload"></fa-icon>
           </button>

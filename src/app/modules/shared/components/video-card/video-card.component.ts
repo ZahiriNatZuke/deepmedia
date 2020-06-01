@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faComment, faEye, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faFileDownload, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../models/video';
 import {environment} from '../../../../../environments/environment.prod';
 import {AuthenticationService} from '../../../../services/authentication.service';
@@ -13,14 +13,15 @@ import {Router} from '@angular/router';
   styleUrls: ['./video-card.component.scss']
 })
 export class VideoCardComponent implements OnInit {
+  @Input() video: Video;
+  User_Channel: Channel;
+  URL_STORAGE = environment.URL_STORAGE;
   faThumbsUp = faThumbsUp;
   faComment = faComment;
   faEye = faEye;
   faPlayCircle = faPlayCircle;
   faStar = faStar;
-  @Input() video: Video;
-  URL_STORAGE = environment.URL_STORAGE;
-  User_Channel: Channel;
+  faFileDownload = faFileDownload;
 
   constructor(private authenticationService: AuthenticationService,
               private videoService: VideoService,

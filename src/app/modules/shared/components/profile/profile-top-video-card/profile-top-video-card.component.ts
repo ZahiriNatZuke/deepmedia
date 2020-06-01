@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faComment, faEye, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faFileDownload, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../../models/video';
 
 @Component({
@@ -12,6 +12,7 @@ export class ProfileTopVideoCardComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faEye = faEye;
   faComment = faComment;
+  faFileDownload = faFileDownload;
   rowHeight: number;
   heightPoster: number;
 

@@ -9,6 +9,7 @@ import {
   faUserGraduate
 } from '@fortawesome/free-solid-svg-icons';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-category-chip',
@@ -28,7 +29,7 @@ export class CategoryChipComponent implements OnInit {
   faUserGraduate = faUserGraduate;
   faHashtag = faHashtag;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -57,4 +58,7 @@ export class CategoryChipComponent implements OnInit {
     }
   }
 
+  goToCategory() {
+    this.router.navigate(['/video/list', this.Category.toLowerCase()]).then();
+  }
 }

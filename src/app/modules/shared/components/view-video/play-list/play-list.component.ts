@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {faComment, faEye, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faFileDownload, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
 import {AuthenticationService} from '../../../../../services/authentication.service';
@@ -27,6 +27,7 @@ export class PlayListComponent implements OnInit {
   faComment = faComment;
   faEye = faEye;
   faStar = faStar;
+  faFileDownload = faFileDownload;
   loading: boolean;
 
   drop(event: CdkDragDrop<Video[]>) {

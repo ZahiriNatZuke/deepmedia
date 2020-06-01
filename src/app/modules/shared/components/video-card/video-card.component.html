@@ -24,6 +24,9 @@
       <span>{{video.views_count | statsFilter | number:'.0-2'}}
         {{video.views_count > 1000 ? ' k' : ''}}
         <fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
+      <span>{{video.downloads_count | statsFilter | number:'.0-2'}}
+        {{video.downloads_count > 1000 ? ' k' : ''}}
+        <fa-icon [icon]="faFileDownload" class="px-2"></fa-icon></span>
     </div>
   </div>
   <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>

@@ -28,8 +28,9 @@
                   (valueChange)="changeVolumen(volumenControl.value)" (mouseleave)="unsetVolumenSlider()">
       </mat-slider>
       <button mat-button class="volumen-btn" id="volumen-btn" (click)="toggleMutedVideo()">
-        <fa-icon
-          [icon]="mutedVideo? faVolumeMute : currentVolumen === 0 ? faVolumeOff : currentVolumen <= 50 ? faVolumeDown : faVolumeUp"></fa-icon>
+        <fa-icon [icon]="mutedVideo? faVolumeMute : currentVolumen === 0 ?
+                faVolumeOff : currentVolumen <= 50 ? faVolumeDown : faVolumeUp">
+        </fa-icon>
       </button>
     </div>
 

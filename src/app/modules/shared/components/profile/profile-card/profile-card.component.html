@@ -31,8 +31,8 @@
                                [statsDetail]="statsChannel.advanced_stats.views"></app-profile-list-info>
       </mat-list-item>
       <mat-list-item>
-        <app-profile-list-info statsName="Comentarios" [icon]="faComment" class="w-100"
-                               [statsDetail]="statsChannel.advanced_stats.comments"></app-profile-list-info>
+        <app-profile-list-info statsName="Descargas" [icon]="faFileDownload" class="w-100"
+                               [statsDetail]="statsChannel.advanced_stats.downloads"></app-profile-list-info>
       </mat-list-item>
     </mat-list>
     <div class="d-flex justify-content-between mx-4" *ngIf="moreStats && statsChannel">
@@ -52,10 +52,10 @@
       </div>
       <div class="counter-stats d-flex flex-column justify-content-center">
         <div class="align-self-center mb-2 color-icon">
-          <fa-icon size="2x" [icon]="faComment"></fa-icon>
+          <fa-icon size="2x" [icon]="faFileDownload"></fa-icon>
         </div>
-        <h3 class="counter">{{statsChannel.stats.comments | statsFilter | number:'.0-2'}}
-          {{statsChannel.stats.comments > 1000 ? ' k' : ''}}</h3>
+        <h3 class="counter">{{statsChannel.stats.downloads | statsFilter | number:'.0-2'}}
+          {{statsChannel.stats.downloads > 1000 ? ' k' : ''}}</h3>
       </div>
     </div>
     <div class="d-flex flex-column justify-content-center mx-4 mt-2" *ngIf="moreStats">

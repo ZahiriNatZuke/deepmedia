@@ -41,12 +41,11 @@ export class DownloadDialogComponent implements OnInit {
 
         case HttpEventType.Response:
           this.saving = true;
-          console.log(blob);
           const link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob.body);
           link.download = data.title;
           link.click();
-          setTimeout(() => data.snack.snackDownload.dismiss(), 3000);
+          setTimeout(() => data.from.snackDownload.dismiss(), 3000);
           break;
 
         default:

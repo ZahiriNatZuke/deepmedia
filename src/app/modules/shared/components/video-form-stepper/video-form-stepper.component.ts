@@ -150,26 +150,21 @@ export class VideoFormStepperComponent implements OnInit {
     this.formData.append('duration', video.duration);
     this.formData.append('type', this.videoFile.type);
     this.crudService.POSTForStore(api.getStoreVideoURL(), 'video', this.formData)
-      .subscribe((events) => {
-        if (events.type === HttpEventType.UploadProgress) {
-          this.progressUpload = Math.round(events.loaded / events.total * 100);
-          if (this.progressUpload === 100) {
-            this.mode = 'indeterminate';
-            this.notificationService.showNotification('Info Video', 'Redirección hacia el video', 'success');
+        .subscribe((events) => {
+          if (events.type === HttpEventType.UploadProgress) {
+            this.progressUpload = Math.round(events.loaded / events.total * 100);
+            if (this.progressUpload === 100) {
+              this.mode = 'indeterminate';
+              this.notificationService.showNotification('Info Video', 'Redirección hacia el video', 'success');
+            }
           }
-        }
-        if (events.type === HttpEventType.Response) {
-          const newVideo: Video = events.body.video;
-          this.videoService.UpdateCurrentVideoValue(newVideo);
-          this.videoService.UpdateCurrentVideoPlayerValue({
-            id: newVideo.id,
-            poster: api.URL_STORAGE + newVideo.poster.path,
-            video: api.URL_STORAGE + newVideo.video.path,
-            type: newVideo.type
-          });
-          setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 1000);
-        }
-      });
+          if (events.type === HttpEventType.Response) {
+            const newVideo: Video = events.body.video;
+            this.videoService.UpdateCurrentVideoValue(null);
+            this.videoService.UpdateCurrentVideoPlayerValue(null);
+            setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 1000);
+          }
+        });
   }
 
   resetForm(stepper: MatHorizontalStepper) {

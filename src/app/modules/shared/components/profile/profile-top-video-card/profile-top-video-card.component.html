@@ -25,6 +25,11 @@
           <span class="mr-1">{{video.comments_count | statsFilter | number:'.0-2'}}
             {{video.comments_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
+        <mat-chip color="primary" class="w-auto p-1" selected>
+          <fa-icon class="mx-2" [icon]="faFileDownload"></fa-icon>
+          <span class="mr-1">{{video.downloads_count | statsFilter | number:'.0-2'}}
+            {{video.downloads_count > 1000 ? ' k' : ''}}</span>
+        </mat-chip>
       </mat-chip-list>
     </div>
   </mat-grid-tile>

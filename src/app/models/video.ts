@@ -15,6 +15,7 @@ export class Video {
   duration: number;
   type: string;
   views_count: number;
+  downloads_count: number;
   created_at: string;
   updated_at: string;
   comments_count: number;
