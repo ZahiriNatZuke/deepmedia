@@ -11,6 +11,7 @@ import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
 import {NotificationService} from '../../../../services/notification.service';
 import {Video} from '../../../../models/video';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 const api = new API();
 
@@ -28,6 +29,7 @@ export class VideoFormStepperComponent implements OnInit {
   formData = new FormData();
   videoFile: File;
   posterFile: File;
+  mode: ProgressSpinnerMode = 'determinate';
   faSave = faSave;
   faTrash = faTrash;
   faAngleRight = faAngleRight;
@@ -151,6 +153,10 @@ export class VideoFormStepperComponent implements OnInit {
       .subscribe((events) => {
         if (events.type === HttpEventType.UploadProgress) {
           this.progressUpload = Math.round(events.loaded / events.total * 100);
+          if (this.progressUpload === 100) {
+            this.mode = 'indeterminate';
+            this.notificationService.showNotification('Info Video', 'Redirección hacia el video', 'success');
+          }
         }
         if (events.type === HttpEventType.Response) {
           const newVideo: Video = events.body.video;
@@ -161,7 +167,7 @@ export class VideoFormStepperComponent implements OnInit {
             video: api.URL_STORAGE + newVideo.video.path,
             type: newVideo.type
           });
-          setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 500);
+          setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 1000);
         }
       });
   }

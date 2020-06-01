@@ -85,7 +85,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     });
     window.addEventListener('keydown', (event) => {
       const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if (events.includes(event.code) || event.code === 'Scape')
+      if ((events.includes(event.code) || event.code === 'Scape') && event.target === document.body)
         event.preventDefault();
       this.events(event);
     });

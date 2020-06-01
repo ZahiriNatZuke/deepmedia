@@ -19,25 +19,21 @@ import {ActivatedRoute} from '@angular/router';
 import {Video} from '../../../models/video';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Channel} from '../../../models/channel';
-import {bounceInDown} from 'ng-animate';
-import {transition, trigger, useAnimation} from '@angular/animations';
 import {VideoService} from '../../../services/video.service';
+import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import {DownloadDialogComponent} from '../../shared/dialogs/download-dialog/download-dialog.component';
 
 const api = new API();
 
 @Component({
   selector: 'app-video-view',
   templateUrl: './video-view.component.html',
-  styleUrls: ['./video-view.component.scss'],
-  animations: [
-    trigger('bounceInDown', [transition('* => *', useAnimation(bounceInDown))])
-  ]
+  styleUrls: ['./video-view.component.scss']
 })
 export class VideoViewComponent implements OnInit {
   User_Channel: Channel;
   Video: Video;
   videoPlayer: VideoPlayer = null;
-  progressBar: JQuery<HTMLElement>;
   viewTop: JQuery<HTMLElement>;
   byViews: Video[];
   byLikes: Video[];
@@ -59,11 +55,13 @@ export class VideoViewComponent implements OnInit {
   carouselWidthToggle: number;
   showVideoView: boolean;
   tabGroupFocus: boolean;
+  snackDownload: MatSnackBarRef<DownloadDialogComponent>;
 
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
-              public videoService: VideoService) {
+              public videoService: VideoService,
+              private snackBar: MatSnackBar) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
@@ -98,7 +96,6 @@ export class VideoViewComponent implements OnInit {
 
   loadHTML() {
     this.viewTop = $('#viewTop');
-    this.progressBar = $('mat-progress-bar');
   }
 
   getHeight() {
@@ -171,5 +168,14 @@ export class VideoViewComponent implements OnInit {
   makeView() {
     this.crudService.POSTForMakeView(api.getMakeViewURL(), this.Video.id.toString()).subscribe();
     this.Video.views_count++;
+  }
+
+  downloadVideo() {
+    this.snackDownload = this.snackBar.openFromComponent(DownloadDialogComponent, {
+      duration: -1,
+      horizontalPosition: 'left',
+      verticalPosition: 'bottom',
+      data: {title: this.Video.title, id: this.Video.id.toString(), snack: this}
+    });
   }
 }

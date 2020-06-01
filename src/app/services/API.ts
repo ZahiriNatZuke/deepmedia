@@ -124,6 +124,10 @@ export class API {
     return this.URL_API + 'user/reset_password';
   }
 
+  getDownloadVideoURL(id: string): string {
+    return this.URL_API + `video/${id}/download`;
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

@@ -13,7 +13,7 @@ export class FavoritesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.progressBar = $('mat-progress-bar');
+    this.progressBar = $('.progress-bar-znz mat-progress-bar');
     this.favoriteTable = $('app-favorite-table');
     this.favoriteTable.hide(0);
   }

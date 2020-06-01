@@ -10,6 +10,7 @@ import {faAngleLeft, faAngleRight, faSave} from '@fortawesome/free-solid-svg-ico
 import {API} from 'src/app/services/API';
 import {Video} from 'src/app/models/video';
 import {NotificationService} from '../../../../services/notification.service';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 const api = new API();
 
@@ -28,6 +29,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   formData = new FormData();
   videoFile: File;
   posterFile: File;
+  mode: ProgressSpinnerMode = 'determinate';
   faSave = faSave;
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
@@ -44,19 +46,48 @@ export class VideoFormStepperUpdateComponent implements OnInit {
               private notificationService: NotificationService) {
     this.videoService.currentVideo.subscribe(video => this.Video = video);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoObj = videoPlayer);
-    this.info = this._formBuilder.group({
-      title: [this.Video.title, [Validators.required]],
-      description: [this.Video.description, Validators.required],
-      state: [this.Video.state, Validators.required],
-      category: [this.Video.category, Validators.required],
-    });
-    this.poster = this._formBuilder.group({
-      poster: [''],
-    });
-    this.video_src = this._formBuilder.group({
-      video: [''],
-      duration: ['']
-    });
+    if (this.Video === null || this.Video === undefined) {
+      this.activatedRoute.params.subscribe(params => {
+        const id = params.id;
+        this.crudService.GETWithOutAuth(api.getVideoURL(), id).subscribe(response => {
+          const videoFetch: Video = response.video;
+          this.info = this._formBuilder.group({
+            title: [videoFetch.title, [Validators.required]],
+            description: [videoFetch.description, Validators.required],
+            state: [videoFetch.state, Validators.required],
+            category: [videoFetch.category, Validators.required],
+          });
+          this.videoService.UpdateCurrentVideoValue(videoFetch);
+          this.videoService.UpdateCurrentVideoPlayerValue({
+            id: videoFetch.id,
+            poster: api.URL_STORAGE + videoFetch.poster.path,
+            video: api.URL_STORAGE + videoFetch.video.path,
+            type: videoFetch.type
+          });
+        });
+        this.poster = this._formBuilder.group({
+          poster: [''],
+        });
+        this.video_src = this._formBuilder.group({
+          video: [''],
+          duration: ['']
+        });
+      });
+    } else {
+      this.info = this._formBuilder.group({
+        title: [this.Video.title, [Validators.required]],
+        description: [this.Video.description, Validators.required],
+        state: [this.Video.state, Validators.required],
+        category: [this.Video.category, Validators.required],
+      });
+      this.poster = this._formBuilder.group({
+        poster: [''],
+      });
+      this.video_src = this._formBuilder.group({
+        video: [''],
+        duration: ['']
+      });
+    }
     this.showVideoPlayer = false;
     this.showPoster = false;
   }
@@ -154,22 +185,21 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     }
     if (!this.info.pristine || !this.poster.pristine || !this.video_src.pristine)
       this.crudService.POSTForUpdate(api.getVideoURL(), 'video', this.formData, this.Video.id.toString())
-        .subscribe((events) => {
-          if (events.type === HttpEventType.UploadProgress) {
-            this.progressUpload = Math.round(events.loaded / events.total * 100);
-          }
-          if (events.type === HttpEventType.Response) {
-            const video: Video = events.body.video;
-            this.videoService.UpdateCurrentVideoValue(video);
-            this.videoService.UpdateCurrentVideoPlayerValue({
-              id: video.id,
-              poster: api.URL_STORAGE + video.poster.path,
-              video: api.URL_STORAGE + video.video.path,
-              type: video.type
-            });
-            setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 350);
-          }
-        });
+          .subscribe((events) => {
+            if (events.type === HttpEventType.UploadProgress) {
+              this.progressUpload = Math.round(events.loaded / events.total * 100);
+              if (this.progressUpload === 100) {
+                this.mode = 'indeterminate';
+                this.notificationService.showNotification('Info Video', 'Redirección hacia el video', 'success');
+              }
+            }
+            if (events.type === HttpEventType.Response) {
+              const video: Video = events.body.video;
+              this.videoService.UpdateCurrentVideoValue(null);
+              this.videoService.UpdateCurrentVideoPlayerValue(null);
+              setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 2350);
+            }
+          });
     else
       this.notificationService.showNotification('Video Info', 'Por Favor Modifique Algún Campo', 'warning');
   }

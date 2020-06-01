@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.Profile = $('mat-grid-list:first');
     this.Profile.hide(0);
-    this.progressBar = $('mat-progress-bar');
+    this.progressBar = $('.progress-bar-znz mat-progress-bar');
     this.toggleForm = $('#toggleForm');
     $('app-profile-form').fadeToggle(0);
     $('#all-videos').fadeToggle(0);

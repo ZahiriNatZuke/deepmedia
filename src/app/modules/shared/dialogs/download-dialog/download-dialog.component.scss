@@ -1,0 +1,34 @@
+.percent-counter {
+  border: solid 1px lightblue;
+  color: lightblue;
+  border-radius: 100%;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.title-video {
+  font: 200 16px/20px Roboto, "Helvetica Neue", sans-serif;
+  color: lightblue;
+}
+
+fa-icon {
+  animation: buttonDownload 2s ease-in-out infinite;
+}
+
+@keyframes buttonDownload {
+  from {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.text-lightblue {
+  color: lightblue;
+}

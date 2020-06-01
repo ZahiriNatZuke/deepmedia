@@ -1,4 +1,4 @@
-<div *ngIf="!Video" [id]="'progressBar'" class="d-flex justify-content-center">
+<div *ngIf="!Video" class="d-flex justify-content-center">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <mat-horizontal-stepper (selectionChange)="pauseVideo()" *ngIf="Video" [linear]="false"
@@ -134,7 +134,7 @@
           <div class="d-flex mt-3">
             <div class="col d-flex justify-content-center flex-column">
               <div class="d-flex justify-content-center">
-                <mat-progress-spinner [value]="progressUpload" mode="determinate"
+                <mat-progress-spinner [value]="progressUpload" [mode]="mode"
                                       [strokeWidth]="6" class="position-absolute">
                 </mat-progress-spinner>
                 <button mat-button type="button" (click)="sendData()" [style.marginTop.px]="26">

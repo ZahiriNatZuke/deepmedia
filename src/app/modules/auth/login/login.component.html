@@ -1,7 +1,7 @@
 <section>
   <div class="main">
     <div class="center">
-      <mat-card class="mat-elevation-z15">
+      <mat-card [class.mat-elevation-z15]="!errorLogin" [class.mat-elevation-z5]="errorLogin">
         <mat-card-title class="d-flex justify-content-center">
           <h1 class="pl-3 f-title-form">
             <fa-icon [icon]="faKey" [classes]="['p-1', 'mt-1']"></fa-icon>&nbsp;|&nbsp;Inicio de Sesión
@@ -39,7 +39,7 @@
           </div>
         </form>
       </mat-card>
-      <div *ngIf="errorLogin" class="bg-white rounded mt-2 mat-elevation-z10 p-2 d-flex justify-content-center">
+      <div *ngIf="errorLogin" class="bg-white rounded mt-2 mat-elevation-z5 p-2 d-flex justify-content-center">
         <a class="text-dark" [routerLink]="['/auth/reset-password']">¿Has olvidado tu contraseña?</a>
       </div>
     </div>

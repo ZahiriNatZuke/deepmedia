@@ -1,4 +1,4 @@
-<div *ngIf="!Video" [id]="'progressBar'" class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/xhtml">
+<div *ngIf="!Video" class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/xhtml">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div *ngIf="!showVideoView"><br></div>
@@ -6,7 +6,7 @@
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-content>
-        <app-video-player [@bounceInDown] *ngIf="videoService.GetCurrentVideoPlayerValue" [id]="'video-'+ Video.id"
+        <app-video-player *ngIf="videoService.GetCurrentVideoPlayerValue" [id]="'video-'+ Video.id"
                           [idCurrentVideo]="Video.id" [widthVideo]="getToggleVideoSize() ? 640 : 720"
                           (playVideoEmitter)="makeView()">
         </app-video-player>
@@ -82,9 +82,9 @@
           </button>
         </div>
         <div class="icon-line mr-1">
-          <a mat-button color="primary" [href]="videoPlayer.video | saveDom" [download]="Video.title" target="_blank">
+          <button mat-button color="primary" (click)="downloadVideo()">
             <fa-icon [icon]="faDownload"></fa-icon>
-          </a>
+          </button>
         </div>
       </mat-card-actions>
     </mat-card>

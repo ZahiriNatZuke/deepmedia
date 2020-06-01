@@ -103,6 +103,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       paddingLeft: '5px',
       transition: 'all .5s'
     });
+    if (this.toggleCategories) {
+      this.dropdownSidebarCategories.slideUp(0);
+      this.toggleCategories = !this.toggleCategories;
+    }
+    if (this.toggleOptions) {
+      this.dropdownSidebarOptions.slideUp(0);
+      this.toggleOptions = !this.toggleOptions;
+    }
   }
 
   toLeft() {

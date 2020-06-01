@@ -53,6 +53,8 @@ import {FullDatePipe} from './pipes/full-date.pipe';
 import {CategoryChipComponent} from './components/category-chip/category-chip.component';
 import {CategoryTranslatePipe} from './pipes/category-translate.pipe';
 import {StatsFilterPipe} from './pipes/stats-filter.pipe';
+import {DownloadDialogComponent} from './dialogs/download-dialog/download-dialog.component';
+import { SizePipe } from './pipes/size.pipe';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import {StatsFilterPipe} from './pipes/stats-filter.pipe';
     FullDatePipe,
     CategoryChipComponent,
     CategoryTranslatePipe,
-    StatsFilterPipe
+    StatsFilterPipe,
+    DownloadDialogComponent,
+    SizePipe
   ],
   exports: [
     WelcomeComponent,

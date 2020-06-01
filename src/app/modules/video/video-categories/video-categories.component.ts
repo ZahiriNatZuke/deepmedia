@@ -16,7 +16,7 @@ export class VideoCategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.progressBar = $('mat-progress-bar');
+    this.progressBar = $('.progress-bar-znz mat-progress-bar');
     this.cardColumn = $('.card-columns');
     this.cardColumn.hide(0);
     this.helpersService.GETCountVideoByCategories()

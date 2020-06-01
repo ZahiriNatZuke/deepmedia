@@ -20,9 +20,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { SecretListComponent } from './secret-list/secret-list.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { NewPasswordComponent } from './new-password/new-password.component';
+import {SecretListComponent} from './secret-list/secret-list.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {NewPasswordComponent} from './new-password/new-password.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
@@ -40,27 +40,27 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
   exports: [
     AuthRoutingModule
   ],
-    imports: [
-        CommonModule,
-        AppRoutingModule,
-        AuthRoutingModule,
-        SharedModule,
-        MatGridListModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatButtonModule,
-        FontAwesomeModule,
-        ScrollingModule,
-        MatTooltipModule,
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatChipsModule,
-        MatProgressBarModule,
-        MatCheckboxModule,
-        FormsModule,
-        ClipboardModule
-    ]
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    AuthRoutingModule,
+    SharedModule,
+    MatGridListModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatButtonModule,
+    FontAwesomeModule,
+    ScrollingModule,
+    MatTooltipModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatChipsModule,
+    MatProgressBarModule,
+    MatCheckboxModule,
+    FormsModule,
+    ClipboardModule
+  ]
 })
 export class AuthModule {
 }
