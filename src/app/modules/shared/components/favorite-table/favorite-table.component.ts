@@ -1,17 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {
-  faComment,
-  faEye,
-  faFileDownload,
-  faFilter,
-  faGamepad,
-  faStar,
-  faThumbsUp
-} from '@fortawesome/free-solid-svg-icons';
+import {faComment, faEye, faFileDownload, faFilter, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../models/video';
 import {CrudService} from '../../../../services/crud.service';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-favorite-table',
@@ -33,7 +26,6 @@ export class FavoriteTableComponent implements OnInit {
   columnsToDisplay = ['category', 'title', 'username', 'created_at'];
   expandedElement: Video | null;
   faStar = faStar;
-  faGamepad = faGamepad;
   faThumbsUp = faThumbsUp;
   faEye = faEye;
   faComment = faComment;
@@ -41,10 +33,12 @@ export class FavoriteTableComponent implements OnInit {
   faFileDownload = faFileDownload;
   show: boolean;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private notificationService: NotificationService) {
     this.crudService.GETForMyFavorites()
         .subscribe(response => {
           this.Videos = response.videos;
+          if (this.Videos.length === 0)
+            this.notificationService.showNotification('Info Video', 'Usted aún no tiene videos favoritos', 'success');
           this.dataSource = new MatTableDataSource<Video>(this.Videos);
           this.loadEnd.emit(true);
         });

@@ -55,6 +55,7 @@ import {CategoryTranslatePipe} from './pipes/category-translate.pipe';
 import {StatsFilterPipe} from './pipes/stats-filter.pipe';
 import {DownloadDialogComponent} from './dialogs/download-dialog/download-dialog.component';
 import { SizePipe } from './pipes/size.pipe';
+import { ErrorsDialogComponent } from './dialogs/errors-dialog/errors-dialog.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { SizePipe } from './pipes/size.pipe';
     CategoryTranslatePipe,
     StatsFilterPipe,
     DownloadDialogComponent,
-    SizePipe
+    SizePipe,
+    ErrorsDialogComponent
   ],
   exports: [
     WelcomeComponent,

@@ -3,7 +3,10 @@
     <span class="align-self-center rounded text-black-50 p-2 font-weight-bold"
           [class]="'bg-' + data.status">{{data.from}}</span>
   </div>
-  <div class="text-white px-2 py-1 d-flex justify-content-center flex-grow-1">
-    <span class="align-self-center">{{data.message}}</span>
+  <div class="text-white d-flex justify-content-center flex-grow-1 flex-column ml-1">
+    <div class="d-flex align-self-center" *ngFor="let error of data.errors">
+      <span>●&nbsp;</span>
+      <span class=""> {{error}}</span>
+    </div>
   </div>
 </div>

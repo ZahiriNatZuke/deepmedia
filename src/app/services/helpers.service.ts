@@ -38,7 +38,7 @@ export class HelpersService {
 
   GETChannelById(id: string) {
     this.crudService.GETWithOutAuth(api.getChannelURL(), id)
-      .pipe(first(), retry(1)).subscribe(response => {
+      .pipe(first()).subscribe(response => {
       const channel = response.channel;
       this.currentChannelSubject.next(channel);
       return channel;
@@ -47,7 +47,7 @@ export class HelpersService {
 
   GETStatsOfChannelById(id: string) {
     this.crudService.GETWithOutAuth(api.getStatsChannelURL(), id)
-      .pipe(first(), retry(1)).subscribe(response => {
+      .pipe(first()).subscribe(response => {
       const stats: Stats = {
         stats: response.stats,
         advanced_stats: response.advanced_stats,
@@ -63,7 +63,7 @@ export class HelpersService {
 
   GETCountVideoByCategories() {
     return this.crudService.GETWithOutAuth(api.getCountVideoByCategoriesURL())
-      .pipe(first(), retry(1));
+      .pipe(first());
   }
 
   UpdateChannel(channel: Channel) {

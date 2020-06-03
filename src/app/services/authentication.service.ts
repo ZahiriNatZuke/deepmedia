@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {API} from './API';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {first, map, retry} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import {Channel} from '../models/channel';
 import {CrudService} from './crud.service';
 import {Router} from '@angular/router';
@@ -35,66 +35,63 @@ export class AuthenticationService {
 
   POSTForLogin(body: { username: string, password: string }) {
     return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()})
-      .pipe(first(), retry(1), map(response => {
-        const user = response['auth:user'].user;
-        localStorage.setItem('X-Auth-User', JSON.stringify(user));
-        localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
-        localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
-        localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
-        this.currentUserSubject.next(user);
-        return user;
-      }));
+        .pipe(first(), map(response => {
+          const user = response['auth:user'].user;
+          localStorage.setItem('X-Auth-User', JSON.stringify(user));
+          localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
+          localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
+          localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
+          this.currentUserSubject.next(user);
+          return user;
+        }));
   }
 
   POSTForLogout() {
     return this.httpClient.post<any>(api.getLogOutURL(), {}, {headers: api.getHeadersForLogout()})
-      .pipe(first(), retry(1)).subscribe(() => {
-        localStorage.clear();
-        this.currentUserSubject.next(null);
-        this.router.navigate(['/auth/login']).then();
-        this.notificationService.showNotification('Sesión Info', 'Sesión Cerrada con Éxito', 'success');
-      });
+        .pipe(first()).subscribe(() => {
+          localStorage.clear();
+          this.currentUserSubject.next(null);
+          this.router.navigate(['/auth/login']).then();
+        });
   }
 
   POSTForRefreshJWT() {
     return this.httpClient.post<any>(api.getRefreshJwtURL(), {}, {headers: api.getHeadersForRefreshJWT()})
-      .pipe(retry(2), first()).subscribe(response => {
-        const user = response['auth:user'].user;
-        localStorage.setItem('X-Auth-User', JSON.stringify(user));
-        localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
-        localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
-        localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
-        this.currentUserSubject.next(user);
-        return user;
-      });
+        .pipe(first()).subscribe(response => {
+          const user = response['auth:user'].user;
+          localStorage.setItem('X-Auth-User', JSON.stringify(user));
+          localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
+          localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
+          localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
+          this.currentUserSubject.next(user);
+          return user;
+        }, () => this.POSTForLogout());
   }
 
   POSTForNewPassword(params: any) {
     return this.httpClient.post<any>(api.getNewPasswordURl(), params, {headers: api.getHeadersWithAuth()})
-      .pipe(retry(1), first()).subscribe(() => {
-        localStorage.clear();
-        this.currentUserSubject.next(null);
-        this.notificationService.showNotification('Sesión Info',
-          'Contraseña Actualizada.\n Inicie Sesión para actualizar los Cambios', 'success');
-        this.router.navigate(['/auth/login']).then();
-      });
+        .pipe(first()).subscribe(() => {
+          localStorage.clear();
+          this.currentUserSubject.next(null);
+          this.router.navigate(['/auth/login']).then();
+        });
   }
 
   POSTForCheckNewUser(params: any) {
     return this.httpClient.post<any>(api.getCheckNewUserURL(), params, {headers: api.getHeadersWithOutAuth()})
-      .pipe(retry(1), first());
+        .pipe(first());
   }
 
   GETForTempJWT() {
     return this.httpClient.get<any>(api.getTempJWTURl(), {headers: api.getHeadersWithOutAuth()})
-      .pipe(retry(1), first()).subscribe(response => {
-        sessionStorage.setItem('X-TEMP-JWT', response['X-TEMP-JWT']);
-      });
+        .pipe(first()).subscribe(response => {
+          sessionStorage.setItem('X-TEMP-JWT', response['X-TEMP-JWT']);
+        });
   }
 
   GETForSecretList() {
     return this.httpClient.get<any>(api.getSecretListURl(), {headers: api.getHeadersWithTempJWT()})
-      .pipe(retry(1), first());
+        .pipe(first());
   }
 
   POSTForStoreUserAndSecretList(list: []) {
@@ -102,8 +99,7 @@ export class AuthenticationService {
     this.crudService.POSTForRegister(user).subscribe(response => {
       const id = response.user_id;
       this.httpClient.post<any>(api.getStoreSecretListURl() + id, {secret_list: list}, {headers: api.getHeadersWithTempJWT()})
-        .pipe(retry(1), first()).subscribe(() => {
-        this.notificationService.showNotification('Info', 'Su Cuenta ha sido Creada', 'success');
+          .pipe(first()).subscribe(() => {
         sessionStorage.clear();
         this.router.navigate(['/auth/login']).then();
       });
@@ -111,12 +107,12 @@ export class AuthenticationService {
   }
 
   GETForRandomNumbers(): Observable<any> {
-    return this.crudService.GETWithOutAuth(api.getRandomNumbersURL()).pipe(retry(1), first());
+    return this.crudService.GETWithOutAuth(api.getRandomNumbersURL()).pipe(first());
   }
 
   POSTForResetPassword(params: any): Observable<any> {
     return this.httpClient.post<any>(api.getResetPasswordURL(), params, {headers: api.getHeadersWithOutAuth()})
-      .pipe(retry(1), first());
+        .pipe(first());
   }
 
 }

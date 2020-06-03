@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MsgDialogComponent} from '../modules/shared/dialogs/msg-dialog/msg-dialog.component';
+import {ErrorsDialogComponent} from '../modules/shared/dialogs/errors-dialog/errors-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,4 +19,14 @@ export class NotificationService {
       data: {from, message, status}
     });
   }
+
+  showErrors(from: string, errors: string[], status: string) {
+    this.snackBar.openFromComponent(ErrorsDialogComponent, {
+      duration: 2500,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'end',
+      data: {from, errors, status}
+    });
+  }
+
 }
