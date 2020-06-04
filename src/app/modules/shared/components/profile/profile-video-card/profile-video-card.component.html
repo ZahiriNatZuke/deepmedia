@@ -1,13 +1,10 @@
-<div id="video-card" class="card mb-8 w-100" xmlns="http://www.w3.org/1999/xhtml">
+<div class="card mb-8 w-100">
   <img [src]="URL_STORAGE + Video.poster.path | saveDom" class="w-100 h-100 rounded h-img"
        [alt]="Video.poster.name">
-  <div class="justify-content-start">
-    <p *ngIf="Video.title.length > 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-90" (click)="goToVideo()">
-      <marquee behavior="scroll" width="95%" direction="left" scrolldelay="20">
-        {{Video.title}}</marquee>
-    </p>
-    <p *ngIf="Video.title.length <= 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-90"
-       (click)="goToVideo()">{{Video.title}}</p>
+  <div class="d-flex justify-content-end mt-1">
+    <div class="info-text-title" (click)="goToVideo()">
+      <p [class.switch-text]="Video.title.length > 41" class="font-weight-bold">{{Video.title}}</p>
+    </div>
   </div>
   <div class="text-white info-user font-weight-light">
     <span class="font-weight-light">{{Video.created_at | agoDate}}</span>

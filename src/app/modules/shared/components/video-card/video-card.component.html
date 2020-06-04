@@ -1,4 +1,4 @@
-<div class="card mb-8 w-100 flex-grow-1" xmlns="http://www.w3.org/1999/xhtml">
+<div class="card mb-8 w-100">
   <img [src]="URL_STORAGE + video.poster.path | saveDom" class="w-100 h-100 rounded h-img" [alt]="video.poster.name">
   <div class="justify-content-start text-white">
     <div class="d-flex p-data">
@@ -6,11 +6,9 @@
         <span class="font-weight-bold">#</span>{{video.channel.user.username}}
       </p>
     </div>
-    <p *ngIf="video.title.length > 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-75" (click)="goToVideo()">
-      <marquee behavior="scroll" width="90%" direction="left" scrolldelay="20">{{video.title}}</marquee>
-    </p>
-    <p *ngIf="video.title.length <= 30" class="font-weight-bold m-0 p-0 pl-2 info-text-title w-75"
-       (click)="goToVideo()">{{video.title}}</p>
+    <div class="info-text-title" (click)="goToVideo()">
+      <p class="font-weight-bold" [class.switch-text]="video.title.length > 35">{{video.title}}</p>
+    </div>
   </div>
   <div class="text-white info-user font-weight-light">
     <span class="font-weight-light">{{video.created_at | agoDate}}</span>

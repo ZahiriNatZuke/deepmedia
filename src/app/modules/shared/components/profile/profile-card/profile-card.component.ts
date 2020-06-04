@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faEye, faFileDownload, faThumbsUp, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faFileDownload, faThumbsUp, faTimes, faUserEdit} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
 import {Channel} from '../../../../../models/channel';
 import {ActivatedRoute} from '@angular/router';
@@ -22,6 +22,7 @@ export class ProfileCardComponent implements OnInit {
   faFileDownload = faFileDownload;
   faEye = faEye;
   faTimes = faTimes;
+  faUserEdit = faUserEdit;
   form: boolean;
   moreStats: boolean;
   actionsHeight: number;
@@ -58,7 +59,7 @@ export class ProfileCardComponent implements OnInit {
   }
 
   getHeightImg() {
-    return (window.screen.availHeight * 45 / 100);
+    return (window.screen.availHeight * 52.1 / 100);
   }
 
   toggleForm() {
@@ -79,16 +80,13 @@ export class ProfileCardComponent implements OnInit {
 
   closeAllVideos() {
     environment.allVideos = false;
-    $('#buttonClose').toggleClass('d-none');
+    $('#buttonClose').fadeToggle(450);
     $('#all-videos').fadeToggle(450);
     setTimeout(() => {
       $('mat-accordion').fadeToggle(700);
       setTimeout(() => {
-        $('.f-title-card').css({
-          font: '300 24px/40px Roboto, "Helvetica Neue", sans-serif',
-          transition: 'all .4s ease'
-        });
-        $('.d-flex.justify-content-center button').toggleClass('d-none');
+        $('.d-flex.justify-content-center button').fadeToggle(200);
+        $('#toggleForm').fadeToggle(200);
       }, 200);
     }, 500);
   }
@@ -98,6 +96,7 @@ export class ProfileCardComponent implements OnInit {
   }
 
   AfterViewInit(): void {
+    $('#buttonClose').fadeToggle(0);
     const profileAvatar = document.getElementById('profile-avatar') as HTMLElement;
     if (profileAvatar && this.Channel) {
       this.Avatar = profileAvatar;

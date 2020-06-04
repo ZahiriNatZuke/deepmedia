@@ -17,7 +17,7 @@
   height: 100px;
   width: 100px;
   position: absolute;
-  right: 20px;
+  right: 10px;
   bottom: -50px;
   border: 3px solid #fff;
   border-radius: 180px;
@@ -47,7 +47,6 @@
   }
 
 }
-
 
 .info-user:hover {
   opacity: 1;
@@ -90,7 +89,7 @@
     height: 90px;
     width: 90px;
     position: absolute;
-    right: 20px;
+    right: 10px;
     bottom: -35px;
     border: 2px solid #fff;
     border-radius: 180px;
@@ -104,13 +103,14 @@
 
 .info-text-user {
   font-size: 16px;
-  transition: all .4s;
 }
 
 .info-text-title {
   font-size: 18px;
-  transition: all .4s;
-  overflow-x: hidden;
+  line-height: 22px;
+  height: 22px;
+  overflow: hidden;
+  width: 72% !important;
 }
 
 .info-text-title, .info-text-user {

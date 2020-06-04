@@ -5,7 +5,7 @@ import {Channel} from '../models/channel';
 import {CrudService} from './crud.service';
 import {API} from './API';
 import {Stats} from '../models/stats';
-import {first, retry} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 import * as fileSize from 'filesize';
 
 const api = new API();
@@ -38,7 +38,7 @@ export class HelpersService {
 
   GETChannelById(id: string) {
     this.crudService.GETWithOutAuth(api.getChannelURL(), id)
-      .pipe(first()).subscribe(response => {
+        .pipe(first()).subscribe(response => {
       const channel = response.channel;
       this.currentChannelSubject.next(channel);
       return channel;
@@ -47,7 +47,7 @@ export class HelpersService {
 
   GETStatsOfChannelById(id: string) {
     this.crudService.GETWithOutAuth(api.getStatsChannelURL(), id)
-      .pipe(first()).subscribe(response => {
+        .pipe(first()).subscribe(response => {
       const stats: Stats = {
         stats: response.stats,
         advanced_stats: response.advanced_stats,
@@ -63,7 +63,7 @@ export class HelpersService {
 
   GETCountVideoByCategories() {
     return this.crudService.GETWithOutAuth(api.getCountVideoByCategoriesURL())
-      .pipe(first());
+        .pipe(first());
   }
 
   UpdateChannel(channel: Channel) {

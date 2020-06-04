@@ -1,24 +1,20 @@
-<mat-card *ngIf="Channel" class="w-100 mat-elevation-z10" xmlns="http://www.w3.org/1999/xhtml">
-  <mat-card-title class="d-flex justify-content-between">
-    <h3 *ngIf="Channel.user.username.length <= 15" class="pl-2 f-title-card w-auto m-0"
-        (dblclick)="moreStats = !moreStats"><b>#</b>{{Channel.user.username}}
-    </h3>
-    <marquee *ngIf="Channel.user.username.length > 15" behavior="scroll" width="100%" direction="left" scrolldelay="20"
-             class="pl-2 f-title-card w-auto" (dblclick)="moreStats = !moreStats">
-      <b>#</b>{{Channel.user.username}}
-    </marquee>
-    <div class="d-flex align-top">
-      <button mat-raised-button [color]="(form)? 'warn' : 'primary'" class="h-button mr-2" id="toggleForm"
-              [textContent]="(form? 'cancelar' : 'editar') | uppercase" (click)="toggleForm()"
-              *ngIf="User_Channel && User_Channel.id === Channel.id">
+<mat-card *ngIf="Channel" class="w-100 mat-elevation-z10">
+  <mat-card-content id="profile-avatar" class="rounded d-flex"
+                    [style.minHeight.px]="getHeightImg()" [style.maxHeight.px]="getHeightImg() + 20">
+    <div class="d-flex justify-content-between position-fixed">
+      <button mat-icon-button id="toggleForm" [class.text-danger]="form" [class.text-white-50]="!form"
+              (click)="toggleForm()" *ngIf="User_Channel && User_Channel.id === Channel.id">
+        <fa-icon [icon]="form ? faTimes : faUserEdit" id="editProfileButton"></fa-icon>
       </button>
-      <button mat-raised-button color="warn" class="h-button d-none" id="buttonClose" (click)="closeAllVideos()">
+      <button mat-icon-button class="text-danger" id="buttonClose" (click)="closeAllVideos()">
         <fa-icon [icon]="faTimes" id="closeAllVideos"></fa-icon>
       </button>
     </div>
-  </mat-card-title>
-  <mat-card-content id="profile-avatar" class="rounded d-flex justify-content-center"
-                    [style.minHeight.px]="getHeightImg()" [style.maxHeight.px]="getHeightImg() + 20">
+    <div class="f-bottom d-flex align-self-end justify-content-start">
+      <span class="font-weight-light f-username align-self-center" (dblclick)="moreStats = !moreStats"
+            [style.fontSize.px]="Channel.user.username.length >= 20 ? 28 : 32">
+        <b>#</b>{{Channel.user.username}}</span>
+    </div>
   </mat-card-content>
   <mat-card-actions class="mb-0 py-0" [style.height.px]="actionsHeight">
     <mat-list *ngIf="!moreStats && statsChannel">

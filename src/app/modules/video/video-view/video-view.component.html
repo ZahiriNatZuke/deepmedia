@@ -1,4 +1,4 @@
-<div *ngIf="!Video" class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/xhtml">
+<div *ngIf="!Video" class="d-flex justify-content-center">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div *ngIf="!showVideoView"><br></div>
@@ -13,13 +13,8 @@
         <hr>
       </mat-card-content>
       <mat-card-title class="d-flex justify-content-between w-100">
-        <div class="d-flex" [class.w-89]="!getToggleVideoSize()" [class.w-87]="getToggleVideoSize()">
-          <h3 *ngIf="Video.title.length <= 40">{{Video.title}}</h3>
-          <h3 *ngIf="Video.title.length > 40">
-            <marquee behavior="scroll" width="100%" direction="left" scrolldelay="20">
-              {{Video.title}}
-            </marquee>
-          </h3>
+        <div class="title-video" [class.w-89]="!getToggleVideoSize()" [class.w-87]="getToggleVideoSize()">
+          <h3 [class.switch-title]="Video.title.length > 42">{{Video.title}}</h3>
         </div>
         <div class="icon-line w-16 d-flex justify-content-end">
           <button *ngIf="User_Channel && User_Channel.id === Video.channel_id" mat-button class="text-muted"

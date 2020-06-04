@@ -93,6 +93,7 @@
       "require-const-for-all-caps",
       "allow-snake-case"
     ],
+    "one-variable-per-declaration": false,
     "curly": false,
     "new-parens": false
   },

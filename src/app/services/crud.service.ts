@@ -17,20 +17,20 @@ export class CrudService {
   GETWithOutAuth(URL: string, parameter?: string): Observable<any> {
     if (parameter)
       return this.httpClient.get(URL + parameter, {headers: api.getHeadersWithOutAuth()})
-        .pipe(first());
+          .pipe(first(), retry(1));
     else
       return this.httpClient.get(URL, {headers: api.getHeadersWithOutAuth()})
-        .pipe(first());
+          .pipe(first(), retry(1));
   }
 
   GETForMyFavorites(): Observable<any> {
     return this.httpClient.get(api.getMajoritiesURL(), {headers: api.getHeadersWithAuth()})
-      .pipe(first());
+        .pipe(first(), retry(1));
   }
 
   POSTForRegister(body: any): Observable<any> {
     return this.httpClient.post(api.getRegisterURL(), body, {headers: api.getHeadersWithOutAuth()})
-      .pipe(first());
+        .pipe(first());
   }
 
   POSTForStore(URL: string, option: string, body: any, parameter?: string): Observable<any> {
@@ -42,7 +42,7 @@ export class CrudService {
       });
     else
       return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersWithAuth()})
-        .pipe(first());
+          .pipe(first());
   }
 
   POSTForUpdate(URL: string, option: string, body: any, parameter: string): Observable<any> {
@@ -54,22 +54,22 @@ export class CrudService {
       });
     else
       return this.httpClient.post(URL + parameter, body, {headers: api.getHeadersWithAuth()})
-        .pipe(first());
+          .pipe(first());
   }
 
   POSTForLikeOrFavorite(URL: string, parameter: string): Observable<any> {
     return this.httpClient.post(URL + parameter, {}, {headers: api.getHeadersWithAuth()})
-      .pipe(first());
+        .pipe(first());
   }
 
   POSTForMakeView(URL: string, parameter: string): Observable<any> {
     return this.httpClient.post(URL + parameter, {}, {headers: api.getHeadersWithOutAuth()})
-      .pipe(first());
+        .pipe(first());
   }
 
   DELETEVideoOrUser(URL: string, parameter: string): Observable<any> {
     return this.httpClient.delete(URL + parameter, {headers: api.getHeadersWithAuth()})
-      .pipe(first());
+        .pipe(first());
   }
 
 }

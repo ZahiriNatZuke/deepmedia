@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   step = 0;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
-  toggleForm: JQuery<HTMLElement>;
   Profile: JQuery<HTMLElement>;
   progressBar: JQuery<HTMLElement>;
   Channel: Channel;
@@ -47,11 +46,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       this.crudService.GETWithOutAuth(api.getTopVideoByChannelURL(), id)
-        .subscribe(response => {
-          this.byViews = response.byViews;
-          this.byLikes = response.byLikes;
-          this.byDownload = response.byDownload;
-        });
+          .subscribe(response => {
+            this.byViews = response.byViews;
+            this.byLikes = response.byLikes;
+            this.byDownload = response.byDownload;
+          });
       this.helpersService.GETChannelById(id);
       this.helpersService.GETStatsOfChannelById(id);
     });
@@ -62,7 +61,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.Profile = $('mat-grid-list:first');
     this.Profile.hide(0);
     this.progressBar = $('.progress-bar-znz mat-progress-bar');
-    this.toggleForm = $('#toggleForm');
     $('app-profile-form').fadeToggle(0);
     $('#all-videos').fadeToggle(0);
     window.addEventListener('resize', () => this.getHeight());
@@ -77,15 +75,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     environment.allVideos = true;
     $('mat-accordion').fadeToggle(400);
     setTimeout(() => {
-      $('.f-title-card').css({
-        font: '300 22px/40px Roboto, "Helvetica Neue", sans-serif',
-        transition: 'all .3s'
-      });
-      $('.d-flex.justify-content-center button').toggleClass('d-none');
+      $('.d-flex.justify-content-center button').fadeToggle(200);
+      $('#toggleForm').fadeToggle(200);
     }, 425);
     setTimeout(() => {
-      $('#all-videos').fadeToggle(500);
-      $('#buttonClose').toggleClass('d-none');
+      $('#buttonClose').fadeToggle(450);
+      $('#all-videos').fadeToggle(450);
     }, 550);
   }
 

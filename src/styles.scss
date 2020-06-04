@@ -45,3 +45,71 @@
   background-color: rgba(225, 225, 225, 0.4);
   border-radius: 4px;
 }
+
+//--------- TEXT ANIMATION ----------------------------------------------------------\\
+
+.switch-text {
+  animation: switchText 5s infinite;
+}
+
+@keyframes switchText {
+  0% {
+    margin-top: 0;
+  }
+  25% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -22px;
+  }
+  75% {
+    margin-top: -22px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
+.switch-title {
+  animation: switchTitle 5s infinite;
+}
+
+@keyframes switchTitle {
+  0% {
+    margin-top: 0;
+  }
+  25% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -32px;
+  }
+  75% {
+    margin-top: -32px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
+.switch-username {
+  animation: switchUsername 5s infinite;
+}
+
+@keyframes switchUsername {
+  0% {
+    margin-top: 0;
+  }
+  25% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -32px;
+  }
+  75% {
+    margin-top: -32px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
