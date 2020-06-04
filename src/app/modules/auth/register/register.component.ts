@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash, faUserPlus} from '@fortawesome/free-solid-svg-icons';
 import {CrudService} from '../../../services/crud.service';
 import {Router} from '@angular/router';
-import {NotificationService} from '../../../services/notification.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
-              private notificationService: NotificationService,
               private authenticationService: AuthenticationService) {
     this.hideC = true;
     this.hideP = true;

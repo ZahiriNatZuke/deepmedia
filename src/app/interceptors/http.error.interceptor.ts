@@ -16,7 +16,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   errors2xx = [200, 201];
   errors4xx = [401, 403, 404];
 
-  constructor(public notificationService: NotificationService) {
+  constructor(private notificationService: NotificationService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -35,10 +35,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.notificationService.showNotification(error.error.from, error.error.error_message, 'danger');
               break;
             case error.status === 422:
-              this.notificationService.showErrors(error.error.from, error.error.errors, 'warning');
+              this.notificationService.showErrors(error.error.from, error.error.errors, 'info');
               break;
             case error.status === 500:
-              this.notificationService.showNotification('Info', 'Conexión Perdida', 'warning');
+              this.notificationService.showNotification('Info', 'Conexión Perdida, vuelva a intentarlo', 'warning');
               break;
             default:
               break;

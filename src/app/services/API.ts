@@ -128,6 +128,10 @@ export class API {
     return this.URL_API + `video/${id}/download`;
   }
 
+  getCheckNewVideoURL(): string {
+    return this.URL_API + 'video/check';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json'

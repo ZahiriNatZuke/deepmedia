@@ -12,7 +12,7 @@
     </div>
     <div class="f-bottom d-flex align-self-end justify-content-start">
       <span class="font-weight-light f-username align-self-center" (dblclick)="moreStats = !moreStats"
-            [style.fontSize.px]="Channel.user.username.length >= 20 ? 28 : 32">
+            [style.fontSize.px]="Channel.user.username.length >= 20 || getToggleSidebar() ? 26 : 32">
         <b>#</b>{{Channel.user.username}}</span>
     </div>
   </mat-card-content>

@@ -4,7 +4,6 @@ import {faEye, faEyeSlash, faKey} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {first} from 'rxjs/operators';
-import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private notificationService: NotificationService) {
+              private activatedRoute: ActivatedRoute) {
     this.hide = true;
     this.errorLogin = false;
   }

@@ -1,7 +1,7 @@
 <div *ngIf="!Video" class="d-flex justify-content-center">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<mat-horizontal-stepper (selectionChange)="pauseVideo()" *ngIf="Video" [linear]="false"
+<mat-horizontal-stepper (selectionChange)="catchChangesFromStepper()" *ngIf="Video" [linear]="false"
                         class="rounded mat-elevation-z10" labelPosition="bottom">
   <mat-step [editable]="true" [stepControl]="info">
     <ng-template matStepLabel>Información del Video</ng-template>
@@ -112,10 +112,10 @@
         </mat-card-content>
       </form>
       <mat-card-actions align="end">
-        <button mat-icon-button matStepperPrevious type="button" color="warn" (click)="pauseVideo()">
+        <button mat-icon-button matStepperPrevious type="button" color="warn">
           <fa-icon [icon]="faAngleLeft"></fa-icon>
         </button>
-        <button mat-icon-button matStepperNext type="button" color="primary" (click)="pauseVideo()">
+        <button mat-icon-button matStepperNext type="button" color="primary">
           <fa-icon [icon]="faAngleRight"></fa-icon>
         </button>
       </mat-card-actions>

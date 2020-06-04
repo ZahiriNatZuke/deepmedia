@@ -208,13 +208,13 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     this.videoPlayer = event;
   }
 
-  pauseVideo() {
+  saveDurationVideo(event: number) {
+    this.video_src.get('duration').setValue(event);
+  }
+
+  catchChangesFromStepper() {
     if (this.videoPlayer && this.videoPlayer.played) {
       this.videoPlayer.playPause();
     }
-  }
-
-  saveDurationVideo(event: number) {
-    this.video_src.get('duration').setValue(event);
   }
 }

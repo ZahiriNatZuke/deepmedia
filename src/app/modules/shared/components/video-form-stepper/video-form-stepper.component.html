@@ -1,5 +1,5 @@
 <mat-horizontal-stepper #stepper labelPosition="bottom" [linear]="true" class="rounded mat-elevation-z10"
-                        (selectionChange)="pauseVideo()">
+                        (selectionChange)="catchChangesFromStepper(stepper, $event)">
   <mat-step [editable]="true" [stepControl]="info">
     <ng-template matStepLabel>Información del Video</ng-template>
     <mat-card>
@@ -109,10 +109,10 @@
         </mat-card-content>
       </form>
       <mat-card-actions align="end">
-        <button mat-icon-button matStepperPrevious type="button" color="warn" (click)="pauseVideo()">
+        <button mat-icon-button matStepperPrevious type="button" color="warn">
           <fa-icon [icon]="faAngleLeft"></fa-icon>
         </button>
-        <button mat-icon-button matStepperNext type="button" color="primary" (click)="pauseVideo()">
+        <button mat-icon-button matStepperNext type="button" color="primary">
           <fa-icon [icon]="faAngleRight"></fa-icon>
         </button>
       </mat-card-actions>

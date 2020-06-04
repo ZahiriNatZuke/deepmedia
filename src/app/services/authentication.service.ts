@@ -36,7 +36,7 @@ export class AuthenticationService {
   POSTForLogin(body: { username: string, password: string }) {
     return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()})
         .pipe(first(), map(response => {
-          const user = response['auth:user'].user;
+          const user = response.auth_user;
           localStorage.setItem('X-Auth-User', JSON.stringify(user));
           localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
           localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
@@ -58,7 +58,7 @@ export class AuthenticationService {
   POSTForRefreshJWT() {
     return this.httpClient.post<any>(api.getRefreshJwtURL(), {}, {headers: api.getHeadersForRefreshJWT()})
         .pipe(first()).subscribe(response => {
-          const user = response['auth:user'].user;
+          const user = response.auth_user;
           localStorage.setItem('X-Auth-User', JSON.stringify(user));
           localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
           localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);

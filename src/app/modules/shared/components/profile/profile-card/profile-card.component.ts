@@ -59,7 +59,7 @@ export class ProfileCardComponent implements OnInit {
   }
 
   getHeightImg() {
-    return (window.screen.availHeight * 52.1 / 100);
+    return (window.screen.availHeight * 52.5 / 100);
   }
 
   toggleForm() {
@@ -96,7 +96,7 @@ export class ProfileCardComponent implements OnInit {
   }
 
   AfterViewInit(): void {
-    $('#buttonClose').fadeToggle(0);
+    $('#buttonClose').fadeOut(0);
     const profileAvatar = document.getElementById('profile-avatar') as HTMLElement;
     if (profileAvatar && this.Channel) {
       this.Avatar = profileAvatar;
@@ -105,5 +105,9 @@ export class ProfileCardComponent implements OnInit {
     } else {
       setTimeout(() => this.AfterViewInit(), 200);
     }
+  }
+
+  getToggleSidebar(): boolean {
+    return environment.expandedSidebar;
   }
 }

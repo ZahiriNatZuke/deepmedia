@@ -6,12 +6,14 @@ import {VideoPlayerComponent} from '../video-player/video-player.component';
 import {CrudService} from '../../../../services/crud.service';
 import {API} from '../../../../services/API';
 import {Router} from '@angular/router';
-import {HttpEventType} from '@angular/common/http';
+import {HttpClient, HttpEventType} from '@angular/common/http';
 import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
 import {NotificationService} from '../../../../services/notification.service';
 import {Video} from '../../../../models/video';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {first} from 'rxjs/operators';
 
 const api = new API();
 
@@ -44,7 +46,8 @@ export class VideoFormStepperComponent implements OnInit {
               private crudService: CrudService,
               private router: Router,
               private videoService: VideoService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private httpClient: HttpClient) {
     this.showVideoPlayer = false;
     this.showPoster = false;
     this.canReset = true;
@@ -180,13 +183,24 @@ export class VideoFormStepperComponent implements OnInit {
     this.videoPlayer = event;
   }
 
-  pauseVideo() {
+  saveDurationVideo(event: number) {
+    this.video_src.get('duration').setValue(event);
+  }
+
+  catchChangesFromStepper(stepper: MatHorizontalStepper, event: StepperSelectionEvent) {
+
     if (this.videoPlayer && this.videoPlayer.played) {
       this.videoPlayer.playPause();
     }
-  }
 
-  saveDurationVideo(event: number) {
-    this.video_src.get('duration').setValue(event);
+    if (event.previouslySelectedIndex === 0) {
+      this.httpClient.post<any>(api.getCheckNewVideoURL(), this.info.value, {headers: api.getHeadersWithAuth()})
+          .pipe(first()).subscribe(() => {
+            this.notificationService.showNotification('Info Video', 'Información del video correcta, lista para almacenar', 'success');
+          },
+          () => {
+            stepper.selectedIndex = 0;
+          });
+    }
   }
 }

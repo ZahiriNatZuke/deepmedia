@@ -12,6 +12,7 @@ import {HelpersService} from './services/helpers.service';
 import {VideoService} from './services/video.service';
 import {AuthenticationService} from './services/authentication.service';
 import {HttpErrorInterceptor} from './interceptors/http.error.interceptor';
+import {HttpSecurityInterceptor} from './interceptors/http.security.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {HttpErrorInterceptor} from './interceptors/http.error.interceptor';
     CrudService,
     HelpersService,
     VideoService,
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpSecurityInterceptor, multi: true}
   ],
   exports: [],
   bootstrap: [AppComponent]
