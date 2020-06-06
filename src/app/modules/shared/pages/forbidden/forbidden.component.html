@@ -1,12 +1,9 @@
-<div  [style.marginLeft.px]="-250" [style.marginTop.px]="-24">
-  <div id="forbidden">
-    <div class="forbidden">
-      <div class="forbidden-403">
-        <h1>403</h1>
-        <h2>Acceso Denegado</h2>
-      </div>
-      <a [routerLink]="['/video/categories']">Regresar</a>
+<div class="forbidden-container d-flex justify-content-center">
+  <div class="d-flex flex-column align-self-center justify-content-center">
+    <div class="forbidden-403 d-flex justify-content-center flex-column">
+      <h1 class="align-self-center">403</h1>
+      <h2 class="align-self-center">Acceso Denegado</h2>
     </div>
+    <a class="align-self-center" [routerLink]="['/video/categories']">Regresar</a>
   </div>
 </div>
-

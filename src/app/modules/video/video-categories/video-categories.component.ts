@@ -20,14 +20,14 @@ export class VideoCategoriesComponent implements OnInit {
     this.cardColumn = $('.card-columns');
     this.cardColumn.hide(0);
     this.helpersService.GETCountVideoByCategories()
-      .subscribe(response => {
-        const array = new Array(6);
-        for (let i = 0; i < array.length; i++) {
-          array[i] = response.categories[categories[i]];
-        }
-        this.arrayCategories = array;
-        this.stopLoading();
-      });
+        .subscribe(response => {
+          const array = new Array(6);
+          for (let i = 0; i < array.length; i++) {
+            array[i] = response.categories[categories[i]];
+          }
+          this.arrayCategories = array;
+          this.stopLoading();
+        });
   }
 
   stopLoading() {

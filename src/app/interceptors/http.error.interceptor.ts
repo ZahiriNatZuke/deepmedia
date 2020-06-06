@@ -11,13 +11,16 @@ import {Observable, throwError} from 'rxjs';
 import {NotificationService} from '../services/notification.service';
 import {catchError, map, retry} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
   errors2xx = [200, 201];
   errors4xx = [401, 403, 404];
 
-  constructor(private notificationService: NotificationService, private router: Router) {
+  constructor(private notificationService: NotificationService,
+              private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -35,7 +38,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               if (error.error.error_message !== undefined)
                 this.notificationService.showNotification(error.error.from, error.error.error_message, 'danger');
               if (error.status === 404)
-                this.router.navigate(['/video/categories']).then();
+                this.router.navigate(['/not-found']).then();
+              if (error.status === 401) {
+                localStorage.clear();
+                this.authenticationService.UpdateCurrentUserValue(null);
+                this.router.navigate(['/auth/login']).then();
+              }
+              if (error.status === 403) {
+                this.router.navigate(['/forbidden']).then();
+              }
               break;
             case error.status === 422:
               this.notificationService.showErrors(error.error.from, error.error.errors, 'info');

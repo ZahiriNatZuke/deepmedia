@@ -16,7 +16,8 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent,
     loadChildren: './modules/auth/auth-routing.module#AuthRoutingModule'
-  }, {
+  },
+  {
     path: 'video',
     component: VideoComponent,
     loadChildren: './modules/video/video-routing.module#VideoRoutingModule'
