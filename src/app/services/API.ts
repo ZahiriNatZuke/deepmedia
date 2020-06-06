@@ -165,7 +165,7 @@ export class API {
   getHeadersWithTempJWT(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',
-      'X-TEMP-JWT': sessionStorage.getItem('X-TEMP-JWT')
+      'X-Temp-JWT': sessionStorage.getItem('X-Temp-JWT')
     });
   }
 

@@ -38,9 +38,6 @@ export class AuthenticationService {
         .pipe(first(), map(response => {
           const user = response.auth_user;
           localStorage.setItem('X-Auth-User', JSON.stringify(user));
-          localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
-          localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
-          localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
           this.currentUserSubject.next(user);
           return user;
         }));
@@ -60,9 +57,6 @@ export class AuthenticationService {
         .pipe(first()).subscribe(response => {
           const user = response.auth_user;
           localStorage.setItem('X-Auth-User', JSON.stringify(user));
-          localStorage.setItem('X-Authentication-JWT', response['X-Authentication-JWT']);
-          localStorage.setItem('X-Encode-ID', response['X-Encode-ID']);
-          localStorage.setItem('X-Refresh-JWT', response['X-Refresh-JWT']);
           this.currentUserSubject.next(user);
           return user;
         }, () => this.POSTForLogout());
@@ -84,9 +78,7 @@ export class AuthenticationService {
 
   GETForTempJWT() {
     return this.httpClient.get<any>(api.getTempJWTURl(), {headers: api.getHeadersWithOutAuth()})
-        .pipe(first()).subscribe(response => {
-          sessionStorage.setItem('X-TEMP-JWT', response['X-TEMP-JWT']);
-        });
+        .pipe(first()).subscribe();
   }
 
   GETForSecretList() {

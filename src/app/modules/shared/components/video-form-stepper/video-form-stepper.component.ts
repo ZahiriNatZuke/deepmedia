@@ -129,6 +129,7 @@ export class VideoFormStepperComponent implements OnInit {
       document.getElementById('label-video').innerText = event.target.files[0].name;
       this.videoObj.video = window.URL.createObjectURL(file);
       this.videoObj.id = this.randomNumber++;
+      this.videoObj.type = file.type;
       this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
       setTimeout(() => {
         this.showVideoPlayer = true;

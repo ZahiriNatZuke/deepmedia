@@ -18,15 +18,15 @@ export class HttpSecurityInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(
           tap((response: HttpEvent<any>) => {
             if (response instanceof HttpResponse) {
-              const keys = response.headers.keys();
-              const headers: { key: string, value: string }[] = [];
-              keys.map(key => {
-                headers.push({key, value: response.headers.get(key)});
-              });
-              console.log(headers);
+              if (endPoint === 'jwt/temp_auth') {
+                sessionStorage.setItem('X-Temp-JWT', response.headers.get('x-temp-jwt'));
+              } else {
+                localStorage.setItem('X-Authentication-JWT', response.headers.get('x-authentication-jwt'));
+                localStorage.setItem('X-Encode-ID', response.headers.get('x-encode-id'));
+                localStorage.setItem('X-Refresh-JWT', response.headers.get('x-refresh-jwt'));
+              }
             }
-          })
-      );
+          }));
     } else {
       return next.handle(request);
     }
