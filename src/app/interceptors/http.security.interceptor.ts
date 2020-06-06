@@ -23,6 +23,7 @@ export class HttpSecurityInterceptor implements HttpInterceptor {
               keys.map(key => {
                 headers.push({key, value: response.headers.get(key)});
               });
+              console.log(headers);
             }
           })
       );

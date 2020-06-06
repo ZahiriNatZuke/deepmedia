@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash, faKey} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
-import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticationService.POSTForLogin(this.loginForm.value).pipe(first()).subscribe(() => {
+    this.authenticationService.POSTForLogin(this.loginForm.value).subscribe(() => {
       this.router.navigate([this.returnURL]).then();
     }, () => this.errorLogin = true);
   }

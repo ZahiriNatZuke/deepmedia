@@ -36,6 +36,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   volumenSlider: JQuery<HTMLElement>;
   controlBar: JQuery<HTMLElement>;
   videoPoster: JQuery<HTMLElement>;
+  videoPlayerTag: HTMLElement;
   buttonPlay: HTMLElement;
   played: boolean;
   overSlider: boolean;
@@ -66,11 +67,11 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   loadHTML() {
-    const videoPlayerTag = document.getElementById(`video-${this.video.id}`);
-    this.videoPlayer = videoPlayerTag.getElementsByClassName('video-player')[0] as HTMLVideoElement;
+    this.videoPlayerTag = document.getElementById(`video-${this.video.id}`);
+    this.videoPlayer = this.videoPlayerTag.getElementsByClassName('video-player')[0] as HTMLVideoElement;
     this.controlBar = $(`#video-${this.video.id} #control-bar`);
     this.videoPoster = $(`#video-${this.video.id} #poster`);
-    this.buttonPlay = videoPlayerTag.getElementsByClassName('btn-play')[0] as HTMLButtonElement;
+    this.buttonPlay = this.videoPlayerTag.getElementsByClassName('btn-play')[0] as HTMLButtonElement;
     this.volumenControl = $(`#video-${this.video.id} #volumen-control`);
     this.volumenSlider = $(`#video-${this.video.id} #volumen-slider`);
   }
@@ -83,9 +84,10 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
       event.preventDefault();
       this.playPause();
     });
-    window.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
       const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if ((events.includes(event.code) || event.code === 'Scape') && event.target === document.body)
+      if ((events.includes(event.code) || event.code === 'Scape') &&
+          (event.target === document.body || event.target === this.videoPlayerTag))
         event.preventDefault();
       this.events(event);
     });
@@ -149,20 +151,20 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   events(event: KeyboardEvent) {
-    if (event.code === 'Space' && event.target === document.body) {
+    if (event.code === 'Space' && (event.target === document.body || event.target === this.videoPlayerTag)) {
       this.poster ? this.hidePoster() : this.playPause();
     }
     if (this.played) {
       switch (event.code) {
         case 'Enter':
-          if (event.target === document.body)
+          if (event.target === document.body || event.target === this.videoPlayerTag)
             this.makeBig();
           break;
         case 'Scape':
           this.videoPlayer.webkitExitFullscreen();
           break;
         case 'KeyM':
-          if (event.target === document.body)
+          if (event.target === document.body || event.target === this.videoPlayerTag)
             this.toggleMutedVideo();
           break;
         case 'ArrowUp':
