@@ -65,13 +65,6 @@ export class VideoFormStepperUpdateComponent implements OnInit {
             type: videoFetch.type
           });
         });
-        this.poster = this._formBuilder.group({
-          poster: [''],
-        });
-        this.video_src = this._formBuilder.group({
-          video: [''],
-          duration: ['']
-        });
       });
     } else {
       this.info = this._formBuilder.group({
@@ -80,14 +73,14 @@ export class VideoFormStepperUpdateComponent implements OnInit {
         state: [this.Video.state, Validators.required],
         category: [this.Video.category, Validators.required],
       });
-      this.poster = this._formBuilder.group({
-        poster: [''],
-      });
-      this.video_src = this._formBuilder.group({
-        video: [''],
-        duration: ['']
-      });
     }
+    this.poster = this._formBuilder.group({
+      poster: [''],
+    });
+    this.video_src = this._formBuilder.group({
+      video: [''],
+      duration: ['']
+    });
     this.showVideoPlayer = false;
     this.showPoster = false;
   }
@@ -198,7 +191,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
               const video: Video = events.body.video;
               this.videoService.UpdateCurrentVideoValue(null);
               this.videoService.UpdateCurrentVideoPlayerValue(null);
-              setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 2350);
+              setTimeout(() => this.router.navigate(['/video/view', video.id]).then(), 2500);
             }
           });
     else

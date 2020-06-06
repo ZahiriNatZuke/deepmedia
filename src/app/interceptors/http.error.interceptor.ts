@@ -10,13 +10,14 @@ import {
 import {Observable, throwError} from 'rxjs';
 import {NotificationService} from '../services/notification.service';
 import {catchError, map, retry} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
   errors2xx = [200, 201];
   errors4xx = [401, 403, 404];
 
-  constructor(private notificationService: NotificationService) {
+  constructor(private notificationService: NotificationService, private router: Router) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -33,6 +34,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             case this.errors4xx.includes(error.status):
               if (error.error.error_message !== undefined)
                 this.notificationService.showNotification(error.error.from, error.error.error_message, 'danger');
+              if (error.status === 404)
+                this.router.navigate(['/video/categories']).then();
               break;
             case error.status === 422:
               this.notificationService.showErrors(error.error.from, error.error.errors, 'info');

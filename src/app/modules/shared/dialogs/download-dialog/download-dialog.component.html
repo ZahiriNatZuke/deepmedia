@@ -1,5 +1,5 @@
 <div *ngIf="started" class="d-flex">
-  <div class="percent-counter">
+  <div class="percent-counter align-self-center">
     <span *ngIf="!saving" class="align-self-center">{{percent || 0}}&nbsp;%</span>
     <fa-icon *ngIf="saving" [classes]="['align-self-center']" [icon]="faFileDownload" size="2x"></fa-icon>
   </div>

@@ -164,9 +164,14 @@ export class VideoFormStepperComponent implements OnInit {
           }
           if (events.type === HttpEventType.Response) {
             const newVideo: Video = events.body.video;
-            this.videoService.UpdateCurrentVideoValue(null);
-            this.videoService.UpdateCurrentVideoPlayerValue(null);
-            setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 1000);
+            this.videoService.UpdateCurrentVideoValue(newVideo);
+            this.videoService.UpdateCurrentVideoPlayerValue({
+              id: newVideo.id,
+              poster: api.URL_STORAGE + newVideo.poster.path,
+              video: api.URL_STORAGE + newVideo.video.path,
+              type: newVideo.type
+            });
+            setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 3500);
           }
         });
   }

@@ -70,8 +70,12 @@ export class VideoViewComponent implements OnInit {
     this.getWidthToggle();
     this.getHeight();
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
-    this.videoService.currentVideo.subscribe(video => this.Video = video);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
+    this.videoService.currentVideo.subscribe(video => this.Video = video);
+    if (this.Video === null || this.Video === undefined)
+      this.activatedRoute.params.subscribe(params => {
+        this.videoService.fetchVideo(params.id);
+      });
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
       this.byViews = response.byViews;
@@ -79,12 +83,6 @@ export class VideoViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      if (!this.videoService.GetCurrentVideoValue)
-        this.activatedRoute.params.subscribe(params => {
-          this.videoService.fetchVideo(params.id);
-        });
-    }, 650);
     this.loadHTML();
     this.viewTop.toggle(0);
     window.addEventListener('resize', () => {
@@ -143,17 +141,17 @@ export class VideoViewComponent implements OnInit {
 
   toggleFavorite() {
     this.crudService.POSTForLikeOrFavorite(api.getFavoriteURL(), this.Video.id.toString())
-      .subscribe(response => {
-        this.Video.favorite_for_who = response.favoriteForWho;
-      });
+        .subscribe(response => {
+          this.Video.favorite_for_who = response.favoriteForWho;
+        });
   }
 
   toggleLike() {
     this.crudService.POSTForLikeOrFavorite(api.getLikeURL(), this.Video.id.toString())
-      .subscribe(response => {
-        this.Video.likes = response.likes;
-        this.getStats();
-      });
+        .subscribe(response => {
+          this.Video.likes = response.likes;
+          this.getStats();
+        });
   }
 
   getStats() {
