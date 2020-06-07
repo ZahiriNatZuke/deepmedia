@@ -11,6 +11,8 @@ import {API} from 'src/app/services/API';
 import {Video} from 'src/app/models/video';
 import {NotificationService} from '../../../../services/notification.service';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import {AuthenticationService} from '../../../../services/authentication.service';
+import {Channel} from '../../../../models/channel';
 
 const api = new API();
 
@@ -37,13 +39,16 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   showPoster: boolean;
   progressUpload: number = 0;
   randomNumber: number = 1;
+  User_Channel: Channel;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
               private videoService: VideoService,
               private activatedRoute: ActivatedRoute,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.videoService.currentVideo.subscribe(video => this.Video = video);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoObj = videoPlayer);
     if (this.Video === null || this.Video === undefined) {
@@ -51,6 +56,8 @@ export class VideoFormStepperUpdateComponent implements OnInit {
         const id = params.id;
         this.crudService.GETWithOutAuth(api.getVideoURL(), id).subscribe(response => {
           const videoFetch: Video = response.video;
+          if (videoFetch.channel_id !== this.User_Channel.id)
+            this.router.navigate(['/forbidden']).then();
           this.info = this._formBuilder.group({
             title: [videoFetch.title, [Validators.required]],
             description: [videoFetch.description, Validators.required],
@@ -67,6 +74,8 @@ export class VideoFormStepperUpdateComponent implements OnInit {
         });
       });
     } else {
+      if (this.Video.channel_id !== this.User_Channel.id)
+        this.router.navigate(['/forbidden']).then();
       this.info = this._formBuilder.group({
         title: [this.Video.title, [Validators.required]],
         description: [this.Video.description, Validators.required],
