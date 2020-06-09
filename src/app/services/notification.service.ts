@@ -13,7 +13,7 @@ export class NotificationService {
 
   showNotification(from: string, message: string, status: string) {
     this.snackBar.openFromComponent(MsgDialogComponent, {
-      duration: 2500,
+      duration: 3000,
       verticalPosition: 'bottom',
       horizontalPosition: 'end',
       data: {from, message, status}
@@ -22,7 +22,7 @@ export class NotificationService {
 
   showErrors(from: string, errors: string[], status: string) {
     this.snackBar.openFromComponent(ErrorsDialogComponent, {
-      duration: 2500,
+      duration: 3000,
       verticalPosition: 'bottom',
       horizontalPosition: 'end',
       data: {from, errors, status}

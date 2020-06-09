@@ -59,4 +59,8 @@ export class ResetPasswordComponent implements OnInit {
       this.passwordRestored = true;
     });
   }
+
+  toChangePassword() {
+    this.router.navigate(['/auth/login'], {queryParams: {returnUrl: '/auth/new-password'}}).then();
+  }
 }
