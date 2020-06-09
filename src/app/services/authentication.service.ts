@@ -21,7 +21,7 @@ export class AuthenticationService {
               private crudService: CrudService,
               private notificationService: NotificationService,
               private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<Channel>(JSON.parse(localStorage.getItem('X-Auth-User')));
+    this.currentUserSubject = new BehaviorSubject<Channel>(JSON.parse(sessionStorage.getItem('X-Auth-User')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -30,6 +30,7 @@ export class AuthenticationService {
   }
 
   public UpdateCurrentUserValue(channel: Channel) {
+    sessionStorage.setItem('X-Auth-User', JSON.stringify(channel));
     this.currentUserSubject.next(channel);
   }
 
@@ -37,7 +38,7 @@ export class AuthenticationService {
     return this.httpClient.post<any>(api.getLoginURL(), body, {headers: api.getHeadersWithOutAuth()})
         .pipe(first(), map(response => {
           const user = response.auth_user;
-          localStorage.setItem('X-Auth-User', JSON.stringify(user));
+          sessionStorage.setItem('X-Auth-User', JSON.stringify(user));
           this.currentUserSubject.next(user);
           return user;
         }));
@@ -46,6 +47,7 @@ export class AuthenticationService {
   POSTForLogout() {
     return this.httpClient.post<any>(api.getLogOutURL(), {}, {headers: api.getHeadersForLogout()})
         .pipe(first()).subscribe(() => {
+          sessionStorage.clear();
           localStorage.clear();
           this.currentUserSubject.next(null);
           this.router.navigate(['/auth/login']).then();
@@ -56,7 +58,7 @@ export class AuthenticationService {
     return this.httpClient.post<any>(api.getRefreshJwtURL(), {}, {headers: api.getHeadersForRefreshJWT()})
         .pipe(first()).subscribe(response => {
           const user = response.auth_user;
-          localStorage.setItem('X-Auth-User', JSON.stringify(user));
+          sessionStorage.setItem('X-Auth-User', JSON.stringify(user));
           this.currentUserSubject.next(user);
           return user;
         }, () => this.POSTForLogout());

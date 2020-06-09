@@ -21,8 +21,8 @@ export class HttpSecurityInterceptor implements HttpInterceptor {
               if (endPoint === 'jwt/temp_auth') {
                 sessionStorage.setItem('X-Temp-JWT', response.headers.get('x-temp-jwt'));
               } else {
-                localStorage.setItem('X-Authentication-JWT', response.headers.get('x-authentication-jwt'));
-                localStorage.setItem('X-Encode-ID', response.headers.get('x-encode-id'));
+                sessionStorage.setItem('X-Authentication-JWT', response.headers.get('x-authentication-jwt'));
+                sessionStorage.setItem('X-Encode-ID', response.headers.get('x-encode-id'));
                 localStorage.setItem('X-Refresh-JWT', response.headers.get('x-refresh-jwt'));
               }
             }

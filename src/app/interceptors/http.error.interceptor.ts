@@ -41,6 +41,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.router.navigate(['/not-found']).then();
               if (error.status === 401) {
                 localStorage.clear();
+                sessionStorage.clear();
                 this.authenticationService.UpdateCurrentUserValue(null);
                 this.router.navigate(['/auth/login']).then();
               }
