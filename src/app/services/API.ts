@@ -124,12 +124,20 @@ export class API {
     return this.URL_API + 'user/reset_password';
   }
 
-  getDownloadVideoURL(id: string): string {
+  getDownloadVideoURL(id: number): string {
     return this.URL_API + `video/${id}/download`;
   }
 
   getCheckNewVideoURL(): string {
     return this.URL_API + 'video/check';
+  }
+
+  getCheckNewVideoSizeURL(): string {
+    return this.URL_API + 'channel/storage/';
+  }
+
+  getCheckUpdateVideoSizeURL(channel: number, video: number): string {
+    return this.URL_API + `channel/store/${channel}/${video}`;
   }
 
   getHeadersWithOutAuth(): HttpHeaders {

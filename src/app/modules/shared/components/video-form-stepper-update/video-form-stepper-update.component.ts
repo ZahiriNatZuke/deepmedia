@@ -13,6 +13,8 @@ import {NotificationService} from '../../../../services/notification.service';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Channel} from '../../../../models/channel';
+import * as fileSize from 'filesize';
+import {StepperSelectionEvent} from '@angular/cdk/stepper';
 
 const api = new API();
 
@@ -28,6 +30,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   video_src: FormGroup;
   videoObj: VideoPlayer;
   videoPlayer: VideoPlayerComponent;
+  User_Channel: Channel;
   formData = new FormData();
   videoFile: File;
   posterFile: File;
@@ -37,9 +40,10 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   faAngleLeft = faAngleLeft;
   showVideoPlayer: boolean;
   showPoster: boolean;
+  canStoreVideo: boolean;
   progressUpload: number = 0;
   randomNumber: number = 1;
-  User_Channel: Channel;
+  storage_size_available: string;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
@@ -92,6 +96,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     });
     this.showVideoPlayer = false;
     this.showPoster = false;
+    this.canStoreVideo = false;
   }
 
 
@@ -153,15 +158,26 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     const checkSize: boolean = this.videoService.checkSize('video', file.size);
     const checkMimeType: boolean = this.videoService.checkMimeType('video', file.type);
     if (checkSize && checkMimeType) {
-      this.videoFile = file;
-      document.getElementById('label-video').innerText = event.target.files[0].name;
-      this.videoObj.video = window.URL.createObjectURL(file);
-      this.videoObj.type = file.type;
-      this.videoObj.id = this.randomNumber++;
-      this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-      setTimeout(() => {
-        this.showVideoPlayer = true;
-      }, 300);
+      this.videoService.checkUpdateVideoSize(this.User_Channel.id, this.Video.id, file.size)
+          .subscribe(response => {
+            this.canStoreVideo = response.can_store;
+            if (this.canStoreVideo) {
+              this.videoFile = file;
+              document.getElementById('label-video').innerText = event.target.files[0].name;
+              this.videoObj.video = window.URL.createObjectURL(file);
+              this.videoObj.type = file.type;
+              this.videoObj.id = this.randomNumber++;
+              this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
+              setTimeout(() => {
+                this.showVideoPlayer = true;
+                this.notificationService.showNotification('Info Video', 'Video Listo para ser guardado', 'success');
+              }, 300);
+            } else {
+              this.storage_size_available = fileSize(response.storage_size_available, {round: 2, output: 'string'});
+              this.notificationService.showNotification('Video Info',
+                  `El video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}`, 'warning');
+            }
+          });
     } else {
       const msg: string = `${!checkSize ? 'El nuevo video excede el límite de 300MB.\n' : ''}
                            ${!checkMimeType ? 'El formato del nuevo video no es admisible.' : ''}`;
@@ -173,10 +189,10 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     this.formData.append('_method', 'PATCH');
     if (!this.info.pristine) {
       const info = this.info.value;
-      if (!this.info.get('title').pristine) this.formData.append('title', info.title);
-      if (!this.info.get('description').pristine) this.formData.append('description', info.description);
-      if (!this.info.get('state').pristine) this.formData.append('state', info.state);
-      if (!this.info.get('category').pristine) this.formData.append('category', info.category);
+      if (!this.info.get('title').pristine && this.info.get('title').value !== '') this.formData.append('title', info.title);
+      if (!this.info.get('description').pristine && this.info.get('description').value !== '') this.formData.append('description', info.description);
+      if (!this.info.get('state').pristine && this.info.get('state').value !== '') this.formData.append('state', info.state);
+      if (!this.info.get('category').pristine && this.info.get('category').value !== '') this.formData.append('category', info.category);
     }
     if (!this.poster.pristine && this.posterFile) {
       this.formData.append('poster', this.posterFile, this.posterFile.name);
@@ -186,7 +202,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
       this.formData.append('type', this.videoFile.type);
       this.formData.append('video', this.videoFile, this.videoFile.name);
     }
-    if (!this.info.pristine || !this.poster.pristine || !this.video_src.pristine)
+    if (this.getCanStore())
       this.crudService.POSTForUpdate(api.getVideoURL(), 'video', this.formData, this.Video.id.toString())
           .subscribe((events) => {
             if (events.type === HttpEventType.UploadProgress) {
@@ -204,7 +220,10 @@ export class VideoFormStepperUpdateComponent implements OnInit {
             }
           });
     else
-      this.notificationService.showNotification('Video Info', 'Por Favor Modifique Algún Campo', 'warning');
+      this.notificationService.showNotification('Video Info',
+          !this.canStoreVideo ?
+              `El video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}` : 'Por Favor Modifique Algún Campo',
+          'warning');
   }
 
   saveVideoPlayer(event: VideoPlayerComponent) {
@@ -215,9 +234,20 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     this.video_src.get('duration').setValue(event);
   }
 
-  catchChangesFromStepper() {
+  catchChangesFromStepper(event: StepperSelectionEvent) {
     if (this.videoPlayer && this.videoPlayer.played) {
       this.videoPlayer.playPause();
     }
+
+    if (event.previouslySelectedIndex === 2 && (!this.video_src.pristine && !this.canStoreVideo)) {
+      this.notificationService.showNotification('Video Info',
+          this.storage_size_available ?
+              `El Video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}` :
+              'El Video seleccionado no es admisible ', 'warning');
+    }
+  }
+
+  getCanStore(): boolean {
+    return !this.info.pristine || !this.poster.pristine || (!this.video_src.pristine && this.canStoreVideo);
   }
 }

@@ -6,14 +6,16 @@ import {VideoPlayerComponent} from '../video-player/video-player.component';
 import {CrudService} from '../../../../services/crud.service';
 import {API} from '../../../../services/API';
 import {Router} from '@angular/router';
-import {HttpClient, HttpEventType} from '@angular/common/http';
+import {HttpEventType} from '@angular/common/http';
 import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
 import {NotificationService} from '../../../../services/notification.service';
 import {Video} from '../../../../models/video';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import {StepperSelectionEvent} from '@angular/cdk/stepper';
-import {first} from 'rxjs/operators';
+import {AuthenticationService} from '../../../../services/authentication.service';
+import {Channel} from '../../../../models/channel';
+import * as fileSize from 'filesize';
 
 const api = new API();
 
@@ -41,16 +43,21 @@ export class VideoFormStepperComponent implements OnInit {
   progressUpload: number = 0;
   randomNumber: number = 1;
   canReset: boolean;
+  canStore: boolean;
+  User_Channel: Channel;
+  storage_size_available: string;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
               private videoService: VideoService,
               private notificationService: NotificationService,
-              private httpClient: HttpClient) {
+              private authenticationService: AuthenticationService) {
     this.showVideoPlayer = false;
     this.showPoster = false;
     this.canReset = true;
+    this.canStore = false;
+    this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.info = this._formBuilder.group({
       title: ['', [Validators.required]],
       description: ['', Validators.required],
@@ -125,15 +132,26 @@ export class VideoFormStepperComponent implements OnInit {
     const checkSize: boolean = this.videoService.checkSize('video', file.size);
     const checkMimeType: boolean = this.videoService.checkMimeType('video', file.type);
     if (checkSize && checkMimeType) {
-      this.videoFile = file;
-      document.getElementById('label-video').innerText = event.target.files[0].name;
-      this.videoObj.video = window.URL.createObjectURL(file);
-      this.videoObj.id = this.randomNumber++;
-      this.videoObj.type = file.type;
-      this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
-      setTimeout(() => {
-        this.showVideoPlayer = true;
-      }, 300);
+      this.videoService.checkNewVideoSize(this.User_Channel.id, file.size)
+          .subscribe(response => {
+            this.canStore = response.can_store;
+            if (this.canStore) {
+              this.videoFile = file;
+              document.getElementById('label-video').innerText = event.target.files[0].name;
+              this.videoObj.video = window.URL.createObjectURL(file);
+              this.videoObj.id = this.randomNumber++;
+              this.videoObj.type = file.type;
+              this.videoService.UpdateCurrentVideoPlayerValue(this.videoObj);
+              setTimeout(() => {
+                this.showVideoPlayer = true;
+                this.notificationService.showNotification('Info Video', 'Video Listo para ser guardado', 'success');
+              }, 300);
+            } else {
+              this.storage_size_available = fileSize(response.storage_size_available, {round: 2, output: 'string'});
+              this.notificationService.showNotification('Video Info',
+                  `El Video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}`, 'warning');
+            }
+          });
     } else {
       const msg: string = `${!checkSize ? 'El video excede el límite de 300MB.\n' : ''}
                            ${!checkMimeType ? 'El formato del video no es admisible.' : ''}`;
@@ -153,27 +171,31 @@ export class VideoFormStepperComponent implements OnInit {
     this.formData.append('video', this.videoFile, this.videoFile.name);
     this.formData.append('duration', video.duration);
     this.formData.append('type', this.videoFile.type);
-    this.crudService.POSTForStore(api.getStoreVideoURL(), 'video', this.formData)
-        .subscribe((events) => {
-          if (events.type === HttpEventType.UploadProgress) {
-            this.progressUpload = Math.round(events.loaded / events.total * 100);
-            if (this.progressUpload === 100) {
-              this.mode = 'indeterminate';
-              this.notificationService.showNotification('Info Video', 'Redirección hacia el video', 'success');
+    if (this.canStore)
+      this.crudService.POSTForStore(api.getStoreVideoURL(), 'video', this.formData)
+          .subscribe((events) => {
+            if (events.type === HttpEventType.UploadProgress) {
+              this.progressUpload = Math.round(events.loaded / events.total * 100);
+              if (this.progressUpload === 100) {
+                this.mode = 'indeterminate';
+                this.notificationService.showNotification('Info Video', 'Redirección hacia el video', 'success');
+              }
             }
-          }
-          if (events.type === HttpEventType.Response) {
-            const newVideo: Video = events.body.video;
-            this.videoService.UpdateCurrentVideoValue(newVideo);
-            this.videoService.UpdateCurrentVideoPlayerValue({
-              id: newVideo.id,
-              poster: api.URL_STORAGE + newVideo.poster.path,
-              video: api.URL_STORAGE + newVideo.video.path,
-              type: newVideo.type
-            });
-            setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 3500);
-          }
-        });
+            if (events.type === HttpEventType.Response) {
+              const newVideo: Video = events.body.video;
+              this.videoService.UpdateCurrentVideoValue(newVideo);
+              this.videoService.UpdateCurrentVideoPlayerValue({
+                id: newVideo.id,
+                poster: api.URL_STORAGE + newVideo.poster.path,
+                video: api.URL_STORAGE + newVideo.video.path,
+                type: newVideo.type
+              });
+              setTimeout(() => this.router.navigate(['/video/view', newVideo.id]).then(), 3500);
+            }
+          });
+    else
+      this.notificationService.showNotification('Video Info',
+          `El Video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}`, 'warning');
   }
 
   resetForm(stepper: MatHorizontalStepper) {
@@ -200,13 +222,19 @@ export class VideoFormStepperComponent implements OnInit {
     }
 
     if (event.previouslySelectedIndex === 0) {
-      this.httpClient.post<any>(api.getCheckNewVideoURL(), this.info.value, {headers: api.getHeadersWithAuth()})
-          .pipe(first()).subscribe(() => {
-            this.notificationService.showNotification('Info Video', 'Información del video correcta, lista para almacenar', 'success');
+      this.videoService.checkVideoInfo(this.info.value).subscribe(() => {
+            this.notificationService.showNotification('Info Video', 'Información del video correcta, lista para almacenarla', 'success');
           },
           () => {
             stepper.selectedIndex = 0;
           });
+    }
+
+    if (event.previouslySelectedIndex === 2 && !this.canStore) {
+      this.notificationService.showNotification('Video Info',
+          this.storage_size_available ?
+              `El Video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}` :
+              'El Video seleccionado no es admisible ', 'warning');
     }
   }
 }

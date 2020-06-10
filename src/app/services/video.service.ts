@@ -6,6 +6,8 @@ import {CrudService} from './crud.service';
 import {API} from './API';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import * as fileSize from 'filesize';
+import {HttpClient} from '@angular/common/http';
+import {first} from 'rxjs/operators';
 
 const api = new API();
 
@@ -20,7 +22,7 @@ export class VideoService {
   private currentPlayListSubject: BehaviorSubject<Video[]>;
   public currentPlayList: Observable<Video[]>;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private httpClient: HttpClient) {
     this.currentVideoPlayerSubject = new BehaviorSubject<VideoPlayer>(null);
     this.currentVideoPlayer = this.currentVideoPlayerSubject.asObservable();
     this.currentVideoSubject = new BehaviorSubject<Video>(null);
@@ -99,4 +101,20 @@ export class VideoService {
     return validMimeType.includes(mime);
   }
 
+  checkVideoInfo(info: any): Observable<any> {
+    return this.httpClient.post<any>(api.getCheckNewVideoURL(), info.value, {headers: api.getHeadersWithAuth()})
+        .pipe(first());
+  }
+
+  checkNewVideoSize(channel: number, video_size: number): Observable<any> {
+    return this.httpClient.post<any>(api.getCheckNewVideoSizeURL() + channel, {video_size}, {
+      headers: api.getHeadersWithOutAuth()
+    }).pipe(first());
+  }
+
+  checkUpdateVideoSize(channel: number, video: number, video_size: number): Observable<any> {
+    return this.httpClient.post<any>(api.getCheckUpdateVideoSizeURL(channel, video), {video_size}, {
+      headers: api.getHeadersWithOutAuth()
+    }).pipe(first());
+  }
 }
