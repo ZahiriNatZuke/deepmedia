@@ -102,7 +102,7 @@ export class VideoService {
   }
 
   checkVideoInfo(info: any): Observable<any> {
-    return this.httpClient.post<any>(api.getCheckNewVideoURL(), info.value, {headers: api.getHeadersWithAuth()})
+    return this.httpClient.post<any>(api.getCheckNewVideoURL(), info, {headers: api.getHeadersWithAuth()})
         .pipe(first());
   }
 

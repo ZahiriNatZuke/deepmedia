@@ -1,13 +1,13 @@
 <div class="card mb-8 w-100">
   <img [src]="URL_STORAGE + video.poster.path | saveDom" class="w-100 h-100 rounded h-img" [alt]="video.poster.name">
   <div class="justify-content-start text-white">
-    <div class="d-flex p-data">
-      <p class="font-weight-light m-0 p-0 info-text-user" [routerLink]="['/auth/profile',video.channel_id]">
-        <span class="font-weight-bold">#</span>{{video.channel.user.username}}
+    <div class="d-flex p-data info-text-user">
+      <p class="m-0 p-0" [routerLink]="['/auth/profile',video.channel_id]">
+        <span>#</span>{{video.channel.user.username}}
       </p>
     </div>
     <div class="info-text-title" (click)="goToVideo()">
-      <p class="font-weight-bold" [class.switch-text]="video.title.length > 35">{{video.title}}</p>
+      <p [class.switch-text]="video.title.length > 35">{{video.title}}</p>
     </div>
   </div>
   <div class="text-white info-user font-weight-light">

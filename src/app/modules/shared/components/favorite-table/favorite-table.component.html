@@ -1,98 +1,99 @@
-<mat-card class="mat-elevation-z10 mt-2">
-  <mat-card-header class="d-flex justify-content-between flex-column">
-    <div class="d-flex w-100">
-      <div class="pt-4 w-75 justify-content-start d-flex">
-        <fa-icon [icon]="faStar" size="3x" [classes]="['ml-5','p-1']"
-                 class="gold-color"></fa-icon>
-        <div class="w-2 bg-dark mb-3 ml-3"></div>
-        <h1 class="pl-3">Tus Video Favoritos</h1>
+<div class="mb-5">
+  <mat-card class="mat-elevation-z10 mt-2">
+    <mat-card-header class="d-flex justify-content-between flex-column">
+      <div class="d-flex w-100">
+        <div class="pt-4 w-75 justify-content-start d-flex">
+          <fa-icon [icon]="faStar" size="3x" [classes]="['ml-5','p-1']"
+                   class="gold-color"></fa-icon>
+          <div class="w-2 bg-dark mb-3 ml-3"></div>
+          <h1 class="pl-3">Tus Video Favoritos</h1>
+        </div>
+        <div class="w-25 d-flex justify-content-end">
+          <mat-form-field id="filterForm" appearance="outline" class="w-100 mt-1 mr-3">
+            <mat-label>Filtro de Búsqueda</mat-label>
+            <input matInput (keyup)="applyFilter($event)">
+          </mat-form-field>
+          <button mat-icon-button class="mt-filter" (click)="toggleFilterForm()">
+            <fa-icon [icon]="faFilter" [classes]="['text-muted', 'pt-1']"></fa-icon>
+          </button>
+        </div>
       </div>
-      <div class="w-25 d-flex justify-content-end">
-        <mat-form-field id="filterForm" appearance="outline" class="w-100 mt-1 mr-3">
-          <mat-label>Filtro de Búsqueda</mat-label>
-          <input matInput (keyup)="applyFilter($event)">
-        </mat-form-field>
-        <button mat-icon-button class="mt-filter" (click)="toggleFilterForm()">
-          <fa-icon [icon]="faFilter" [classes]="['text-muted', 'pt-1']"></fa-icon>
-        </button>
-      </div>
-    </div>
-  </mat-card-header>
-  <mat-card-content>
-    <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>{{'categoría' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['category'] | categoryTranslate}} </td>
-      </ng-container>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>{{'categoría' | uppercase}}</th>
+          <td mat-cell *matCellDef="let element"> {{element['category'] | categoryTranslate}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>{{'título' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['title'] | titlecase}} </td>
-      </ng-container>
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>{{'título' | uppercase}}</th>
+          <td mat-cell *matCellDef="let element"> {{element['title'] | titlecase}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef>{{'usuario' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['channel']['user']['username']}}</td>
-      </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>{{'usuario' | uppercase}}</th>
+          <td mat-cell *matCellDef="let element"> {{element['channel']['user']['username']}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="created_at">
-        <th mat-header-cell *matHeaderCellDef>{{'fecha de Publicación' | uppercase}}</th>
-        <td mat-cell *matCellDef="let element"> {{element['created_at'] | agoDate}} </td>
-      </ng-container>
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef>{{'fecha de Publicación' | uppercase}}</th>
+          <td mat-cell *matCellDef="let element"> {{element['created_at'] | agoDate}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-          <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-            <div class="d-flex mx-5">
-              <div class="w-49 pr-5 py-2 mt-2">
-                <app-profile-poster-video [video]="element" class="mat-elevation-z5"></app-profile-poster-video>
-              </div>
-              <div class="w-2 h-auto bg-secondary py-5 v-divider"></div>
-              <div class="w-49 px-5 py-3">
-                <div class="d-flex flex-column pl-2 p-absolute">
-                  <div class="d-flex">
-                    <h3 class="mr-2">{{element.title}}</h3>
-                    <app-category-chip [Category]="element.category" [SizeIcon]="20"
-                                       [Padding]="[8,8,8,8]"></app-category-chip>
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+            <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="d-flex mx-5">
+                <div class="w-49 pr-5 py-2 mt-2">
+                  <app-profile-poster-video [video]="element" class="mat-elevation-z5"></app-profile-poster-video>
+                </div>
+                <div class="w-2 h-auto bg-secondary py-5 v-divider"></div>
+                <div class="w-49 px-5 py-3">
+                  <div class="d-flex flex-column pl-2 p-absolute">
+                    <div class="d-flex">
+                      <h3 class="mr-2">{{element.title}}</h3>
+                      <app-category-chip [Category]="element.category" [SizeIcon]="20"
+                                         [Padding]="[8,8,8,8]"></app-category-chip>
+                    </div>
+                    <h6>{{element.created_at | fullDate}}</h6>
+                    <mat-chip-list>
+                      <mat-chip color="primary" class="w-auto p-1" selected>
+                        <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
+                        <span class="mr-1">{{element.likes_count | statsFilter | number:'.0-2'}}
+                          {{element.likes_count > 1000 ? ' k' : ''}}</span>
+                      </mat-chip>
+                      <mat-chip color="primary" class="w-auto p-1" selected>
+                        <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
+                        <span class="mr-1">{{element.views_count | statsFilter | number:'.0-2'}}
+                          {{element.views_count > 1000 ? ' k' : ''}}</span>
+                      </mat-chip>
+                      <mat-chip color="primary" class="w-auto p-1" selected>
+                        <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
+                        <span class="mr-1">{{element.comments_count | statsFilter | number:'.0-2'}}
+                          {{element.comments_count > 1000 ? ' k' : ''}}</span>
+                      </mat-chip>
+                      <mat-chip color="primary" class="w-auto p-1" selected>
+                        <fa-icon class="mx-2" [icon]="faFileDownload"></fa-icon>
+                        <span class="mr-1">{{element.downloads_count | statsFilter | number:'.0-2'}}
+                          {{element.downloads_count > 1000 ? ' k' : ''}}</span>
+                      </mat-chip>
+                    </mat-chip-list>
+                    <p class="pt-3 text-justify">{{element.description}}</p>
                   </div>
-                  <h6>{{element.created_at | fullDate}}</h6>
-                  <mat-chip-list>
-                    <mat-chip color="primary" class="w-auto p-1" selected>
-                      <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
-                      <span class="mr-1">{{element.likes_count | statsFilter | number:'.0-2'}}
-                        {{element.likes_count > 1000 ? ' k' : ''}}</span>
-                    </mat-chip>
-                    <mat-chip color="primary" class="w-auto p-1" selected>
-                      <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
-                      <span class="mr-1">{{element.views_count | statsFilter | number:'.0-2'}}
-                        {{element.views_count > 1000 ? ' k' : ''}}</span>
-                    </mat-chip>
-                    <mat-chip color="primary" class="w-auto p-1" selected>
-                      <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
-                      <span class="mr-1">{{element.comments_count | statsFilter | number:'.0-2'}}
-                        {{element.comments_count > 1000 ? ' k' : ''}}</span>
-                    </mat-chip>
-                    <mat-chip color="primary" class="w-auto p-1" selected>
-                      <fa-icon class="mx-2" [icon]="faFileDownload"></fa-icon>
-                      <span class="mr-1">{{element.downloads_count | statsFilter | number:'.0-2'}}
-                        {{element.downloads_count > 1000 ? ' k' : ''}}</span>
-                    </mat-chip>
-                  </mat-chip-list>
-                  <p class="pt-3 text-justify">{{element.description}}</p>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
-          [class.expanded-row]="expandedElement === element"
-          (click)="expandedElement = expandedElement === element ? null : element">
-      </tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-    </table>
-  </mat-card-content>
-</mat-card>
-<br>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+            [class.expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

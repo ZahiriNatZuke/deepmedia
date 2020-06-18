@@ -1,9 +1,9 @@
-<div class="card mb-8 w-100">
+<div class="card mb-8">
   <img [src]="URL_STORAGE + Video.poster.path | saveDom" class="w-100 h-100 rounded h-img"
        [alt]="Video.poster.name">
   <div class="d-flex justify-content-end mt-1">
     <div class="info-text-title" (click)="goToVideo()">
-      <p [class.switch-text]="Video.title.length > 41" class="font-weight-bold">{{Video.title}}</p>
+      <p [class.switch-text]="Video.title.length > 41">{{Video.title}}</p>
     </div>
   </div>
   <div class="text-white info-user font-weight-light">

@@ -109,10 +109,11 @@
   height: 22px;
   overflow: hidden;
   width: 97% !important;
+  cursor: pointer;
 }
 
-.info-text-title, .info-text-user {
-  cursor: pointer;
+.info-text-title:hover {
+  font-weight: bold;
 }
 
 #icon-like {

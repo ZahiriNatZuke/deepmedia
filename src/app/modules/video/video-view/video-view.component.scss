@@ -38,8 +38,8 @@
   transition: all .4s;
 }
 
-.lm-top {
-  margin-top: -12px;
+.m-view-video {
+  margin-bottom: 20px;
 }
 
 .mat-button {
@@ -85,4 +85,20 @@
   line-height: 32px;
   height: 32px;
   overflow: hidden;
+}
+
+.m-container {
+  margin: 4.5rem 0;
+}
+
+.spacer-bottom {
+  height: 3rem;
+}
+
+.spacer-top {
+  height: 1rem;
+}
+
+.mb-footer {
+  margin-bottom: 3.5rem;
 }

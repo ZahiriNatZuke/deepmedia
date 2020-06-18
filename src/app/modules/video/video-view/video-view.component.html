@@ -1,8 +1,8 @@
 <div *ngIf="!Video" class="d-flex justify-content-center">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<div *ngIf="!showVideoView"><br></div>
-<div *ngIf="Video" class="d-flex lm-top">
+<div *ngIf="!showVideoView" class="spacer-top"></div>
+<div *ngIf="Video" class="d-flex m-view-video">
   <div class="d-flex w-60 justify-content-start">
     <mat-card>
       <mat-card-content>
@@ -18,15 +18,14 @@
         </div>
         <div class="icon-line w-16 d-flex justify-content-end">
           <button *ngIf="User_Channel && User_Channel.id === Video.channel_id" mat-button class="text-muted"
-                  matTooltip="Editar Video"
-                  matTooltipPosition="above" [routerLink]="['/video/update-video',Video.id]">
+                  matTooltip="Editar Video" matTooltipPosition="above" [routerLink]="['/video/update-video',Video.id]">
             <fa-icon [icon]="faEdit"></fa-icon>
           </button>
-          <button mat-button (click)="showDateTime = !showDateTime" matTooltip="Fecha del Video"
+          <button mat-button (click)="showDateTime = !showDateTime; showInfo = false" matTooltip="Fecha del Video"
                   matTooltipPosition="above">
             <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['text-muted']"></fa-icon>
           </button>
-          <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo"
+          <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo; showDateTime = false"
                   matTooltip="Descripción del Video" matTooltipPosition="above">
             <fa-icon [icon]="faInfoCircle"></fa-icon>
           </button>
@@ -100,8 +99,7 @@
     </mat-card>
   </div>
 </div>
-<br>
-<div *ngIf="!showVideoView"><br><br></div>
+<div *ngIf="!showVideoView" class="spacer-bottom"></div>
 <div *ngIf="Video" class="d-flex justify-content-center w-100 container-line-stars">
   <div class="w-43 d-flex flex-column justify-content-start px-1">
     <div class="bg-light my-auto line-star"></div>
@@ -123,8 +121,7 @@
   </div>
 </div>
 <div id="viewTop">
-  <br><br>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center m-container">
     <div class="d-flex flex-column mr-5">
       <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Likes</h1>
       <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byLikes"
@@ -140,13 +137,11 @@
       </app-top-carousel>
     </div>
   </div>
-  <br><br>
-  <div class="d-flex justify-content-center w-100 container-line-stars mb-40">
+  <div class="d-flex justify-content-center w-100 container-line-stars mb-footer">
     <div class="w-100 d-flex flex-column justify-content-start px-1">
       <div class="bg-light my-auto line-star"></div>
       <div class="bg-light my-auto mx-2 line-star"></div>
       <div class="bg-light my-auto line-star"></div>
     </div>
   </div>
-  <br><br><br>
 </div>

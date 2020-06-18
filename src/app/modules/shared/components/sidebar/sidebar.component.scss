@@ -14,7 +14,7 @@
   width: 250px;
   height: 100%;
   background: #042331;
-  transition: all 0.5s ease;
+  transition: all 0.5s ease-in-out;
   user-select: none;
 
   header {
@@ -206,7 +206,7 @@
   position: fixed;
   left: 0;
   top: 250px;
-  transition: all .4s;
+  transition: all .4s ease-out;
   user-select: none;
 }
 
@@ -214,14 +214,14 @@
   background: #042331;
   line-height: 40px;
   font-size: 32px;
-  transition: all .5s;
+  transition: all .4s ease-out;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
 }
 
 .social-link:hover {
   padding-left: 20px;
-  transition: all .5s;
+  transition: all .4s ease-out;
 }
 
 .social-link img {
