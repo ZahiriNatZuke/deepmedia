@@ -28,6 +28,9 @@
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-color: #b4b4b4 rgba(225, 225, 225, 0.4);
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
 }
 
 .customized-scroll::-webkit-scrollbar {

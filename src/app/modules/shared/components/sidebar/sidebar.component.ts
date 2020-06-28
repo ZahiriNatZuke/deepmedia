@@ -19,6 +19,8 @@ import {HelpersService} from '../../../../services/helpers.service';
 import {Channel} from '../../../../models/channel';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Router} from '@angular/router';
+import {Platform} from '@angular/cdk/platform';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -52,7 +54,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   constructor(public dialog: MatDialog,
               private router: Router,
               private helpersService: HelpersService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private platform: Platform,
+              private notificationService: NotificationService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.toggleCategories = false;
     this.toggleOptions = false;
@@ -63,9 +67,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.UnknownUserAvatar = this.helpersService.getUnknownUserAvatar();
     window.addEventListener('keydown', (event) => {
-      if (event.ctrlKey && event.code === 'KeyF') {
+      if (event.ctrlKey && event.code === 'KeyF' && event.target === document.body) {
         event.preventDefault();
         this.openDialog();
+      }
+      if (event.ctrlKey && event.code === 'KeyB' && event.target === document.body) {
+        event.preventDefault();
+        this.openBot();
       }
     });
     this.dropdownSidebarCategories = $('#Categories');
@@ -143,5 +151,24 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   makeLogout() {
     this.authenticationService.POSTForLogout();
+  }
+
+  openBot() {
+    if (this.platform.FIREFOX) {
+      this.notificationService.showNotification(
+          'Sys Info',
+          'El Bot aún no esta disponible para Mozilla Firefox. :(',
+          'success');
+    } else {
+      if (this.User_Channel) {
+        if (environment.expandedSidebar) {
+          this.inputCheck.checked = false;
+          this.toLeft();
+        }
+        $('#chat').css({
+          bottom: '0px'
+        });
+      }
+    }
   }
 }

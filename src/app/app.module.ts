@@ -13,6 +13,7 @@ import {VideoService} from './services/video.service';
 import {AuthenticationService} from './services/authentication.service';
 import {HttpErrorInterceptor} from './interceptors/http.error.interceptor';
 import {HttpSecurityInterceptor} from './interceptors/http.security.interceptor';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {HttpSecurityInterceptor} from './interceptors/http.security.interceptor'
     VideoModule,
     SharedModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRippleModule
   ],
   providers: [
     AuthenticationService,

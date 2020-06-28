@@ -10,4 +10,5 @@ export class User {
   updated_at: string;
   pivot?: PivotUserVideo;
   channel?: Channel;
+  role: string;
 }

@@ -56,6 +56,8 @@ import {StatsFilterPipe} from './pipes/stats-filter.pipe';
 import {DownloadDialogComponent} from './dialogs/download-dialog/download-dialog.component';
 import {SizePipe} from './pipes/size.pipe';
 import {ErrorsDialogComponent} from './dialogs/errors-dialog/errors-dialog.component';
+import {BotComponent} from './components/bot/bot.component';
+import {BotMsgComponent} from './components/bot-msg/bot-msg.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import {ErrorsDialogComponent} from './dialogs/errors-dialog/errors-dialog.compo
     StatsFilterPipe,
     DownloadDialogComponent,
     SizePipe,
-    ErrorsDialogComponent
+    ErrorsDialogComponent,
+    BotComponent,
+    BotMsgComponent,
   ],
   exports: [
     WelcomeComponent,
@@ -113,7 +117,8 @@ import {ErrorsDialogComponent} from './dialogs/errors-dialog/errors-dialog.compo
     VideoFormStepperUpdateComponent,
     SaveDomPipe,
     FullDatePipe,
-    StatsFilterPipe
+    StatsFilterPipe,
+    BotComponent
   ],
   imports: [
     CommonModule,

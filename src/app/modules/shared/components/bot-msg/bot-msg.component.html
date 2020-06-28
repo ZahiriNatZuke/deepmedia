@@ -1,0 +1,7 @@
+<div class="w-100 d-flex"
+     [class.justify-content-end]="type === 'client'"
+     [class.justify-content-start]="type === 'server'">
+  <span class="msg"
+        [class.mr-1]="type === 'client'"
+        [class.ml-1]="type === 'server'">{{text}}</span>
+</div>

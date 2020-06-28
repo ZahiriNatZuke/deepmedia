@@ -68,6 +68,7 @@
           <li *ngIf="User_Channel"><a [routerLink]="['/video/favorites',1]">Mis Favoritos</a></li>
           <li *ngIf="User_Channel"><a [routerLink]="['/video/new-video']">Nuevo Video</a></li>
           <li (click)="openDialog()"><a>Buscar</a></li>
+          <li *ngIf="User_Channel" (click)="openBot()"><a>Bot_DeepMedia</a></li>
         </ul>
       </div>
     </li>
