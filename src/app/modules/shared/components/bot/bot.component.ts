@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {faAngleDown, faAngleUp, faPaperPlane, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../../../services/authentication.service';
@@ -32,6 +32,8 @@ export class BotComponent implements OnInit, OnDestroy {
   inputCommands: Array<Command> = environment.commands;
   User: Channel;
 
+  @ViewChild('textarea', {static: true}) textArea: ElementRef;
+
   constructor(private _formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private botService: BotService) {
@@ -39,15 +41,16 @@ export class BotComponent implements OnInit, OnDestroy {
     this.toggleCommand = false;
     this.authenticationService.currentUser.subscribe(auth => this.User = auth);
     this.security = setInterval(() => {
-      this.authenticationService.currentUser.subscribe(auth => {
-        if (auth === null || auth === undefined) this.toClose();
-      });
+      if (this.User === null || this.User === undefined) this.toClose();
     }, 200);
   }
 
   ngOnInit(): void {
     this.chat = $('#chat');
     this.commands = $('#commands').fadeToggle();
+    window.addEventListener('keydown', (event) => {
+      if (event.altKey && event.code === 'Enter' && event.target === this.textArea.nativeElement) this.onSubmit();
+    });
   }
 
   toMinimizing() {
@@ -73,34 +76,46 @@ export class BotComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.botForm.valid && !this.botForm.pristine) {
+    if (this.botForm.valid) {
       this.chatStack.push({
         text: this.botForm.get('body').value,
         type: 'client'
       });
-
-      const commandObj = this.inputCommands.find(command =>
-          command.value.split(' ')[0] === this.botForm.get('body').value.split(' ')[0]);
-
       const result: CommandAnalyzed = this.botService.analyzeCommand(this.botForm.get('body').value);
 
-      if (result.data) {
-        if (commandObj.kind === 'auto')
-          this.MakeRequestFromAutoCommand(result.url);
-        else
-          this.botService.POSTFromBot(result.url, result.data)
-              .subscribe(() => {
-                this.chatStack.push({
-                  text: result.message,
-                  type: 'server'
-                });
-              }, () => {
-                this.chatStack.push({
-                  text: 'Sorry, necesito limpiar mis engranajes.',
-                  type: 'server'
-                });
+      if (result.data)
+        switch (result.kind) {
+          case 'auto':
+            this.MakeRequestFromAutoCommand(result.url);
+            break;
+          case 'bug':
+            this.MakeRequestFromInlineCommand(result);
+            break;
+          case 'sugg':
+            this.MakeRequestFromInlineCommand(result);
+            break;
+          case 'help':
+            this.chatStack.push({
+              text: result.message,
+              type: 'server'
+            });
+            for (const faq of result.data) {
+              this.chatStack.push({
+                text: faq,
+                type: 'faq'
               });
-      } else
+            }
+            break;
+          case 'answer':
+            this.chatStack.push({
+              text: result.message,
+              type: 'server'
+            });
+            break;
+          default:
+            break;
+        }
+      else
         this.chatStack.push({
           text: result.message,
           type: 'server'
@@ -120,15 +135,37 @@ export class BotComponent implements OnInit, OnDestroy {
   }
 
   emitCommand(command: Command) {
-    if (command.kind === 'inline') {
-      this.botForm.get('body').setValue(command.value);
-    } else {
-      this.chatStack.push({
-        text: command.value,
-        type: 'client'
-      });
-      const result: CommandAnalyzed = this.botService.analyzeCommand(command.value);
-      this.MakeRequestFromAutoCommand(result.url);
+    switch (command.kind) {
+      case 'inline':
+        this.botForm.get('body').setValue(command.value);
+        break;
+      case 'auto':
+        this.chatStack.push({
+          text: command.value,
+          type: 'client'
+        });
+        const auto: CommandAnalyzed = this.botService.analyzeCommand(command.value);
+        this.MakeRequestFromAutoCommand(auto.url);
+        break;
+      case 'help':
+        this.chatStack.push({
+          text: command.value,
+          type: 'client'
+        });
+        const help: CommandAnalyzed = this.botService.analyzeCommand(command.value);
+        this.chatStack.push({
+          text: help.message,
+          type: 'server'
+        });
+        for (const faq of help.data) {
+          this.chatStack.push({
+            text: faq,
+            type: 'faq'
+          });
+        }
+        break;
+      default:
+        break;
     }
 
     this.toggleCommands();
@@ -142,9 +179,12 @@ export class BotComponent implements OnInit, OnDestroy {
   }
 
   MakeRequestFromAutoCommand(url: string): void {
-    if (this.User.user.role !== 'ROLE_USER')
+    if (this.User?.user.role !== 'ROLE_USER')
       this.botService.GETFromBot(url)
-          .pipe(map(data => `${data.data.user.username} : ${data.data.topic ? '#' + data.data.topic : ''} ${data.data.body}`))
+          .pipe(map(data =>
+              data.data?.user.username ?
+                  `${data.data.user.username} : ${data.data.topic ? '#' + data.data.topic : ''} ${data.data.body}` :
+                  'No hay Información disponible.'))
           .subscribe(response => {
             this.chatStack.push({
               text: response,
@@ -161,5 +201,24 @@ export class BotComponent implements OnInit, OnDestroy {
         text: 'No tienes acceso a esta información. Contacta con algún administrador.',
         type: 'server'
       });
+  }
+
+  MakeRequestFromInlineCommand(result: CommandAnalyzed): void {
+    this.botService.POSTFromBot(result.url, result.data)
+        .subscribe(() => {
+          this.chatStack.push({
+            text: result.message,
+            type: 'server'
+          });
+        }, () => {
+          this.chatStack.push({
+            text: 'Sorry, necesito limpiar mis engranajes.',
+            type: 'server'
+          });
+        });
+  }
+
+  catchCommand(event: string) {
+    this.botForm.get('body').setValue(event);
   }
 }

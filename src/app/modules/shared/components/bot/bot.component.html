@@ -11,18 +11,20 @@
     </div>
   </div>
   <div id="msg-container" class="msg-container customized-scroll d-flex flex-column-reverse">
-    <app-bot-msg [text]="msg.text" [type]="msg.type" *ngFor="let msg of getStackMessages()"></app-bot-msg>
+    <app-bot-msg (commandEmitter)="catchCommand($event)" [text]="msg.text" [type]="msg.type"
+                 *ngFor="let msg of getStackMessages()"></app-bot-msg>
   </div>
   <div id="chat-form" class="chat-form">
     <form [formGroup]="botForm" (ngSubmit)="onSubmit()" class="form-inline d-flex justify-content-between">
-      <textarea formControlName="body" class="form-control flex-grow-1 customized-scroll" rows="1" required></textarea>
+      <textarea #textarea formControlName="body" class="form-control flex-grow-1 customized-scroll" rows="1"
+                required></textarea>
       <div class="d-flex justify-content-end pr-1 button-group">
         <button mat-icon-button type="button" class="mr-1" (click)="toggleCommands()" matTooltip="Comandos"
-                [matTooltipDisabled]="toggleCommand" matTooltipPosition="above"
-                matTooltipClass="text-dark bg-white font-weight-light">
+                [matTooltipDisabled]="toggleCommand" matTooltipPosition="above" matTooltipShowDelay="300"
+                matTooltipClass="text-dark bg-white font-weight-light" matTooltipHideDelay="150">
           <span class="font-weight-bold text-white">/</span>
         </button>
-        <button mat-icon-button type="submit" [disabled]="botForm.invalid || botForm.pristine">
+        <button mat-icon-button type="submit" [disabled]="botForm.invalid">
           <fa-icon [icon]="faPaperPlane" [classes]="['text-white']"></fa-icon>
         </button>
       </div>
@@ -32,7 +34,7 @@
     <ul class="commands-list">
       <li *ngFor="let command of inputCommands" (click)="emitCommand(command)">
         <div class="command"
-             *ngIf="(command.can === 'Admin' && User.user.role !== 'ROLE_USER') || command.can === 'Everyone'">
+             *ngIf="(command.can === 'Admin' && User?.user.role !== 'ROLE_USER') || command.can === 'Everyone'">
           {{command.name}}</div>
       </li>
     </ul>

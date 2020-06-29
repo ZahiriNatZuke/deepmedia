@@ -4,8 +4,10 @@ import {BOT} from './BOT';
 import {Observable} from 'rxjs';
 import {CommandAnalyzed} from '../models/command-analyzed';
 import {first} from 'rxjs/operators';
+import {environment} from '../../environments/environment.prod';
 
 const bot = new BOT();
+const faq = environment.faq;
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class BotService {
         if (command.substr(6) !== '')
           return {
             data: {body: command.substr(6)},
-            message: 'Gracias por su sugerencia, se tendrá en cuanta.',
+            message: 'Gracias por su recomendación, se tendrá en cuanta.',
             kind: 'sugg',
             url: bot.getSuggestionsURL()
           };
@@ -48,7 +50,7 @@ export class BotService {
           default:
             return {
               data: null,
-              message: 'Estructura incorrecta. Ej: /bug #sec Entró Anonymous. #sec, #fun, #vis.'
+              message: 'Estructura incorrecta.\n Ej: /bug #sec Entró Anonymous.\n #sec, #fun, #vis.'
             };
         }
         if (command.substr(10) !== '')
@@ -77,6 +79,68 @@ export class BotService {
           kind: 'sugg',
           url: bot.getSuggestionsURL()
         };
+
+      case '/faq':
+        return {
+          data: [
+            {
+              name: 'Los Videos',
+              command: '/faq_video'
+            },
+            {
+              name: 'Los Usuarios',
+              command: '/faq_user'
+            },
+            {
+              name: 'La Seguridad',
+              command: '/faq_sec'
+            }
+          ],
+          message: 'Las Preguntas Frecuentes están separadas en estos temas.',
+          kind: 'help'
+        };
+
+      case '/faq_video':
+        if (splitCommand.length > 1) {
+          return {
+            data: true,
+            kind: 'answer',
+            message: faq.video.topics[+splitCommand[1].charAt(1) - 1].answer
+          };
+        } else
+          return {
+            data: faq.video.topics,
+            message: 'Estos son los temas relacionados con Los Usuarios',
+            kind: 'help'
+          };
+
+      case '/faq_user':
+        if (splitCommand.length > 1) {
+          return {
+            data: true,
+            kind: 'answer',
+            message: faq.usuario.topics[+splitCommand[1].charAt(1) - 1].answer
+          };
+        } else
+          return {
+            data: faq.usuario.topics,
+            message: 'Estos son los temas relacionados con Los Usuarios',
+            kind: 'help'
+          };
+
+      case '/faq_sec':
+        if (splitCommand.length > 1) {
+          return {
+            data: true,
+            kind: 'answer',
+            message: faq.seguridad.topics[+splitCommand[1].charAt(1) - 1].answer
+          };
+        } else
+          return {
+            data: faq.seguridad.topics,
+            message: 'Estos son los temas relacionados con Los Usuarios',
+            kind: 'help'
+          };
 
       default:
         return {
