@@ -22,7 +22,7 @@ export class BotService {
     switch (splitCommand[0]) {
 
       case '/sugg':
-        if (command.substr(6) !== '')
+        if (splitCommand.length > 1)
           return {
             data: {body: command.substr(6)},
             message: 'Gracias por su recomendación, se tendrá en cuanta.',
@@ -53,7 +53,7 @@ export class BotService {
               message: 'Estructura incorrecta.\n Ej: /bug #sec Entró Anonymous.\n #sec, #fun, #vis.'
             };
         }
-        if (command.substr(10) !== '')
+        if (splitCommand.length > 2)
           return {
             data: {body: command.substr(10), topic},
             message: 'Gracias por reportar el error, se corregirá lo antes posible.',
@@ -79,6 +79,38 @@ export class BotService {
           kind: 'sugg',
           url: bot.getSuggestionsURL()
         };
+
+      case '/grant':
+        let role;
+        switch (splitCommand[1]) {
+          case '#user':
+            role = 'ROLE_USER';
+            break;
+          case '#admin':
+            role = 'ROLE_ADMIN';
+            break;
+          case '#root':
+            role = 'ROLE_ROOT';
+            break;
+          default:
+            return {
+              data: null,
+              message: 'El rol seleccionado no es correcto.\n Ej: /grant #user Anonymous. #user, #admin, #root.'
+            };
+        }
+        if (splitCommand.length > 2) {
+          const user = splitCommand[1] === '#admin' ? command.substr(14) : command.substr(13);
+          return {
+            data: {user, new_role: role},
+            message: `Ya he asignado ${role} al usuario ${user}.`,
+            kind: 'grant',
+            url: bot.getGrantPermissionsURL()
+          };
+        } else
+          return {
+            data: null,
+            message: 'Debe poner seleccionar algún usuario existente.'
+          };
 
       case '/faq':
         return {

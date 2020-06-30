@@ -16,6 +16,10 @@ export class BOT {
     return this.URL_BOT + 'sugg';
   }
 
+  getGrantPermissionsURL(): string {
+    return this.URL_BOT + 'grant';
+  }
+
   getHeadersWithAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',

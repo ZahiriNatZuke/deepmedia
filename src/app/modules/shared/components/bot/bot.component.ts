@@ -9,6 +9,7 @@ import {CommandAnalyzed} from '../../../../models/command-analyzed';
 import {Command} from '../../../../models/command';
 import {Channel} from '../../../../models/channel';
 import {map} from 'rxjs/operators';
+import {HistoryChat} from '../../../../models/history-chat';
 
 @Component({
   selector: 'app-bot',
@@ -29,6 +30,7 @@ export class BotComponent implements OnInit, OnDestroy {
   });
   security: any;
   chatStack: Array<ChatMessage> = new Array<ChatMessage>();
+  historyChat: HistoryChat = new HistoryChat();
   inputCommands: Array<Command> = environment.commands;
   User: Channel;
 
@@ -50,6 +52,8 @@ export class BotComponent implements OnInit, OnDestroy {
     this.commands = $('#commands').fadeToggle();
     window.addEventListener('keydown', (event) => {
       if (event.altKey && event.code === 'Enter' && event.target === this.textArea.nativeElement) this.onSubmit();
+      if (event.altKey && event.code === 'ArrowUp' && event.target === this.textArea.nativeElement) this.upCommandFromHistory();
+      if (event.altKey && event.code === 'ArrowDown' && event.target === this.textArea.nativeElement) this.downCommandFromHistory();
     });
   }
 
@@ -73,14 +77,25 @@ export class BotComponent implements OnInit, OnDestroy {
     this.toggleMinimize = true;
     this.chatStack = [];
     this.botForm.reset();
+    this.historyChat.cleanHistory();
   }
 
   onSubmit() {
     if (this.botForm.valid) {
+      if (this.botForm.get('body').value === 'cls') {
+        this.chatStack = [];
+        this.botForm.reset();
+        return;
+      }
+
+      this.historyChat.mergeHistory();
+      this.historyChat.addCommand(this.botForm.get('body').value);
+
       this.chatStack.push({
         text: this.botForm.get('body').value,
         type: 'client'
       });
+
       const result: CommandAnalyzed = this.botService.analyzeCommand(this.botForm.get('body').value);
 
       if (result.data)
@@ -89,10 +104,10 @@ export class BotComponent implements OnInit, OnDestroy {
             this.MakeRequestFromAutoCommand(result.url);
             break;
           case 'bug':
-            this.MakeRequestFromInlineCommand(result);
+            this.chooseOption(result);
             break;
           case 'sugg':
-            this.MakeRequestFromInlineCommand(result);
+            this.chooseOption(result);
             break;
           case 'help':
             this.chatStack.push({
@@ -111,6 +126,9 @@ export class BotComponent implements OnInit, OnDestroy {
               text: result.message,
               type: 'server'
             });
+            break;
+          case 'grant':
+            this.MakeRequestForGrant(result);
             break;
           default:
             break;
@@ -140,6 +158,8 @@ export class BotComponent implements OnInit, OnDestroy {
         this.botForm.get('body').setValue(command.value);
         break;
       case 'auto':
+        this.historyChat.mergeHistory();
+        this.historyChat.addCommand(command.value);
         this.chatStack.push({
           text: command.value,
           type: 'client'
@@ -148,6 +168,8 @@ export class BotComponent implements OnInit, OnDestroy {
         this.MakeRequestFromAutoCommand(auto.url);
         break;
       case 'help':
+        this.historyChat.mergeHistory();
+        this.historyChat.addCommand(command.value);
         this.chatStack.push({
           text: command.value,
           type: 'client'
@@ -220,5 +242,43 @@ export class BotComponent implements OnInit, OnDestroy {
 
   catchCommand(event: string) {
     this.botForm.get('body').setValue(event);
+  }
+
+  chooseOption(option: CommandAnalyzed) {
+    if (typeof option.data === 'boolean')
+      this.MakeRequestFromAutoCommand(option.url);
+    else
+      this.MakeRequestFromInlineCommand(option);
+  }
+
+  MakeRequestForGrant(result: CommandAnalyzed) {
+    this.botService.POSTFromBot(result.url, {
+      new_role: result.data.new_role,
+      user: result.data.user
+    }).subscribe((response) => {
+      if (response.status)
+        this.chatStack.push({
+          text: result.message,
+          type: 'server'
+        });
+      else
+        this.chatStack.push({
+          text: response.message,
+          type: 'server'
+        });
+    }, () => {
+      this.chatStack.push({
+        text: 'Sorry, necesito limpiar mis engranajes.',
+        type: 'server'
+      });
+    });
+  }
+
+  upCommandFromHistory() {
+    this.botForm.get('body').setValue(this.historyChat.getLastCommand());
+  }
+
+  downCommandFromHistory() {
+    this.botForm.get('body').setValue(this.historyChat.getTempCommand());
   }
 }
