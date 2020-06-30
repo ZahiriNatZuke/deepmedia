@@ -9,7 +9,6 @@ import {CommandAnalyzed} from '../../../../models/command-analyzed';
 import {Command} from '../../../../models/command';
 import {Channel} from '../../../../models/channel';
 import {map} from 'rxjs/operators';
-import {HistoryChat} from '../../../../models/history-chat';
 
 @Component({
   selector: 'app-bot',
@@ -281,4 +280,50 @@ export class BotComponent implements OnInit, OnDestroy {
   downCommandFromHistory() {
     this.botForm.get('body').setValue(this.historyChat.getTempCommand());
   }
+}
+
+export class HistoryChat {
+  historyChat: Array<string>;
+  tempHistoryChat: Array<string>;
+
+  constructor() {
+    this.historyChat = new Array<string>();
+    this.tempHistoryChat = new Array<string>();
+  }
+
+  getLastCommand(): string {
+    if (this.historyChat.length === 1)
+      return this.historyChat[0];
+    const command = this.historyChat.pop();
+    if (command === undefined)
+      return;
+    this.tempHistoryChat.push(command);
+    return command;
+  }
+
+  getTempCommand(): string {
+    if (this.tempHistoryChat.length === 1)
+      return this.tempHistoryChat[0];
+    const command = this.tempHistoryChat.pop();
+    if (command === undefined)
+      return;
+    this.historyChat.push(command);
+    return command;
+  }
+
+  addCommand(command: string) {
+    if (command)
+      this.historyChat.push(command);
+  }
+
+  mergeHistory() {
+    this.historyChat.push(...this.tempHistoryChat.reverse());
+    this.tempHistoryChat = [];
+  }
+
+  cleanHistory() {
+    this.historyChat = [];
+    this.tempHistoryChat = [];
+  }
+
 }
