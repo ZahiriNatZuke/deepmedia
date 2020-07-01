@@ -130,19 +130,23 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(): void {
-    if (environment.expandedSidebar) {
-      this.inputCheck.checked = false;
-      this.toLeft();
-    }
-    this.dialog.open(SearchDialogComponent, {
-      width: '100%',
-      maxHeight: '550px',
-      autoFocus: true,
-      role: 'dialog',
-      position: {
-        top: '40px',
+    if (!localStorage.getItem('X-Banished')
+        && sessionStorage.getItem('location') !== 'Forbidden'
+        && sessionStorage.getItem('location') !== 'NotFound') {
+      if (environment.expandedSidebar) {
+        this.inputCheck.checked = false;
+        this.toLeft();
       }
-    });
+      this.dialog.open(SearchDialogComponent, {
+        width: '100%',
+        maxHeight: '550px',
+        autoFocus: true,
+        role: 'dialog',
+        position: {
+          top: '40px',
+        }
+      });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -160,7 +164,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           'El Bot aún no esta disponible para Mozilla Firefox. :(',
           'success');
     } else {
-      if (this.User_Channel) {
+      if (!localStorage.getItem('X-Banished') && this.User_Channel
+          && sessionStorage.getItem('location') !== 'Forbidden'
+          && sessionStorage.getItem('location') !== 'NotFound') {
         if (environment.expandedSidebar) {
           this.inputCheck.checked = false;
           this.toLeft();

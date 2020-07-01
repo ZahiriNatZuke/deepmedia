@@ -119,6 +119,13 @@ export const environment = {
           answer: 'Para que un usuario termine baneado debe haber incumplido, con las políticas de la página, expuestas' +
               'en el [/faq_video #1] y haber sido reportado con frecuencia por usuarios.',
           command: '/faq_sec #2'
+        },
+        {
+          question: '¿Qué pasa si soy Baneado?',
+          answer: 'En caso de ser baneado, el ban será registrado en el servidor. En el navegador se almacenará una ' +
+              'información necesaria para después de cumplido el tiempo de ban, pueda recuperar el acceso a la página. ' +
+              'De eliminar esta información, el servidor lo expulsará x tiempo indefinido.',
+          command: '/faq_sec #3'
         }
       ]
     }

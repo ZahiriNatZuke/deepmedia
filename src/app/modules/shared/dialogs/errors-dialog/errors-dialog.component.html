@@ -4,9 +4,8 @@
           [class]="'bg-' + data.status">{{data.from}}</span>
   </div>
   <div class="text-white d-flex justify-content-center flex-grow-1 flex-column ml-1">
-    <div class="d-flex align-self-center" *ngFor="let error of data.errors">
-      <span>●&nbsp;</span>
-      <span class=""> {{error}}</span>
+    <div class="d-flex align-self-center justify-content-start w-100" *ngFor="let error of data.errors">
+      <span *ngIf="data.status !== 'danger'">●&nbsp;</span><span>{{error}}</span>
     </div>
   </div>
 </div>

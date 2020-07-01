@@ -14,19 +14,23 @@ export class NotFoundComponent implements OnInit, OnDestroy {
       padding: 0,
       marginLeft: 0
     });
+    sessionStorage.setItem('location', 'NotFound');
   }
 
   ngOnInit(): void {
     $('#notfound').fadeIn(300);
+    $('#chat').fadeOut(0);
   }
 
   ngOnDestroy(): void {
+    sessionStorage.removeItem('location');
     $('#app-sidebar').fadeIn(0);
     $('#p-sidebar').css({
       paddingLeft: '5px',
       marginLeft: environment.expandedSidebar ? '250px' : '70px',
       transition: 'all 0s'
     });
+    $('#chat').fadeIn(400);
   }
 
 }

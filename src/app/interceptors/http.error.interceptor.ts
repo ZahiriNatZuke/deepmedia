@@ -12,6 +12,9 @@ import {NotificationService} from '../services/notification.service';
 import {catchError, map, retry} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
+import {Banished} from '../models/banished';
+import * as moment from 'moment';
+import 'moment/locale/es-us';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -35,17 +38,26 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           switch (true) {
             case this.errors4xx.includes(error.status):
-              if (error.error.error_message !== undefined)
+              if (error.error.error_message !== undefined && !error.error.banished)
                 this.notificationService.showNotification(error.error.from, error.error.error_message, 'danger');
               if (error.status === 404)
                 this.router.navigate(['/not-found']).then();
               if (error.status === 401) {
-                localStorage.clear();
-                sessionStorage.clear();
-                this.authenticationService.UpdateCurrentUserValue(null);
+                this.eraseCredentials();
                 this.router.navigate(['/auth/login']).then();
               }
               if (error.status === 403) {
+                if (error.error.banished) {
+                  this.eraseCredentials();
+                  const banished: Banished = error.error.banished;
+                  localStorage.setItem('X-Banished', JSON.stringify(banished));
+                  this.notificationService.showErrors(error.error.from, [
+                    `${error.error.error_message}.`,
+                    `Causa: ${banished.why}`,
+                    `Por: ${banished.byWho}.`,
+                    `Fin: ${moment(banished.banish_expired_at * 1000).fromNow()}.`
+                  ], 'danger');
+                }
                 this.router.navigate(['/forbidden']).then();
               }
               break;
@@ -61,5 +73,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           return throwError(error);
         })
     );
+  }
+
+  eraseCredentials() {
+    sessionStorage.clear();
+    localStorage.clear();
+    this.authenticationService.UpdateCurrentUserValue(null);
   }
 }

@@ -140,10 +140,21 @@ export class API {
     return this.URL_API + `channel/store/${channel}/${video}`;
   }
 
+  getRequestBanURL(): string {
+    return this.URL_API + 'request_ban';
+  }
+
   getHeadersWithOutAuth(): HttpHeaders {
-    return new HttpHeaders({
-      Accept: 'application/json'
-    });
+    if (sessionStorage.getItem('X-Authentication-JWT'))
+      return new HttpHeaders({
+        Accept: 'application/json',
+        'X-Authentication-JWT': sessionStorage.getItem('X-Authentication-JWT'),
+        'X-Encode-ID': sessionStorage.getItem('X-Encode-ID')
+      });
+    else
+      return new HttpHeaders({
+        Accept: 'application/json'
+      });
   }
 
   getHeadersWithAuth(): HttpHeaders {
@@ -177,4 +188,10 @@ export class API {
     });
   }
 
+  getHeadersForEraseBan(hash: string) {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      'X-Banished': hash
+    });
+  }
 }

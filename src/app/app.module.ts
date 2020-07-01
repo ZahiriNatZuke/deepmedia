@@ -34,8 +34,8 @@ import {MatRippleModule} from '@angular/material/core';
     CrudService,
     HelpersService,
     VideoService,
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: HttpSecurityInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpSecurityInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
   ],
   exports: [],
   bootstrap: [AppComponent]

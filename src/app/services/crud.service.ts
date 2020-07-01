@@ -72,4 +72,9 @@ export class CrudService {
         .pipe(first());
   }
 
+  RequestToEraseBan(user: string, hash: string): Observable<any> {
+    return this.httpClient.post(api.getRequestBanURL(), {user}, {headers: api.getHeadersForEraseBan(hash)})
+        .pipe(first());
+  }
+
 }
