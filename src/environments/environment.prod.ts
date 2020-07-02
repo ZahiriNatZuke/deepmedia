@@ -128,6 +128,31 @@ export const environment = {
           command: '/faq_sec #3'
         }
       ]
+    },
+    bot: {
+      command: '/faq_bot',
+      topics: [
+        {
+          question: '¿Para que sirve el Bot?',
+          answer: 'El objetivo de este bot es de ayudar al usuario a realizar acciones que de otra forma podrían llegar ' +
+              'a ser más complicadas.',
+          command: '/faq_bot #1'
+        },
+        {
+          question: '¿Que puedo hacer con el Bot?',
+          answer: 'Con este bot puede realizar reportes de errores que usted encuentre en la aplicación, lo que ayuda a ' +
+              'mejorar las calidad del sistema. También puede realizar sugerencias al equipo de desarrollo, las cuales ' +
+              'de tendrán en cuanta. Paulatinamente se agregaran mas opciones.',
+          command: '/faq_bot #2'
+        },
+        {
+          question: '¿Qué NO debo hacer con el Bot?',
+          answer: 'El bot es una herramienta de apoyo tanto para el usuario como para el equipo de desarrollo, por lo que' +
+              'todo lo que usted reporte, sea un bug o sugerencia será revisada. Por lo que no se debe hacer un uso ' +
+              'inadecuado del bot. Si un usuario incurre en esto puede ser baneado.',
+          command: '/faq_bot #3'
+        }
+      ]
     }
   }
 };

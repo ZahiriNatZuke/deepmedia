@@ -67,11 +67,6 @@ export class CrudService {
         .pipe(first());
   }
 
-  DELETEVideoOrUser(URL: string, parameter: string): Observable<any> {
-    return this.httpClient.delete(URL + parameter, {headers: api.getHeadersWithAuth()})
-        .pipe(first());
-  }
-
   RequestToEraseBan(user: string, hash: string): Observable<any> {
     return this.httpClient.post(api.getRequestBanURL(), {user}, {headers: api.getHeadersForEraseBan(hash)})
         .pipe(first());

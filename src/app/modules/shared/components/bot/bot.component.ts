@@ -104,10 +104,7 @@ export class BotComponent implements OnInit, OnDestroy {
           case 'auto':
             this.MakeRequestFromAutoCommand(result.url);
             break;
-          case 'bug':
-            this.chooseOption(result);
-            break;
-          case 'sugg':
+          case 'inline':
             this.chooseOption(result);
             break;
           case 'help':
@@ -131,15 +128,6 @@ export class BotComponent implements OnInit, OnDestroy {
           case 'grant':
             this.MakeRequestForGrant(result);
             break;
-          case 'ban':
-            this.botService.POSTFromBot(result.url, result.data)
-                .subscribe(() => {
-                  this.chatStack.push({
-                    text: result.message,
-                    type: 'server'
-                  });
-                });
-            break;
           case 'ban:server':
             this.botService.POSTFromBot(result.url, result.data)
                 .subscribe((response) => {
@@ -155,7 +143,14 @@ export class BotComponent implements OnInit, OnDestroy {
                       text: result.message,
                       type: 'server'
                     });
-                });
+                }, () => this.messageErrorFromBot());
+            break;
+          case 'delete':
+            this.botService.DELETEFromBot(result.url, result.data.id)
+                .subscribe(() => this.chatStack.push({
+                  text: result.message,
+                  type: 'server'
+                }), () => this.messageErrorFromBot());
             break;
           default:
             break;
@@ -234,17 +229,10 @@ export class BotComponent implements OnInit, OnDestroy {
               data.data?.user.username ?
                   `${data.data.user.username} : ${data.data.topic ? '#' + data.data.topic : ''} ${data.data.body}` :
                   'No hay Información disponible.'))
-          .subscribe(response => {
-            this.chatStack.push({
-              text: response,
-              type: 'server'
-            });
-          }, () => {
-            this.chatStack.push({
-              text: 'Sorry, necesito limpiar mis engranajes.',
-              type: 'server'
-            });
-          });
+          .subscribe(response => this.chatStack.push({
+            text: response,
+            type: 'server'
+          }), () => this.messageErrorFromBot());
     else
       this.chatStack.push({
         text: 'No tienes acceso a esta información. Contacta con algún administrador.',
@@ -254,17 +242,10 @@ export class BotComponent implements OnInit, OnDestroy {
 
   MakeRequestFromInlineCommand(result: CommandAnalyzed): void {
     this.botService.POSTFromBot(result.url, result.data)
-        .subscribe(() => {
-          this.chatStack.push({
-            text: result.message,
-            type: 'server'
-          });
-        }, () => {
-          this.chatStack.push({
-            text: 'Sorry, necesito limpiar mis engranajes.',
-            type: 'server'
-          });
-        });
+        .subscribe(() => this.chatStack.push({
+          text: result.message,
+          type: 'server'
+        }), () => this.messageErrorFromBot());
   }
 
   catchCommand(event: string) {
@@ -282,22 +263,17 @@ export class BotComponent implements OnInit, OnDestroy {
     this.botService.POSTFromBot(result.url, {
       new_role: result.data.new_role,
       user: result.data.user
-    }).subscribe((response) => {
-      if (response.status)
+    }).subscribe((response) =>
         this.chatStack.push({
-          text: result.message,
+          text: response.status ? result.message : response.message,
           type: 'server'
-        });
-      else
-        this.chatStack.push({
-          text: response.message,
-          type: 'server'
-        });
-    }, () => {
-      this.chatStack.push({
-        text: 'Sorry, necesito limpiar mis engranajes.',
-        type: 'server'
-      });
+        }), () => this.messageErrorFromBot());
+  }
+
+  messageErrorFromBot() {
+    this.chatStack.push({
+      text: 'Sorry, necesito limpiar mis engranajes.',
+      type: 'server'
     });
   }
 
