@@ -20,6 +20,18 @@ export class BOT {
     return this.URL_BOT + 'grant';
   }
 
+  getRevokeAccessURL(): string {
+    return this.URL_BOT + 'ban/add';
+  }
+
+  getGrantAccessURL(): string {
+    return this.URL_BOT + 'ban/revoke';
+  }
+
+  getCheckBanURL(): string {
+    return this.URL_BOT + 'ban/check';
+  }
+
   getHeadersWithAuth(): HttpHeaders {
     return new HttpHeaders({
       Accept: 'application/json',

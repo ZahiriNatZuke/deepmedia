@@ -15,7 +15,7 @@ export const environment = {
     },
     {
       name: 'Recomendación',
-      value: '/sugg ',
+      value: '/sugg #',
       can: 'Everyone',
       kind: 'inline'
     },

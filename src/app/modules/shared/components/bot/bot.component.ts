@@ -9,6 +9,8 @@ import {CommandAnalyzed} from '../../../../models/command-analyzed';
 import {Command} from '../../../../models/command';
 import {Channel} from '../../../../models/channel';
 import {map} from 'rxjs/operators';
+import {Banished} from '../../../../models/banished';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bot',
@@ -128,6 +130,32 @@ export class BotComponent implements OnInit, OnDestroy {
             break;
           case 'grant':
             this.MakeRequestForGrant(result);
+            break;
+          case 'ban':
+            this.botService.POSTFromBot(result.url, result.data)
+                .subscribe(() => {
+                  this.chatStack.push({
+                    text: result.message,
+                    type: 'server'
+                  });
+                });
+            break;
+          case 'ban:server':
+            this.botService.POSTFromBot(result.url, result.data)
+                .subscribe((response) => {
+                  if (response.status) {
+                    const data: Banished = response.data;
+                    this.chatStack.push({
+                      text: `El usuario ${data.user} está baneado, vence ${moment(data.banish_expired_at * 1000).fromNow()}.\n
+                              Fue baneado por @${data.byWho}.`,
+                      type: 'server'
+                    });
+                  } else
+                    this.chatStack.push({
+                      text: result.message,
+                      type: 'server'
+                    });
+                });
             break;
           default:
             break;

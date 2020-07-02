@@ -22,9 +22,9 @@ export class BotService {
     switch (splitCommand[0]) {
 
       case '/sugg':
-        if (splitCommand.length > 1)
+        if (command.split('#').length === 2 && command.split('#')[1].trim() !== '')
           return {
-            data: {body: command.substr(6)},
+            data: {body: command.split('#')[1].trim()},
             message: 'Gracias por su recomendación, se tendrá en cuanta.',
             kind: 'sugg',
             url: bot.getSuggestionsURL()
@@ -50,12 +50,12 @@ export class BotService {
           default:
             return {
               data: null,
-              message: 'Estructura incorrecta.\n Ej: /bug #sec Entró Anonymous.\n #sec, #fun, #vis.'
+              message: 'Estructura incorrecta.\n Ej: /bug #sec #Entró Anonymous.\n #sec, #fun, #vis.'
             };
         }
-        if (splitCommand.length > 2)
+        if (command.split('#').length === 3 && command.split('#')[2].trim() !== '')
           return {
-            data: {body: command.substr(10), topic},
+            data: {body: command.split('#')[2].trim(), topic},
             message: 'Gracias por reportar el error, se corregirá lo antes posible.',
             kind: 'bug',
             url: bot.getBugsURL()
@@ -95,11 +95,11 @@ export class BotService {
           default:
             return {
               data: null,
-              message: 'El rol seleccionado no es correcto.\n Ej: /grant #user Anonymous. #user, #admin, #root.'
+              message: 'El rol seleccionado no es correcto.\n Ej: /grant #user #Anonymous. #user, #admin, #root.'
             };
         }
-        if (splitCommand.length > 2) {
-          const user = splitCommand[1] === '#admin' ? command.substr(14) : command.substr(13);
+        if (command.split('#').length === 3 && command.split('#')[2].trim() !== '') {
+          const user = command.split('#')[2].trim();
           return {
             data: {user, new_role: role},
             message: `Ya he asignado ${role} al usuario ${user}.`,
@@ -173,6 +173,31 @@ export class BotService {
             message: 'Estos son los temas relacionados con Los Usuarios',
             kind: 'help'
           };
+
+      case '/ban_add':
+        const args = command.split('#');
+        return {
+          data: {user: args[1].trim(), why: args[2].trim(), days: +args[3].trim()},
+          message: `El usuario ${args[1].trim()} fue baneado por ${+args[3]} días.`,
+          kind: 'ban',
+          url: bot.getRevokeAccessURL()
+        };
+
+      case '/ban_revoke':
+        return {
+          data: {user: command.split('#')[1].trim()},
+          message: `Al usuario ${command.split('#')[1].trim()} se le quito el ban.`,
+          kind: 'ban',
+          url: bot.getGrantAccessURL()
+        };
+
+      case '/ban_check':
+        return {
+          data: {user: command.split('#')[1].trim()},
+          kind: 'ban:server',
+          message: `El usuario ${command.split('#')[1].trim()} no está baneado.`,
+          url: bot.getCheckBanURL()
+        };
 
       default:
         return {
