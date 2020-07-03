@@ -34,7 +34,7 @@ export const environment = {
     {
       name: 'Preguntas Frecuentes',
       value: '/faq',
-      can: 'Admin',
+      can: 'Everyone',
       kind: 'help'
     }
   ],

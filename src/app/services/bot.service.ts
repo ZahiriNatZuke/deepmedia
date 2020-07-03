@@ -6,6 +6,7 @@ import {CommandAnalyzed} from '../models/command-analyzed';
 import {first} from 'rxjs/operators';
 import {environment} from '../../environments/environment.prod';
 import {API} from './API';
+import {AuthenticationService} from './authentication.service';
 
 const bot = new BOT();
 const api = new API();
@@ -16,7 +17,7 @@ const faq = environment.faq;
 })
 export class BotService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
   }
 
   analyzeCommand(command: string): CommandAnalyzed {
@@ -69,49 +70,67 @@ export class BotService {
           };
 
       case '/bug_last':
-        return {
-          data: true,
-          kind: 'inline',
-          url: bot.getBugsURL()
-        };
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER')
+          return {
+            data: true,
+            kind: 'inline',
+            url: bot.getBugsURL()
+          };
+        else
+          return {
+            data: null,
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
+          };
 
       case '/sugg_last':
-        return {
-          data: true,
-          kind: 'inline',
-          url: bot.getSuggestionsURL()
-        };
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER')
+          return {
+            data: true,
+            kind: 'inline',
+            url: bot.getSuggestionsURL()
+          };
+        else
+          return {
+            data: null,
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
+          };
 
       case '/grant':
-        let role;
-        switch (splitCommand[1]) {
-          case '#user':
-            role = 'ROLE_USER';
-            break;
-          case '#admin':
-            role = 'ROLE_ADMIN';
-            break;
-          case '#root':
-            role = 'ROLE_ROOT';
-            break;
-          default:
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER') {
+          let role;
+          switch (splitCommand[1]) {
+            case '#user':
+              role = 'ROLE_USER';
+              break;
+            case '#admin':
+              role = 'ROLE_ADMIN';
+              break;
+            case '#root':
+              role = 'ROLE_ROOT';
+              break;
+            default:
+              return {
+                data: null,
+                message: 'El rol seleccionado no es correcto.\n Ej: /grant #user #Anonymous. #user, #admin, #root.'
+              };
+          }
+          if (command.split('#').length === 3 && command.split('#')[2].trim() !== '') {
+            const user = command.split('#')[2].trim();
+            return {
+              data: {user, new_role: role},
+              message: `Ya he asignado ${role} al usuario ${user}.`,
+              kind: 'grant',
+              url: bot.getGrantPermissionsURL()
+            };
+          } else
             return {
               data: null,
-              message: 'El rol seleccionado no es correcto.\n Ej: /grant #user #Anonymous. #user, #admin, #root.'
+              message: 'Debe poner el [ID] algún usuario existente.'
             };
-        }
-        if (command.split('#').length === 3 && command.split('#')[2].trim() !== '') {
-          const user = command.split('#')[2].trim();
-          return {
-            data: {user, new_role: role},
-            message: `Ya he asignado ${role} al usuario ${user}.`,
-            kind: 'grant',
-            url: bot.getGrantPermissionsURL()
-          };
         } else
           return {
             data: null,
-            message: 'Debe poner seleccionar algún usuario existente.'
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
           };
 
       case '/faq':
@@ -195,56 +214,80 @@ export class BotService {
           };
 
       case '/ban_add':
-        const args = command.split('#');
-        return {
-          data: {user: args[1].trim(), why: args[2].trim(), days: +args[3].trim()},
-          message: `El usuario ${args[1].trim()} fue baneado por ${+args[3]} días.`,
-          kind: 'inline',
-          url: bot.getRevokeAccessURL()
-        };
-
-      case '/ban_revoke':
-        return {
-          data: {user: command.split('#')[1].trim()},
-          message: `Al usuario ${command.split('#')[1].trim()} se le quito el ban.`,
-          kind: 'inline',
-          url: bot.getGrantAccessURL()
-        };
-
-      case '/ban_check':
-        return {
-          data: {user: command.split('#')[1].trim()},
-          kind: 'ban:server',
-          message: `El usuario ${command.split('#')[1].trim()} no está baneado.`,
-          url: bot.getCheckBanURL()
-        };
-
-      case '/remove':
-        if (command.split('#').length === 3 && command.split('#')[1].trim() !== '' && command.split('#')[2].trim() !== '') {
-          let options;
-          switch (command.split('#')[1].trim()) {
-            case 'video':
-              options = 'video';
-              break;
-            case 'user':
-              options = 'user';
-              break;
-            default:
-              return {
-                data: null,
-                message: 'Estructura incorrecta.\n Ej: /remove #video #97.\n #user, #video.'
-              };
-          }
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER') {
+          const args = command.split('#');
           return {
-            data: {id: command.split('#')[2].trim()},
-            message: options === 'video' ? 'El video lo he eliminado sin problemas.' : 'El usuario lo he eliminado sin problemas.',
-            kind: 'delete',
-            url: options === 'video' ? api.getVideoURL() : api.getUserURL()
+            data: {user: args[1].trim(), why: args[2].trim(), days: +args[3].trim()},
+            message: `El usuario ${args[1].trim()} fue baneado por ${+args[3]} días.`,
+            kind: 'inline',
+            url: bot.getRevokeAccessURL()
           };
         } else
           return {
             data: null,
-            message: 'Estructura incorrecta.\n Ej: /remove #video #97.\n #user, #video.'
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
+          };
+
+      case '/ban_revoke':
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER')
+          return {
+            data: {user: command.split('#')[1].trim()},
+            message: `Al usuario ${command.split('#')[1].trim()} se le quito el ban.`,
+            kind: 'inline',
+            url: bot.getGrantAccessURL()
+          };
+        else
+          return {
+            data: null,
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
+          };
+
+      case '/ban_check':
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER')
+          return {
+            data: {user: command.split('#')[1].trim()},
+            kind: 'ban:server',
+            message: `El usuario ${command.split('#')[1].trim()} no está baneado.`,
+            url: bot.getCheckBanURL()
+          };
+        else
+          return {
+            data: null,
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
+          };
+
+      case '/remove':
+        if (this.authenticationService.currentUserValue.user.role !== 'ROLE_USER') {
+          if (command.split('#').length === 3 && command.split('#')[1].trim() !== '' && command.split('#')[2].trim() !== '') {
+            let options;
+            switch (command.split('#')[1].trim()) {
+              case 'video':
+                options = 'video';
+                break;
+              case 'user':
+                options = 'user';
+                break;
+              default:
+                return {
+                  data: null,
+                  message: 'Estructura incorrecta.\n Ej: /remove #video #97.\n #user, #video.'
+                };
+            }
+            return {
+              data: {id: command.split('#')[2].trim()},
+              message: options === 'video' ? 'El video lo he eliminado sin problemas.' : 'El usuario lo he eliminado sin problemas.',
+              kind: 'delete',
+              url: options === 'video' ? api.getVideoURL() : api.getUserURL()
+            };
+          } else
+            return {
+              data: null,
+              message: 'Estructura incorrecta.\n Ej: /remove #video #97.\n #user, #video.'
+            };
+        } else
+          return {
+            data: null,
+            message: 'No tienes acceso a esta información. Contacta con algún administrador.'
           };
 
       case '/comment':

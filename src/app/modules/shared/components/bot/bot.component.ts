@@ -143,7 +143,7 @@ export class BotComponent implements OnInit, OnDestroy {
                   if (response.status) {
                     const data: Banished = response.data;
                     this.chatStack.push({
-                      text: `El usuario ${data.user} está baneado, vence ${moment(data.banish_expired_at * 1000).fromNow()}.\n
+                      text: `El usuario ${data.user} está baneado, el ban vence ${moment(data.banish_expired_at * 1000).fromNow()}.\n
                               Fue baneado por @${data.byWho}.`,
                       type: 'server'
                     });
@@ -158,9 +158,10 @@ export class BotComponent implements OnInit, OnDestroy {
             this.showIndicator();
             this.botService.DELETEFromBot(result.url, result.data.id)
                 .subscribe(() => this.chatStack.push({
-                  text: result.message,
-                  type: 'server'
-                }), () => this.messageErrorFromBot());
+                      text: result.message,
+                      type: 'server'
+                    }),
+                    () => this.messageErrorFromBot());
             break;
           default:
             break;
@@ -239,21 +240,15 @@ export class BotComponent implements OnInit, OnDestroy {
   }
 
   MakeRequestFromAutoCommand(url: string): void {
-    if (this.User?.user.role !== 'ROLE_USER')
-      this.botService.GETFromBot(url)
-          .pipe(map(data =>
-              data.data?.user.username ?
-                  `${data.data.user.username} : ${data.data.topic ? '#' + data.data.topic : ''} ${data.data.body}` :
-                  'No hay Información disponible.'))
-          .subscribe(response => this.chatStack.push({
-            text: response,
-            type: 'server'
-          }), () => this.messageErrorFromBot());
-    else
-      this.chatStack.push({
-        text: 'No tienes acceso a esta información. Contacta con algún administrador.',
-        type: 'server'
-      });
+    this.botService.GETFromBot(url)
+        .pipe(map(data =>
+            data.data?.user.username ?
+                `${data.data.user.username} : ${data.data.topic ? '#' + data.data.topic : ''} ${data.data.body}` :
+                'No hay Información disponible.'))
+        .subscribe(response => this.chatStack.push({
+          text: response,
+          type: 'server'
+        }), () => this.messageErrorFromBot());
   }
 
   MakeRequestFromInlineCommand(result: CommandAnalyzed): void {
@@ -296,7 +291,7 @@ export class BotComponent implements OnInit, OnDestroy {
 
   messageErrorFromBot() {
     this.chatStack.push({
-      text: 'Sorry, necesito limpiar mis engranajes.',
+      text: 'Lo siento, necesito limpiar mis engranajes.',
       type: 'server'
     });
   }
