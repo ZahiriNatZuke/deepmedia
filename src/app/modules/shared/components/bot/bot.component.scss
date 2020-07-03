@@ -45,11 +45,15 @@ html, body {
     h1.title-chat {
       margin: 0 0 0 10px;
       padding: 0;
-      font-weight: lighter;
+      font-weight: 600;
       color: $font-color;
       line-height: 40px;
       font-size: 16px;
       user-select: none !important;
+    }
+
+    .interaction {
+      margin-left: 20px;
     }
 
     .navigation {

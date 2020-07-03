@@ -4,78 +4,78 @@
  * ==============================================
  */
 .dot-stretching {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  border-radius: 180px;
-  background-color: #5C6BC0;
-  color: #5C6BC0;
-  transform: scale(1.25, 1.25);
-  animation: dotStretching 2s infinite ease-in;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 180px;
+    background-color: #5C6BC0;
+    color: #5C6BC0;
+    transform: scale(1.25, 1.25);
+    animation: dotStretching 2s infinite ease-in;
 }
 
 .dot-stretching::before, .dot-stretching::after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 0;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
 }
 
 .dot-stretching::before {
-  width: 30px;
-  height: 30px;
-  border-radius: 180px;
-  background-color: #5C6BC0;
-  color: #5C6BC0;
-  animation: dotStretchingBefore 2s infinite ease-in;
+    width: 30px;
+    height: 30px;
+    border-radius: 180px;
+    background-color: #5C6BC0;
+    color: #5C6BC0;
+    animation: dotStretchingBefore 2s infinite ease-in;
 }
 
 .dot-stretching::after {
-  width: 30px;
-  height: 30px;
-  border-radius: 180px;
-  background-color: #5C6BC0;
-  color: #5C6BC0;
-  animation: dotStretchingAfter 2s infinite ease-in;
+    width: 30px;
+    height: 30px;
+    border-radius: 180px;
+    background-color: #5C6BC0;
+    color: #5C6BC0;
+    animation: dotStretchingAfter 2s infinite ease-in;
 }
 
 @keyframes dotStretching {
-  0% {
-    transform: scale(1.5, 1.5);
-  }
-  50%,
-  60% {
-    transform: scale(0.8, 0.8);
-  }
-  100% {
-    transform: scale(1.5, 1.5);
-  }
+    0% {
+        transform: scale(1.5, 1.5);
+    }
+    50%,
+    60% {
+        transform: scale(0.8, 0.8);
+    }
+    100% {
+        transform: scale(1.5, 1.5);
+    }
 }
 
 @keyframes dotStretchingBefore {
-  0% {
-    transform: translate(0) scale(0.7, 0.7);
-  }
-  50%,
-  60% {
-    transform: translate(-80px) scale(1, 1);
-  }
-  100% {
-    transform: translate(0) scale(0.7, 0.7);
-  }
+    0% {
+        transform: translate(0) scale(0.7, 0.7);
+    }
+    50%,
+    60% {
+        transform: translate(-80px) scale(1, 1);
+    }
+    100% {
+        transform: translate(0) scale(0.7, 0.7);
+    }
 }
 
 @keyframes dotStretchingAfter {
-  0% {
-    transform: translate(0) scale(0.7, 0.7);
-  }
-  50%,
-  60% {
-    transform: translate(80px) scale(1, 1);
-  }
-  100% {
-    transform: translate(0) scale(0.7, 0.7);
-  }
+    0% {
+        transform: translate(0) scale(0.7, 0.7);
+    }
+    50%,
+    60% {
+        transform: translate(80px) scale(1, 1);
+    }
+    100% {
+        transform: translate(0) scale(0.7, 0.7);
+    }
 }
 
 /**
@@ -84,53 +84,53 @@
  * ==============================================
  */
 .dot-flashing {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #5C6BC0;
-  color: #5C6BC0;
-  animation: dotFlashing 1s infinite linear alternate;
-  animation-delay: .5s;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #5C6BC0;
+    color: #5C6BC0;
+    animation: dotFlashing 1s infinite linear alternate;
+    animation-delay: .5s;
 }
 
 .dot-flashing::before, .dot-flashing::after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 0;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
 }
 
 .dot-flashing::before {
-  left: -15px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #5C6BC0;
-  color: #5C6BC0;
-  animation: dotFlashing 1s infinite alternate;
-  animation-delay: 0s;
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #5C6BC0;
+    color: #5C6BC0;
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 0s;
 }
 
 .dot-flashing::after {
-  left: 15px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #5C6BC0;
-  color: #5C6BC0;
-  animation: dotFlashing 1s infinite alternate;
-  animation-delay: 1s;
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #5C6BC0;
+    color: #5C6BC0;
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 1s;
 }
 
 @keyframes dotFlashing {
-  0% {
-    background-color: #5C6BC0;
-  }
-  50%,
-  100% {
-    background-color: #ebe6ff;
-  }
+    0% {
+        background-color: #5C6BC0;
+    }
+    50%,
+    100% {
+        background-color: #ebe6ff;
+    }
 }
 
 /**
@@ -139,40 +139,136 @@
  * ==============================================
  */
 .dot-spin {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: transparent;
-  color: transparent;
-  box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), 0 18px 0 0 rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), -18px 0 0 0 rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 rgba(152, 128, 255, 0);
-  animation: dotSpin 1.5s infinite linear;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: transparent;
+    box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), 0 18px 0 0 rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), -18px 0 0 0 rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 rgba(152, 128, 255, 0);
+    animation: dotSpin 1.5s infinite linear;
 }
 
 @keyframes dotSpin {
-  0%,
-  100% {
-    box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
-  }
-  12.5% {
-    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 0 #FFFFFF, 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
-  }
-  25% {
-    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 0 #FFFFFF, 0 18px 0 0 #FFFFFF, -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
-  }
-  37.5% {
-    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 0 #FFFFFF, 0 18px 0 0 #FFFFFF, -12.72984px 12.72984px 0 0 #FFFFFF, -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
-  }
-  50% {
-    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 0 #FFFFFF, -12.72984px 12.72984px 0 0 #FFFFFF, -18px 0 0 0 #FFFFFF, -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
-  }
-  62.5% {
-    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 #FFFFFF, -18px 0 0 0 #FFFFFF, -12.72984px -12.72984px 0 0 #FFFFFF;
-  }
-  75% {
-    box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 0 #FFFFFF, -12.72984px -12.72984px 0 0 #FFFFFF;
-  }
-  87.5% {
-    box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 #FFFFFF;
-  }
+    0%,
+    100% {
+        box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    12.5% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 0 #FFFFFF, 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    25% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 0 #FFFFFF, 12.72984px 12.72984px 0 0 #FFFFFF, 0 18px 0 0 #FFFFFF, -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    37.5% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 0 #FFFFFF, 0 18px 0 0 #FFFFFF, -12.72984px 12.72984px 0 0 #FFFFFF, -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    50% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 0 #FFFFFF, -12.72984px 12.72984px 0 0 #FFFFFF, -18px 0 0 0 #FFFFFF, -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    62.5% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 #FFFFFF, -18px 0 0 0 #FFFFFF, -12.72984px -12.72984px 0 0 #FFFFFF;
+    }
+    75% {
+        box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 0 #FFFFFF, -12.72984px -12.72984px 0 0 #FFFFFF;
+    }
+    87.5% {
+        box-shadow: 0 -18px 0 0 #FFFFFF, 12.72984px -12.72984px 0 0 #FFFFFF, 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 #FFFFFF;
+    }
+}
+
+/**
+ * ==============================================
+ * Dot Elastic
+ * ==============================================
+ */
+.dot-elastic {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: #088ec3;
+    color: #088ec3;
+    animation: dotElastic 1s infinite linear;
+}
+
+.dot-elastic::before, .dot-elastic::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot-elastic::before {
+    left: -12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: #088ec3;
+    color: #088ec3;
+    animation: dotElasticBefore 1s infinite linear;
+}
+
+.dot-elastic::after {
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: #088ec3;
+    color: #088ec3;
+    animation: dotElasticAfter 1s infinite linear;
+}
+
+@keyframes dotElasticBefore {
+    0% {
+        transform: scale(1, 1);
+    }
+    25% {
+        transform: scale(1, 1.25);
+    }
+    50% {
+        transform: scale(1, 0.67);
+    }
+    75% {
+        transform: scale(1, 1);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes dotElastic {
+    0% {
+        transform: scale(1, 1);
+    }
+    25% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1, 1.25);
+    }
+    75% {
+        transform: scale(1, 1);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes dotElasticAfter {
+    0% {
+        transform: scale(1, 1);
+    }
+    25% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1, 0.67);
+    }
+    75% {
+        transform: scale(1, 1.25);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
 }

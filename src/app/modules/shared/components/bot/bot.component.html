@@ -1,6 +1,15 @@
 <section id="chat" class="chat-container">
-  <div id="menu-chat" class="menu-bar" (dblclick)="toMinimizing()">
-    <h1 class="title-chat">_Bot_DeepMedia_</h1>
+  <div id="menu-chat" class="menu-bar" (dblclick)="toMinimizing()" [matTooltip]="getRoughCopy()"
+       [matTooltipDisabled]="checkTextArea()" matTooltipPosition="above" matTooltipShowDelay="300"
+       matTooltipClass="text-white bg-dark font-weight-light mat-elevation-z5" matTooltipHideDelay="150">
+    <div class="d-flex justify-content-start">
+      <h1 class="title-chat">@Bot_DeepMedia</h1>
+      <div *ngIf="typing" id="interaction" class="d-flex interaction">
+        <div class="preloader-stage">
+          <div class="dot-elastic"></div>
+        </div>
+      </div>
+    </div>
     <div class="navigation">
       <div class="icon" (click)="toMinimizing()">
         <fa-icon [icon]="toggleMinimize ? faAngleDown : faAngleUp"></fa-icon>
@@ -17,11 +26,11 @@
   <div id="chat-form" class="chat-form">
     <form [formGroup]="botForm" (ngSubmit)="onSubmit()" class="form-inline d-flex justify-content-between">
       <textarea #textarea formControlName="body" class="form-control flex-grow-1 customized-scroll" rows="1"
-                required></textarea>
+                required (keypress)="showIndicator()"></textarea>
       <div class="d-flex justify-content-end pr-1 button-group">
         <button mat-icon-button type="button" class="mr-1" (click)="toggleCommands()" matTooltip="Comandos"
                 [matTooltipDisabled]="toggleCommand" matTooltipPosition="above" matTooltipShowDelay="300"
-                matTooltipClass="text-dark bg-white font-weight-light" matTooltipHideDelay="150">
+                matTooltipClass="text-dark bg-white font-weight-light mat-elevation-z5" matTooltipHideDelay="150">
           <span class="font-weight-bold text-white">/</span>
         </button>
         <button mat-icon-button type="submit" [disabled]="botForm.invalid">

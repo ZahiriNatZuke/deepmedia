@@ -18,30 +18,33 @@ import * as moment from 'moment';
   styleUrls: ['./bot.component.scss']
 })
 export class BotComponent implements OnInit, OnDestroy {
+  @ViewChild('textarea', {static: true}) textArea: ElementRef;
+  botForm: FormGroup = this._formBuilder.group({
+    body: ['', [Validators.required]]
+  });
+  chatStack: Array<ChatMessage> = new Array<ChatMessage>();
+  historyChat: HistoryChat = new HistoryChat();
+  inputCommands: Array<Command> = environment.commands;
+  commands: JQuery<HTMLElement>;
+  chat: JQuery<HTMLElement>;
+  User: Channel;
   faTimes = faTimes;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
   faPaperPlane = faPaperPlane;
-  chat: JQuery<HTMLElement>;
-  commands: JQuery<HTMLElement>;
+  security: any;
   toggleMinimize: boolean;
   toggleCommand: boolean;
-  botForm: FormGroup = this._formBuilder.group({
-    body: ['', [Validators.required]]
-  });
-  security: any;
-  chatStack: Array<ChatMessage> = new Array<ChatMessage>();
-  historyChat: HistoryChat = new HistoryChat();
-  inputCommands: Array<Command> = environment.commands;
-  User: Channel;
-
-  @ViewChild('textarea', {static: true}) textArea: ElementRef;
+  typing: boolean;
+  time: number;
 
   constructor(private _formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private botService: BotService) {
     this.toggleMinimize = true;
     this.toggleCommand = false;
+    this.typing = false;
+    this.time = 1000;
     this.authenticationService.currentUser.subscribe(auth => this.User = auth);
     this.security = setInterval(() => {
       if (this.User === null || this.User === undefined) this.toClose();
@@ -60,7 +63,7 @@ export class BotComponent implements OnInit, OnDestroy {
 
   toMinimizing() {
     if (this.toggleMinimize && this.toggleCommand) {
-      this.toggleCommands();
+      this.closeCommands();
     }
     this.chat.css({
       bottom: this.toggleMinimize ? '-340px' : '0px'
@@ -70,7 +73,7 @@ export class BotComponent implements OnInit, OnDestroy {
 
   toClose() {
     if (this.toggleMinimize && this.toggleCommand) {
-      this.toggleCommands();
+      this.closeCommands();
     }
     this.chat.css({
       bottom: '-400px'
@@ -102,12 +105,15 @@ export class BotComponent implements OnInit, OnDestroy {
       if (result.data)
         switch (result.kind) {
           case 'auto':
+            this.showIndicator();
             this.MakeRequestFromAutoCommand(result.url);
             break;
           case 'inline':
+            this.showIndicator();
             this.chooseOption(result);
             break;
           case 'help':
+            this.showIndicator();
             this.chatStack.push({
               text: result.message,
               type: 'server'
@@ -120,15 +126,18 @@ export class BotComponent implements OnInit, OnDestroy {
             }
             break;
           case 'answer':
+            this.showIndicator();
             this.chatStack.push({
               text: result.message,
               type: 'server'
             });
             break;
           case 'grant':
+            this.showIndicator();
             this.MakeRequestForGrant(result);
             break;
           case 'ban:server':
+            this.showIndicator();
             this.botService.POSTFromBot(result.url, result.data)
                 .subscribe((response) => {
                   if (response.status) {
@@ -140,12 +149,13 @@ export class BotComponent implements OnInit, OnDestroy {
                     });
                   } else
                     this.chatStack.push({
-                      text: result.message,
+                      text: response.message,
                       type: 'server'
                     });
                 }, () => this.messageErrorFromBot());
             break;
           case 'delete':
+            this.showIndicator();
             this.botService.DELETEFromBot(result.url, result.data.id)
                 .subscribe(() => this.chatStack.push({
                   text: result.message,
@@ -174,12 +184,19 @@ export class BotComponent implements OnInit, OnDestroy {
     this.toggleCommand = !this.toggleCommand;
   }
 
+  closeCommands() {
+    this.commands.fadeOut(300);
+    this.toggleCommand = false;
+  }
+
   emitCommand(command: Command) {
     switch (command.kind) {
       case 'inline':
+        this.showIndicator();
         this.botForm.get('body').setValue(command.value);
         break;
       case 'auto':
+        this.showIndicator();
         this.historyChat.mergeHistory();
         this.historyChat.addCommand(command.value);
         this.chatStack.push({
@@ -190,6 +207,7 @@ export class BotComponent implements OnInit, OnDestroy {
         this.MakeRequestFromAutoCommand(auto.url);
         break;
       case 'help':
+        this.showIndicator();
         this.historyChat.mergeHistory();
         this.historyChat.addCommand(command.value);
         this.chatStack.push({
@@ -211,8 +229,6 @@ export class BotComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-
-    this.toggleCommands();
   }
 
   getStackMessages(): Array<ChatMessage> {
@@ -242,10 +258,18 @@ export class BotComponent implements OnInit, OnDestroy {
 
   MakeRequestFromInlineCommand(result: CommandAnalyzed): void {
     this.botService.POSTFromBot(result.url, result.data)
-        .subscribe(() => this.chatStack.push({
-          text: result.message,
-          type: 'server'
-        }), () => this.messageErrorFromBot());
+        .subscribe((response) => {
+          if (response.status === false)
+            this.chatStack.push({
+              text: response.message,
+              type: 'server'
+            });
+          else
+            this.chatStack.push({
+              text: result.message,
+              type: 'server'
+            });
+        }, () => this.messageErrorFromBot());
   }
 
   catchCommand(event: string) {
@@ -283,6 +307,26 @@ export class BotComponent implements OnInit, OnDestroy {
 
   downCommandFromHistory() {
     this.botForm.get('body').setValue(this.historyChat.getTempCommand());
+  }
+
+  showIndicator() {
+    this.closeCommands();
+    if (!this.typing) {
+      this.typing = !this.typing;
+      setTimeout(() => {
+        this.typing = !this.typing;
+        this.time = 1000;
+      }, this.time);
+    } else
+      this.time += 75;
+  }
+
+  getRoughCopy(): string {
+    return `Borrador: ${this.botForm.get('body').value}`;
+  }
+
+  checkTextArea(): boolean {
+    return (this.botForm.get('body').value === '' || this.botForm.get('body').value === null) || this.toggleMinimize;
   }
 }
 
