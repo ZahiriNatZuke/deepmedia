@@ -22,6 +22,11 @@
   font-size: 20px;
   border: none;
   background-color: transparent;
+  font-weight: lighter;
+}
+
+.username:hover {
+  font-weight: bold;
 }
 
 .user-container {

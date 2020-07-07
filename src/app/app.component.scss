@@ -1,8 +1,8 @@
 .background-gradient {
-  background: linear-gradient(to bottom, #042937, #045669, #077d9b, #0898cd);
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  transition: all .5s ease-in-out;
 }
 
 //#042937, #044250, #045669, #047282, #077d9b, #04a4b4, #0898cd, #d7d7d7

@@ -10,7 +10,7 @@
 
 .video-player {
   transition: all .4s;
-  background: #000;
+  background: black;
 }
 
 video {
@@ -54,9 +54,14 @@ video:hover ~ {
   border-radius: 20px 20px 0 0;
   position: absolute;
   bottom: 40px;
-  left: 44px;
+  left: 50px;
   min-height: 100px;
   padding-bottom: 5px;
+}
+
+.material-icons#volume-control{
+  position: relative;
+  right: 4px;
 }
 
 .progress-bar-video {
@@ -77,7 +82,7 @@ video:hover ~ {
 
 .fullScreen-btn {
   position: relative;
-  left: 5px;
+  left: 10px;
   padding: 0 8px;
 }
 
@@ -113,7 +118,7 @@ video:hover ~ {
   position: absolute;
   transition: all 0.4s;
   opacity: 0;
-  background: #042331;
+  background: transparent;
   border: 2px solid white;
 }
 

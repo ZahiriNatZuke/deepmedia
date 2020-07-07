@@ -31,7 +31,10 @@
           <div class="custom-file">
             <input type="file" class="custom-file-input d-none" id="imgFile" (change)="onChange($event)"
                    formControlName="avatar">
-            <label class="custom-file-label" for="imgFile">Actualizar Imagen del Perfil</label>
+            <label class="custom-file-label" for="imgFile"
+                   [class.label-dark]="currentTheme.theme === 'dark-theme'"
+                   [class.label-light]="currentTheme.theme === 'light-theme'">
+              Actualizar Imagen del Perfil</label>
           </div>
         </div>
       </div>

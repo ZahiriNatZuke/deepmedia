@@ -6,6 +6,7 @@ import {AuthenticationService} from '../../../../services/authentication.service
 import {Channel} from '../../../../models/channel';
 import {VideoService} from '../../../../services/video.service';
 import {Router} from '@angular/router';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
 
 @Component({
   selector: 'app-video-card',
@@ -22,10 +23,12 @@ export class VideoCardComponent implements OnInit {
   faPlayCircle = faPlayCircle;
   faStar = faStar;
   faFileDownload = faFileDownload;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private authenticationService: AuthenticationService,
               private videoService: VideoService,
-              private router: Router) {
+              private router: Router,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
   }
 

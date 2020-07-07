@@ -1,30 +1,40 @@
-<div class="card mb-8">
+<div class="card mb-8"
+     [class.poster-light]="currentTheme.theme === 'light-theme'"
+     [class.poster-dark]="currentTheme.theme === 'dark-theme'">
   <img [src]="URL_STORAGE + Video.poster.path | saveDom" class="w-100 h-100 rounded h-img"
        [alt]="Video.poster.name">
   <div class="d-flex justify-content-end mt-1">
     <div class="info-text-title" (click)="goToVideo()">
-      <p [class.switch-text]="Video.title.length > 41">{{Video.title}}</p>
+      <p [class.switch-text]="Video.title.length > 41" [class.text-dark]="currentTheme.theme === 'light-theme'"
+         [class.text-white-80]="currentTheme.theme === 'dark-theme'">{{Video.title}}</p>
     </div>
   </div>
-  <div class="text-white info-user font-weight-light">
+  <div class="info-user font-weight-light w-100" [class.text-white]="currentTheme.theme === 'light-theme'"
+       [class.text-white-80]="currentTheme.theme === 'dark-theme'">
     <span class="font-weight-light">{{Video.created_at | agoDate}}</span>
     <div>
-      <span>{{Video.likes_count | statsFilter | number:'.0-2'}}
+      <span class="counter-stats">{{Video.likes_count | statsFilter | number:'.0-2'}}
         {{Video.likes_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>
-      <span>{{Video.comments_count | statsFilter | number:'.0-2'}}
+        <mat-icon inline class="mx-2">thumb_up</mat-icon>
+      </span>
+      <span class="counter-stats">{{Video.comments_count | statsFilter | number:'.0-2'}}
         {{Video.comments_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faComment" class="px-2"></fa-icon></span>
-      <span>{{Video.views_count | statsFilter | number:'.0-2'}}
+        <mat-icon inline class="mx-2">comment</mat-icon>
+      </span>
+      <span class="counter-stats">{{Video.views_count | statsFilter | number:'.0-2'}}
         {{Video.views_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
-      <span>{{Video.downloads_count | statsFilter | number:'.0-2'}}
+        <mat-icon inline class="mx-2">visibility</mat-icon>
+      </span>
+      <span class="counter-stats">{{Video.downloads_count | statsFilter | number:'.0-2'}}
         {{Video.downloads_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faFileDownload" class="px-2"></fa-icon></span>
+        <mat-icon inline class="mx-2">get_app</mat-icon>
+      </span>
     </div>
   </div>
   <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
-  <button mat-icon-button class="text-white btn-play" (click)="emitPlayVideo()">
+  <button mat-icon-button class="btn-play" (click)="emitPlayVideo()"
+          [class.text-white]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
     <fa-icon (click)="goToVideo()" [icon]="faPlayCircle"></fa-icon>
   </button>
 </div>

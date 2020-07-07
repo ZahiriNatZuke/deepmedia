@@ -1,37 +1,51 @@
-<div class="card mb-8 w-100">
-  <img [src]="URL_STORAGE + video.poster.path | saveDom" class="w-100 h-100 rounded h-img" [alt]="video.poster.name">
+<div class="card mb-8 w-100"
+     [class.border-light]="currentTheme.theme === 'light-theme'"
+     [class.border-dark]="currentTheme.theme === 'dark-theme'">
+  <img [src]="URL_STORAGE + video.poster.path | saveDom" class="w-100 h-100 rounded h-img"
+       [alt]="video.poster.name">
   <div class="justify-content-start text-white">
     <div class="d-flex p-data info-text-user">
-      <p class="m-0 p-0" [routerLink]="['/auth/profile',video.channel_id]">
+      <p class="m-0 p-0" [routerLink]="['/auth/profile',video.channel_id]"
+         [class.text-white]="currentTheme.theme === 'light-theme'"
+         [class.text-white-80]="currentTheme.theme === 'dark-theme'">
         <span>#</span>{{video.channel.user.username}}
       </p>
     </div>
-    <div class="info-text-title" (click)="goToVideo()">
+    <div class="info-text-title" (click)="goToVideo()" [class.text-white]="currentTheme.theme === 'light-theme'"
+         [class.text-white-80]="currentTheme.theme === 'dark-theme'">
       <p [class.switch-text]="video.title.length > 35">{{video.title}}</p>
     </div>
   </div>
-  <div class="text-white info-user font-weight-light">
+  <div class="info-user font-weight-light w-100" [class.text-white]="currentTheme.theme === 'light-theme'"
+       [class.text-white-80]="currentTheme.theme === 'dark-theme'">
     <span class="font-weight-light">{{video.created_at | agoDate}}</span>
     <div>
-      <span>{{video.likes_count | statsFilter | number:'.0-2'}}
+      <span class="counter-stats">{{video.likes_count | statsFilter | number:'.0-2'}}
         {{video.likes_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faThumbsUp" class="px-2"></fa-icon></span>
-      <span>{{video.comments_count | statsFilter | number:'.0-2'}}
+        <mat-icon inline class="mx-2">thumb_up</mat-icon>
+      </span>
+      <span class="counter-stats">{{video.comments_count | statsFilter | number:'.0-2'}}
         {{video.comments_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faComment" class="px-2"></fa-icon></span>
-      <span>{{video.views_count | statsFilter | number:'.0-2'}}
+        <mat-icon inline class="mx-2">comment</mat-icon>
+      </span>
+      <span class="counter-stats">{{video.views_count | statsFilter | number:'.0-2'}}
         {{video.views_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faEye" class="px-2"></fa-icon></span>
-      <span>{{video.downloads_count | statsFilter | number:'.0-2'}}
+        <mat-icon inline class="mx-2">visibility</mat-icon>
+      </span>
+      <span class="counter-stats">{{video.downloads_count | statsFilter | number:'.0-2'}}
         {{video.downloads_count > 1000 ? ' k' : ''}}
-        <fa-icon [icon]="faFileDownload" class="px-2"></fa-icon></span>
+        <mat-icon inline class="mx-2">get_app</mat-icon>
+      </span>
     </div>
   </div>
   <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
-  <button mat-icon-button class="text-white btn-play">
+  <button mat-icon-button class="btn-play" [class.text-white]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
     <fa-icon (click)="goToVideo()" [icon]="faPlayCircle"></fa-icon>
   </button>
   <img class="user-img" [src]="URL_STORAGE + video.channel.avatar.path | saveDom"
-       [routerLink]="['/auth/profile',video.channel_id]" [alt]="video.channel.avatar.name">
+       [routerLink]="['/auth/profile',video.channel_id]" [alt]="video.channel.avatar.name"
+       [class.border-light]="currentTheme.theme === 'light-theme'"
+       [class.border-dark]="currentTheme.theme === 'dark-theme'">
 </div>
 

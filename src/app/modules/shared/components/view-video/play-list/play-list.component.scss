@@ -1,25 +1,22 @@
 .list {
   width: 500px;
   max-width: 100%;
-  border: solid 1px #ccc;
   min-height: 60px;
   display: block;
-  background: white;
   border-radius: 4px;
   margin-top: 7px;
 }
 
 .box {
   padding: 10px 10px;
-  border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
-  background: white;
   font-size: 14px;
   user-select: none;
 }
@@ -44,9 +41,9 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.custom-placeholder {
-  background: #d7d7d7;
-  border: dotted 2px #c8c8c8;
+.video-placeholder {
+  border-width: 2px;
+  border-style: dotted;
   min-height: 60px;
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
@@ -54,7 +51,6 @@
 .drag-item-img {
   width: 250px;
   height: 160px;
-  border: 1px solid gray;
 }
 
 .drag-item-content {
@@ -75,19 +71,32 @@
   bottom: 0;
   width: 100%;
   background: rgba(95, 95, 95, 0.5);
-  height: 30px;
-}
-
-.container-info-drag-video {
-  color: #e1e1e1;
-}
-
-.w-1 {
-  width: 1px;
+  height: 35px;
 }
 
 .favorite-star {
   color: gold;
   right: 10px;
   top: 10px;
+}
+
+.material-icons {
+  position: relative;
+  top: 4px;
+}
+
+.counter-stats {
+  font-size: 22px;
+  height: 22px;
+  line-height: 22px;
+  width: inherit;
+  user-select: none;
+}
+
+.w-1 {
+  width: 1px !important
+}
+
+.v-divider {
+  max-height: 100%;
 }

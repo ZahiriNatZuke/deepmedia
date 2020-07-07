@@ -5,7 +5,9 @@
       <p class="mb-0">
         <span class="font-weight-normal">{{comment.body}}</span>
         <span class="text-muted font-weight-bold">&nbsp;//&nbsp;</span>
-        <span class="font-weight-normal link-profile" [routerLink]="['/auth/profile',comment.user_id]">
+        <span class="font-weight-normal" [routerLink]="['/auth/profile',comment.user_id]"
+              [class.link-profile-light]="currentTheme.theme === 'light-theme'"
+              [class.link-profile-dark]="currentTheme.theme === 'dark-theme'">
           <b>#</b>{{comment.user.username}}
       </span>
       </p>
@@ -13,7 +15,7 @@
   </div>
   <button *ngIf="!showPostForm && User_Channel" mat-icon-button color="primary" class="align-self-end"
           matTooltip="Nuevo Comentario" matTooltipPosition="left" (click)="showPostForm = !showPostForm;">
-    <fa-icon [icon]="faPlus" [classes]="['pb-1']"></fa-icon>
+    <mat-icon class="pb-1">insert_comment</mat-icon>
   </button>
   <form [formGroup]="postCommentForm" *ngIf="showPostForm" (ngSubmit)="onSubmit()">
     <div class="d-flex flex-column" [style.maxHeight.px]="190">
@@ -28,10 +30,10 @@
       <div class="d-flex justify-content-around">
         <button mat-raised-button color="warn" type="reset" class="w-25"
                 (click)="showPostForm = !showPostForm; postCommentForm.reset();">
-          <fa-icon [icon]="faTimes"></fa-icon>
+          <mat-icon>close</mat-icon>
         </button>
         <button mat-raised-button color="primary" type="submit" class="w-25">
-          <fa-icon [icon]="faEnvelopeOpenText"></fa-icon>
+          <mat-icon class="btn-send">send</mat-icon>
         </button>
       </div>
     </div>

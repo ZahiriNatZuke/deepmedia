@@ -31,10 +31,6 @@ export class VideoService {
     this.currentPlayList = this.currentPlayListSubject.asObservable();
   }
 
-  public get GetCurrentVideoPlayerValue(): VideoPlayer {
-    return this.currentVideoPlayerSubject.value;
-  }
-
   public UpdateCurrentVideoPlayerValue(videoPlayer: VideoPlayer) {
     this.currentVideoPlayerSubject.next(videoPlayer);
   }

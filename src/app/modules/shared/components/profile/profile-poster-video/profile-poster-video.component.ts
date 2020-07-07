@@ -6,6 +6,7 @@ import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
 import {VideoService} from '../../../../../services/video.service';
 import {Router} from '@angular/router';
+import {ThemeConfigService} from '../../../../../services/theme-config.service';
 
 @Component({
   selector: 'app-profile-poster-video',
@@ -19,10 +20,12 @@ export class ProfilePosterVideoComponent implements OnInit {
   @Input() heightPoster: number;
   User_Channel: Channel;
   URL_STORAGE: string = environment.URL_STORAGE;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private authenticationService: AuthenticationService,
               private videoService: VideoService,
-              private router: Router) {
+              private router: Router,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
   }
 

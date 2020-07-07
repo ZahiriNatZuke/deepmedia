@@ -1,14 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {
-  faPause,
-  faPlay,
-  faPlayCircle,
-  faVolumeDown,
-  faVolumeMute,
-  faVolumeOff,
-  faVolumeUp
-} from '@fortawesome/free-solid-svg-icons';
-import {environment} from '../../../../../environments/environment.prod';
+import {faPause, faPlay, faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
 
@@ -27,10 +18,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Output() playVideoEmitter: EventEmitter<boolean>;
   faPlay = faPlay;
   faPause = faPause;
-  faVolumeUp = faVolumeUp;
-  faVolumeDown = faVolumeDown;
-  faVolumeMute = faVolumeMute;
-  faVolumeOff = faVolumeOff;
   faPlayCircle = faPlayCircle;
   volumenControl: JQuery<HTMLElement>;
   volumenSlider: JQuery<HTMLElement>;
@@ -44,7 +31,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   currentVolumen: number;
   currentTime: number;
   poster: boolean;
-  URL_ASSETS = environment.URL_ASSETS;
   placeBtnPlay: any;
 
   constructor(private videoService: VideoService) {
@@ -227,31 +213,31 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     let percent;
     switch (this.widthVideo) {
       case 360:
-        percent = 40;
+        percent = 38;
         break;
       case 420:
-        percent = 45;
+        percent = 43;
         break;
       case 480:
-        percent = 55;
+        percent = 53;
         break;
       case 720:
-        percent = 70;
+        percent = 67;
         break;
       case 1080:
-        percent = 80;
+        percent = 78;
         break;
       case 1280:
-        percent = 83;
+        percent = 81;
         break;
       case 1920:
-        percent = 88;
+        percent = 86;
         break;
       case 3840:
-        percent = 94;
+        percent = 92;
         break;
       default:
-        percent = 65;
+        percent = 63;
         break;
     }
     return (this.widthVideo * percent / 100) + 15;

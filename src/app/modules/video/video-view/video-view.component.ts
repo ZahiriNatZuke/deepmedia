@@ -22,6 +22,7 @@ import {Channel} from '../../../models/channel';
 import {VideoService} from '../../../services/video.service';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import {DownloadDialogComponent} from '../../shared/dialogs/download-dialog/download-dialog.component';
+import {ThemeConfigService} from '../../../services/theme-config.service';
 
 const api = new API();
 
@@ -56,12 +57,14 @@ export class VideoViewComponent implements OnInit {
   showVideoView: boolean;
   tabGroupFocus: boolean;
   snackDownload: MatSnackBarRef<DownloadDialogComponent>;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private videoService: VideoService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private themeConfigService: ThemeConfigService) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
@@ -174,7 +177,8 @@ export class VideoViewComponent implements OnInit {
       duration: -1,
       horizontalPosition: 'left',
       verticalPosition: 'bottom',
-      data: {title: this.Video.title, id: this.Video.id, from: this}
+      data: {title: this.Video.title, id: this.Video.id, from: this},
+      panelClass: this.currentTheme.theme
     });
   }
 }

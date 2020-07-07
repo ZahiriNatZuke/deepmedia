@@ -9,33 +9,37 @@
     <span class="font-weight-bold align-self-center mh-text pt-2">No hay Videos Disponibles</span>
   </div>
   <div *ngIf="playList.length > 0">
-    <div class="box" *ngFor="let video of playList; let i = index;" cdkDrag cdkDragLockAxis="y">
-      <div class="custom-placeholder" *cdkDragPlaceholder></div>
-      <div *cdkDragPreview class="d-flex">
-        <img
-          [src]="URL_STORAGE + video.poster.path |  saveDom"
-          [alt]="video.title" class="img-fluid rounded drag-item-img">
+    <div class="box" *ngFor="let video of playList; let i = index;" cdkDrag cdkDragLockAxis="y"
+         [class.border-bottom-light]="currentTheme.theme === 'light-theme'"
+         [class.border-bottom-dark]="currentTheme.theme === 'dark-theme'">
+      <div class="video-placeholder" *cdkDragPlaceholder
+           [class.video-placeholder-light]="currentTheme.theme === 'light-theme'"
+           [class.video-placeholder-dark]="currentTheme.theme === 'dark-theme'"></div>
+      <div *cdkDragPreview class="d-flex"
+           [class.poster-light]="currentTheme.theme === 'light-theme'"
+           [class.poster-dark]="currentTheme.theme === 'dark-theme'">
+        <img [src]="URL_STORAGE + video.poster.path |  saveDom"
+             [alt]="video.title" class="img-fluid rounded drag-item-img">
         <div *ngIf="isFavorite(video)" class="position-absolute favorite-star">
           <fa-icon [icon]="faStar"></fa-icon>
         </div>
-        <div class="position-absolute overlay-info-drag-video">
-          <div class="d-flex container-info-drag-video justify-content-center align-content-center">
-            <span class="text-white">{{video.likes_count}}</span>
-            <fa-icon [icon]="faThumbsUp" class="px-2" [classes]="['align-self-center']"></fa-icon>
-            <div class="w-1 bg-light mr-2 mt-1"></div>
-            <span class="text-white">{{video.comments_count}}</span>
-            <fa-icon [icon]="faComment" class="px-2" [classes]="['align-self-center']"></fa-icon>
-            <div class="w-1 bg-light mr-2 mt-1"></div>
-            <span class="text-white">{{video.views_count}}</span>
-            <fa-icon [icon]="faEye" class="px-2" [classes]="['align-self-center']"></fa-icon>
-            <div class="w-1 bg-light mr-2 mt-1"></div>
-            <span class="text-white">{{video.downloads_count}}</span>
-            <fa-icon [icon]="faFileDownload" class="px-2" [classes]="['align-self-center']"></fa-icon>
+        <div class="position-absolute overlay-info-drag-video"
+             [class.text-white]="currentTheme.theme === 'light-theme'"
+             [class.text-white-80]="currentTheme.theme === 'dark-theme'">
+          <div class="d-flex justify-content-between align-self-center">
+            <span class="counter-stats ml-2">{{video.likes_count}}
+              <mat-icon class="mr-2">thumb_up</mat-icon></span>
+            <span class="counter-stats">{{video.comments_count}}
+              <mat-icon class="mr-2">comment</mat-icon></span>
+            <span class="counter-stats">{{video.views_count}}
+              <mat-icon class="mr-2">visibility</mat-icon></span>
+            <span class="counter-stats mr-2">{{video.downloads_count}}
+              <mat-icon>get_app</mat-icon></span>
           </div>
         </div>
       </div>
       <div class="d-flex overflow-hidden">
-        <span class="font-weight-bold align-self-center mh-text">{{i + 1}} - {{video.title}}</span>
+        <span class="align-self-center mh-text"><b>{{i + 1}} - </b>{{video.title}}</span>
       </div>
       <div class="d-flex">
         <span class="align-self-center">{{video.duration | timer}}</span>

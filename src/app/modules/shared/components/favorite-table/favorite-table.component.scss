@@ -8,11 +8,11 @@ tr.detail-row {
 }
 
 tr.element-row:not(.expanded-row):hover {
-  background: #e1e1e1;
+  //background: #e1e1e1;
 }
 
 tr.element-row:not(.expanded-row):active {
-  background: #efefef;
+  //background: #efefef;
 }
 
 .element-row td {
@@ -26,7 +26,6 @@ tr.element-row:not(.expanded-row):active {
 .element-detail {
   overflow: hidden;
   display: flex;
-  background: #e8e8e8;
   padding: 0 30px;
   border-radius: 6px 6px 0 0;
   user-select: text;
@@ -58,7 +57,8 @@ tr.element-row:not(.expanded-row):active {
   font-size: 26px;
   width: 50px;
   height: 50px;
-  border: 1px solid #9E9E9E;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .mt-filter {

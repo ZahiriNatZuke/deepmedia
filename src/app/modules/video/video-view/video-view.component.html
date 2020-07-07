@@ -21,9 +21,9 @@
                   matTooltip="Editar Video" matTooltipPosition="above" [routerLink]="['/video/update-video',Video.id]">
             <fa-icon [icon]="faEdit"></fa-icon>
           </button>
-          <button mat-button (click)="showDateTime = !showDateTime; showInfo = false" matTooltip="Fecha del Video"
-                  matTooltipPosition="above">
-            <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown" [classes]="['text-muted']"></fa-icon>
+          <button mat-button [class.text-muted]="!showDateTime" (click)="showDateTime = !showDateTime; showInfo = false"
+                  matTooltip="Fecha del Video" matTooltipPosition="above">
+            <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown"></fa-icon>
           </button>
           <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo; showDateTime = false"
                   matTooltip="Descripción del Video" matTooltipPosition="above">
@@ -36,50 +36,51 @@
           <span>{{Video.description}}</span>
         </div>
         <h6 *ngIf="showDateTime">
-          Por <a class="text-dark font-weight-bold" [routerLink]="['/auth/profile',Video.channel_id]">
+          Por <a class="font-weight-bold" [routerLink]="['/auth/profile',Video.channel_id]">
           #{{Video.channel.user.username}}</a>, {{Video.created_at | fullDate}}
         </h6>
       </mat-card-subtitle>
       <mat-card-actions align="end" [style.padding.px]="0">
         <div *ngIf="User_Channel" class="icon-line mr-1">
-          <button mat-button [class.golden-star]="isFavorite()" [class.text-muted]="!isFavorite()"
-                  (click)="toggleFavorite()">
-            <fa-icon [icon]="faStar"></fa-icon>
+          <button mat-button class="golden-star" (click)="toggleFavorite()">
+            <mat-icon>{{isFavorite() ? 'star' : 'star_border'}}</mat-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span
-                  class="align-self-center font-weight-bold text-muted select-none">
+          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.views_count | statsFilter | number:'.0-2'}}
             {{Video.views_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
-            <fa-icon [icon]="faEye"></fa-icon>
+            <mat-icon>visibility</mat-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span
-                  class="align-self-center font-weight-bold text-muted select-none">
+          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.likes_count | statsFilter | number:'.0-2'}}
             {{Video.likes_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
                   (click)="toggleLike()">
-            <fa-icon [icon]="faThumbsUp"></fa-icon>
+            <mat-icon>thumb_up</mat-icon>
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold text-muted select-none">
+          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.comments_count | statsFilter | number:'.0-2'}}
             {{Video.comments_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
-            <fa-icon [icon]="faComment"></fa-icon>
+            <mat-icon>comment</mat-icon>
           </button>
         </div>
         <div class="icon-line d-flex mr-1">
-          <span class="align-self-center font-weight-bold text-muted select-none">
+          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.downloads_count | statsFilter | number:'.0-2'}}
             {{Video.downloads_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" (click)="downloadVideo()">
-            <fa-icon [icon]="faDownload"></fa-icon>
+            <mat-icon>get_app</mat-icon>
           </button>
         </div>
       </mat-card-actions>

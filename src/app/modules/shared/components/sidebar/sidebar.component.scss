@@ -47,6 +47,12 @@
       font-size: 14px;
     }
 
+    .theme-icon-toggle {
+      position: absolute;
+      top: 78px;
+      right: 0;
+    }
+
   }
 
   .dropdown-sidebar {
@@ -60,7 +66,7 @@
       }
 
       a {
-        display: block;
+        //display: block;
         height: 100%;
         width: 100%;
         line-height: 40px;
@@ -71,6 +77,22 @@
         border-bottom: 1px solid black;
         transition: 0.4s;
         cursor: pointer;
+      }
+
+      .link-options {
+        font-size: 16px;
+        height: 16px;
+        line-height: 32px;
+        width: inherit;
+        user-select: none;
+      }
+
+      .mat-icon {
+        width: 16px !important;
+        height: 16px;
+        position: relative;
+        top: 4px;
+        margin-right: 12px;
       }
 
       fa-icon {
@@ -125,6 +147,12 @@
     span {
       margin-left: 40px;
       user-select: none;
+    }
+
+    .mat-icon {
+      position: relative;
+      top: 2px;
+      font-weight: lighter !important;
     }
   }
 

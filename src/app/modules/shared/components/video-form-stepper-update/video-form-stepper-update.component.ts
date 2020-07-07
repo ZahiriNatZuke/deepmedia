@@ -15,6 +15,7 @@ import {AuthenticationService} from '../../../../services/authentication.service
 import {Channel} from '../../../../models/channel';
 import * as fileSize from 'filesize';
 import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
 
 const api = new API();
 
@@ -44,6 +45,7 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   progressUpload: number = 0;
   randomNumber: number = 1;
   storage_size_available: string;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
@@ -51,7 +53,8 @@ export class VideoFormStepperUpdateComponent implements OnInit {
               private videoService: VideoService,
               private activatedRoute: ActivatedRoute,
               private notificationService: NotificationService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.videoService.currentVideo.subscribe(video => this.Video = video);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoObj = videoPlayer);

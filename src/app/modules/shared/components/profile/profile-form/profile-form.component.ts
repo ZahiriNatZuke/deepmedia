@@ -9,6 +9,7 @@ import {AuthenticationService} from '../../../../../services/authentication.serv
 import {VideoService} from '../../../../../services/video.service';
 import {NotificationService} from '../../../../../services/notification.service';
 import {faLock} from '@fortawesome/free-solid-svg-icons';
+import {ThemeConfigService} from '../../../../../services/theme-config.service';
 
 const api = new API();
 
@@ -22,6 +23,7 @@ export class ProfileFormComponent implements OnInit {
   Channel: Channel;
   Avatar: File;
   faLock = faLock;
+  currentTheme: {theme: string} = this.themeConfigService.config;
 
   public profileForm: FormGroup = this.formBuilder.group({
     fullname: ['', {disable: true}],
@@ -36,7 +38,8 @@ export class ProfileFormComponent implements OnInit {
               private helpersService: HelpersService,
               private authenticationService: AuthenticationService,
               private videoService: VideoService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private themeConfigService: ThemeConfigService) {
   }
 
   ngOnInit(): void {
@@ -81,13 +84,13 @@ export class ProfileFormComponent implements OnInit {
     if (!this.profileForm.get('avatar').pristine) this.formData.append('avatar', this.Avatar, this.Avatar.name);
     if (!this.profileForm.pristine && this.profileForm.dirty && this.profileForm.valid)
       this.crudService.POSTForUpdate(api.getUserURL(), 'user', this.formData, this.Channel.user.id.toString())
-        .subscribe((response) => {
-          const user: Channel = response.user;
-          this.authenticationService.UpdateCurrentUserValue(user);
-          this.helpersService.UpdateChannel(user);
-          $('.custom-file-label').html('Actualizar Imagen del Perfil');
-          this.profileForm.reset();
-        });
+          .subscribe((response) => {
+            const user: Channel = response.user;
+            this.authenticationService.UpdateCurrentUserValue(user);
+            this.helpersService.UpdateChannel(user);
+            $('.custom-file-label').html('Actualizar Imagen del Perfil');
+            this.profileForm.reset();
+          });
     else
       this.notificationService.showNotification('Perfil Info', 'Por Favor Modifique Algún Campo', 'warning');
   }

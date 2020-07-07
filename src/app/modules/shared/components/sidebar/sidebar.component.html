@@ -20,18 +20,21 @@
            [alt]="User_Channel? User_Channel.avatar.name : 'UnknownUserAvatar'"
            class="img-fluid rounded-circle img-sidebar">
       <div class="d-flex flex-column">
-        <span *ngIf="User_Channel" class="user-header pl-2 font-weight-light cursor-pointer"
-              [routerLink]="['/auth/profile',User_Channel.id]">{{User_Channel.user.username}}</span>
-        <span *ngIf="!User_Channel" class="user-header pl-2 font-weight-light cursor-pointer">
-          Anonymous
+        <span class="user-header pl-2 font-weight-light cursor-pointer"
+              [routerLink]="User_Channel ? ['/auth/profile',User_Channel.id] : '/video/categories'">
+          {{User_Channel ? User_Channel.user.username : 'Anonymous'}}
         </span>
         <div class="pl-2 d-flex align-content-center">
-          <span *ngIf="User_Channel" class="info-header font-weight-bold">Conectado</span>
-          <span *ngIf="!User_Channel" class="info-header font-weight-bold">Desconectado</span>
-          <fa-icon *ngIf="User_Channel" [icon]="faCircle" [classes]="['text-success','pl-1', 'pb-1']"></fa-icon>
-          <fa-icon *ngIf="!User_Channel" [icon]="faCircle" [classes]="['text-danger','pl-1', 'pb-1']"></fa-icon>
+          <span class="info-header font-weight-bold">{{User_Channel ? 'Conectado' : 'Desconectado'}}</span>
+          <fa-icon [icon]="faCircle" [class.text-success]="User_Channel" [class.text-danger]="!User_Channel"
+                   [classes]="['pl-1', 'pb-1']"></fa-icon>
         </div>
       </div>
+      <button type="button" aria-label="Toggle Theme" mat-icon-button (click)="toggleTheme()"
+              class="theme-icon-toggle">
+        <fa-icon [icon]="lightTheme ? faMoon : faSun" [class.text-white-50]="lightTheme"
+                 [style.fontSize.px]="18"></fa-icon>
+      </button>
     </div>
   </header>
   <ul>
@@ -48,12 +51,24 @@
       </a>
       <div id="Categories" class="dropdown-sidebar">
         <ul>
-          <li><a [routerLink]="['/video/list','gameplay']">Gameplay</a></li>
-          <li><a [routerLink]="['/video/list','joke']">Humor</a></li>
-          <li><a [routerLink]="['/video/list','musical']">Musical</a></li>
-          <li><a [routerLink]="['/video/list','tech']">Tecnología</a></li>
-          <li><a [routerLink]="['/video/list','interesting']">Interesantes</a></li>
-          <li><a [routerLink]="['/video/list','tutorial']">Tutoriales</a></li>
+          <li><a [routerLink]="['/video/list','gameplay']">
+            <fa-icon [icon]="faGamepad"></fa-icon>
+            Gameplay</a></li>
+          <li><a [routerLink]="['/video/list','joke']">
+            <fa-icon [icon]="faSmileWink"></fa-icon>
+            Humor</a></li>
+          <li><a [routerLink]="['/video/list','musical']">
+            <fa-icon [icon]="faMusic"></fa-icon>
+            Musical</a></li>
+          <li><a [routerLink]="['/video/list','tech']">
+            <fa-icon [icon]="faAtom"></fa-icon>
+            Tecnología</a></li>
+          <li><a [routerLink]="['/video/list','interesting']">
+            <fa-icon [icon]="faLightbulb"></fa-icon>
+            Interesantes</a></li>
+          <li><a [routerLink]="['/video/list','tutorial']">
+            <fa-icon [icon]="faUserGraduate"></fa-icon>
+            Tutoriales</a></li>
         </ul>
       </div>
     </li>
@@ -65,10 +80,24 @@
       </a>
       <div id="Options" class="dropdown-sidebar">
         <ul>
-          <li *ngIf="User_Channel"><a [routerLink]="['/video/favorites',1]">Mis Favoritos</a></li>
-          <li *ngIf="User_Channel"><a [routerLink]="['/video/new-video']">Nuevo Video</a></li>
-          <li (click)="openDialog()"><a>Buscar</a></li>
-          <li *ngIf="User_Channel" (click)="openBot()"><a>Bot_DeepMedia</a></li>
+          <li *ngIf="User_Channel">
+            <a [routerLink]="['/video/favorites']">
+              <span class="link-options">
+                <mat-icon>star_border</mat-icon>&nbsp;Mis Favoritos
+              </span>
+            </a></li>
+          <li *ngIf="User_Channel"><a [routerLink]="['/video/new-video']">
+            <span class="link-options">
+                <mat-icon>fiber_new</mat-icon>&nbsp;Nuevo Video
+              </span></a></li>
+          <li (click)="openDialog()"><a>
+            <span class="link-options">
+                <mat-icon>find_in_page</mat-icon>&nbsp;Buscar
+              </span></a></li>
+          <li *ngIf="User_Channel" (click)="openBot()"><a>
+            <span class="link-options">
+                <mat-icon>bug_report</mat-icon>&nbsp;Bot_DeepMedia
+              </span></a></li>
         </ul>
       </div>
     </li>
@@ -89,7 +118,8 @@
     </li>
   </ul>
   <footer class="w-100">
-    <span class="text-white font-weight-light">&copy; {{year}} ZahiriNatZuke.</span>
+    <span class="text-white font-weight-light"><mat-icon inline>copyright</mat-icon>
+      {{year}} ZahiriNatZuke.</span>
   </footer>
 </div>
 <!-- Sidebar - End -->

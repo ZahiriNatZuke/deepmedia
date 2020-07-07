@@ -28,9 +28,8 @@
                   (valueChange)="changeVolumen(volumenControl.value)" (mouseleave)="unsetVolumenSlider()">
       </mat-slider>
       <button mat-button class="volumen-btn" id="volumen-btn" (click)="toggleMutedVideo()">
-        <fa-icon [icon]="mutedVideo? faVolumeMute : currentVolumen === 0 ?
-                faVolumeOff : currentVolumen <= 50 ? faVolumeDown : faVolumeUp">
-        </fa-icon>
+        <mat-icon id="volume-control">{{mutedVideo ? 'volume_off' : currentVolumen === 0 ?
+            'volume_mute' : currentVolumen <= 50 ? 'volume_down' : 'volume_up'}}</mat-icon>
       </button>
     </div>
 
@@ -44,7 +43,7 @@
     </mat-chip-list>
 
     <button mat-button (click)="makeBig()" class="fullScreen-btn">
-      <img [src]="URL_ASSETS + 'img/fullscreen.png' | saveDom" alt="fullscreen">
+      <mat-icon>fullscreen</mat-icon>
     </button>
 
   </div>

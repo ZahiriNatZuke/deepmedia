@@ -4,10 +4,10 @@
     <div class="d-flex justify-content-between position-fixed">
       <button mat-icon-button id="toggleForm" [class.text-danger]="form" [class.text-white-50]="!form"
               (click)="toggleForm()" *ngIf="User_Channel && User_Channel.id === Channel.id">
-        <fa-icon [icon]="form ? faTimes : faUserEdit" id="editProfileButton"></fa-icon>
+        <mat-icon id="editProfileButton">{{form ? 'close' : 'perm_identity'}}</mat-icon>
       </button>
       <button mat-icon-button class="text-danger" id="buttonClose" (click)="closeAllVideos()">
-        <fa-icon [icon]="faTimes" id="closeAllVideos"></fa-icon>
+        <mat-icon id="closeAllVideos" inline>close</mat-icon>
       </button>
     </div>
     <div class="f-bottom d-flex align-self-end justify-content-start">
@@ -19,44 +19,44 @@
   <mat-card-actions class="mb-0 py-0" [style.height.px]="actionsHeight">
     <mat-list *ngIf="!moreStats && statsChannel">
       <mat-list-item>
-        <app-profile-list-info statsName="Likes" [icon]="faThumbsUp" class="w-100"
+        <app-profile-list-info statsName="Likes" [icon]="'thumb_up'" class="w-100"
                                [statsDetail]="statsChannel.advanced_stats.likes"></app-profile-list-info>
       </mat-list-item>
       <mat-list-item>
-        <app-profile-list-info statsName="Vistas" [icon]="faEye" class="w-100"
+        <app-profile-list-info statsName="Vistas" [icon]="'visibility'" class="w-100"
                                [statsDetail]="statsChannel.advanced_stats.views"></app-profile-list-info>
       </mat-list-item>
       <mat-list-item>
-        <app-profile-list-info statsName="Descargas" [icon]="faFileDownload" class="w-100"
+        <app-profile-list-info statsName="Descargas" [icon]="'get_app'" class="w-100"
                                [statsDetail]="statsChannel.advanced_stats.downloads"></app-profile-list-info>
       </mat-list-item>
     </mat-list>
     <div class="d-flex justify-content-between mx-4" *ngIf="moreStats && statsChannel">
-      <div class="counter-stats d-flex flex-column justify-content-center">
-        <div class="align-self-center mb-2 color-icon">
-          <fa-icon size="2x" [icon]="faThumbsUp"></fa-icon>
+      <div class="d-flex flex-column justify-content-center">
+        <div class="align-self-center mb-2 counter-stats">
+          <mat-icon color="primary" inline>thumb_up</mat-icon>
         </div>
         <h3 class="counter">{{statsChannel.stats.likes | statsFilter | number:'.0-2'}}
           {{statsChannel.stats.likes > 1000 ? ' k' : ''}}</h3>
       </div>
-      <div class="counter-stats d-flex flex-column justify-content-center">
-        <div class="align-self-center mb-2 color-icon">
-          <fa-icon size="2x" [icon]="faEye"></fa-icon>
+      <div class="d-flex flex-column justify-content-center">
+        <div class="align-self-center mb-2 counter-stats">
+          <mat-icon color="primary" inline>visibility</mat-icon>
         </div>
         <h3 class="counter">{{statsChannel.stats.views | statsFilter | number:'.0-2'}}
           {{statsChannel.stats.views > 1000 ? ' k' : ''}}</h3>
       </div>
-      <div class="counter-stats d-flex flex-column justify-content-center">
-        <div class="align-self-center mb-2 color-icon">
-          <fa-icon size="2x" [icon]="faFileDownload"></fa-icon>
+      <div class="d-flex flex-column justify-content-center">
+        <div class="align-self-center mb-2 counter-stats ">
+          <mat-icon color="primary" inline>get_app</mat-icon>
         </div>
         <h3 class="counter">{{statsChannel.stats.downloads | statsFilter | number:'.0-2'}}
           {{statsChannel.stats.downloads > 1000 ? ' k' : ''}}</h3>
       </div>
     </div>
     <div class="d-flex flex-column justify-content-center mx-4 mt-2" *ngIf="moreStats">
-      <div class="align-self-center mb-2 color-icon">
-        <span class="font-weight-bold size-storage">
+      <div class="align-self-center mb-2">
+        <span class="font-weight-light size-storage">
           {{statsChannel.storage_size[1][0] + ' ' + statsChannel.storage_size[1][1]}} / 5 GB</span>
       </div>
       <mat-progress-bar color="primary" mode="determinate" matTooltipPosition="before"

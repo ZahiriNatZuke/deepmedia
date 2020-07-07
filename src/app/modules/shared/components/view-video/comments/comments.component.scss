@@ -15,10 +15,12 @@
   min-height: 300px;
   max-height: 445px;
   padding: 5px;
-  border-bottom: 1px solid #d7d7d7;
-  border-left: 1px solid #d7d7d7;
-  border-bottom-left-radius: 4px;
   transition: all .5s;
+}
+
+.btn-send{
+  position: relative;
+  left: 5px;
 }
 
 .mat-icon-button {
@@ -29,14 +31,4 @@
 
 .mat-raised-button {
   font-size: 20px;
-}
-
-.link-profile {
-  user-select: none;
-  cursor: pointer;
-}
-
-.link-profile:hover {
-  font-weight: bold !important;
-  color: #373737;
 }

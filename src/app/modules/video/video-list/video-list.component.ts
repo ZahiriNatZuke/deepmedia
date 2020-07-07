@@ -4,6 +4,7 @@ import {API} from '../../../services/API';
 import {ActivatedRoute} from '@angular/router';
 import {Video} from '../../../models/video';
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import {NotificationService} from '../../../services/notification.service';
 
 const api = new API();
 
@@ -21,16 +22,21 @@ export class VideoListComponent implements OnInit {
   loading: boolean;
 
   constructor(private crudService: CrudService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private notificationService: NotificationService) {
     this.loading = false;
     this.activatedRoute.params.subscribe(params => {
       const category: string = params.category;
       this.crudService.GETWithOutAuth(api.getVideosByCategoryURL(), category)
-        .subscribe(response => {
-          this.next_page_url = response.videos.next_page_url;
-          this.videos = response.videos.data;
-          this.stopLoading();
-        });
+          .subscribe(response => {
+            this.next_page_url = response.videos.next_page_url;
+            this.videos = response.videos.data;
+            if (this.videos.length === 0) {
+              this.notificationService.showNotification('Video Info',
+                  'Esta categoría aún no tiene videos disponibles', 'success');
+            }
+            this.stopLoading();
+          });
     });
   }
 

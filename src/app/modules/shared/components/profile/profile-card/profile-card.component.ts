@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {faEye, faFileDownload, faThumbsUp, faTimes, faUserEdit} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../../environments/environment.prod';
 import {Channel} from '../../../../../models/channel';
 import {ActivatedRoute} from '@angular/router';
@@ -18,11 +17,6 @@ export class ProfileCardComponent implements OnInit {
   Avatar: HTMLElement;
   statsChannel: Stats;
   URL_STORAGE = environment.URL_STORAGE;
-  faThumbsUp = faThumbsUp;
-  faFileDownload = faFileDownload;
-  faEye = faEye;
-  faTimes = faTimes;
-  faUserEdit = faUserEdit;
   form: boolean;
   moreStats: boolean;
   actionsHeight: number;

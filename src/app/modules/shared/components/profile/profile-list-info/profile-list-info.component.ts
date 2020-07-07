@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {DetailAdvancedStats} from '../../../../../models/detail-advanced-stats';
 
 @Component({
@@ -11,8 +10,6 @@ export class ProfileListInfoComponent implements OnInit {
   @Input() icon;
   @Input() statsName;
   @Input() statsDetail: DetailAdvancedStats;
-  faArrowUp = faArrowUp;
-  faArrowDown = faArrowDown;
   up: boolean;
 
   constructor() {

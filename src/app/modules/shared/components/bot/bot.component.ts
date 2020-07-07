@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {faAngleDown, faAngleUp, faPaperPlane, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faAngleUp, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {ChatMessage} from '../../../../models/chat-message';
@@ -11,6 +11,8 @@ import {Channel} from '../../../../models/channel';
 import {map} from 'rxjs/operators';
 import {Banished} from '../../../../models/banished';
 import * as moment from 'moment';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-bot',
@@ -19,6 +21,7 @@ import * as moment from 'moment';
 })
 export class BotComponent implements OnInit, OnDestroy {
   @ViewChild('textarea', {static: true}) textArea: ElementRef;
+  @ViewChild('commandBtn', {static: true}) iconCommandBtn: MatIcon;
   botForm: FormGroup = this._formBuilder.group({
     body: ['', [Validators.required]]
   });
@@ -31,16 +34,17 @@ export class BotComponent implements OnInit, OnDestroy {
   faTimes = faTimes;
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
-  faPaperPlane = faPaperPlane;
   security: any;
   toggleMinimize: boolean;
   toggleCommand: boolean;
   typing: boolean;
   time: number;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private _formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
-              private botService: BotService) {
+              private botService: BotService,
+              private themeConfigService: ThemeConfigService) {
     this.toggleMinimize = true;
     this.toggleCommand = false;
     this.typing = false;
@@ -58,6 +62,9 @@ export class BotComponent implements OnInit, OnDestroy {
       if (event.altKey && event.code === 'Enter' && event.target === this.textArea.nativeElement) this.onSubmit();
       if (event.altKey && event.code === 'ArrowUp' && event.target === this.textArea.nativeElement) this.upCommandFromHistory();
       if (event.altKey && event.code === 'ArrowDown' && event.target === this.textArea.nativeElement) this.downCommandFromHistory();
+    });
+    window.addEventListener('click', (event) => {
+      if (event.target !== this.iconCommandBtn._elementRef.nativeElement && this.toggleCommand) this.toggleCommands();
     });
   }
 
@@ -100,6 +107,18 @@ export class BotComponent implements OnInit, OnDestroy {
         type: 'client'
       });
 
+      if (this.botForm.get('body').value === '/swap_theme') {
+        this.botForm.reset();
+        this.currentTheme.theme === 'light-theme' ?
+            this.themeConfigService.setDarkTheme() : this.themeConfigService.setLightTheme();
+        this.chatStack.push({
+          text: this.currentTheme.theme === 'light-theme' ?
+              'He cambiado a Modo Claro' : 'He Cambiado a Modo Oscuro',
+          type: 'server'
+        });
+        return;
+      }
+
       const result: CommandAnalyzed = this.botService.analyzeCommand(this.botForm.get('body').value);
 
       if (result.data)
@@ -138,6 +157,7 @@ export class BotComponent implements OnInit, OnDestroy {
             break;
           case 'ban:server':
             this.showIndicator();
+            console.log(result);
             this.botService.POSTFromBot(result.url, result.data)
                 .subscribe((response) => {
                   if (response.status) {
@@ -149,7 +169,7 @@ export class BotComponent implements OnInit, OnDestroy {
                     });
                   } else
                     this.chatStack.push({
-                      text: response.message,
+                      text: result.message,
                       type: 'server'
                     });
                 }, () => this.messageErrorFromBot());

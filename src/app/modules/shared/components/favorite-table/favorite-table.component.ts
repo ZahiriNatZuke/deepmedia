@@ -5,6 +5,7 @@ import {faComment, faEye, faFileDownload, faFilter, faStar, faThumbsUp} from '@f
 import {Video} from '../../../../models/video';
 import {CrudService} from '../../../../services/crud.service';
 import {NotificationService} from '../../../../services/notification.service';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
 
 @Component({
   selector: 'app-favorite-table',
@@ -32,8 +33,11 @@ export class FavoriteTableComponent implements OnInit {
   faFilter = faFilter;
   faFileDownload = faFileDownload;
   show: boolean;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
-  constructor(private crudService: CrudService, private notificationService: NotificationService) {
+  constructor(private crudService: CrudService,
+              private notificationService: NotificationService,
+              private themeConfigService: ThemeConfigService) {
     this.crudService.GETForMyFavorites()
         .subscribe(response => {
           this.Videos = response.videos;

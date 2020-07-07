@@ -1,5 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$light-primary: mat-palette($mat-indigo);
+$light-accent: mat-palette($mat-amber, A200, A100, A400);
+$light-warn: mat-palette($mat-red);
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-blue);
+$dark-accent: mat-palette($mat-purple, A200, A100, A400);
+$dark-warn: mat-palette($mat-red);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+@include angular-material-theme($light-theme);
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
+.light-theme {
+  @include angular-material-theme($light-theme);
+}
 
 @font-face {
   font-family: 'Relaway-Regular';
@@ -19,6 +50,106 @@
 
 .icon-user-muted:hover {
   color: #7f8991 !important;
+}
+
+.label-dark {
+  color: white;
+}
+
+.label-dark:hover, .label-dark:active, .label-dark:after {
+  border: 2px solid white;
+}
+
+.label-light {
+  color: #2d2d2d;
+}
+
+.poster-light {
+  border-color: #cdcdcd;
+}
+
+.poster-dark {
+  border-color: #4b4b4b;
+}
+
+.label-light:hover, .label-light:active, .label-light:after {
+  border: 2px solid black;
+}
+
+.text-white-80 {
+  color: rgba(255, 255, 255, .8) !important
+}
+
+.background-gradient-light {
+  background: linear-gradient(to top, #047282, #0781a0, #07a4c3, #07c0e6);
+}
+
+.background-gradient-dark {
+  background: linear-gradient(to bottom, #042937, #044250, #045669, #047282);
+}
+
+.bg-favorite-light {
+  background: #e8e8e8;
+}
+
+.bg-favorite-dark {
+  background: #4b4b4b;
+}
+
+.element-row-light:hover, .element-row-light:active {
+  background: #e1e1e1;
+}
+
+.element-row-dark:hover, .element-row-dark:active {
+  background: #525252;
+}
+
+.link-profile-light, .link-profile-dark {
+  user-select: none;
+  cursor: pointer;
+}
+
+.link-profile-light:hover {
+  font-weight: bold !important;
+  color: #373737;
+}
+
+.link-profile-light:hover {
+  font-weight: bold !important;
+  color: #373737;
+}
+
+.link-profile-dark:hover {
+  font-weight: bold !important;
+  color: #c8c8c8;
+}
+
+.border-bottom-light {
+  border-bottom-color: #ccc;
+}
+
+.border-bottom-dark {
+  border-bottom-color: #a5a5a5;
+}
+
+.video-placeholder-light {
+  border-color: #c8c8c8;
+  background: #d7d7d7;
+}
+
+.video-placeholder-dark {
+  border-color: #373737;
+  background: #4a4a4a;
+}
+
+.btn-play-welcome-light {
+  border-color: #b4ebff !important;
+  color: #b4ebff !important;
+}
+
+.btn-play-welcome-dark {
+  border-color: #90CAF9 !important;
+  color: #90CAF9 !important;
 }
 
 //--------- SCROLL ----------------------------------------------------------\\

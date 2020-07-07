@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {faComment, faEye, faFileDownload, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
 import {AuthenticationService} from '../../../../../services/authentication.service';
@@ -9,6 +9,7 @@ import {VideoService} from '../../../../../services/video.service';
 import {ActivatedRoute} from '@angular/router';
 import {CrudService} from '../../../../../services/crud.service';
 import {API} from '../../../../../services/API';
+import {ThemeConfigService} from '../../../../../services/theme-config.service';
 
 const api = new API();
 
@@ -18,17 +19,13 @@ const api = new API();
   styleUrls: ['./play-list.component.scss']
 })
 export class PlayListComponent implements OnInit {
-
   User_Channel: Channel;
   playList: Video[] = [];
   URL_STORAGE: string = environment.URL_STORAGE;
   faPlayCircle = faPlayCircle;
-  faThumbsUp = faThumbsUp;
-  faComment = faComment;
-  faEye = faEye;
   faStar = faStar;
-  faFileDownload = faFileDownload;
   loading: boolean;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   drop(event: CdkDragDrop<Video[]>) {
     moveItemInArray(this.playList, event.previousIndex, event.currentIndex);
@@ -49,7 +46,8 @@ export class PlayListComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private videoService: VideoService,
-              private crudService: CrudService) {
+              private crudService: CrudService,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.loading = true;
     this.activatedRoute.params.subscribe(params => {

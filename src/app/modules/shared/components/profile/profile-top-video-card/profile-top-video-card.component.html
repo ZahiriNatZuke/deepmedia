@@ -11,22 +11,22 @@
       <h6>{{video.created_at | fullDate}}</h6>
       <mat-chip-list>
         <mat-chip color="primary" class="w-auto p-1" selected>
-          <fa-icon class="mx-2" [icon]="faThumbsUp"></fa-icon>
+          <mat-icon class="mx-2">thumb_up</mat-icon>
           <span class="mr-1">{{video.likes_count | statsFilter | number:'.0-2'}}
             {{video.likes_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
-          <fa-icon class="mx-2" [icon]="faEye"></fa-icon>
+          <mat-icon class="mx-2">visibility</mat-icon>
           <span class="mr-1">{{video.views_count | statsFilter | number:'.0-2'}}
             {{video.views_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
-          <fa-icon class="mx-2" [icon]="faComment"></fa-icon>
+          <mat-icon class="mx-2">comment</mat-icon>
           <span class="mr-1">{{video.comments_count | statsFilter | number:'.0-2'}}
             {{video.comments_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>
         <mat-chip color="primary" class="w-auto p-1" selected>
-          <fa-icon class="mx-2" [icon]="faFileDownload"></fa-icon>
+          <mat-icon class="mx-2">get_app</mat-icon>
           <span class="mr-1">{{video.downloads_count | statsFilter | number:'.0-2'}}
             {{video.downloads_count > 1000 ? ' k' : ''}}</span>
         </mat-chip>

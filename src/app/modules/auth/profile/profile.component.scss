@@ -22,7 +22,13 @@ mat-accordion * {
 
 .o-scroll {
   overflow-y: scroll;
+}
 
+.material-icons{
+  position: relative;
+  top: 4px;
+  margin-right: 12px;
+  font-size: 30px;
 }
 
 @media (min-width: 576px) {

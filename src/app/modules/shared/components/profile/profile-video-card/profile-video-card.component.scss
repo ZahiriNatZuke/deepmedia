@@ -1,23 +1,10 @@
 * {
   padding: 0;
   margin: 0;
-  text-decoration: none !important;
-  list-style: none !important;
 }
 
 .card {
   height: 225px;
-}
-
-.user-img {
-  height: 90px;
-  width: 90px;
-  position: absolute;
-  right: 10px;
-  bottom: -40px;
-  border: 3px solid #fff;
-  border-radius: 180px;
-  transition: all 0.4s ease;
 }
 
 .p-data {
@@ -33,6 +20,8 @@
   transition: all 0.4s;
   opacity: 0;
   user-select: none;
+  border: none;
+  background-color: rgba(95, 95, 95, 0.3);
 
   > span, > div {
     margin-left: 17px;
@@ -55,7 +44,7 @@
 }
 
 .h-img:hover {
-  opacity: 0.8;
+  opacity: 0.9;
   transition: all 0.4s;
 }
 
@@ -81,17 +70,6 @@
   .info-user, .btn-play {
     opacity: 1;
   }
-
-  .user-img {
-    height: 80px;
-    width: 80px;
-    position: absolute;
-    right: 10px;
-    bottom: -35px;
-    border: 2px solid #fff;
-    border-radius: 180px;
-  }
-
 }
 
 .mb-8 {
@@ -121,4 +99,17 @@
   top: 10px;
   right: 10px;
   color: gold;
+}
+
+.counter-stats {
+  font-size: 18px;
+  height: 18px;
+  line-height: 18px;
+  width: inherit;
+  user-select: none;
+}
+
+.material-icons{
+  position: relative;
+  top: 4px
 }

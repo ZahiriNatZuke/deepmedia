@@ -25,6 +25,7 @@ import {ResetPasswordComponent} from './reset-password/reset-password.component'
 import {NewPasswordComponent} from './new-password/new-password.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatProgressBarModule,
     MatCheckboxModule,
     FormsModule,
-    ClipboardModule
+    ClipboardModule,
+    MatIconModule
   ]
 })
 export class AuthModule {

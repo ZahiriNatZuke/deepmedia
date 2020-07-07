@@ -14,6 +14,7 @@ import {AuthenticationService} from './services/authentication.service';
 import {HttpErrorInterceptor} from './interceptors/http.error.interceptor';
 import {HttpSecurityInterceptor} from './interceptors/http.security.interceptor';
 import {MatRippleModule} from '@angular/material/core';
+import {ThemeConfigService} from './services/theme-config.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {MatRippleModule} from '@angular/material/core';
     CrudService,
     HelpersService,
     VideoService,
+    ThemeConfigService,
     {provide: HTTP_INTERCEPTORS, useClass: HttpSecurityInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
   ],

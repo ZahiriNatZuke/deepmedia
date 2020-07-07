@@ -70,7 +70,9 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input d-none" id="imgFile" (change)="previewPoster($event);"
                        formControlName="poster" required>
-                <label class="custom-file-label" for="imgFile" id="label-poster-img">Poster del Video</label>
+                <label class="custom-file-label" for="imgFile" id="label-poster-img"
+                       [class.label-dark]="currentTheme.theme === 'dark-theme'"
+                       [class.label-light]="currentTheme.theme === 'light-theme'">Poster del Video</label>
               </div>
             </div>
           </div>
@@ -102,7 +104,9 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input d-none" id="videoFile" (change)="previewVideo($event);"
                        formControlName="video" required>
-                <label class="custom-file-label" for="videoFile" id="label-video">Video</label>
+                <label class="custom-file-label" for="videoFile" id="label-video"
+                       [class.label-dark]="currentTheme.theme === 'dark-theme'"
+                       [class.label-light]="currentTheme.theme === 'light-theme'">Video</label>
               </div>
             </div>
           </div>

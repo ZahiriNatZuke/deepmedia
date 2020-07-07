@@ -1,8 +1,6 @@
 * {
   padding: 0;
   margin: 0;
-  text-decoration: none !important;
-  list-style: none !important;
 }
 
 .card {
@@ -19,7 +17,8 @@
   position: absolute;
   right: 10px;
   bottom: -50px;
-  border: 3px solid #fff;
+  border-width: 3px;
+  border-style: solid;
   border-radius: 180px;
   transition: all 0.4s ease;
 }
@@ -37,6 +36,8 @@
   transition: all 0.4s;
   opacity: 0;
   user-select: none;
+  border: none;
+  background-color: rgba(95, 95, 95, 0.3);
 
   > span, > div {
     margin-left: 17px;
@@ -58,7 +59,7 @@
 }
 
 .h-img:hover {
-  opacity: 0.8;
+  opacity: 0.9;
   transition: all 0.4s;
 }
 
@@ -91,7 +92,8 @@
     position: absolute;
     right: 10px;
     bottom: -35px;
-    border: 2px solid #fff;
+    border-width: 2px;
+    border-style: solid;
     border-radius: 180px;
   }
 
@@ -127,4 +129,17 @@
 .info-text-title:hover, .info-text-user:hover {
   font-weight: bold;
   color: whitesmoke;
+}
+
+.counter-stats {
+  font-size: 18px;
+  height: 18px;
+  line-height: 18px;
+  width: inherit;
+  user-select: none;
+}
+
+.material-icons {
+  position: relative;
+  top: 4px
 }

@@ -4,26 +4,28 @@ mat-card-actions {
 }
 
 #editProfileButton, #closeAllVideos {
-  font-size: 20px;
+  font-size: 28px;
+}
+
+.counter-stats {
+  font-size: 32px;
+  height: 32px;
+  line-height: 32px;
+  width: inherit;
+  user-select: none;
 }
 
 .counter {
   border: 2px solid #505050;
   border-radius: 4px;
   padding: 3px 8px;
-  color: #5769b4;
   user-select: none;
-}
-
-.color-icon {
-  color: #424282;
 }
 
 .size-storage {
   border: 1.5px solid #505050;
   border-radius: 16px;
   padding: 3px 8px;
-  color: #5769b4;
   user-select: none;
 }
 

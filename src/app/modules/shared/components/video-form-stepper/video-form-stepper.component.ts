@@ -16,6 +16,7 @@ import {StepperSelectionEvent} from '@angular/cdk/stepper';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Channel} from '../../../../models/channel';
 import * as fileSize from 'filesize';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
 
 const api = new API();
 
@@ -46,13 +47,15 @@ export class VideoFormStepperComponent implements OnInit {
   canStore: boolean;
   User_Channel: Channel;
   storage_size_available: string;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
               private videoService: VideoService,
               private notificationService: NotificationService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private themeConfigService: ThemeConfigService) {
     this.showVideoPlayer = false;
     this.showPoster = false;
     this.canReset = true;

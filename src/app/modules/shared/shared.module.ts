@@ -58,6 +58,7 @@ import {SizePipe} from './pipes/size.pipe';
 import {ErrorsDialogComponent} from './dialogs/errors-dialog/errors-dialog.component';
 import {BotComponent} from './components/bot/bot.component';
 import {BotMsgComponent} from './components/bot-msg/bot-msg.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import {BotMsgComponent} from './components/bot-msg/bot-msg.component';
     MatPaginatorModule,
     DragDropModule,
     ScrollingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
   ]
 })
 export class SharedModule {

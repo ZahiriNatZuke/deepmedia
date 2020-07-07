@@ -15,7 +15,7 @@ export const VIDEO_ROUTES: Routes = [
   {path: 'view/:id', component: VideoViewComponent},
   {path: 'new-video', component: VideoCreateComponent, canActivate: [AuthGuard]},
   {path: 'update-video/:id', component: VideoUpdateComponent, canActivate: [AuthGuard]},
-  {path: 'favorites/:user', component: FavoritesComponent, canActivate: [AuthGuard]}
+  {path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -1,8 +1,11 @@
-<div id="video-card" class="card" [style.height.px]="heightPoster">
+<div id="video-card" class="card" [style.height.px]="heightPoster"
+     [class.border-light]="currentTheme.theme === 'light-theme'"
+     [class.border-dark]="currentTheme.theme === 'dark-theme'">
   <img [src]="URL_STORAGE+video.poster.path | saveDom" [alt]="video.poster.name"
        class="w-100 h-100 rounded h-img">
   <fa-icon *ngIf="isFavorite()" [id]="'icon-like'" [icon]="faStar" class="pl-3"></fa-icon>
-  <button mat-icon-button class="text-white btn-play">
+  <button mat-icon-button class="btn-play" [class.text-white]="currentTheme.theme === 'light-theme'"
+          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
     <fa-icon (click)="goToVideo()" [icon]="faPlayCircle"></fa-icon>
   </button>
 </div>

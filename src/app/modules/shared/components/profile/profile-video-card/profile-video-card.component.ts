@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faComment, faEye, faFileDownload, faPlayCircle, faStar, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 import {Video} from '../../../../../models/video';
 import {environment} from '../../../../../../environments/environment.prod';
 import {AuthenticationService} from '../../../../../services/authentication.service';
 import {Channel} from '../../../../../models/channel';
 import {VideoService} from '../../../../../services/video.service';
 import {Router} from '@angular/router';
+import {ThemeConfigService} from '../../../../../services/theme-config.service';
 
 @Component({
   selector: 'app-profile-video-card',
@@ -17,16 +18,14 @@ export class ProfileVideoCardComponent implements OnInit {
   @Input() Video: Video;
   User_Channel: Channel;
   URL_STORAGE: string = environment.URL_STORAGE;
-  faThumbsUp = faThumbsUp;
-  faComment = faComment;
-  faEye = faEye;
   faPlayCircle = faPlayCircle;
   faStar = faStar;
-  faFileDownload = faFileDownload;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private authenticationService: AuthenticationService,
               private videoService: VideoService,
-              private router: Router) {
+              private router: Router,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.linkToPlay = new EventEmitter<boolean>();
   }

@@ -2,14 +2,22 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
   faAngleDown,
   faAngleUp,
+  faAtom,
   faBars,
   faCircle,
   faCogs,
+  faGamepad,
+  faLightbulb,
+  faMoon,
+  faMusic,
   faSignInAlt,
   faSignOutAlt,
+  faSmileWink,
   faStream,
+  faSun,
   faTimes,
   faUserAlt,
+  faUserGraduate,
   faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../../environments/environment.prod';
@@ -21,6 +29,7 @@ import {AuthenticationService} from '../../../../services/authentication.service
 import {Router} from '@angular/router';
 import {Platform} from '@angular/cdk/platform';
 import {NotificationService} from '../../../../services/notification.service';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,6 +48,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   faUserAlt = faUserAlt;
   faSignInAlt = faSignInAlt;
   faUserPlus = faUserPlus;
+  faMoon = faMoon;
+  faSun = faSun;
+  faAtom = faAtom;
+  faGamepad = faGamepad;
+  faLightbulb = faLightbulb;
+  faMusic = faMusic;
+  faSmileWink = faSmileWink;
+  faUserGraduate = faUserGraduate;
   dropdownSidebarCategories: JQuery<HTMLElement>;
   dropdownSidebarOptions: JQuery<HTMLElement>;
   mainSection: JQuery<HTMLElement>;
@@ -50,13 +67,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   URL_STORAGE = environment.URL_STORAGE;
   User_Channel: Channel;
   UnknownUserAvatar: string;
+  lightTheme: boolean = this.themeConfigService.config.theme === 'light-theme';
 
   constructor(public dialog: MatDialog,
               private router: Router,
               private helpersService: HelpersService,
               private authenticationService: AuthenticationService,
               private platform: Platform,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.toggleCategories = false;
     this.toggleOptions = false;
@@ -144,7 +163,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         role: 'dialog',
         position: {
           top: '40px',
-        }
+        },
+        panelClass: this.themeConfigService.config.theme
       });
     }
   }
@@ -177,4 +197,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  toggleTheme() {
+    this.lightTheme ? this.themeConfigService.setDarkTheme() : this.themeConfigService.setLightTheme();
+    this.lightTheme = !this.lightTheme;
+  }
+
 }

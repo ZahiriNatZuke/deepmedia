@@ -2,9 +2,9 @@
   <div class="d-flex justify-content-between">
     <mat-label class="font-weight-bold">AVG {{statsName}}</mat-label>
     <mat-chip-list>
-      <mat-chip color="primary" class="mb-1" selected (click)="up = !up">
-        <fa-icon [icon]="up ?  faArrowUp : faArrowDown"></fa-icon>
-        <fa-icon class="mx-2" [icon]="icon"></fa-icon>
+      <mat-chip color="primary" class="mb-1 chip-stats" selected (click)="up = !up">
+        <mat-icon>{{up ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+        <mat-icon class="mx-1" inline>{{icon}}</mat-icon>
         <span class="font-weight-bold no-select"
               [textContent]="up?
               ((statsDetail.max || 0 | statsFilter | number:'.0-2') + (statsDetail.max > 1000 ? ' k' : '')) :
