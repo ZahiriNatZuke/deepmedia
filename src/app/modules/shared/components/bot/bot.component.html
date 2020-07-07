@@ -25,13 +25,13 @@
   </div>
   <div id="chat-form" class="chat-form">
     <form [formGroup]="botForm" (ngSubmit)="onSubmit()" class="form-inline d-flex justify-content-between">
-      <textarea #textarea formControlName="body" class="form-control flex-grow-1 customized-scroll" rows="1"
-                required (keypress)="showIndicator()"></textarea>
+            <textarea #textarea formControlName="body" class="form-control flex-grow-1 customized-scroll" rows="1"
+                      required (keypress)="showIndicator()"></textarea>
       <div class="d-flex justify-content-end pr-1 button-group">
-        <button mat-icon-button type="button" class="mr-1" (click)="toggleCommands()" matTooltip="Comandos"
+        <button #commandBtn mat-icon-button type="button" class="mr-1" (click)="toggleCommands()" matTooltip="Comandos"
                 [matTooltipDisabled]="toggleCommand" matTooltipPosition="above" matTooltipShowDelay="300"
                 matTooltipClass="font-weight-light mat-elevation-z5" matTooltipHideDelay="150">
-          <mat-icon #commandBtn class="text-white">format_list_bulleted</mat-icon>
+          <mat-icon #commandIco class="text-white">format_list_bulleted</mat-icon>
         </button>
         <button mat-icon-button type="submit" [disabled]="botForm.invalid">
           <mat-icon [className]="textarea.value.length === 0 ? 'text-white-80' : 'text-white'">send</mat-icon>

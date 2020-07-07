@@ -13,6 +13,7 @@ import {Banished} from '../../../../models/banished';
 import * as moment from 'moment';
 import {ThemeConfigService} from '../../../../services/theme-config.service';
 import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-bot',
@@ -21,7 +22,8 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class BotComponent implements OnInit, OnDestroy {
   @ViewChild('textarea', {static: true}) textArea: ElementRef;
-  @ViewChild('commandBtn', {static: true}) iconCommandBtn: MatIcon;
+  @ViewChild('commandIco', {static: true}) iconCommand: MatIcon;
+  @ViewChild('commandBtn', {static: true}) btnCommand: MatButton;
   botForm: FormGroup = this._formBuilder.group({
     body: ['', [Validators.required]]
   });
@@ -64,7 +66,8 @@ export class BotComponent implements OnInit, OnDestroy {
       if (event.altKey && event.code === 'ArrowDown' && event.target === this.textArea.nativeElement) this.downCommandFromHistory();
     });
     window.addEventListener('click', (event) => {
-      if (event.target !== this.iconCommandBtn._elementRef.nativeElement && this.toggleCommand) this.toggleCommands();
+      if (event.target !== this.iconCommand._elementRef.nativeElement &&
+          event.target !== this.btnCommand._elementRef.nativeElement && this.toggleCommand) this.toggleCommands();
     });
   }
 

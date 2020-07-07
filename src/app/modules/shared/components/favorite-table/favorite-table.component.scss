@@ -7,14 +7,6 @@ tr.detail-row {
   height: 0;
 }
 
-tr.element-row:not(.expanded-row):hover {
-  //background: #e1e1e1;
-}
-
-tr.element-row:not(.expanded-row):active {
-  //background: #efefef;
-}
-
 .element-row td {
   border-bottom-width: 0;
 }

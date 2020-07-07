@@ -54,10 +54,11 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 .label-dark {
   color: white;
+  border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .label-dark:hover, .label-dark:active, .label-dark:after {
-  border: 2px solid white;
+  border: 2px solid white !important;
 }
 
 .label-light {

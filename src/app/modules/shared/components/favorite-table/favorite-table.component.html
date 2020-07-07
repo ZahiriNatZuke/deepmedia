@@ -15,10 +15,9 @@
             <input matInput (keyup)="applyFilter($event)">
           </mat-form-field>
           <button mat-icon-button class="mt-filter" (click)="toggleFilterForm()">
-            <fa-icon [icon]="faFilter" [classes]="['pt-1']" [class.text-muted]="currentTheme.theme === 'light-theme'"
-                     [class.text-white]="currentTheme.theme === 'dark-theme'"
-                     [class.poster-dark]="currentTheme.theme === 'light-theme'"
-                     [class.poster-light]="currentTheme.theme === 'dark-theme'"></fa-icon>
+            <fa-icon [icon]="faFilter" [classes]="['pt-1']"
+                     [class.text-muted]="currentTheme.theme === 'light-theme'"
+                     [class.border-secondary]="currentTheme.theme === 'light-theme'"></fa-icon>
           </button>
         </div>
       </div>

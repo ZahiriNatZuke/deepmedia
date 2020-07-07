@@ -5,7 +5,8 @@ $msg-container: #04515f;
 $border-msg-container: #045e6e;
 $chat-form-background: #07647d;
 $border-top-chat-form: #047c8c;
-$border-textarea: #042937;
+$background-textarea: rgba(4, 76, 90, 0.66);
+$border-textarea: #044255;
 $shadow: rgba(0, 0, 0, 0.1);
 $border-icon-button: #bebebe;
 $divider: rgba(255, 255, 255, 0.1);
@@ -103,21 +104,24 @@ html, body {
       resize: none;
       height: 49px;
       font-size: 14px;
-      background-color: $background-container;
+      background-color: $background-textarea;
       color: $font-color;
       border-color: $border-textarea !important;
+      border-width: 1px;
       margin: 5px;
       padding: 0;
+      transition: all .4s ease-in-out;
     }
 
-    textarea:focus {
+    textarea:focus, textarea:hover, textarea:active {
       box-shadow: none !important;
+      border-width: 2px;
     }
 
-    //.mat-icon-button {
-    //  border-radius: 6px;
-    //  border: 2px solid $font-color;
-    //}
+    .button-group {
+      position: relative;
+      top: 0;
+    }
 
   }
 
