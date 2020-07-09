@@ -92,17 +92,13 @@ export class NotificationService {
       if (moment().hours() > 8 && moment().hours() < 20 && this.themeConfigService.config.theme === 'dark-theme') {
         this.showNotification('Tema Info',
             'En este horario le sugerimos que haga uso del Tema Claro de la aplicación.', 'info');
-        localStorage.setItem('time-theme', JSON.stringify({
-          checked: true
-        }));
+        localStorage.setItem('time-theme', JSON.stringify({checked: true}));
       }
 
-      if ((moment().hours() < 8 || moment().hours() > 20) && this.themeConfigService.config.theme === 'light-theme') {
+      if ((moment().hours() <= 8 || moment().hours() >= 20) && this.themeConfigService.config.theme === 'light-theme') {
         this.showNotification('Tema Info',
             'En este horario le sugerimos que haga uso del Tema Oscuro de la aplicación.', 'info');
-        localStorage.setItem('time-theme', JSON.stringify({
-          checked: true
-        }));
+        localStorage.setItem('time-theme', JSON.stringify({checked: true}));
       }
     }
   }
@@ -110,7 +106,7 @@ export class NotificationService {
   checkTime(): boolean {
     const timeTheme: { checked: boolean } = JSON.parse(localStorage.getItem('time-theme'));
     if (timeTheme.checked &&
-        (moment().hours() < 8 || moment().hours() > 20) &&
+        (moment().hours() <= 8 || moment().hours() >= 20) &&
         this.themeConfigService.config.theme === 'light-theme') {
       return true;
     }
