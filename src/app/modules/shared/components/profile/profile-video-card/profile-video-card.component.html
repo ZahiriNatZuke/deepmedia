@@ -15,19 +15,19 @@
     <div>
       <span class="counter-stats">{{Video.likes_count | statsFilter | number:'.0-2'}}
         {{Video.likes_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">thumb_up</mat-icon>
+        <mat-icon inline class="mr-3 ml-1">thumb_up</mat-icon>
       </span>
       <span class="counter-stats">{{Video.comments_count | statsFilter | number:'.0-2'}}
         {{Video.comments_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">comment</mat-icon>
+        <mat-icon inline class="mr-3 ml-1">comment</mat-icon>
       </span>
       <span class="counter-stats">{{Video.views_count | statsFilter | number:'.0-2'}}
         {{Video.views_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">visibility</mat-icon>
+        <mat-icon inline class="mr-3 ml-1">visibility</mat-icon>
       </span>
       <span class="counter-stats">{{Video.downloads_count | statsFilter | number:'.0-2'}}
         {{Video.downloads_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">get_app</mat-icon>
+        <mat-icon inline class="ml-1">get_app</mat-icon>
       </span>
     </div>
   </div>

@@ -22,19 +22,19 @@
     <div>
       <span class="counter-stats">{{video.likes_count | statsFilter | number:'.0-2'}}
         {{video.likes_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">thumb_up</mat-icon>
+        <mat-icon inline class="mr-3 ml-1">thumb_up</mat-icon>
       </span>
       <span class="counter-stats">{{video.comments_count | statsFilter | number:'.0-2'}}
         {{video.comments_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">comment</mat-icon>
+        <mat-icon inline class="mr-3 ml-1">comment</mat-icon>
       </span>
       <span class="counter-stats">{{video.views_count | statsFilter | number:'.0-2'}}
         {{video.views_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">visibility</mat-icon>
+        <mat-icon inline class="mr-3 ml-1">visibility</mat-icon>
       </span>
       <span class="counter-stats">{{video.downloads_count | statsFilter | number:'.0-2'}}
         {{video.downloads_count > 1000 ? ' k' : ''}}
-        <mat-icon inline class="mx-2">get_app</mat-icon>
+        <mat-icon inline class="ml-1">get_app</mat-icon>
       </span>
     </div>
   </div>

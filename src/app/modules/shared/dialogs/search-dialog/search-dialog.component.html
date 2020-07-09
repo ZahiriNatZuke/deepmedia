@@ -13,10 +13,12 @@
   <mat-divider></mat-divider>
   <div class="d-flex justify-content-center mt-3"
        *ngIf="foundDataUsers === false && foundDataVideo === false">
-    <h4 class="font-weight-light align-self-center pl-4">No hay Resultados para su Búsqueda</h4>
+    <h4 class="font-weight-light align-self-center pl-4">
+      <mat-icon>mood_bad</mat-icon>No hay Resultados para su Búsqueda
+    </h4>
   </div>
 </div>
-<div mat-dialog-actions class="d-flex customized-scroll" [style.maxHeight.px]="435">
+<div mat-dialog-actions class="d-flex customized-scroll px-2" [style.maxHeight.px]="435">
   <div class="d-flex justify-content-around mt-1 flex-column w-100" *ngIf="foundDataUsers === true">
     <h3 class="font-weight-bold align-self-center">Usuarios que Coinciden con su Búsqueda</h3>
     <div class="d-flex justify-content-around w-100">

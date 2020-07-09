@@ -1,8 +1,8 @@
 export const environment = {
-  URL_API: 'http://api.deepmedia.dev.com/api/',
-  URL_ASSETS: 'http://assets.deepmedia.dev.com/',
-  URL_STORAGE: 'http://storage.deepmedia.dev.com',
-  URL_BOT: 'http://api.deepmedia.dev.com/api/bot/',
+  URL_API: 'https://api.deepmedia.dev.com/api/',
+  URL_ASSETS: 'https://assets.deepmedia.dev.com/',
+  URL_STORAGE: 'https://storage.deepmedia.dev.com',
+  URL_BOT: 'https://api.deepmedia.dev.com/api/bot/',
   production: true,
   allVideos: false,
   expandedSidebar: false,
@@ -153,6 +153,23 @@ export const environment = {
           command: '/faq_bot #3'
         }
       ]
+    }
+  },
+  sysNotificationIcons: {
+    icons_attention: {
+      url: 'https://storage.deepmedia.dev.com/icons_attention.png'
+    },
+    icons_high_priority: {
+      url: 'https://storage.deepmedia.dev.com/icons_high_priority.png'
+    },
+    icons_info: {
+      url: 'https://storage.deepmedia.dev.com/icons_info.png'
+    },
+    icons_ok: {
+      url: 'https://storage.deepmedia.dev.com/icons_ok.png'
+    },
+    deepmedia_picture: {
+      url: 'https://storage.deepmedia.dev.com/deepmedia_picture.png'
     }
   }
 };

@@ -65,22 +65,22 @@
                     <h6>{{element.created_at | fullDate}}</h6>
                     <mat-chip-list>
                       <mat-chip color="primary" class="w-auto p-1" selected>
-                        <mat-icon class="mx-2">thumb_up</mat-icon>
+                        <mat-icon class="mr-3 ml-1">thumb_up</mat-icon>
                         <span class="mr-1">{{element.likes_count | statsFilter | number:'.0-2'}}
                           {{element.likes_count > 1000 ? ' k' : ''}}</span>
                       </mat-chip>
                       <mat-chip color="primary" class="w-auto p-1" selected>
-                        <mat-icon class="mx-2">visibility</mat-icon>
+                        <mat-icon class="mr-3 ml-1">visibility</mat-icon>
                         <span class="mr-1">{{element.views_count | statsFilter | number:'.0-2'}}
                           {{element.views_count > 1000 ? ' k' : ''}}</span>
                       </mat-chip>
                       <mat-chip color="primary" class="w-auto p-1" selected>
-                        <mat-icon class="mx-2">comment</mat-icon>
+                        <mat-icon class="mr-3 ml-1">comment</mat-icon>
                         <span class="mr-1">{{element.comments_count | statsFilter | number:'.0-2'}}
                           {{element.comments_count > 1000 ? ' k' : ''}}</span>
                       </mat-chip>
                       <mat-chip color="primary" class="w-auto p-1" selected>
-                        <mat-icon class="mx-2">get_app</mat-icon>
+                        <mat-icon class="ml-1">get_app</mat-icon>
                         <span class="mr-1">{{element.downloads_count | statsFilter | number:'.0-2'}}
                           {{element.downloads_count > 1000 ? ' k' : ''}}</span>
                       </mat-chip>

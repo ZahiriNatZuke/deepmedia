@@ -124,8 +124,7 @@ export class VideoFormStepperComponent implements OnInit {
         this.showPoster = true;
       }, 300);
     } else {
-      const msg: string = `${!checkSize ? 'La imagen excede el límite de 10MB.\n' : ''}
-                           ${!checkMimeType ? 'El formato de la imagen no es admisible.' : ''}`;
+      const msg: string = `${!checkSize ? 'La imagen excede el límite de 10MB.\n' : ''}${!checkMimeType ? 'El formato de la imagen no es admisible.' : ''}`;
       this.notificationService.showNotification('Video Info', msg, 'warning');
     }
   }
@@ -156,8 +155,7 @@ export class VideoFormStepperComponent implements OnInit {
             }
           });
     } else {
-      const msg: string = `${!checkSize ? 'El video excede el límite de 300MB.\n' : ''}
-                           ${!checkMimeType ? 'El formato del video no es admisible.' : ''}`;
+      const msg: string = `${!checkSize ? 'El video excede el límite de 300MB.\n' : ''}${!checkMimeType ? 'El formato del video no es admisible.' : ''}`;
       this.notificationService.showNotification('Video Info', msg, 'warning');
     }
   }

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faEye, faEyeSlash, faKey} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
+import {ThemeConfigService} from '../../../services/theme-config.service';
 
 @Component({
   selector: 'app-login',
@@ -20,11 +21,13 @@ export class LoginComponent implements OnInit {
   hide: boolean;
   returnURL: string;
   errorLogin: boolean;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private themeConfigService: ThemeConfigService) {
     this.hide = true;
     this.errorLogin = false;
   }

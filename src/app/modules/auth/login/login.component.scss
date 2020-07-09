@@ -39,7 +39,10 @@ section {
   border-radius: 16px;
 }
 
-a.text-dark:hover {
+a.text-dark:hover, a.text-white:hover {
   font-weight: bold;
 }
 
+.card-content {
+  text-align: center;
+}
