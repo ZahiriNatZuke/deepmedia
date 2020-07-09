@@ -14,6 +14,11 @@ export class ThemeConfigService {
     } else {
       localStorage.setItem('config-theme', this.config.theme);
     }
+    if (!localStorage.getItem('time-theme')) {
+      localStorage.setItem('time-theme', JSON.stringify({
+        checked: false
+      }));
+    }
   }
 
   setDarkTheme() {
@@ -25,4 +30,5 @@ export class ThemeConfigService {
     this.config.theme = 'light-theme';
     localStorage.setItem('config-theme', this.config.theme);
   }
+
 }

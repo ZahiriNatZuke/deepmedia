@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.POSTForRefreshJWT();
     this.notificationService.askForPermissions();
+    this.notificationService.checkCurrentThemeFromTime();
   }
 
 }
