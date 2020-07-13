@@ -4,6 +4,7 @@ import {faEye, faEyeSlash, faKey} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {ThemeConfigService} from '../../../services/theme-config.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +28,14 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private themeConfigService: ThemeConfigService) {
+              private themeConfigService: ThemeConfigService,
+              private titleService: Title) {
     this.hide = true;
     this.errorLogin = false;
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Login');
     this.returnURL = this.activatedRoute.snapshot.queryParamMap.get('returnUrl') || '/video/categories';
   }
 

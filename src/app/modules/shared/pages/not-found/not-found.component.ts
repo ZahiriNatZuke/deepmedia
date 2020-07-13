@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {environment} from '../../../../../environments/environment.prod';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-not-found',
@@ -8,7 +9,7 @@ import {environment} from '../../../../../environments/environment.prod';
 })
 export class NotFoundComponent implements OnInit, OnDestroy {
 
-  constructor() {
+  constructor(private titleService: Title) {
     $('#app-sidebar').fadeOut(0);
     $('#p-sidebar').css({
       padding: 0,
@@ -18,6 +19,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | 404');
     $('#notfound').fadeIn(300);
     $('#chat').fadeOut(0);
   }

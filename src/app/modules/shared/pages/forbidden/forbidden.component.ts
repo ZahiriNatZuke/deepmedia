@@ -5,6 +5,7 @@ import {Banished} from '../../../../models/banished';
 import * as moment from 'moment';
 import {CrudService} from '../../../../services/crud.service';
 import {NotificationService} from '../../../../services/notification.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forbidden',
@@ -15,7 +16,8 @@ export class ForbiddenComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private crudService: CrudService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private titleService: Title) {
     $('#app-sidebar').fadeOut(0);
     $('#p-sidebar').css({
       padding: 0,
@@ -25,6 +27,7 @@ export class ForbiddenComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | 403');
     $('#forbidden').fadeIn(300);
     $('#chat').fadeOut(0);
   }

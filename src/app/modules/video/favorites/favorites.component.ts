@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-favorites',
@@ -9,10 +10,11 @@ export class FavoritesComponent implements OnInit {
   progressBar: JQuery<HTMLElement>;
   favoriteTable: JQuery<HTMLElement>;
 
-  constructor() {
+  constructor(private titleService: Title) {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Mis Favoritos');
     this.progressBar = $('.progress-bar-znz mat-progress-bar');
     this.favoriteTable = $('app-favorite-table');
     this.favoriteTable.hide(0);

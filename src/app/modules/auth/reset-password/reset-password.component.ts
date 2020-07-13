@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {NotificationService} from '../../../services/notification.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {faCopy, faLock} from '@fortawesome/free-solid-svg-icons';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reset-password',
@@ -30,7 +31,8 @@ export class ResetPasswordComponent implements OnInit {
               private crudService: CrudService,
               private router: Router,
               private notificationService: NotificationService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private titleService: Title) {
     this.passwordRestored = false;
     this.authenticationService.GETForRandomNumbers().subscribe(response => {
       this.randomNumbers = response.array_numbers;
@@ -39,6 +41,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Recuperar Contraseña');
   }
 
   checkValid(input: string) {

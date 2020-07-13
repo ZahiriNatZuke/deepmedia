@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Video} from '../../../models/video';
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import {NotificationService} from '../../../services/notification.service';
+import {Title} from '@angular/platform-browser';
 
 const api = new API();
 
@@ -23,10 +24,12 @@ export class VideoListComponent implements OnInit {
 
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private titleService: Title) {
     this.loading = false;
     this.activatedRoute.params.subscribe(params => {
       const category: string = params.category;
+      this.titleService.setTitle(`#DeepMedia | ${this.filterTitle(category)}`);
       this.crudService.GETWithOutAuth(api.getVideosByCategoryURL(), category)
           .subscribe(response => {
             this.next_page_url = response.videos.next_page_url;
@@ -61,6 +64,25 @@ export class VideoListComponent implements OnInit {
         this.loading = false;
       }, 500);
     });
+  }
+
+  filterTitle(titleLowerCase: string): string {
+    switch (titleLowerCase) {
+      case 'tech':
+        return 'Tecnología';
+      case 'tutorial':
+        return 'Tutoriales';
+      case 'joke':
+        return 'Humor';
+      case 'musical':
+        return 'Musical';
+      case 'interesting':
+        return 'Interesantes';
+      case 'gameplay':
+        return 'Gameplay';
+      default:
+        return titleLowerCase.toUpperCase();
+    }
   }
 
 }

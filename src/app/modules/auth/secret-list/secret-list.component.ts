@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {faCopy, faList} from '@fortawesome/free-solid-svg-icons';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-secret-list',
@@ -15,7 +16,8 @@ export class SecretListComponent implements OnInit, OnDestroy {
   checked: boolean;
   show: boolean;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private titleService: Title) {
     this.show = false;
     this.authenticationService.GETForSecretList().subscribe(response => {
       this.secret_list = response.secret_list;
@@ -24,6 +26,7 @@ export class SecretListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Lista Secreta');
   }
 
   sendData() {

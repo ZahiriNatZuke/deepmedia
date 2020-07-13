@@ -4,6 +4,7 @@ import {faEye, faEyeSlash, faUserPlus} from '@fortawesome/free-solid-svg-icons';
 import {CrudService} from '../../../services/crud.service';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -28,13 +29,15 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private crudService: CrudService,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private titleService: Title) {
     this.hideC = true;
     this.hideP = true;
     this.authenticationService.GETForTempJWT();
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Registro');
   }
 
   checkValid(input: string) {

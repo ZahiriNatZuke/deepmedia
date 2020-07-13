@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../../services/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NotificationService} from '../../../services/notification.service';
 import {faEye, faEyeSlash, faLock} from '@fortawesome/free-solid-svg-icons';
 import {Channel} from '../../../models/channel';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-password',
@@ -28,9 +27,7 @@ export class NewPasswordComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private notificationService: NotificationService) {
+              private titleService: Title) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.hideCP = true;
     this.hideNP = true;
@@ -38,6 +35,7 @@ export class NewPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Nueva Contraseña');
   }
 
   checkValid(input: string) {

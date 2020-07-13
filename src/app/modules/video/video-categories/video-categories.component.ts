@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../../../models/category';
 import {HelpersService} from '../../../services/helpers.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-categories',
@@ -12,10 +13,12 @@ export class VideoCategoriesComponent implements OnInit {
   progressBar: JQuery<HTMLElement>;
   cardColumn: JQuery<HTMLElement>;
 
-  constructor(private helpersService: HelpersService) {
+  constructor(private helpersService: HelpersService,
+              private titleService: Title) {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Categorías');
     this.progressBar = $('.progress-bar-znz mat-progress-bar');
     this.cardColumn = $('.card-columns');
     this.cardColumn.hide(0);

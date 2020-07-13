@@ -1,16 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  faAngleDown,
-  faAngleUp,
-  faComment,
-  faDownload,
-  faEdit,
-  faEye,
-  faInfoCircle,
-  faPlayCircle,
-  faStar,
-  faThumbsUp
-} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faAngleUp, faEdit, faInfoCircle, faPlayCircle, faStar} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../../../environments/environment.prod';
 import {VideoPlayer} from '../../../models/video-player';
 import {CrudService} from '../../../services/crud.service';
@@ -23,6 +12,7 @@ import {VideoService} from '../../../services/video.service';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import {DownloadDialogComponent} from '../../shared/dialogs/download-dialog/download-dialog.component';
 import {ThemeConfigService} from '../../../services/theme-config.service';
+import {Title} from '@angular/platform-browser';
 
 const api = new API();
 
@@ -39,12 +29,8 @@ export class VideoViewComponent implements OnInit {
   byViews: Video[];
   byLikes: Video[];
   URL_STORAGE = environment.URL_STORAGE;
-  faThumbsUp = faThumbsUp;
-  faComment = faComment;
-  faEye = faEye;
   faPlayCircle = faPlayCircle;
   faStar = faStar;
-  faDownload = faDownload;
   faInfoCircle = faInfoCircle;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
@@ -64,7 +50,8 @@ export class VideoViewComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private videoService: VideoService,
               private snackBar: MatSnackBar,
-              private themeConfigService: ThemeConfigService) {
+              private themeConfigService: ThemeConfigService,
+              private titleService: Title) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
@@ -86,6 +73,7 @@ export class VideoViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle(`#DeepMedia | ${this.Video.title}`);
     this.loadHTML();
     this.viewTop.toggle(0);
     window.addEventListener('resize', () => {

@@ -7,6 +7,7 @@ import {API} from '../../../services/API';
 import {HelpersService} from '../../../services/helpers.service';
 import {ActivatedRoute} from '@angular/router';
 import {CrudService} from '../../../services/crud.service';
+import {Title} from '@angular/platform-browser';
 
 const api = new API();
 
@@ -42,7 +43,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private helpersService: HelpersService,
-              private crudService: CrudService) {
+              private crudService: CrudService,
+              private titleService: Title) {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       this.crudService.GETWithOutAuth(api.getTopVideoByChannelURL(), id)
@@ -58,6 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('#DeepMedia | Perfil');
     this.Profile = $('mat-grid-list:first');
     this.Profile.hide(0);
     this.progressBar = $('.progress-bar-znz mat-progress-bar');
@@ -89,6 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.helpersService.currentChannel.subscribe(channel => this.Channel = channel);
       this.Videos = this.Channel.videos;
       this.showProfile();
+      this.titleService.setTitle(`#DeepMedia | ${this.Channel.user.username}`);
     } else {
       setTimeout(() => this.getChannel(), 200);
     }
