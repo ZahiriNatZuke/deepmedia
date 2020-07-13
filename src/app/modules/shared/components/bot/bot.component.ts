@@ -69,6 +69,13 @@ export class BotComponent implements OnInit, OnDestroy {
       if (event.target !== this.iconCommand._elementRef.nativeElement &&
           event.target !== this.btnCommand._elementRef.nativeElement && this.toggleCommand) this.toggleCommands();
     });
+    document.querySelector('.msg-container').addEventListener('wheel', (e: any) => {
+      if (e.deltaY) {
+        e.preventDefault();
+        e.currentTarget.scrollTop -=
+            parseFloat(getComputedStyle(e.currentTarget).getPropertyValue('font-size')) * (e.deltaY < 0 ? -1 : 1) * 12;
+      }
+    });
   }
 
   toMinimizing() {
@@ -160,7 +167,6 @@ export class BotComponent implements OnInit, OnDestroy {
             break;
           case 'ban:server':
             this.showIndicator();
-            console.log(result);
             this.botService.POSTFromBot(result.url, result.data)
                 .subscribe((response) => {
                   if (response.status) {
@@ -253,13 +259,6 @@ export class BotComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-  }
-
-  getStackMessages(): Array<ChatMessage> {
-    const newArray: Array<ChatMessage> = [];
-    for (let i = this.chatStack.length - 1; i >= 0; i--)
-      newArray.push(this.chatStack[i]);
-    return newArray;
   }
 
   MakeRequestFromAutoCommand(url: string): void {

@@ -19,15 +19,17 @@ export class VideoCategoriesComponent implements OnInit {
     this.progressBar = $('.progress-bar-znz mat-progress-bar');
     this.cardColumn = $('.card-columns');
     this.cardColumn.hide(0);
-    this.helpersService.GETCountVideoByCategories()
-        .subscribe(response => {
-          const array = new Array(6);
-          for (let i = 0; i < array.length; i++) {
-            array[i] = response.categories[categories[i]];
-          }
-          this.arrayCategories = array;
-          this.stopLoading();
-        });
+    setTimeout(_ => {
+      this.helpersService.GETCountVideoByCategories()
+          .subscribe(response => {
+            const array = new Array(6);
+            for (let i = 0; i < array.length; i++) {
+              array[i] = response.categories[categories[i]];
+            }
+            this.arrayCategories = array;
+            this.stopLoading();
+          });
+    }, 350);
   }
 
   stopLoading() {

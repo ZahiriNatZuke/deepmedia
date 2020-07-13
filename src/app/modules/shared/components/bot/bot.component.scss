@@ -19,7 +19,6 @@ html, body {
 .chat-container {
   display: flex;
   flex-direction: column;
-  flex: 1 auto;
   justify-content: center;
   align-content: center;
   position: absolute;
@@ -82,15 +81,19 @@ html, body {
   }
 
   .msg-container {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    background-color: $msg-container;
+    flex-shrink: 10;
+    overflow: auto;
     width: 98%;
     height: 280px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border: 1px solid $border-msg-container;
     margin: 0 1%;
+    border-radius: 6px;
+    border: 1px solid $border-msg-container;
+    background-color: $msg-container;
+    transform: scale(1, -1);
+
+    .messages-scroll {
+      transform: scale(1, -1);
+    }
 
   }
 

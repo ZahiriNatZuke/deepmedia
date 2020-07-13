@@ -157,19 +157,19 @@ export const environment = {
   },
   sysNotificationIcons: {
     icons_attention: {
-      url: 'https://storage.deepmedia.dev.com/icons_attention.png'
+      url: 'https://assets.deepmedia.dev.com/img/notifications/icons_attention.png'
     },
     icons_high_priority: {
-      url: 'https://storage.deepmedia.dev.com/icons_high_priority.png'
+      url: 'https://assets.deepmedia.dev.com/img/notifications/icons_high_priority.png'
     },
     icons_info: {
-      url: 'https://storage.deepmedia.dev.com/icons_info.png'
+      url: 'https://assets.deepmedia.dev.com/img/notifications/icons_info.png'
     },
     icons_ok: {
-      url: 'https://storage.deepmedia.dev.com/icons_ok.png'
+      url: 'https://assets.deepmedia.dev.com/img/notifications/icons_ok.png'
     },
     deepmedia_picture: {
-      url: 'https://storage.deepmedia.dev.com/deepmedia_picture.png'
+      url: 'https://assets.deepmedia.dev.com/img/notifications/deepmedia_picture.png'
     }
   }
 };

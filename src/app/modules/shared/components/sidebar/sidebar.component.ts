@@ -27,7 +27,6 @@ import {HelpersService} from '../../../../services/helpers.service';
 import {Channel} from '../../../../models/channel';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Router} from '@angular/router';
-import {Platform} from '@angular/cdk/platform';
 import {NotificationService} from '../../../../services/notification.service';
 import {ThemeConfigService} from '../../../../services/theme-config.service';
 
@@ -73,7 +72,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
               private router: Router,
               private helpersService: HelpersService,
               private authenticationService: AuthenticationService,
-              private platform: Platform,
               private notificationService: NotificationService,
               private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
@@ -127,8 +125,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     environment.expandedSidebar = true;
     this.mainSection.css({
       marginLeft: '250px',
-      paddingLeft: '5px',
-      transition: 'all .5s'
+      paddingLeft: '5px'
     });
     if (this.toggleCategories) {
       this.dropdownSidebarCategories.slideUp(0);
@@ -143,8 +140,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   toLeft() {
     environment.expandedSidebar = false;
     this.mainSection.css({
-      marginLeft: '70px',
-      transition: 'all .5s'
+      marginLeft: '70px'
     });
   }
 
@@ -178,23 +174,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   openBot() {
-    if (this.platform.FIREFOX) {
-      this.notificationService.showNotification(
-          'Sys Info',
-          'El Bot aún no esta disponible para Mozilla Firefox. :(',
-          'success');
-    } else {
-      if (!localStorage.getItem('X-Banished') && this.User_Channel
-          && sessionStorage.getItem('location') !== 'Forbidden'
-          && sessionStorage.getItem('location') !== 'NotFound') {
-        if (environment.expandedSidebar) {
-          this.inputCheck.checked = false;
-          this.toLeft();
-        }
-        $('#chat').css({
-          bottom: '0px'
-        });
+    if (!localStorage.getItem('X-Banished') && this.User_Channel
+        && sessionStorage.getItem('location') !== 'Forbidden'
+        && sessionStorage.getItem('location') !== 'NotFound') {
+      if (environment.expandedSidebar) {
+        this.inputCheck.checked = false;
+        this.toLeft();
       }
+      $('#chat').css({
+        bottom: '0px'
+      });
     }
   }
 

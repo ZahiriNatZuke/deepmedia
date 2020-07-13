@@ -19,9 +19,11 @@
       </div>
     </div>
   </div>
-  <div id="msg-container" class="msg-container customized-scroll d-flex flex-column-reverse">
-    <app-bot-msg (commandEmitter)="catchCommand($event)" [text]="msg.text" [type]="msg.type"
-                 *ngFor="let msg of getStackMessages()"></app-bot-msg>
+  <div id="msg-container" class="msg-container customized-scroll">
+    <div class="messages-scroll">
+      <app-bot-msg (commandEmitter)="catchCommand($event)" [text]="msg.text" [type]="msg.type"
+                   *ngFor="let msg of chatStack"></app-bot-msg>
+    </div>
   </div>
   <div id="chat-form" class="chat-form">
     <form [formGroup]="botForm" (ngSubmit)="onSubmit()" class="form-inline d-flex justify-content-between">
