@@ -1,17 +1,20 @@
 <div class="d-flex justify-content-center progress-bar-znz">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<mat-grid-list [id]="'Profile'" cols="3" [rowHeight]="rowHeight" gutterSize="10px" class="m-grid-list">
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
+<mat-grid-list [id]="'Profile'" cols="3" [rowHeight]="rowHeight" gutterSize="10px" class="m-grid-list"
+               [style.height.px]="rowHeight">
+  <mat-grid-tile [colspan]="colSpanProfileCard" [rowspan]="1">
     <app-profile-card class="w-100"></app-profile-card>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1" id="right-side">
+  <mat-grid-tile [colspan]="colSpanStatsCard" [rowspan]="1" id="right-side">
     <app-profile-form></app-profile-form>
     <mat-card id="right-card" class="w-100 h-100">
       <div *ngIf="Videos && Videos.length === 0 && !byDownload && !byLikes && !byViews"
            class="d-flex w-100 justify-content-center">
         <h3 class="align-self-center">
-          <mat-icon>mood_bad</mat-icon>No Tiene Videos Disponibles</h3>
+          <mat-icon>mood_bad</mat-icon>
+          No Tiene Videos Disponibles
+        </h3>
       </div>
       <mat-accordion *ngIf="byDownload && byLikes && byViews">
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
@@ -73,9 +76,11 @@
                    [icon]="faAngleUp"></fa-icon>
         </button>
       </div>
-      <cdk-virtual-scroll-viewport orientation="vertical" id="all-videos" itemSize="1" class="h-100 customized-scroll">
-        <div class="card-columns m-0 w-100 px-2">
-          <app-profile-video-card [Video]="item" *cdkVirtualFor="let item of Videos"></app-profile-video-card>
+      <cdk-virtual-scroll-viewport orientation="vertical" id="all-videos" itemSize="1"
+                                   class="h-100 customized-scroll">
+        <div class="row m-0 w-100">
+          <app-profile-video-card [Video]="item" *cdkVirtualFor="let item of Videos"
+                                  class="col-sm-12 col-md-12 col-lg-6 col-xl-6"></app-profile-video-card>
         </div>
       </cdk-virtual-scroll-viewport>
     </mat-card>

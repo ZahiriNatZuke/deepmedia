@@ -10,10 +10,20 @@ mat-progress-bar {
   user-select: none;
 }
 
-.chip-stats{
+.chip-stats {
   font-size: 18px;
   height: 18px;
   line-height: 18px;
   width: inherit;
   user-select: none;
+}
+
+@media all and (min-width: 901px) and (max-width: 949.98px) {
+  .chip-info {
+    display: none !important;
+  }
+
+  mat-label {
+    font-size: 14px;
+  }
 }

@@ -1,7 +1,7 @@
 <mat-card *ngIf="Channel" class="w-100 mat-elevation-z10">
   <mat-card-content id="profile-avatar" class="rounded d-flex"
                     [style.minHeight.px]="getHeightImg()" [style.maxHeight.px]="getHeightImg() + 20">
-    <div class="d-flex justify-content-between position-fixed">
+    <div class="d-flex justify-content-between position-absolute">
       <button mat-icon-button id="toggleForm" [class.text-danger]="form" [class.text-white-50]="!form"
               (click)="toggleForm()" *ngIf="User_Channel && User_Channel.id === Channel.id">
         <mat-icon id="editProfileButton">{{form ? 'close' : 'perm_identity'}}</mat-icon>
@@ -10,14 +10,14 @@
         <mat-icon id="closeAllVideos" inline>close</mat-icon>
       </button>
     </div>
-    <div class="f-bottom d-flex align-self-end justify-content-start">
-      <span class="font-weight-light f-username align-self-center" (dblclick)="moreStats = !moreStats"
+    <div class="f-bottom d-flex align-self-end justify-content-start justify-xs-content-center">
+      <span class="font-weight-light f-username align-self-center" (dblclick)="showMoreInfo()"
             [style.fontSize.px]="Channel.user.username.length >= 20 || getToggleSidebar() ? 26 : 32">
         <b>#</b>{{Channel.user.username}}</span>
     </div>
   </mat-card-content>
-  <mat-card-actions class="mb-0 py-0" [style.height.px]="actionsHeight">
-    <mat-list *ngIf="!moreStats && statsChannel">
+  <mat-card-actions class="mb-0 py-0 d-flex justify-content-center flex-column" [style.height.px]="actionsHeight">
+    <mat-list *ngIf="!moreStats && statsChannel" class="w-100">
       <mat-list-item>
         <app-profile-list-info statsName="Likes" [icon]="'thumb_up'" class="w-100"
                                [statsDetail]="statsChannel.advanced_stats.likes"></app-profile-list-info>
@@ -31,7 +31,7 @@
                                [statsDetail]="statsChannel.advanced_stats.downloads"></app-profile-list-info>
       </mat-list-item>
     </mat-list>
-    <div class="d-flex justify-content-between mx-4" *ngIf="moreStats && statsChannel">
+    <div class="d-flex justify-content-around align-self-center more-stats" *ngIf="moreStats && statsChannel">
       <div class="d-flex flex-column justify-content-center">
         <div class="align-self-center mb-2 counter-stats">
           <mat-icon color="primary" inline>thumb_up</mat-icon>
@@ -54,7 +54,7 @@
           {{statsChannel.stats.downloads > 1000 ? ' k' : ''}}</h3>
       </div>
     </div>
-    <div class="d-flex flex-column justify-content-center mx-4 mt-2" *ngIf="moreStats">
+    <div class="d-flex flex-column justify-content-center mx-4 mt-2 d-mmd-none d-md-flex" *ngIf="moreStats">
       <div class="align-self-center mb-2">
         <span class="font-weight-light size-storage">
           {{statsChannel.storage_size[1][0] + ' ' + statsChannel.storage_size[1][1]}} / 5 GB</span>

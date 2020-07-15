@@ -4,6 +4,11 @@
   transition: all .4s;
 }
 
+.card {
+  background-color: transparent;
+  border: none;
+}
+
 .h-img {
   opacity: 1;
   transition: all 0.4s;
@@ -15,8 +20,8 @@
 }
 
 .btn-play {
-  left: 39%;
-  bottom: 30%;
+  left: 40.2%;
+  bottom: 33%;
   position: absolute;
   transition: all 0.4s;
   opacity: 0;

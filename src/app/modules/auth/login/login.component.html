@@ -1,14 +1,14 @@
 <section>
   <div class="main">
     <div class="center">
-      <mat-card [class.mat-elevation-z15]="!errorLogin" [class.mat-elevation-z5]="errorLogin">
+      <mat-card [class.mat-elevation-z15]="!errorLogin" [class.mat-elevation-z5]="errorLogin" class="card-main">
         <mat-card-title class="d-flex justify-content-center">
-          <h1 class="pl-3 f-title-form">
+          <h1 class="f-title-form align-self-center">
             <fa-icon [icon]="faKey" [classes]="['p-1', 'mt-1']"></fa-icon>&nbsp;|&nbsp;Inicio de Sesión
           </h1>
         </mat-card-title>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div class="d-flex">
+          <div class="d-flex flex-column">
             <div class="col">
               <mat-form-field class="w-100 mt-1" appearance="outline">
                 <mat-label>Usuario</mat-label>
@@ -26,7 +26,7 @@
                 <mat-error *ngIf="checkValid('password')">{{checkRequired('password')}}</mat-error>
                 <mat-error *ngIf="checkValid('password')">{{checkMinLength('password')}}</mat-error>
               </mat-form-field>
-              <div class="mt-1 d-flex justify-content-between">
+              <div class="mt-1 d-flex justify-content-around">
                 <mat-chip-list>
                   <mat-chip selected color="primary" [routerLink]="['/auth/register']" class="h-36">
                     <a class="link-register"> Aún no tengo cuenta. </a>
@@ -39,8 +39,8 @@
           </div>
         </form>
       </mat-card>
-      <mat-card *ngIf="errorLogin" [class]="'mt-2'">
-        <mat-card-content class="card-content">
+      <mat-card *ngIf="errorLogin" [class]="'mt-2'" class="card-content">
+        <mat-card-content>
           <a [class.text-dark]="currentTheme.theme === 'light-theme'"
              [class.text-white]="currentTheme.theme === 'dark-theme'"
              [routerLink]="['/auth/reset-password']">¿Has olvidado tu contraseña?</a>

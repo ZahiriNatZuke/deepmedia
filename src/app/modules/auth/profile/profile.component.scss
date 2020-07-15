@@ -24,17 +24,21 @@ mat-accordion * {
   overflow-y: scroll;
 }
 
-.material-icons{
+.material-icons {
   position: relative;
   top: 4px;
   margin-right: 12px;
   font-size: 30px;
 }
 
-@media (min-width: 576px) {
-  .card-columns {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
+@media all and (max-width: 599.98px) {
+  .m-grid-list {
+    margin: 20px 3rem;
+  }
+}
+
+@media all and (min-width: 600px) and (max-width: 900px) {
+  .m-grid-list {
+    margin: 20px 20%;
   }
 }

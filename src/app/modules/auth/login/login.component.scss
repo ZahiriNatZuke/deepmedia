@@ -43,6 +43,34 @@ a.text-dark:hover, a.text-white:hover {
   font-weight: bold;
 }
 
+.card-main, .card-content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 2rem;
+  flex: 1 0 66.66%;
+}
+
 .card-content {
   text-align: center;
+}
+
+@media all and (max-width: 575.98px) {
+  .f-title-form {
+    font: 400 26px/32px Roboto, "Helvetica Neue", sans-serif;
+    width: max-content;
+  }
+
+  .link-register {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+  }
+
+  .btn-login {
+    font-size: 12px;
+  }
+
+  .w-50 {
+    width: 30% !important;
+  }
 }

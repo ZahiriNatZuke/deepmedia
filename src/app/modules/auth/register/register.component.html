@@ -1,14 +1,14 @@
 <section>
   <div class="main">
     <div class="center">
-      <mat-card class="mx-10 mat-elevation-z15">
-        <mat-card-title class="d-flex justify-content-center">
-          <h1 class="pl-3 f-title-form">
+      <mat-card class="mat-elevation-z15 card-main">
+        <mat-card-title class="d-flex align-self-center">
+          <h1 class="f-title-form">
             <fa-icon [icon]="faUserPlus" [classes]="['p-1', 'mt-1']"></fa-icon>&nbsp;|&nbsp;Registro de Usuario
           </h1>
         </mat-card-title>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <div class="d-flex">
+          <div class="d-flex flex-sm-column flex-md-row">
             <div class="col">
               <mat-form-field class="w-100 mt-3" appearance="outline">
                 <mat-label>Nombre Completo</mat-label>
@@ -48,19 +48,19 @@
                   <fa-icon [icon]="hideC ?  faEye : faEyeSlash"></fa-icon>
                 </button>
                 <mat-error
-                  *ngIf="checkValid('password_confirmation')">{{checkRequired('password_confirmation')}}</mat-error>
+                        *ngIf="checkValid('password_confirmation')">{{checkRequired('password_confirmation')}}</mat-error>
                 <mat-error
-                  *ngIf="checkValid('password_confirmation')">{{checkMinLength('password_confirmation')}}</mat-error>
+                        *ngIf="checkValid('password_confirmation')">{{checkMinLength('password_confirmation')}}</mat-error>
                 <mat-error>Las Contraseñas no coinciden</mat-error>
               </mat-form-field>
-              <div class="d-flex justify-content-around mt-5">
-                <mat-chip-list tabIndex="-1">
-                  <mat-chip selected color="primary" class="link-login" [routerLink]="['/auth/login']">
-                    <a> Ya tengo cuenta. </a>
+              <div class="d-flex justify-content-around mt-4">
+                <mat-chip-list>
+                  <mat-chip selected color="primary" [routerLink]="['/auth/login']" class="h-36">
+                    <a class="link-login"> Ya tengo cuenta. </a>
                   </mat-chip>
                 </mat-chip-list>
                 <button [disabled]="registerForm.invalid" mat-raised-button color="primary" type="submit"
-                        class="btn-next">{{'Siguiente' | uppercase}}
+                        class="btn-next w-50">{{'Siguiente' | uppercase}}
                 </button>
               </div>
             </div>

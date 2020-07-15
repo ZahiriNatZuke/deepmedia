@@ -8,6 +8,7 @@ import {HelpersService} from '../../../services/helpers.service';
 import {ActivatedRoute} from '@angular/router';
 import {CrudService} from '../../../services/crud.service';
 import {Title} from '@angular/platform-browser';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 const api = new API();
 
@@ -28,6 +29,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   byViews: Video;
   byLikes: Video;
   byDownload: Video;
+  colSpanProfileCard: number = 1;
+  colSpanStatsCard: number = 2;
 
   setStep(index: number) {
     this.step = index;
@@ -44,7 +47,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private helpersService: HelpersService,
               private crudService: CrudService,
-              private titleService: Title) {
+              private titleService: Title,
+              private breakpointObserver: BreakpointObserver) {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       this.crudService.GETWithOutAuth(api.getTopVideoByChannelURL(), id)
@@ -60,6 +64,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.breakpointObserver.observe(['all and (max-width: 900px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.colSpanProfileCard = 3;
+            this.colSpanStatsCard = 3;
+          } else {
+            this.colSpanProfileCard = 1;
+            this.colSpanStatsCard = 2;
+          }
+        });
     this.titleService.setTitle('#DeepMedia | Perfil');
     this.Profile = $('mat-grid-list:first');
     this.Profile.hide(0);

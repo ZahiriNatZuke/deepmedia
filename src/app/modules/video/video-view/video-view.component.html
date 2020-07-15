@@ -47,8 +47,9 @@
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
-          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
+          <span class="align-self-center font-weight-bold select-none"
+                [class.text-muted]="currentTheme.theme === 'light-theme'"
+                [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.views_count | statsFilter | number:'.0-2'}}
             {{Video.views_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
@@ -56,8 +57,9 @@
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
-          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
+          <span class="align-self-center font-weight-bold select-none"
+                [class.text-muted]="currentTheme.theme === 'light-theme'"
+                [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.likes_count | statsFilter | number:'.0-2'}}
             {{Video.likes_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
@@ -66,8 +68,9 @@
           </button>
         </div>
         <div class="icon-line d-flex">
-          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
-          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
+          <span class="align-self-center font-weight-bold select-none"
+                [class.text-muted]="currentTheme.theme === 'light-theme'"
+                [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.comments_count | statsFilter | number:'.0-2'}}
             {{Video.comments_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary">
@@ -75,8 +78,9 @@
           </button>
         </div>
         <div class="icon-line d-flex mr-1">
-          <span class="align-self-center font-weight-bold select-none" [class.text-muted]="currentTheme.theme === 'light-theme'"
-          [class.text-white-80]="currentTheme.theme === 'dark-theme'">
+          <span class="align-self-center font-weight-bold select-none"
+                [class.text-muted]="currentTheme.theme === 'light-theme'"
+                [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.downloads_count | statsFilter | number:'.0-2'}}
             {{Video.downloads_count > 1000 ? ' k' : ''}}</span>
           <button mat-button color="primary" (click)="downloadVideo()">
@@ -121,7 +125,7 @@
     <div class="bg-light my-auto line-star"></div>
   </div>
 </div>
-<div id="viewTop">
+<div *ngIf="Video && !showVideoView" id="viewTop">
   <div class="d-flex justify-content-center m-container">
     <div class="d-flex flex-column mr-5">
       <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Likes</h1>

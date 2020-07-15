@@ -1,12 +1,12 @@
 <mat-card class="w-100 p-top mat-elevation-z8">
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" [id]="'profileForm'">
     <mat-card-title class="d-flex justify-content-between">
-      <h1 class="pl-3 f-title-form">Información del Usuario</h1>
+      <h1 class="f-title-form">Información del Usuario</h1>
       <button mat-raised-button [disabled]="profileForm.pristine" color="primary" class="h-button"
               type="submit">{{'Guardar' | uppercase}}</button>
     </mat-card-title>
     <mat-card-content>
-      <div class="d-flex">
+      <div class="d-flex d-xs-mmd-flex">
         <div class="col">
           <mat-form-field class="w-100 mt-3" appearance="outline">
             <mat-label>Nombre Completo</mat-label>
@@ -40,9 +40,8 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <div class="d-flex mx-5">
-        <button mat-raised-button color="primary" class="h-button"
-                type="button" [routerLink]="['/auth/new-password']">
+      <div class="d-flex justify-content-center mt-3">
+        <button mat-raised-button color="primary" class="h-button" type="submit" [routerLink]="['/auth/new-password']">
           <fa-icon [icon]="faLock" [classes]="['mr-2']"></fa-icon>
           {{'Cambiar Contraseña' | uppercase}}</button>
       </div>

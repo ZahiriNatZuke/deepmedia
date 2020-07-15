@@ -1,7 +1,7 @@
 <div class="d-flex flex-column w-100">
   <div class="d-flex justify-content-between">
     <mat-label class="font-weight-bold">AVG {{statsName}}</mat-label>
-    <mat-chip-list>
+    <mat-chip-list class="chip-info">
       <mat-chip color="primary" class="mb-1 chip-stats" selected (click)="up = !up">
         <mat-icon>{{up ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
         <mat-icon class="mx-1" inline>{{icon}}</mat-icon>

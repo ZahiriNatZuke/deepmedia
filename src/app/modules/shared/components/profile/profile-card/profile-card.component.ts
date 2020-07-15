@@ -104,4 +104,9 @@ export class ProfileCardComponent implements OnInit {
   getToggleSidebar(): boolean {
     return environment.expandedSidebar;
   }
+
+  showMoreInfo() {
+    this.moreStats = !this.moreStats;
+  }
+
 }

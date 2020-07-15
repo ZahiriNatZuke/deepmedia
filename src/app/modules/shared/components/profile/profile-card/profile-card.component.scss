@@ -53,3 +53,16 @@ mat-card-actions {
 #toggleForm, #buttonClose {
   margin: 2px 0 0 2px;
 }
+
+.more-stats {
+  width: 65%;
+}
+
+@media all and (max-width: 900px) {
+
+  .justify-xs-content-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+  }
+
+}

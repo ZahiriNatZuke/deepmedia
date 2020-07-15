@@ -26,6 +26,7 @@ import {NewPasswordComponent} from './new-password/new-password.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatIconModule} from '@angular/material/icon';
+import {LayoutModule} from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatCheckboxModule,
     FormsModule,
     ClipboardModule,
-    MatIconModule
+    MatIconModule,
+    LayoutModule
   ]
 })
 export class AuthModule {

@@ -46,3 +46,16 @@
 .f-title-form {
   font: 400 32px/40px Roboto, "Helvetica Neue", sans-serif;
 }
+
+@media all and (max-width: 575.98px) {
+  .f-title-form {
+    font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .d-xs-mmd-flex {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+  }
+}

@@ -6,7 +6,7 @@
 <div *ngIf="!loading" id="playList" cdkDropList class="list customized-scroll" (cdkDropListDropped)="drop($event)"
      [style.maxHeight.px]="getMaxHeight()">
   <div *ngIf="playList.length === 0" class="d-flex justify-content-center align-content-center">
-    <span class="font-weight-bold align-self-center mh-text pt-2">No hay Videos Disponibles</span>
+    <span class="font-weight-bold align-self-center mh-text pt-2">No hay Videos Disponibles.</span>
   </div>
   <div *ngIf="playList.length > 0">
     <div class="box" *ngFor="let video of playList; let i = index;" cdkDrag cdkDragLockAxis="y"

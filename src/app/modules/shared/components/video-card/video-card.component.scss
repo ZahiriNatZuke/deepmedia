@@ -12,11 +12,11 @@
 }
 
 .user-img {
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
   position: absolute;
-  right: 10px;
-  bottom: -50px;
+  right: 8px;
+  bottom: -35px;
   border-width: 3px;
   border-style: solid;
   border-radius: 180px;
@@ -56,6 +56,7 @@
 .h-img {
   opacity: 1;
   transition: all 0.4s;
+  background-size: cover;
 }
 
 .h-img:hover {
@@ -65,7 +66,7 @@
 
 .btn-play {
   left: 39%;
-  bottom: 30%;
+  bottom: 32%;
   position: absolute;
   transition: all 0.4s;
   opacity: 0;
@@ -87,10 +88,10 @@
   }
 
   .user-img {
-    height: 90px;
-    width: 90px;
+    height: 80px;
+    width: 80px;
     position: absolute;
-    right: 10px;
+    right: 8px;
     bottom: -35px;
     border-width: 2px;
     border-style: solid;
@@ -142,4 +143,148 @@
 .material-icons {
   position: relative;
   top: 4px
+}
+
+@media all and (max-width: 469.98px) {
+  .user-img {
+    width: 64px;
+    height: 64px;
+    right: 5px;
+    bottom: -25px;
+  }
+
+  .h-img:hover ~ {
+    .user-img {
+      height: 54px;
+      width: 54px;
+      right: 5px;
+      bottom: -25px;
+    }
+  }
+
+  .counter-stats {
+    font-size: 14px;
+    height: 14px;
+    line-height: 14px;
+  }
+
+  .btn-play {
+    left: 35%;
+    bottom: 31%;
+  }
+
+  .material-icons {
+    top: 2px
+  }
+
+  .info-text-user {
+    font-size: 14px;
+  }
+
+  .info-text-title {
+    font-size: 16px;
+    line-height: 20px;
+    height: 20px;
+  }
+
+  .mb-8 {
+    margin-bottom: 58px;
+  }
+}
+
+@media all and (min-width: 470px) and (max-width: 575.98px) {
+  .user-img {
+    width: 84px;
+    height: 84px;
+    right: 3px;
+    bottom: -32px;
+  }
+
+  .h-img:hover ~ {
+    .user-img {
+      height: 74px;
+      width: 74px;
+      right: 3px;
+      bottom: -32px;
+    }
+  }
+
+  .btn-play {
+    left: 38.5%;
+  }
+
+  .info-text-user {
+    font-size: 14px;
+  }
+
+  .info-text-title {
+    font-size: 16px;
+    line-height: 20px;
+    height: 20px;
+  }
+
+  .mb-8 {
+    margin-bottom: 58px;
+  }
+}
+
+@media all and (min-width: 576px) and (max-width: 767.98px) {
+  .user-img {
+    width: 76px;
+    height: 76px;
+    right: 3px;
+    bottom: -32px;
+  }
+
+  .h-img:hover ~ {
+    .user-img {
+      height: 66px;
+      width: 66px;
+      right: 3px;
+      bottom: -32px;
+    }
+  }
+
+  .btn-play {
+    left: 36%;
+
+  }
+
+  .counter-stats {
+    font-size: 14px;
+    height: 14px;
+    line-height: 14px;
+  }
+
+  .material-icons {
+    top: 2px
+  }
+
+  .info-text-user {
+    font-size: 14px;
+  }
+
+  .info-text-title {
+    font-size: 16px;
+    line-height: 20px;
+    height: 20px;
+  }
+}
+
+@media all and (min-width: 767.98px) and (max-width: 1240px) {
+  .user-img {
+    width: 86px;
+    height: 86px;
+    right: 5px;
+    bottom: -32px;
+  }
+
+  .h-img:hover ~ {
+    .user-img {
+      height: 76px;
+      width: 76px;
+      right: 5px;
+      bottom: -32px;
+    }
+  }
 }
