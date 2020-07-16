@@ -12,7 +12,7 @@ import {VideoService} from '../../../services/video.service';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import {DownloadDialogComponent} from '../../shared/dialogs/download-dialog/download-dialog.component';
 import {ThemeConfigService} from '../../../services/theme-config.service';
-import {Title} from '@angular/platform-browser';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 const api = new API();
 
@@ -38,12 +38,13 @@ export class VideoViewComponent implements OnInit {
   showInfo: boolean;
   showDateTime: boolean;
   carouselHeight: number;
-  carouselWidth: number;
   carouselWidthToggle: number;
   showVideoView: boolean;
   tabGroupFocus: boolean;
   snackDownload: MatSnackBarRef<DownloadDialogComponent>;
   currentTheme: { theme: string } = this.themeConfigService.config;
+  widthVideoFull: number;
+  widthVideoToggle: number;
 
   constructor(private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
@@ -51,21 +52,18 @@ export class VideoViewComponent implements OnInit {
               private videoService: VideoService,
               private snackBar: MatSnackBar,
               private themeConfigService: ThemeConfigService,
-              private titleService: Title) {
+              private breakpointObserver: BreakpointObserver) {
     this.showDateTime = false;
     this.showInfo = false;
     this.showVideoView = true;
     this.tabGroupFocus = false;
-    this.getWidth();
     this.getWidthToggle();
     this.getHeight();
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoPlayer = videoPlayer);
     this.videoService.currentVideo.subscribe(video => this.Video = video);
     if (this.Video === null || this.Video === undefined)
-      this.activatedRoute.params.subscribe(params => {
-        this.videoService.fetchVideo(params.id);
-      });
+      this.activatedRoute.params.subscribe(params => this.videoService.fetchVideo(params.id));
     this.crudService.GETWithOutAuth(api.getTopVideoURL()).subscribe(response => {
       this.byLikes = response.byLikes;
       this.byViews = response.byViews;
@@ -73,12 +71,12 @@ export class VideoViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle(`#DeepMedia | ${this.Video.title}`);
+    this.watchMediaQuery();
     this.loadHTML();
     this.viewTop.toggle(0);
     window.addEventListener('resize', () => {
+      this.watchMediaQuery();
       this.getHeight();
-      this.getWidth();
       this.getWidthToggle();
     });
   }
@@ -89,10 +87,6 @@ export class VideoViewComponent implements OnInit {
 
   getHeight() {
     this.carouselHeight = window.screen.availHeight * 40 / 100;
-  }
-
-  getWidth() {
-    this.carouselWidth = Math.floor(window.screen.availWidth * 38.1 / 100);
   }
 
   getWidthToggle() {
@@ -107,13 +101,11 @@ export class VideoViewComponent implements OnInit {
     this.showVideoView = !this.showVideoView;
     this.viewTop.toggle(500);
     if (!this.showVideoView)
-      setTimeout(() => {
-        window.scroll({
-          behavior: 'smooth',
-          top: 1000,
-          left: 0,
-        });
-      }, 500);
+      setTimeout(() => window.scroll({
+        behavior: 'smooth',
+        top: 1000,
+        left: 0,
+      }), 500);
   }
 
   isFavorite(): boolean {
@@ -132,9 +124,7 @@ export class VideoViewComponent implements OnInit {
 
   toggleFavorite() {
     this.crudService.POSTForLikeOrFavorite(api.getFavoriteURL(), this.Video.id.toString())
-        .subscribe(response => {
-          this.Video.favorite_for_who = response.favoriteForWho;
-        });
+        .subscribe(response => this.Video.favorite_for_who = response.favoriteForWho);
   }
 
   toggleLike() {
@@ -168,5 +158,50 @@ export class VideoViewComponent implements OnInit {
       data: {title: this.Video.title, id: this.Video.id, from: this},
       panelClass: this.currentTheme.theme
     });
+  }
+
+  private watchMediaQuery() {
+    this.breakpointObserver.observe(['all and (min-width: 576px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 420;
+            this.widthVideoToggle = 360;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 768px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 640;
+            this.widthVideoToggle = 480;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 992px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 720;
+            this.widthVideoToggle = 640;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 1200px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 640;
+            this.widthVideoToggle = 480;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 1300px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 720;
+            this.widthVideoToggle = 640;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 1920px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 1080;
+            this.widthVideoToggle = 1080;
+          }
+        });
   }
 }

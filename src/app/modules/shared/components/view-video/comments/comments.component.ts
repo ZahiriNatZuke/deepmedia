@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../../../../../services/authentication.service';
 import {Channel} from '../../../../../models/channel';
 import {ThemeConfigService} from '../../../../../services/theme-config.service';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 const api = new API();
 
@@ -24,12 +25,15 @@ export class CommentsComponent implements OnInit, OnChanges {
   @Output() postSent: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   showPostForm: boolean;
   currentTheme: { theme: string } = this.themeConfigService.config;
+  minHeight: number;
+  maxHeight: number;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
-              private themeConfigService: ThemeConfigService) {
+              private themeConfigService: ThemeConfigService,
+              private breakpointObserver: BreakpointObserver) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.showPostForm = false;
     this.postCommentForm = this._formBuilder.group({
@@ -38,7 +42,11 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.watchMediaQuery();
     this.getComments();
+    window.addEventListener('resize', () => {
+      this.watchMediaQuery();
+    });
   }
 
   getComments() {
@@ -77,5 +85,36 @@ export class CommentsComponent implements OnInit, OnChanges {
       this.showPostForm = false;
       this.postCommentForm.reset();
     }
+  }
+
+  private watchMediaQuery() {
+    this.breakpointObserver.observe(['all and (max-width: 1199.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.minHeight = 455;
+            this.maxHeight = 500;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 1200px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.minHeight = 361;
+            this.maxHeight = 406;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 1300px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.minHeight = 406;
+            this.maxHeight = 451;
+          }
+        });
+    this.breakpointObserver.observe(['all and (min-width: 1920px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.minHeight = 608;
+            this.maxHeight = 653;
+          }
+        });
   }
 }

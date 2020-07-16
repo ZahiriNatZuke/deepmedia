@@ -1,10 +1,10 @@
 .list {
   width: 500px;
   max-width: 100%;
-  min-height: 60px;
+  height: 405px;
   display: block;
   border-radius: 4px;
-  margin-top: 7px;
+  transition: all .4s ease;
 }
 
 .box {
@@ -99,4 +99,23 @@
 
 .v-divider {
   max-height: 100%;
+}
+
+@media all and (max-width: 1199.98px) {
+  .list {
+    height: 500px;
+  }
+}
+
+@media all and (min-width: 1300px) {
+  .list {
+    height: 451px;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .list {
+    height: 653px;
+    width: 520px;
+  }
 }

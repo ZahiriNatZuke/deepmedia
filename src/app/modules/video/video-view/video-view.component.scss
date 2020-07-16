@@ -1,45 +1,27 @@
-.w-89 {
-  width: 89% !important;
-  transition: all .4s;
+.video-container {
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
-.w-87 {
-  width: 87% !important;
-  transition: all .4s;
+.video-player-view {
 }
 
-.w-60 {
-  width: 60% !important;
-  transition: all .4s;
+.top-container {
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
-.w-35 {
-  width: 35% !important;
-  transition: all .4s;
+.video-player-ads {
+  width: 100% !important;
 }
 
-.w-95 {
-  width: 95% !important;
-  transition: all .4s;
+.white-lines {
+  width: inherit;
 }
 
 .w-16 {
   width: 16% !important;
   transition: all .4s;
-}
-
-.w-14 {
-  width: 14% !important;
-  transition: all .4s;
-}
-
-.w-43 {
-  width: 43% !important;
-  transition: all .4s;
-}
-
-.m-view-video {
-  margin-bottom: 20px;
 }
 
 .mat-button {
@@ -68,6 +50,7 @@
 
 .container-line-stars {
   height: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .line-star {
@@ -87,10 +70,6 @@
   overflow: hidden;
 }
 
-.m-container {
-  margin: 4.5rem 0;
-}
-
 .spacer-bottom {
   height: 3rem;
 }
@@ -99,6 +78,78 @@
   height: 1rem;
 }
 
-.mb-footer {
-  margin-bottom: 3.5rem;
+@media all and (min-width: 576px) {
+  .video-container {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+  }
+
+  .top-container {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+  }
+
+  .video-player-ads, .video-player-view {
+    margin: 1rem 0;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .video-player-ads {
+    width: 502px !important;
+    align-self: center;
+  }
+}
+
+@media all and (min-width: 992px) {
+  .video-player-view {
+    width: max-content !important;
+    align-self: center;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .video-container {
+    -ms-flex-direction: row !important;
+    flex-direction: row !important;
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+    margin: 2rem 0;
+  }
+
+  .top-container {
+    -ms-flex-direction: row !important;
+    flex-direction: row !important;
+  }
+
+  .video-player-ads {
+    width: 35% !important;
+    height: 84% !important;
+  }
+
+  .video-player-ads, .video-player-view {
+    margin: 0;
+  }
+
+  .top {
+    width: 50% !important;
+  }
+
+}
+
+@media all and (min-width: 1300px) {
+  .video-container {
+    margin: 0 0 1.5rem;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .video-player-ads {
+    width: 522px !important;
+    align-self: center;
+  }
 }

@@ -1,7 +1,7 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column" [style.maxHeight.px]="maxHeight">
   <div id="listComments" class="comments-container customized-scroll d-flex flex-column"
-       [ngStyle]="{height: showPostForm ? '300px' : '445px'}">
-    <div *ngIf="Comments.length > 0">
+       [style.height.px]="User_Channel ? minHeight : maxHeight">
+    <div *ngIf="Comments?.length > 0">
       <div class="mat-elevation-z4 comment-item" *ngFor="let comment of Comments">
         <p class="mb-0">
           <span class="font-weight-normal">{{comment.body}}</span>
@@ -14,7 +14,7 @@
         </p>
       </div>
     </div>
-    <span class="text-center" *ngIf="Comments.length === 0">No Hay Comentarios Disponibles.</span>
+    <span class="text-center" *ngIf="Comments?.length === 0">No Hay Comentarios Disponibles.</span>
   </div>
   <button *ngIf="!showPostForm && User_Channel" mat-icon-button color="primary" class="align-self-end"
           matTooltip="Nuevo Comentario" matTooltipPosition="left" (click)="showPostForm = !showPostForm;">

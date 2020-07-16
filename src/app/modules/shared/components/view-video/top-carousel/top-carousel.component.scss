@@ -9,3 +9,33 @@
 .title-video:hover {
   font-weight: bold;
 }
+
+@media all and (min-width: 576px) {
+  .carousel {
+    width: 100% !important;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .carousel {
+    width: 75% !important;
+  }
+}
+
+@media all and (min-width: 992px) {
+  .carousel {
+    width: 65% !important;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .carousel {
+    width: 90% !important;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .carousel {
+    width: 65% !important;
+  }
+}

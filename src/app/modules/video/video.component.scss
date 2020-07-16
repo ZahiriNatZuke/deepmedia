@@ -1,3 +1,9 @@
 .mx-20 {
   margin: 0 20px;
 }
+
+@media all and (min-width: 768px) {
+  .mx-20 {
+    margin: 0 10px;
+  }
+}

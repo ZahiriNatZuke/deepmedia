@@ -9,7 +9,6 @@ import {VideoService} from '../../../../../services/video.service';
   styleUrls: ['./top-carousel.component.scss']
 })
 export class TopCarouselComponent implements OnInit, AfterViewInit {
-  @Input() widthCarousel: number;
   @Input() heightCarousel: number;
   @Input() top: any;
   @Input() VideosTop: Video[];

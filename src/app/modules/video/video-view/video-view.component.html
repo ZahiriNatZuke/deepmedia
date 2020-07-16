@@ -1,152 +1,135 @@
 <div *ngIf="!Video" class="d-flex justify-content-center">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<div *ngIf="!showVideoView" class="spacer-top"></div>
-<div *ngIf="Video" class="d-flex m-view-video">
-  <div class="d-flex w-60 justify-content-start">
-    <mat-card>
-      <mat-card-content>
-        <app-video-player *ngIf="videoPlayer && videoPlayer.video" [id]="'video-'+ Video.id"
-                          [idCurrentVideo]="Video.id" [widthVideo]="getToggleVideoSize() ? 640 : 720"
-                          (playVideoEmitter)="makeView()">
-        </app-video-player>
-        <hr>
-      </mat-card-content>
-      <mat-card-title class="d-flex justify-content-between w-100">
-        <div class="title-video" [class.w-89]="!getToggleVideoSize()" [class.w-87]="getToggleVideoSize()">
-          <h3 [class.switch-title]="Video.title.length > 42">{{Video.title}}</h3>
-        </div>
-        <div class="icon-line w-16 d-flex justify-content-end">
-          <button *ngIf="User_Channel && User_Channel.id === Video.channel_id" mat-button class="text-muted"
-                  matTooltip="Editar Video" matTooltipPosition="above" [routerLink]="['/video/update-video',Video.id]">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </button>
-          <button mat-button [class.text-muted]="!showDateTime" (click)="showDateTime = !showDateTime; showInfo = false"
-                  matTooltip="Fecha del Video" matTooltipPosition="above">
-            <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown"></fa-icon>
-          </button>
-          <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo; showDateTime = false"
-                  matTooltip="Descripción del Video" matTooltipPosition="above">
-            <fa-icon [icon]="faInfoCircle"></fa-icon>
-          </button>
-        </div>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <div *ngIf="showInfo">
-          <span>{{Video.description}}</span>
-        </div>
-        <h6 *ngIf="showDateTime">
-          Por <a class="font-weight-bold" [routerLink]="['/auth/profile',Video.channel_id]">
-          #{{Video.channel.user.username}}</a>, {{Video.created_at | fullDate}}
-        </h6>
-      </mat-card-subtitle>
-      <mat-card-actions align="end" [style.padding.px]="0">
-        <div *ngIf="User_Channel" class="icon-line mr-1">
-          <button mat-button class="golden-star" (click)="toggleFavorite()">
-            <mat-icon>{{isFavorite() ? 'star' : 'star_border'}}</mat-icon>
-          </button>
-        </div>
-        <div class="icon-line d-flex">
+<div *ngIf="Video" class="video-container">
+  <mat-card class="video-player-view">
+    <mat-card-content>
+      <app-video-player *ngIf="videoPlayer && videoPlayer.video" [idCurrentVideo]="Video.id"
+                        [widthVideo]="getToggleVideoSize() ? widthVideoToggle : widthVideoFull"
+                        (playVideoEmitter)="makeView()" [id]="'video-'+ Video.id">
+      </app-video-player>
+    </mat-card-content>
+    <mat-card-title class="d-flex justify-content-between w-100">
+      <div class="title-video" [class.w-89]="!getToggleVideoSize()" [class.w-87]="getToggleVideoSize()">
+        <h3 [class.switch-title]="Video.title.length > 42">{{Video.title}}</h3>
+      </div>
+      <div class="icon-line w-16 d-flex justify-content-end">
+        <button *ngIf="User_Channel && User_Channel.id === Video.channel_id" mat-button class="text-muted"
+                matTooltip="Editar Video" matTooltipPosition="above" [routerLink]="['/video/update-video',Video.id]">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <button mat-button [class.text-muted]="!showDateTime" (click)="showDateTime = !showDateTime; showInfo = false"
+                matTooltip="Fecha del Video" matTooltipPosition="above">
+          <fa-icon size="1x" [icon]="showDateTime ? faAngleUp : faAngleDown"></fa-icon>
+        </button>
+        <button mat-button [class.text-muted]="!showInfo" (click)="showInfo = !showInfo; showDateTime = false"
+                matTooltip="Descripción del Video" matTooltipPosition="above">
+          <fa-icon [icon]="faInfoCircle"></fa-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div *ngIf="showInfo">
+        <span>{{Video.description}}</span>
+      </div>
+      <h6 *ngIf="showDateTime">
+        Por <a class="font-weight-bold" [routerLink]="['/auth/profile',Video.channel_id]">
+        #{{Video.channel.user.username}}</a>, {{Video.created_at | fullDate}}
+      </h6>
+    </mat-card-subtitle>
+    <mat-card-actions align="end" [style.padding.px]="0">
+      <div *ngIf="User_Channel" class="icon-line mr-1">
+        <button mat-button class="golden-star" (click)="toggleFavorite()">
+          <mat-icon>{{isFavorite() ? 'star' : 'star_border'}}</mat-icon>
+        </button>
+      </div>
+      <div class="icon-line d-flex">
           <span class="align-self-center font-weight-bold select-none"
                 [class.text-muted]="currentTheme.theme === 'light-theme'"
                 [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.views_count | statsFilter | number:'.0-2'}}
             {{Video.views_count > 1000 ? ' k' : ''}}</span>
-          <button mat-button color="primary">
-            <mat-icon>visibility</mat-icon>
-          </button>
-        </div>
-        <div class="icon-line d-flex">
+        <button mat-button color="primary">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
+      <div class="icon-line d-flex">
           <span class="align-self-center font-weight-bold select-none"
                 [class.text-muted]="currentTheme.theme === 'light-theme'"
                 [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.likes_count | statsFilter | number:'.0-2'}}
             {{Video.likes_count > 1000 ? ' k' : ''}}</span>
-          <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
-                  (click)="toggleLike()">
-            <mat-icon>thumb_up</mat-icon>
-          </button>
-        </div>
-        <div class="icon-line d-flex">
+        <button mat-button color="primary" [class.text-muted]="!isLiked()" [disabled]="!User_Channel"
+                (click)="toggleLike()">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+      </div>
+      <div class="icon-line d-flex">
           <span class="align-self-center font-weight-bold select-none"
                 [class.text-muted]="currentTheme.theme === 'light-theme'"
                 [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.comments_count | statsFilter | number:'.0-2'}}
             {{Video.comments_count > 1000 ? ' k' : ''}}</span>
-          <button mat-button color="primary">
-            <mat-icon>comment</mat-icon>
-          </button>
-        </div>
-        <div class="icon-line d-flex mr-1">
+        <button mat-button color="primary">
+          <mat-icon>comment</mat-icon>
+        </button>
+      </div>
+      <div class="icon-line d-flex mr-1">
           <span class="align-self-center font-weight-bold select-none"
                 [class.text-muted]="currentTheme.theme === 'light-theme'"
                 [class.text-white-80]="currentTheme.theme === 'dark-theme'">
             {{Video.downloads_count | statsFilter | number:'.0-2'}}
             {{Video.downloads_count > 1000 ? ' k' : ''}}</span>
-          <button mat-button color="primary" (click)="downloadVideo()">
-            <mat-icon>get_app</mat-icon>
-          </button>
-        </div>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  <div class="d-flex w-35 ml-4 justify-content-end">
-    <mat-card class="w-95 pb-2">
-      <mat-tab-group dynamicHeight color="warn" backgroundColor="primary" animationDuration="700ms"
-                     (focusChange)="tabGroupFocus = !tabGroupFocus">
-        <mat-tab label="Lista de Reproducción">
-          <app-play-list></app-play-list>
-        </mat-tab>
-        <mat-tab label="Comentarios">
-          <app-comments [idVideo]="Video.id" [Focus]="tabGroupFocus" (postSent)="getStats()"></app-comments>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card>
-  </div>
+        <button mat-button color="primary" (click)="downloadVideo()">
+          <mat-icon>get_app</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="video-player-ads">
+    <mat-tab-group dynamicHeight color="warn" backgroundColor="primary" animationDuration="700ms"
+                   (focusChange)="tabGroupFocus = !tabGroupFocus">
+      <mat-tab label="Lista de Reproducción">
+        <app-play-list></app-play-list>
+      </mat-tab>
+      <mat-tab label="Comentarios">
+        <app-comments [idVideo]="Video.id" [Focus]="tabGroupFocus" (postSent)="getStats()"></app-comments>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
 </div>
-<div *ngIf="!showVideoView" class="spacer-bottom"></div>
-<div *ngIf="Video" class="d-flex justify-content-center w-100 container-line-stars">
-  <div class="w-43 d-flex flex-column justify-content-start px-1">
+<div *ngIf="Video" class="d-flex justify-content-between w-100 container-line-stars">
+  <div class="d-flex flex-column white-lines">
     <div class="bg-light my-auto line-star"></div>
     <div class="bg-light my-auto mx-2 line-star"></div>
     <div class="bg-light my-auto line-star"></div>
   </div>
-  <div class="w-14 justify-content-center d-flex golden-star star" (click)="toggleVideoView()"
+  <div class="justify-content-center d-flex golden-star star" (click)="toggleVideoView()"
        [matTooltip]="showVideoView ? 'Ver Tops' : 'Ver Video'" matTooltipPosition="above">
-    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
-    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
-    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
-    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
-    <fa-icon [icon]="faStar" [classes]="['mx-2']"></fa-icon>
+    <fa-icon [icon]="faStar" [classes]="['mx-2']" *ngFor="let i of [1,2,3,4,5]"></fa-icon>
   </div>
-  <div class="w-43 d-flex flex-column justify-content-end px-1">
+  <div class="d-flex flex-column white-lines">
     <div class="bg-light my-auto line-star"></div>
     <div class="bg-light my-auto mx-2 line-star"></div>
     <div class="bg-light my-auto line-star"></div>
   </div>
 </div>
 <div *ngIf="Video && !showVideoView" id="viewTop">
-  <div class="d-flex justify-content-center m-container">
-    <div class="d-flex flex-column mr-5">
-      <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Likes</h1>
-      <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byLikes"
-                        [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
-                        [top]="'top-likes'">
+  <div class="top-container">
+    <div class="d-flex flex-column my-3 top">
+      <h1 class="mb-4 text-white font-weight-light align-self-center">Top 5 de Video X Likes</h1>
+      <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byLikes" [top]="'top-likes'">
       </app-top-carousel>
     </div>
-    <div class="d-flex flex-column ml-5">
-      <h1 class="mb-4 align-self-center text-white font-weight-light">Top 5 de Video X Vistas</h1>
-      <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byViews"
-                        [widthCarousel]="getToggleVideoSize() ? carouselWidthToggle : carouselWidth"
-                        [top]="'top-views'">
+    <div class="d-flex flex-column my-3 top">
+      <h1 class="mb-4 text-white font-weight-light align-self-center">Top 5 de Video X Vistas</h1>
+      <app-top-carousel [heightCarousel]="carouselHeight" [VideosTop]="byViews" [top]="'top-views'">
       </app-top-carousel>
     </div>
   </div>
-  <div class="d-flex justify-content-center w-100 container-line-stars mb-footer">
-    <div class="w-100 d-flex flex-column justify-content-start px-1">
-      <div class="bg-light my-auto line-star"></div>
-      <div class="bg-light my-auto mx-2 line-star"></div>
-      <div class="bg-light my-auto line-star"></div>
-    </div>
+  <div class="w-100 d-flex flex-column container-line-stars">
+    <div class="bg-light my-auto line-star"></div>
+    <div class="bg-light my-auto mx-2 line-star"></div>
+    <div class="bg-light my-auto line-star"></div>
   </div>
 </div>
