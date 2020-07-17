@@ -7,8 +7,9 @@
     Your browser do not support HTML5 video.
   </video>
 
-  <div id="poster" class="poster">
-    <img [src]="video.poster | saveDom" class="img-poster" [style.height.px]="setHeightPoster()" [alt]="video.poster">
+  <div id="poster" class="poster mat-elevation-z15">
+    <img [src]="video.poster | saveDom" class="img-poster" [alt]="video.poster"
+         [style.width.px]="widthVideo + 4" [style.height.px]="setHeightPoster() + 6">
     <button id="btn-play" mat-icon-button class="text-white btn-play mat-elevation-z15" (click)="hidePoster()">
       <fa-icon [icon]="faPlayCircle"></fa-icon>
     </button>

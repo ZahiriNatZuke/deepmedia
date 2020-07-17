@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Si
 import {faPause, faPlay, faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 import {VideoPlayer} from '../../../../models/video-player';
 import {VideoService} from '../../../../services/video.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-player',
@@ -33,8 +34,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   poster: boolean;
   placeBtnPlay: any;
 
-  constructor(private videoService: VideoService) {
+  constructor(private videoService: VideoService, private titleService: Title) {
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.video = videoPlayer);
+    this.videoService.currentVideo.subscribe(video => this.titleService.setTitle(`#DeepMedia | ${video.title}`));
     this.videoPlayerEmitter = new EventEmitter();
     this.durationVideoPlayerEmitter = new EventEmitter();
     this.playVideoEmitter = new EventEmitter(true);

@@ -16,6 +16,8 @@ import {Channel} from '../../../../models/channel';
 import * as fileSize from 'filesize';
 import {StepperSelectionEvent} from '@angular/cdk/stepper';
 import {ThemeConfigService} from '../../../../services/theme-config.service';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
+import {environment} from '../../../../../environments/environment.prod';
 
 const api = new API();
 
@@ -46,6 +48,8 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   randomNumber: number = 1;
   storage_size_available: string;
   currentTheme: { theme: string } = this.themeConfigService.config;
+  widthVideoFull: number;
+  widthVideoToggle: number;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
@@ -54,7 +58,8 @@ export class VideoFormStepperUpdateComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private notificationService: NotificationService,
               private authenticationService: AuthenticationService,
-              private themeConfigService: ThemeConfigService) {
+              private themeConfigService: ThemeConfigService,
+              private breakpointObserver: BreakpointObserver) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.videoService.currentVideo.subscribe(video => this.Video = video);
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.videoObj = videoPlayer);
@@ -100,10 +105,12 @@ export class VideoFormStepperUpdateComponent implements OnInit {
     this.showVideoPlayer = false;
     this.showPoster = false;
     this.canStoreVideo = false;
+    window.addEventListener('resize', _ => this.watchMediaQuery());
   }
 
 
   ngOnInit() {
+    this.watchMediaQuery();
   }
 
   getHeight(): number {
@@ -236,19 +243,57 @@ export class VideoFormStepperUpdateComponent implements OnInit {
   }
 
   catchChangesFromStepper(event: StepperSelectionEvent) {
-    if (this.videoPlayer && this.videoPlayer.played) {
-      this.videoPlayer.playPause();
-    }
+    if (this.videoPlayer && this.videoPlayer.played) this.videoPlayer.playPause();
 
-    if (event.previouslySelectedIndex === 2 && (!this.video_src.pristine && !this.canStoreVideo)) {
+
+    if (event.previouslySelectedIndex === 2 && (!this.video_src.pristine && !this.canStoreVideo))
       this.notificationService.showNotification('Video Info',
           this.storage_size_available ?
               `El Video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}` :
               'El Video seleccionado no es admisible ', 'warning');
-    }
+
   }
 
   getCanStore(): boolean {
     return !this.info.pristine || !this.poster.pristine || (!this.video_src.pristine && this.canStoreVideo);
   }
+
+  getToggleVideoSize(): boolean {
+    return environment.expandedSidebar;
+  }
+
+  watchMediaQuery() {
+    this.breakpointObserver.observe(['all and (max-width: 685.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 360;
+            this.widthVideoToggle = 360;
+          }
+        });
+
+    this.breakpointObserver.observe(['all and (min-width: 686px) and (max-width: 1199.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 480;
+            this.widthVideoToggle = 360;
+          }
+        });
+
+    this.breakpointObserver.observe(['all and (min-width: 1200px) and (max-width: 1919.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 480;
+            this.widthVideoToggle = 480;
+          }
+        });
+
+    this.breakpointObserver.observe(['all and (min-width: 1920px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 1080;
+            this.widthVideoToggle = 1080;
+          }
+        });
+  }
+
 }

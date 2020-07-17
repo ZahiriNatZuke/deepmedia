@@ -28,7 +28,7 @@
   <div id="chat-form" class="chat-form">
     <form [formGroup]="botForm" (ngSubmit)="onSubmit()" class="form-inline d-flex justify-content-between">
             <textarea #textarea formControlName="body" class="form-control flex-grow-1 customized-scroll" rows="1"
-                      required (keypress)="showIndicator()"></textarea>
+                      required (keypress)="showIndicator()" autofocus></textarea>
       <div class="d-flex justify-content-end pr-1 button-group">
         <button #commandBtn mat-icon-button type="button" class="mr-1" (click)="toggleCommands()" matTooltip="Comandos"
                 [matTooltipDisabled]="toggleCommand" matTooltipPosition="above" matTooltipShowDelay="300"

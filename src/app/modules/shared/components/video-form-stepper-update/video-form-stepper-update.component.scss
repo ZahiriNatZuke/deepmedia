@@ -7,24 +7,34 @@
   margin-top: 16px;
 }
 
-.m-content {
-  margin: 0 175px;
-}
-
-.m-img {
-  margin: 0 165px;
-}
-
-.m-input-file {
-  margin: 0 60px;
+.info-container {
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -ms-flex-direction: column !important;
+  flex-direction: column !important;
+  width: 100% !important;
 }
 
 .poster-img {
-  max-width: 100%;
+  width: 100% !important;
+  border-radius: .25rem !important;
+  align-self: center;
 }
 
-.b-video {
-  max-width: 100%;
+.header-end-step {
+  font: 300 30px/48px Roboto, "Helvetica Neue", sans-serif;
+  transition: all .4s ease;
+  text-align: center;
+  align-self: center;
+}
+
+.text-option {
+  font: 300 26px/36px Roboto, "Helvetica Neue", sans-serif;
+  transition: all .4s ease;
+}
+
+.transition-all {
+  transition: all .5s ease;
 }
 
 .mat-icon-button {
@@ -36,6 +46,7 @@
 /* <!--Custom File Input--!> */
 .custom-file {
   margin: 20px 0 0 0;
+  align-self: center;
 }
 
 .custom-file-label {
@@ -73,6 +84,77 @@
 
 }
 
-.header-end-step {
-  transition: all .4s ease;
+/* <!--Custom File Input End--!> */
+
+@media all and (max-width: 575.98px) {
+  .flex-sm-column {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+  }
+
+  .header-end-step {
+    font: 300 21px/36px Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  .text-option {
+    font: 300 18px/32px Roboto, "Helvetica Neue", sans-serif;
+    transition: all .4s ease;
+  }
+}
+
+@media all and (min-width: 576px) and (max-width: 767.98px) {
+  .header-end-step {
+    font: 300 21px/36px Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  .text-option {
+    font: 300 18px/32px Roboto, "Helvetica Neue", sans-serif;
+    transition: all .4s ease;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .poster-img, .custom-file {
+    width: 80% !important;
+  }
+}
+
+
+@media all and (min-width: 992px) {
+  .info-container {
+    width: 75% !important;
+    align-self: center;
+  }
+  .poster-img {
+    width: 55% !important;
+  }
+  .custom-file {
+    width: 65% !important;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .info-container {
+    width: 65% !important;
+    align-self: center;
+  }
+  .poster-img {
+    width: 50% !important;
+  }
+  .custom-file {
+    width: 60% !important;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .info-container {
+    width: 45% !important;
+    align-self: center;
+  }
+  .poster-img {
+    width: 40% !important;
+  }
+  .custom-file {
+    width: 50% !important;
+  }
 }

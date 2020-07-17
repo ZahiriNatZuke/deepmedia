@@ -17,6 +17,8 @@ import {AuthenticationService} from '../../../../services/authentication.service
 import {Channel} from '../../../../models/channel';
 import * as fileSize from 'filesize';
 import {ThemeConfigService} from '../../../../services/theme-config.service';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
+import {environment} from '../../../../../environments/environment.prod';
 
 const api = new API();
 
@@ -48,6 +50,8 @@ export class VideoFormStepperComponent implements OnInit {
   User_Channel: Channel;
   storage_size_available: string;
   currentTheme: { theme: string } = this.themeConfigService.config;
+  widthVideoFull: number;
+  widthVideoToggle: number;
 
   constructor(private _formBuilder: FormBuilder,
               private crudService: CrudService,
@@ -55,7 +59,8 @@ export class VideoFormStepperComponent implements OnInit {
               private videoService: VideoService,
               private notificationService: NotificationService,
               private authenticationService: AuthenticationService,
-              private themeConfigService: ThemeConfigService) {
+              private themeConfigService: ThemeConfigService,
+              private breakpointObserver: BreakpointObserver) {
     this.showVideoPlayer = false;
     this.showPoster = false;
     this.canReset = true;
@@ -74,10 +79,12 @@ export class VideoFormStepperComponent implements OnInit {
       video: ['', Validators.required],
       duration: ['']
     });
+    window.addEventListener('resize', _ => this.watchMediaQuery());
   }
 
 
   ngOnInit() {
+    this.watchMediaQuery();
   }
 
   getHeight(): number {
@@ -218,24 +225,57 @@ export class VideoFormStepperComponent implements OnInit {
 
   catchChangesFromStepper(stepper: MatHorizontalStepper, event: StepperSelectionEvent) {
 
-    if (this.videoPlayer && this.videoPlayer.played) {
+    if (this.videoPlayer && this.videoPlayer.played)
       this.videoPlayer.playPause();
-    }
 
-    if (event.previouslySelectedIndex === 0) {
+    if (event.previouslySelectedIndex === 0)
       this.videoService.checkVideoInfo(this.info.value).subscribe(() => {
-            this.notificationService.showNotification('Info Video', 'Información del video correcta, lista para almacenarla', 'success');
-          },
-          () => {
-            stepper.selectedIndex = 0;
-          });
-    }
+        this.notificationService.showNotification('Info Video', 'Información del video correcta, lista para almacenarla', 'success');
+      }, () => stepper.selectedIndex = 0);
 
-    if (event.previouslySelectedIndex === 2 && !this.canStore) {
+    if (event.previouslySelectedIndex === 2 && !this.canStore)
       this.notificationService.showNotification('Video Info',
           this.storage_size_available ?
               `El Video seleccionado sobrepasa su almacenamiento. Disponible ${this.storage_size_available}` :
               'El Video seleccionado no es admisible ', 'warning');
-    }
+
+  }
+
+  getToggleVideoSize(): boolean {
+    return environment.expandedSidebar;
+  }
+
+  watchMediaQuery() {
+    this.breakpointObserver.observe(['all and (max-width: 685.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 360;
+            this.widthVideoToggle = 360;
+          }
+        });
+
+    this.breakpointObserver.observe(['all and (min-width: 686px) and (max-width: 1199.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 480;
+            this.widthVideoToggle = 360;
+          }
+        });
+
+    this.breakpointObserver.observe(['all and (min-width: 1200px) and (max-width: 1919.98px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 480;
+            this.widthVideoToggle = 480;
+          }
+        });
+
+    this.breakpointObserver.observe(['all and (min-width: 1920px)'])
+        .subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.widthVideoFull = 1080;
+            this.widthVideoToggle = 1080;
+          }
+        });
   }
 }

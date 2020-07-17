@@ -6,12 +6,15 @@ section {
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
 }
 
 .center {
   align-self: center;
+}
+
+.table-container {
+  margin: 3rem 0;
 }
 
 table {
@@ -59,7 +62,7 @@ tr.detail-row {
 }
 
 .f-title-favorite {
-  font: 400 30px/40px Roboto, "Helvetica Neue", sans-serif;
+  font: 400 30px/48px Roboto, "Helvetica Neue", sans-serif;
   transition: all .3s;
 }
 
@@ -107,11 +110,18 @@ tr.detail-row {
     font-size: 12px;
   }
 
+  .main {
+    justify-content: center;
+  }
 }
 
 @media all and (max-width: 630px) {
   .f-title-favorite {
-    font: 400 26px/36px Roboto, "Helvetica Neue", sans-serif;
+    font: 400 26px/48px Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  .main {
+    justify-content: center;
   }
 }
 

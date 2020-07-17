@@ -25,3 +25,25 @@ section {
   border-width: 2px;
   border-style: solid;
 }
+
+.home-title {
+  font: 400 34px/40px Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media all and (min-width: 768px) {
+  .home-title {
+    font: 400 50px/72px Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+
+@media all and (min-width: 992px) {
+  .home-title {
+    font: 400 50px/72px Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .home-title {
+    font: 400 62px/84px Roboto, "Helvetica Neue", sans-serif;
+  }
+}
