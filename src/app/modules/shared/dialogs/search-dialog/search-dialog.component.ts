@@ -8,6 +8,7 @@ import {User} from '../../../../models/user';
 import {Video} from '../../../../models/video';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {Channel} from '../../../../models/channel';
+import {ThemeConfigService} from '../../../../services/theme-config.service';
 
 const api = new API();
 
@@ -28,12 +29,14 @@ export class SearchDialogComponent implements OnInit {
   foundDataVideo: boolean;
   URL_STORAGE = api.URL_STORAGE;
   User_Channel: Channel;
+  currentTheme: { theme: string } = this.themeConfigService.config;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,
               public dialogRef: MatDialogRef<SearchDialogComponent>,
               private _formBuilder: FormBuilder,
               private crudService: CrudService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private themeConfigService: ThemeConfigService) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.foundDataVideo = null;
     this.foundDataUsers = null;

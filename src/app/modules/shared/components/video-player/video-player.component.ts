@@ -65,21 +65,19 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   addEventsListen() {
-    this.videoPlayer.addEventListener('timeupdate', () => {
-      this.currentTime = this.videoPlayer.currentTime;
-    });
+    this.videoPlayer.addEventListener('timeupdate', _ => this.currentTime = this.videoPlayer.currentTime);
     this.videoPlayer.addEventListener('dblclick', (event) => {
       event.preventDefault();
       this.playPause();
     });
     window.addEventListener('keydown', (event: KeyboardEvent) => {
-      const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if ((events.includes(event.code) || event.code === 'Scape') &&
-          (event.target === document.body || event.target === this.videoPlayerTag))
+      const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Scape'];
+      if (events.includes(event.code) && (event.target === document.body || event.target === this.videoPlayerTag))
         event.preventDefault();
       this.events(event);
     });
-    window.addEventListener('wheel', (event) => {
+    this.videoPlayerTag.addEventListener('wheel', (event) => {
+      event.preventDefault();
       this.wheelEvent(event);
     });
   }

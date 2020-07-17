@@ -181,9 +181,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.inputCheck.checked = false;
         this.toLeft();
       }
-      $('#chat').css({
-        bottom: '0px'
-      });
+      $('#chat').css('display', 'flex');
+      setTimeout(_ => $('#chat').css('bottom', '0px'), 500);
     }
   }
 

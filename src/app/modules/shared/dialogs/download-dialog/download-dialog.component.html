@@ -4,7 +4,7 @@
     <fa-icon *ngIf="saving" [classes]="['align-self-center']" [icon]="faFileDownload" size="2x"></fa-icon>
   </div>
   <div class="d-flex flex-column flex-grow-1 ml-2 p-2">
-    <h1 class="title-video">{{data.title}}</h1>
+    <h1 class="title-video">{{data.video.title}}</h1>
     <div class="w-100">
       <div class="d-flex pl-1 text-lightblue">
         <span>{{currentLoad || 0 | size}}</span>

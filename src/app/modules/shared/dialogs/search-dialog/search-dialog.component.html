@@ -28,9 +28,10 @@
           <img [src]="URL_STORAGE + user.channel.avatar.path" class="img-fluid rounded-circle avatar-user"
                [alt]="user.username">
           <div class="d-flex pl-2">
-            <span class="font-weight-bold">#</span>
-            <span class="username pl-1 cursor-pointer pt-3" mat-dialog-close [routerLink]="['/auth/profile',user.id]">
-                  {{user.username}}</span>
+            <a class="username pl-1 cursor-pointer pt-3" mat-dialog-close [routerLink]="['/auth/profile',user.id]"
+               [class.text-dark]="currentTheme.theme === 'light-theme'"
+               [class.text-white-80]="currentTheme.theme === 'dark-theme'">
+              <b>#</b>{{user.username}}</a>
             <fa-icon *ngIf="User_Channel && User_Channel.id === user.id" size="1x" [icon]="faUserAlt"
                      [classes]="['icon-user-muted']" class="ml-2" matTooltip="Tú" matTooltipPosition="after"></fa-icon>
           </div>

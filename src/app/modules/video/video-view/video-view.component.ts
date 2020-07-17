@@ -155,7 +155,7 @@ export class VideoViewComponent implements OnInit {
       duration: -1,
       horizontalPosition: 'left',
       verticalPosition: 'bottom',
-      data: {title: this.Video.title, id: this.Video.id, from: this},
+      data: {video: this.Video, from: this},
       panelClass: this.currentTheme.theme
     });
   }

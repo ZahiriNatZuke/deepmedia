@@ -1,6 +1,5 @@
-<section class="background-gradient" matRipple matRippleRadius="2"
-         [className]="currentTheme.theme" matRippleColor="rgba(195, 195, 195, 0.5)"
-         [class.background-gradient-light]="currentTheme.theme === 'light-theme'"
+<section class="background-gradient" matRipple matRippleRadius="2" matRippleColor="rgba(195, 195, 195, 0.5)"
+         [className]="currentTheme.theme" [class.background-gradient-light]="currentTheme.theme === 'light-theme'"
          [class.background-gradient-dark]="currentTheme.theme === 'dark-theme'">
   <div id="p-sidebar" class="p-sidebar customized-scroll">
     <app-sidebar [id]="'app-sidebar'"></app-sidebar>

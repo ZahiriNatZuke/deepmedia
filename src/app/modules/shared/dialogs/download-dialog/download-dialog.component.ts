@@ -3,6 +3,7 @@ import {MAT_SNACK_BAR_DATA} from '@angular/material/snack-bar';
 import {faFileDownload} from '@fortawesome/free-solid-svg-icons';
 import {HttpClient, HttpEventType} from '@angular/common/http';
 import {API} from '../../../../services/API';
+import {Video} from '../../../../models/video';
 
 const api = new API();
 
@@ -19,11 +20,10 @@ export class DownloadDialogComponent implements OnInit {
   totalLoad: number;
   percent: number;
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data,
-              private httpClient: HttpClient) {
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: { video: Video, from: any }, private httpClient: HttpClient) {
     this.saving = false;
     this.started = false;
-    this.httpClient.get(api.getDownloadVideoURL(data.id), {
+    this.httpClient.get(api.getDownloadVideoURL(data.video.id), {
       reportProgress: true,
       responseType: 'blob',
       observe: 'events'
@@ -43,7 +43,8 @@ export class DownloadDialogComponent implements OnInit {
           this.saving = true;
           const link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob.body);
-          link.download = data.title;
+          link.download = `${data.video.title}.${data.video.type.substr(6)}`;
+          link.type = data.video.type;
           link.click();
           setTimeout(() => data.from.snackDownload.dismiss(), 3000);
           break;

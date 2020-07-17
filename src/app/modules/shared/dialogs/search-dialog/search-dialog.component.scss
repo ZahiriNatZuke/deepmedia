@@ -14,15 +14,14 @@
 }
 
 .username {
-  line-height: 25px;
-  font-size: 20px;
-  border: none;
-  background-color: transparent;
+  font: 20px/40px Roboto, "Helvetica Neue", sans-serif;
   font-weight: lighter;
+  position: relative;
+  top: -6px;
 }
 
 .username:hover {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .user-container {
