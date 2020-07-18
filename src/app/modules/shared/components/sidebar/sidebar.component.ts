@@ -29,6 +29,7 @@ import {AuthenticationService} from '../../../../services/authentication.service
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../../services/notification.service';
 import {ThemeConfigService} from '../../../../services/theme-config.service';
+import {MediaMatcher} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidebar',
@@ -73,7 +74,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
               private helpersService: HelpersService,
               private authenticationService: AuthenticationService,
               private notificationService: NotificationService,
-              private themeConfigService: ThemeConfigService) {
+              private themeConfigService: ThemeConfigService,
+              private mediaMatcher: MediaMatcher) {
     this.authenticationService.currentUser.subscribe(x => this.User_Channel = x);
     this.toggleCategories = false;
     this.toggleOptions = false;
@@ -123,10 +125,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   toRight() {
     environment.expandedSidebar = true;
-    this.mainSection.css({
-      marginLeft: '250px',
-      paddingLeft: '5px'
-    });
+    if (this.mediaMatcher.matchMedia('all and (max-width: 991.98px)').matches)
+      this.mainSection.css({paddingLeft: '70px'});
+    if (this.mediaMatcher.matchMedia('all and (min-width: 992px)').matches)
+      this.mainSection.css({marginLeft: '250px', paddingLeft: '5px'});
     if (this.toggleCategories) {
       this.dropdownSidebarCategories.slideUp(0);
       this.toggleCategories = !this.toggleCategories;
@@ -139,9 +141,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   toLeft() {
     environment.expandedSidebar = false;
-    this.mainSection.css({
-      marginLeft: '70px'
-    });
+    if (this.mediaMatcher.matchMedia('all and (max-width: 991.98px)').matches)
+      this.mainSection.css({paddingLeft: '70px'});
+    if (this.mediaMatcher.matchMedia('all and (min-width: 992px)').matches)
+      this.mainSection.css({marginLeft: '70px'});
   }
 
   openDialog(): void {

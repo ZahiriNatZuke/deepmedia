@@ -253,3 +253,9 @@
 .social-link img {
   padding: 0 4px 8px 4px;
 }
+
+@media all and (max-width: 991.98px) {
+  .sidebar {
+    z-index: 900;
+  }
+}
