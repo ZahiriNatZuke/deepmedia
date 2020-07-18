@@ -3,10 +3,10 @@
 </div>
 <div *ngIf="Video" class="video-container">
   <mat-card class="video-player-view">
-    <mat-card-content>
+    <mat-card-content class="d-flex justify-content-center align-content-center">
       <app-video-player *ngIf="videoPlayer && videoPlayer.video" [idCurrentVideo]="Video.id"
                         [widthVideo]="getToggleVideoSize() ? widthVideoToggle : widthVideoFull"
-                        (playVideoEmitter)="makeView()" [id]="'video-'+ Video.id">
+                        (playVideoEmitter)="makeView()" [id]="'video-'+ Video.id" class="align-self-center">
       </app-video-player>
     </mat-card-content>
     <mat-card-title class="d-flex justify-content-between w-100">

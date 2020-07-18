@@ -83,9 +83,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   makeBig() {
-    this.videoPlayer.requestFullscreen({
-      navigationUI: 'show'
-    }).then();
+    this.videoPlayer.requestFullscreen({navigationUI: 'show'}).then();
   }
 
   playPause() {
@@ -213,28 +211,22 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     let percent;
     switch (this.widthVideo) {
       case 360:
-        percent = 38;
+        percent = 34;
         break;
       case 420:
         percent = 43;
         break;
       case 480:
-        percent = 53;
+        percent = 50.5;
+        break;
+      case 640:
+        percent = 63;
         break;
       case 720:
         percent = 67;
         break;
       case 1080:
         percent = 78;
-        break;
-      case 1280:
-        percent = 81;
-        break;
-      case 1920:
-        percent = 86;
-        break;
-      case 3840:
-        percent = 92;
         break;
       default:
         percent = 63;
