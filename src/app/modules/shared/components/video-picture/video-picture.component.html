@@ -1,0 +1,47 @@
+<div class="container-video-picture">
+
+  <video id="video-picture" class="video-picture mat-elevation-z5" [volume]="currentVolumen / 100"
+         [height]="236" (ended)="endVideo()" [width]="420">
+    <source [src]="videoPicture ? videoPicture.video : '' | saveDom" [type]="videoPicture ? videoPicture.type : ''">
+    Your browser do not support HTML5 video.
+  </video>
+
+  <div id="control-bar-picture" class="control-bar-picture d-flex">
+
+    <button mat-button (click)="playPause()" class="play-pause-btn-picture">
+      <fa-icon [icon]="played ? faPause : faPlay"></fa-icon>
+    </button>
+
+    <div id="volumen-control-picture" class="volumen-control-picture d-flex flex-column"
+         (mouseover)="showVolumenSlider()" (mouseleave)="hideVolumenSlider()">
+      <mat-slider #volumenControlPicture id="volumen-slider-picture" class="volumen-slider-picture" min="0" max="100"
+                  color="primary" vertical (mouseover)="setVolumenSlider()" [value]="currentVolumen"
+                  tickInterval="25" [disabled]="mutedVideo" (mouseleave)="unsetVolumenSlider()"
+                  (valueChange)="changeVolumen(volumenControlPicture.value)">
+      </mat-slider>
+      <button mat-button class="volumen-btn-picture" id="volumen-btn-picture" (click)="toggleMutedVideo()">
+        <mat-icon id="volume-control-picture">{{mutedVideo ? 'volume_off' : currentVolumen === 0 ?
+            'volume_mute' : currentVolumen <= 50 ? 'volume_down' : 'volume_up'}}</mat-icon>
+      </button>
+    </div>
+
+    <mat-slider #videoProgressPicture color="primary" id="progress-bar-video-picture" class="progress-bar-video-picture"
+                [min]="0" [(value)]="currentTime" [style.width.px]="156.5" [max]="videoPictureHTML.duration"
+                (input)="seekingVideo(videoProgressPicture.value)" [tickInterval]="30">
+    </mat-slider>
+
+    <mat-chip-list>
+      <mat-chip selected color="primary" class="timer-picture"><span>{{currentTime | timer}}</span></mat-chip>
+    </mat-chip-list>
+
+    <button mat-button (click)="makeBig()" class="fullscreen-btn-picture">
+      <mat-icon>fullscreen</mat-icon>
+    </button>
+
+    <button (click)="endVideo()" mat-button class="close-btn-picture">
+      <mat-icon>clear</mat-icon>
+    </button>
+
+  </div>
+</div>
+

@@ -8,6 +8,7 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
 import * as fileSize from 'filesize';
 import {HttpClient} from '@angular/common/http';
 import {first} from 'rxjs/operators';
+import {VideoPicture} from '../models/video-picture';
 
 const api = new API();
 
@@ -21,6 +22,8 @@ export class VideoService {
   public currentVideo: Observable<Video>;
   private currentPlayListSubject: BehaviorSubject<Video[]>;
   public currentPlayList: Observable<Video[]>;
+  private currentVideoPictureSubject: BehaviorSubject<VideoPicture>;
+  public currentVideoPicture: Observable<VideoPicture>;
 
   constructor(private crudService: CrudService, private httpClient: HttpClient) {
     this.currentVideoPlayerSubject = new BehaviorSubject<VideoPlayer>(null);
@@ -29,6 +32,8 @@ export class VideoService {
     this.currentVideo = this.currentVideoSubject.asObservable();
     this.currentPlayListSubject = new BehaviorSubject<Video[]>(null);
     this.currentPlayList = this.currentPlayListSubject.asObservable();
+    this.currentVideoPictureSubject = new BehaviorSubject<VideoPicture>(null);
+    this.currentVideoPicture = this.currentVideoPictureSubject.asObservable();
   }
 
   public UpdateCurrentVideoPlayerValue(videoPlayer: VideoPlayer) {
@@ -49,6 +54,14 @@ export class VideoService {
 
   public UpdateCurrentPlayListValue(playList: Video[]) {
     this.currentPlayListSubject.next(playList);
+  }
+
+  public UpdateCurrentVideoPictureValue(videoPicture: VideoPicture) {
+    this.currentVideoPictureSubject.next(videoPicture);
+  }
+
+  public get GetCurrentVideoPictureValue(): VideoPicture {
+    return this.currentVideoPictureSubject.value;
   }
 
   fetchVideo(id: string) {

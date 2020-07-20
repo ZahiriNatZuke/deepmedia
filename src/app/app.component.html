@@ -8,4 +8,7 @@
     <router-outlet></router-outlet>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
   </div>
+  <app-video-picture class="position-absolute rounded d-none" [style.bottom.px]="20" [style.right.px]="20"
+                     [id]="'video-picture'" cdkDragBoundary=".background-gradient" cdkDrag>
+  </app-video-picture>
 </section>

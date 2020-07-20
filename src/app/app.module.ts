@@ -15,6 +15,7 @@ import {HttpErrorInterceptor} from './interceptors/http.error.interceptor';
 import {HttpSecurityInterceptor} from './interceptors/http.security.interceptor';
 import {MatRippleModule} from '@angular/material/core';
 import {ThemeConfigService} from './services/theme-config.service';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {ThemeConfigService} from './services/theme-config.service';
     SharedModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatRippleModule
+    MatRippleModule,
+    DragDropModule
   ],
   providers: [
     AuthenticationService,

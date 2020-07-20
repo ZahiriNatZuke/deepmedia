@@ -10,14 +10,15 @@
   <div id="poster" class="poster mat-elevation-z15">
     <img [src]="video.poster | saveDom" class="img-poster" [alt]="video.poster"
          [style.width.px]="widthVideo + 4" [style.height.px]="setHeightPoster() + 6">
-    <button id="btn-play" mat-icon-button class="text-white btn-play mat-elevation-z15" (click)="hidePoster()">
+    <button id="btn-play" mat-icon-button class="text-white btn-play mat-elevation-z15" (click)="hidePoster()"
+            [class.d-none]="checkVideoPicture()">
       <fa-icon [icon]="faPlayCircle"></fa-icon>
     </button>
   </div>
 
   <div id="control-bar" class="control-bar d-flex">
 
-    <button mat-button (click)="playPause()" class="playPause-btn">
+    <button mat-button (click)="playPause()" class="play-pause-btn">
       <fa-icon [icon]="played ? faPause : faPlay"></fa-icon>
     </button>
 
@@ -43,8 +44,12 @@
       <mat-chip selected color="primary" class="timer"><span>{{currentTime | timer}}</span></mat-chip>
     </mat-chip-list>
 
-    <button mat-button (click)="makeBig()" class="fullScreen-btn">
+    <button mat-button (click)="makeBig()" class="fullscreen-btn">
       <mat-icon>fullscreen</mat-icon>
+    </button>
+
+    <button *ngIf="widthVideo > 360" (click)="toPicture()" mat-button class="to-picture-btn">
+      <mat-icon>picture_in_picture_alt</mat-icon>
     </button>
 
   </div>

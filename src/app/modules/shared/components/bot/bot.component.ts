@@ -79,22 +79,15 @@ export class BotComponent implements OnInit, OnDestroy {
   }
 
   toMinimizing() {
-    if (this.toggleMinimize && this.toggleCommand) {
-      this.closeCommands();
-    }
-    this.chat.css({
-      bottom: this.toggleMinimize ? '-340px' : '0px'
-    });
+    if (this.toggleMinimize && this.toggleCommand) this.closeCommands();
+    this.chat.css({bottom: this.toggleMinimize ? '-340px' : '0px'});
     this.toggleMinimize = !this.toggleMinimize;
   }
 
   toClose() {
-    if (this.toggleMinimize && this.toggleCommand) {
-      this.closeCommands();
-    }
-    this.chat.css({
-      bottom: '-400px'
-    });
+    if (this.toggleMinimize && this.toggleCommand) this.closeCommands();
+    this.chat.css({bottom: '-400px'});
+    setTimeout(_ => this.chat.css({display: 'none'}), 500);
     this.toggleMinimize = true;
     this.chatStack = [];
     this.botForm.reset();
@@ -345,6 +338,7 @@ export class BotComponent implements OnInit, OnDestroy {
   checkTextArea(): boolean {
     return (this.botForm.get('body').value === '' || this.botForm.get('body').value === null) || this.toggleMinimize;
   }
+
 }
 
 export class HistoryChat {

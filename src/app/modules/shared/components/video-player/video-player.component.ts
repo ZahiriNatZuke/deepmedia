@@ -33,6 +33,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   currentTime: number;
   poster: boolean;
   placeBtnPlay: any;
+  eventsCode = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Scape'];
 
   constructor(private videoService: VideoService, private titleService: Title) {
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.video = videoPlayer);
@@ -71,8 +72,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
       this.playPause();
     });
     window.addEventListener('keydown', (event: KeyboardEvent) => {
-      const events = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Scape'];
-      if (events.includes(event.code) && (event.target === document.body || event.target === this.videoPlayerTag))
+      if (this.eventsCode.includes(event.code) && (event.target === document.body || event.target === this.videoPlayerTag))
         event.preventDefault();
       this.events(event);
     });
@@ -89,9 +89,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   playPause() {
     this.videoPlayer.paused ? this.played = true : this.played = false;
     this.videoPlayer.paused ? this.videoPlayer.play() : this.videoPlayer.pause();
-    if (this.played) {
-      this.videoPlayerEmitter.emit(this);
-    }
+    if (this.played) this.videoPlayerEmitter.emit(this);
   }
 
   seekingVideo(progress: number) {
@@ -111,9 +109,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   hideVolumenSlider() {
-    if (!this.overSlider) {
-      this.volumenSlider.fadeOut(200);
-    }
+    if (!this.overSlider) this.volumenSlider.fadeOut(200);
   }
 
   changeVolumen(value: number) {
@@ -129,82 +125,65 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     if (this.videoService.GetCurrentPlayListValue === null) {
       this.played = false;
       this.currentTime = 0;
-    } else {
-      this.videoService.toBottomList(this.videoService.GetCurrentVideoValue);
-    }
+    } else this.videoService.toBottomList(this.videoService.GetCurrentVideoValue);
   }
 
   events(event: KeyboardEvent) {
-    if (event.code === 'Space' && (event.target === document.body || event.target === this.videoPlayerTag)) {
-      this.poster ? this.hidePoster() : this.playPause();
-    }
-    if (this.played) {
-      switch (event.code) {
-        case 'Enter':
-          if (event.target === document.body || event.target === this.videoPlayerTag)
-            this.makeBig();
-          break;
-        case 'Scape':
-          this.videoPlayer.webkitExitFullscreen();
-          break;
-        case 'KeyM':
-          if (event.target === document.body || event.target === this.videoPlayerTag)
-            this.toggleMutedVideo();
-          break;
-        case 'ArrowUp':
-          this.volumenUp();
-          break;
-        case 'ArrowRight':
-          this.forwardVideo();
-          break;
-        case 'ArrowDown':
-          this.volumenDown();
-          break;
-        case 'ArrowLeft':
-          this.backwardVideo();
-          break;
-        default:
-          break;
+    if (this.videoService.GetCurrentVideoPictureValue === null) {
+      if (event.code === 'Space' && (event.target === document.body || event.target === this.videoPlayerTag))
+        this.poster ? this.hidePoster() : this.playPause();
+      if (this.played) {
+        switch (event.code) {
+          case 'Enter':
+            if (event.target === document.body || event.target === this.videoPlayerTag)
+              this.makeBig();
+            break;
+          case 'Scape':
+            this.videoPlayer.webkitExitFullscreen();
+            break;
+          case 'KeyM':
+            if (event.target === document.body || event.target === this.videoPlayerTag)
+              this.toggleMutedVideo();
+            break;
+          case 'ArrowUp':
+            this.volumenUp();
+            break;
+          case 'ArrowRight':
+            this.forwardVideo();
+            break;
+          case 'ArrowDown':
+            this.volumenDown();
+            break;
+          case 'ArrowLeft':
+            this.backwardVideo();
+            break;
+          default:
+            break;
+        }
       }
     }
   }
 
   volumenUp() {
-    if (this.currentVolumen + 2 <= 100) {
-      this.currentVolumen += 2;
-    } else {
-      this.currentVolumen = 100;
-    }
+    (this.currentVolumen + 2 <= 100) ? this.currentVolumen += 2 : this.currentVolumen = 100;
   }
 
   volumenDown() {
-    if (this.currentVolumen - 2 >= 0) {
-      this.currentVolumen -= 2;
-    } else {
-      this.currentVolumen = 0;
-    }
+    (this.currentVolumen - 2 >= 0) ? this.currentVolumen -= 2 : this.currentVolumen = 0;
   }
 
   forwardVideo() {
-    if (this.videoPlayer.currentTime + 5 <= this.videoPlayer.duration) {
-      this.videoPlayer.currentTime += 5;
-    } else {
-      this.videoPlayer.currentTime = this.videoPlayer.duration;
-    }
+    if (this.videoPlayer.currentTime + 5 <= this.videoPlayer.duration) this.videoPlayer.currentTime += 5;
+    else this.videoPlayer.currentTime = this.videoPlayer.duration;
   }
 
   backwardVideo() {
-    if (this.videoPlayer.currentTime - 5 >= 0) {
-      this.videoPlayer.currentTime -= 5;
-    } else {
-      this.videoPlayer.currentTime = 0;
-    }
+    if (this.videoPlayer.currentTime - 5 >= 0) this.videoPlayer.currentTime -= 5;
+    else this.videoPlayer.currentTime = 0;
   }
 
   wheelEvent($event: WheelEvent) {
-    if (!this.mutedVideo) {
-      $event.deltaY < 0 ? this.volumenUp() : this.volumenDown();
-    }
+    if (!this.mutedVideo) $event.deltaY < 0 ? this.volumenUp() : this.volumenDown();
   }
 
   setWidthProgressBar() {
@@ -214,22 +193,22 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
         percent = 34;
         break;
       case 420:
-        percent = 43;
+        percent = 33.7;
         break;
       case 480:
-        percent = 50.5;
+        percent = 41.8;
         break;
       case 640:
-        percent = 63;
+        percent = 56.5;
         break;
       case 720:
-        percent = 67;
+        percent = 61.3;
         break;
       case 1080:
-        percent = 78;
+        percent = 74;
         break;
       default:
-        percent = 63;
+        percent = 56.5;
         break;
     }
     return (this.widthVideo * percent / 100) + 15;
@@ -273,4 +252,21 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  checkVideoPicture() {
+    return !(this.videoService.GetCurrentVideoPictureValue === null);
+  }
+
+  toPicture() {
+    this.played = false;
+    this.videoPlayer.pause();
+    this.poster = false;
+    this.videoPoster.fadeIn(300);
+    setTimeout(() => this.videoService.UpdateCurrentVideoPictureValue({
+      id: this.video.id,
+      video: this.video.video,
+      type: this.video.type,
+      currentTime: this.videoPlayer.currentTime,
+      currentVolumen: this.currentVolumen
+    }), 300);
+  }
 }

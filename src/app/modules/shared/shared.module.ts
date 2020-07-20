@@ -59,6 +59,7 @@ import {ErrorsDialogComponent} from './dialogs/errors-dialog/errors-dialog.compo
 import {BotComponent} from './components/bot/bot.component';
 import {BotMsgComponent} from './components/bot-msg/bot-msg.component';
 import {MatIconModule} from '@angular/material/icon';
+import { VideoPictureComponent } from './components/video-picture/video-picture.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import {MatIconModule} from '@angular/material/icon';
     ErrorsDialogComponent,
     BotComponent,
     BotMsgComponent,
+    VideoPictureComponent,
   ],
   exports: [
     WelcomeComponent,
@@ -119,7 +121,8 @@ import {MatIconModule} from '@angular/material/icon';
     SaveDomPipe,
     FullDatePipe,
     StatsFilterPipe,
-    BotComponent
+    BotComponent,
+    VideoPictureComponent
   ],
   imports: [
     CommonModule,

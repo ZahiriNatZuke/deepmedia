@@ -3,12 +3,12 @@
   outline: none;
 }
 
-.container-video-player {
+.container-video-picture {
   position: relative;
   display: initial;
 }
 
-.video-player {
+.video-picture {
   transition: all .4s;
   background: black;
 }
@@ -18,12 +18,12 @@ video {
 }
 
 video:hover ~ {
-  .control-bar {
+  .control-bar-picture {
     opacity: 1;
   }
 }
 
-.control-bar {
+.control-bar-picture {
   color: white;
   position: absolute;
   bottom: 3px;
@@ -37,21 +37,21 @@ video:hover ~ {
   border-bottom-right-radius: 4px;
 }
 
-.control-bar:hover {
+.control-bar-picture:hover {
   opacity: 1;
 }
 
-.play-pause-btn {
+.play-pause-btn-picture {
   position: relative;
   left: 3px;
 }
 
-.volumen-btn {
+.volumen-btn-picture {
   position: relative;
   left: 3px;
 }
 
-.volumen-slider {
+.volumen-slider-picture {
   background: rgba(83, 83, 83, 0.35);
   border-radius: 20px 20px 0 0;
   position: absolute;
@@ -61,19 +61,19 @@ video:hover ~ {
   padding-bottom: 5px;
 }
 
-.material-icons#volume-control {
+.material-icons#volume-control-picture {
   position: relative;
   right: 4px;
 }
 
-.progress-bar-video {
+.progress-bar-video-picture {
   position: relative;
   left: 5px;
   bottom: 5px;
   transition: all .4s;
 }
 
-.timer {
+.timer-picture {
   opacity: .87;
   position: relative;
   bottom: -2px;
@@ -82,7 +82,7 @@ video:hover ~ {
   width: 70px;
 }
 
-.fullscreen-btn, .to-picture-btn {
+.fullscreen-btn-picture, .close-btn-picture {
   position: relative;
   left: 10px;
   padding: 0 8px;
@@ -90,41 +90,4 @@ video:hover ~ {
 
 .mat-button {
   min-width: unset;
-}
-
-.poster {
-  position: absolute;
-  bottom: 0;
-  left: -2px;
-  padding: 0;
-  width: max-content;
-  z-index: 3;
-  border-radius: 4px;
-}
-
-.img-poster {
-  border-radius: 4px;
-  transition: all .4s;
-}
-
-.img-poster:hover ~ {
-  .btn-play {
-    opacity: 1;
-  }
-
-  .control-bar {
-    opacity: 0;
-  }
-}
-
-.btn-play {
-  position: absolute;
-  transition: all 0.4s;
-  opacity: 0;
-  background: transparent;
-  border: 2px solid white;
-}
-
-.btn-play:hover {
-  opacity: 1;
 }

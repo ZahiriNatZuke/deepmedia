@@ -185,7 +185,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.toLeft();
       }
       $('#chat').css('display', 'flex');
-      setTimeout(_ => $('#chat').css('bottom', '0px'), 500);
+      setTimeout(_ => $('#chat').css({bottom: '0px'}), 500);
     }
   }
 

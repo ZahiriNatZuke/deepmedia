@@ -1,5 +1,6 @@
-<section id="chat" class="chat-container">
-  <div id="menu-chat" class="menu-bar" (dblclick)="toMinimizing()" [matTooltip]="getRoughCopy()"
+<section id="chat" class="chat-container" cdkDrag cdkDragBoundary=".background-gradient" cdkDragLockAxis="x"
+         [cdkDragDisabled]="!toggleMinimize">
+  <div id="menu-chat" class="menu-bar" (dblclick)="toMinimizing()" [matTooltip]="getRoughCopy()" cdkDragHandle
        [matTooltipDisabled]="checkTextArea()" matTooltipPosition="above" matTooltipShowDelay="300"
        matTooltipClass="font-weight-light mat-elevation-z5" matTooltipHideDelay="150">
     <div class="d-flex justify-content-start">

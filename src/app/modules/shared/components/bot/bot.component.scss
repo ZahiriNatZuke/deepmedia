@@ -31,7 +31,7 @@ html, body {
   background-color: $background-container;
   box-shadow: 0px -2px 4px 2px $shadow, -2px 0px 4px 2px $shadow, 2px 0px 4px 2px $shadow;
   z-index: 999;
-  transition: all .4s ease-in-out;
+  transition: bottom .4s ease-in-out;
 
   .menu-bar {
     border-top-left-radius: 6px;
