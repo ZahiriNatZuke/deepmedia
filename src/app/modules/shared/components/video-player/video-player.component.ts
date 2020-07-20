@@ -37,7 +37,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private videoService: VideoService, private titleService: Title) {
     this.videoService.currentVideoPlayer.subscribe(videoPlayer => this.video = videoPlayer);
-    this.videoService.currentVideo.subscribe(video => this.titleService.setTitle(`#DeepMedia | ${video.title}`));
+    if (this.videoService.GetCurrentVideoValue)
+      this.videoService.currentVideo.subscribe(video => this.titleService.setTitle(`#DeepMedia | ${video.title}`));
     this.videoPlayerEmitter = new EventEmitter();
     this.durationVideoPlayerEmitter = new EventEmitter();
     this.playVideoEmitter = new EventEmitter(true);

@@ -104,7 +104,7 @@ export class VideoService {
   checkMimeType(type: string, mime: string): boolean {
     let validMimeType = [];
     if (type === 'video')
-      validMimeType = ['video/mp4'];
+      validMimeType = ['video/mp4', 'video/webm', 'video/ogg'];
     else if (type === 'poster' || type === 'avatar')
       validMimeType = ['image/jpeg', 'image/png', 'image/gif'];
     return validMimeType.includes(mime);
