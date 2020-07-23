@@ -339,6 +339,11 @@ export class BotComponent implements OnInit, OnDestroy {
     return (this.botForm.get('body').value === '' || this.botForm.get('body').value === null) || this.toggleMinimize;
   }
 
+  canCommand(command: Command): boolean {
+    if (this.User) return this.User.user.role !== 'ROLE_USER' || command.can === 'Everyone';
+    else return false;
+  }
+
 }
 
 export class HistoryChat {

@@ -45,9 +45,7 @@
   <div id="commands" class="commands">
     <ul class="commands-list">
       <li *ngFor="let command of inputCommands" (click)="emitCommand(command)">
-        <div class="command"
-             *ngIf="(command.can === 'Admin' && User && User.user.role !== 'ROLE_USER') || command.can === 'Everyone'">
-          {{command.name}}</div>
+        <div class="command" *ngIf="canCommand(command)">{{command.name}}</div>
       </li>
     </ul>
   </div>
