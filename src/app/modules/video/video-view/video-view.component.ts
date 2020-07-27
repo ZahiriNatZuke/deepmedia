@@ -160,7 +160,7 @@ export class VideoViewComponent implements OnInit {
     });
   }
 
-  private watchMediaQuery() {
+  watchMediaQuery() {
     this.breakpointObserver.observe(['all and (max-width: 575.98px)'])
         .subscribe((state: BreakpointState) => {
           if (state.matches) {
