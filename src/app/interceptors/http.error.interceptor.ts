@@ -44,7 +44,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.router.navigate(['/not-found']).then();
               if (error.status === 401) {
                 this.eraseCredentials();
-                this.router.navigate(['/auth/login']).then();
+                this.router.navigate(['/auth/login'],
+                    {queryParams: {returnUrl: this.router.routerState.snapshot.url}}).then();
               }
               if (error.status === 403) {
                 if (error.error.banished) {
