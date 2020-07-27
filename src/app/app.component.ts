@@ -10,6 +10,7 @@ import {NotificationService} from './services/notification.service';
 })
 export class AppComponent implements OnInit {
   currentTheme: { theme: string } = this.themeConfigService.config;
+  dontDrag: boolean = false;
 
   constructor(private authenticationService: AuthenticationService,
               private themeConfigService: ThemeConfigService,
@@ -23,4 +24,7 @@ export class AppComponent implements OnInit {
     this.notificationService.checkCurrentThemeFromTime();
   }
 
+  catchEvent(event: boolean) {
+    this.dontDrag = event;
+  }
 }

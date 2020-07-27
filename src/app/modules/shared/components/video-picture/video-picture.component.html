@@ -17,6 +17,7 @@
       <mat-slider #volumenControlPicture id="volumen-slider-picture" class="volumen-slider-picture" min="0" max="100"
                   color="primary" vertical (mouseover)="setVolumenSlider()" [value]="currentVolumen"
                   tickInterval="25" [disabled]="mutedVideo" (mouseleave)="unsetVolumenSlider()"
+                  (mouseout)="mouseOverEventEmitter.emit(false)"
                   (valueChange)="changeVolumen(volumenControlPicture.value)">
       </mat-slider>
       <button mat-button class="volumen-btn-picture" id="volumen-btn-picture" (click)="toggleMutedVideo()">
@@ -27,6 +28,7 @@
 
     <mat-slider #videoProgressPicture color="primary" id="progress-bar-video-picture" class="progress-bar-video-picture"
                 [min]="0" [(value)]="currentTime" [style.width.px]="156.5" [max]="videoPictureHTML.duration"
+                (mouseover)="mouseOverEventEmitter.emit(true)" (mouseout)="mouseOverEventEmitter.emit(false)"
                 (input)="seekingVideo(videoProgressPicture.value)" [tickInterval]="30">
     </mat-slider>
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {VideoService} from '../../../../services/video.service';
 import {faPause, faPlay} from '@fortawesome/free-solid-svg-icons';
 import {VideoPicture} from '../../../../models/video-picture';
@@ -23,8 +23,10 @@ export class VideoPictureComponent implements OnInit {
   currentVolumen: number;
   currentTime: number;
   eventsCode: string[] = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Scape'];
+  @Output() mouseOverEventEmitter: EventEmitter<boolean>;
 
   constructor(private videoService: VideoService) {
+    this.mouseOverEventEmitter = new EventEmitter();
     this.videoService.currentVideoPicture.subscribe(videoPicture => {
       if (videoPicture !== null && videoPicture !== undefined) {
         this.videoPicture = videoPicture;
@@ -87,6 +89,7 @@ export class VideoPictureComponent implements OnInit {
   }
 
   setVolumenSlider() {
+    this.mouseOverEventEmitter.emit(true);
     this.overSlider = true;
   }
 
