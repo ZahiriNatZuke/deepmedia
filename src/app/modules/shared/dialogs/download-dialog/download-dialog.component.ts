@@ -43,7 +43,7 @@ export class DownloadDialogComponent implements OnInit {
           this.saving = true;
           const link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob.body);
-          link.download = `${data.video.title}.${data.video.type.substr(6)}`;
+          link.download = `#DeepMedia - ${data.video.title}.${data.video.type.substr(6)}`;
           link.type = data.video.type;
           link.click();
           setTimeout(() => data.from.snackDownload.dismiss(), 3000);

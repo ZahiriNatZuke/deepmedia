@@ -36,7 +36,7 @@ export class VideoListComponent implements OnInit {
             this.videos = response.videos.data;
             if (this.videos.length === 0) {
               this.notificationService.showNotification('Video Info',
-                  'Esta categoría aún no tiene videos disponibles', 'success');
+                  `${this.filterTitle(category)} aún no tiene videos disponibles.`, 'success');
             }
             this.stopLoading();
           });
